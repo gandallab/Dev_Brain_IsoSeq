@@ -1,7 +1,4 @@
-<<<<<<< HEAD
 # devBrainIsoSeq
-=======
-# Fetal_bulk_IsoSeq
 
 <https://gandallab.github.io/devBrainIsoSeq/>
 
@@ -60,4 +57,4 @@ Raw reads as downloaded from UC Davis:
 ```
 /u/project/gandalm/shared/isoSeq/UCDavis/
 ```
->>>>>>> 8f3d6ce (add code, data, analyses for Figures 1 to 3)
+
