@@ -1010,7 +1010,7 @@ Joining with `by = join_by(gene_id)`</code></pre>
 <h2 class="anchored" data-anchor-id="fig3">Fig3</h2>
 <section id="fig3a-volcano-plots" class="level3">
 <h3 class="anchored" data-anchor-id="fig3a-volcano-plots">Fig3a: Volcano Plots</h3>
-<div class="cell" data-hash="Figure3_IsoformSwitchAnalyzeR_cache/html/unnamed-chunk-24_c4ee0cb94cf01b5d13d83fce89e247a7">
+<div class="cell" data-hash="Figure3_IsoformSwitchAnalyzeR_cache/html/unnamed-chunk-24_cfa2607a4cb4f925c5333119992b90f7">
 <div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a>cts<span class="sc">$</span>novelty2 <span class="ot">=</span> <span class="fu">as.character</span>(cts<span class="sc">$</span>transcript_novelty)</span>
 <span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a>cts<span class="sc">$</span>novelty2[<span class="fu">which</span>(cts<span class="sc">$</span>novelty2<span class="sc">==</span><span class="st">"ISM"</span> <span class="sc">&amp;</span> cts<span class="sc">$</span>ISM_subtype<span class="sc">==</span><span class="st">"Prefix"</span>)] <span class="ot">=</span> <span class="st">"ISM_Prefix"</span></span>
 <span id="cb71-3"><a href="#cb71-3" aria-hidden="true" tabindex="-1"></a>cts<span class="sc">$</span>novelty2[<span class="fu">which</span>(cts<span class="sc">$</span>novelty2<span class="sc">==</span><span class="st">"ISM"</span> <span class="sc">&amp;</span> cts<span class="sc">$</span>ISM_subtype<span class="sc">==</span><span class="st">"Suffix"</span>)] <span class="ot">=</span> <span class="st">"ISM_Suffix"</span></span>
@@ -1048,7 +1048,7 @@ Joining with `by = join_by(gene_id)`</code></pre>
 <div class="cell-output-display">
 <p><img src="Figure3_IsoformSwitchAnalyzeR_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid" width="672"></p>
 </div>
-<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(Fig3a, <span class="at">file=</span><span class="st">"output/figures/Fig3a.pdf"</span>,<span class="at">width=</span><span class="dv">6</span>,<span class="at">height=</span><span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(Fig3a, <span class="at">file=</span><span class="st">"output/figures/Fig3/Fig3a.pdf"</span>,<span class="at">width=</span><span class="dv">6</span>,<span class="at">height=</span><span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: Removed 4 rows containing missing values (`geom_point()`).
 Removed 1 rows containing missing values (`geom_text_repel()`).</code></pre>
@@ -1074,7 +1074,7 @@ Removed 1 rows containing missing values (`geom_text_repel()`).</code></pre>
 <div class="cell-output-display">
 <p><img src="Figure3_IsoformSwitchAnalyzeR_files/figure-html/unnamed-chunk-24-2.png" class="img-fluid" width="672"></p>
 </div>
-<div class="sourceCode cell-code" id="cb82"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(Fig3a.fg, <span class="at">file=</span><span class="st">"output/figures/Fig3a_fg.pdf"</span>,<span class="at">width=</span><span class="dv">6</span>,<span class="at">height=</span><span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb82"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(Fig3a.fg, <span class="at">file=</span><span class="st">"output/figures/Fig3/Fig3a_fg.pdf"</span>,<span class="at">width=</span><span class="dv">6</span>,<span class="at">height=</span><span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: Removed 102319 rows containing missing values (`geom_point()`).
 Removed 1 rows containing missing values (`geom_text_repel()`).</code></pre>
@@ -1087,7 +1087,7 @@ Removed 1 rows containing missing values (`geom_text_repel()`).</code></pre>
 <div class="cell-output cell-output-stderr">
 <pre><code>Joining with `by = join_by(isoform_id)`</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb86"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(Fig3a.bg, <span class="at">file=</span><span class="st">"output/figures/Fig3a_bg.jpg"</span>,<span class="at">width=</span><span class="dv">6</span>,<span class="at">height=</span><span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb86"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(Fig3a.bg, <span class="at">file=</span><span class="st">"output/figures/Fig3/Fig3a_bg.jpg"</span>,<span class="at">width=</span><span class="dv">6</span>,<span class="at">height=</span><span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: Removed 4 rows containing missing values (`geom_point()`).</code></pre>
 </div>
@@ -1095,7 +1095,7 @@ Removed 1 rows containing missing values (`geom_text_repel()`).</code></pre>
 </section>
 <section id="fig3a_2-pie-chart" class="level3">
 <h3 class="anchored" data-anchor-id="fig3a_2-pie-chart">Fig3a_2: Pie Chart</h3>
-<div class="cell" data-hash="Figure3_IsoformSwitchAnalyzeR_cache/html/unnamed-chunk-25_f8f5bef864866562566fb2ca00ab6c9b">
+<div class="cell" data-hash="Figure3_IsoformSwitchAnalyzeR_cache/html/unnamed-chunk-25_5e6ac3fc17300b665a0fa991aba62291">
 <div class="sourceCode cell-code" id="cb88"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a>this_df <span class="ot">=</span> talonSwitchList_part1<span class="sc">$</span>isoformFeatures <span class="sc">%&gt;%</span> </span>
 <span id="cb88-2"><a href="#cb88-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(cts <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="at">isoform_id=</span>transcript_id, <span class="at">novelty=</span>novelty2)) <span class="sc">%&gt;%</span></span>
 <span id="cb88-3"><a href="#cb88-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(isoform_switch_q_value <span class="sc">&lt;</span> .<span class="dv">05</span>) <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(novelty) <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">switches=</span><span class="fu">n_distinct</span>(isoform_id))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1116,12 +1116,12 @@ Removed 1 rows containing missing values (`geom_text_repel()`).</code></pre>
 <div class="cell-output-display">
 <p><img src="Figure3_IsoformSwitchAnalyzeR_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid" width="672"></p>
 </div>
-<div class="sourceCode cell-code" id="cb91"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggsave</span>(Fig3a_part2, <span class="at">file=</span><span class="st">"output/figures/Fig3a_part2.pdf"</span>,<span class="at">width=</span><span class="dv">4</span>,<span class="at">height=</span><span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb91"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggsave</span>(Fig3a_part2, <span class="at">file=</span><span class="st">"output/figures/Fig3/Fig3a_part2.pdf"</span>,<span class="at">width=</span><span class="dv">4</span>,<span class="at">height=</span><span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="fig3b-dge-vs-dtu-plots" class="level3">
 <h3 class="anchored" data-anchor-id="fig3b-dge-vs-dtu-plots">Fig3b: DGE vs DTU plots</h3>
-<div class="cell" data-hash="Figure3_IsoformSwitchAnalyzeR_cache/html/unnamed-chunk-26_f51ef424037cdfe7eb0ab57263d57c09">
+<div class="cell" data-hash="Figure3_IsoformSwitchAnalyzeR_cache/html/unnamed-chunk-26_58d5dbcec83214428840ff6334a60082">
 <div class="sourceCode cell-code" id="cb92"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a>this_df <span class="ot">=</span> talonSwitchList_part1<span class="sc">$</span>isoformFeatures <span class="sc">%&gt;%</span> </span>
 <span id="cb92-2"><a href="#cb92-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(cts <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="at">isoform_id=</span>transcript_id, <span class="at">novelty=</span>novelty2))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
@@ -1158,7 +1158,7 @@ increasing max.overlaps</code></pre>
 <div class="cell-output-display">
 <p><img src="Figure3_IsoformSwitchAnalyzeR_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid" width="672"></p>
 </div>
-<div class="sourceCode cell-code" id="cb98"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb98-1"><a href="#cb98-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(Fig3b, <span class="at">file=</span><span class="st">"output/figures/Fig3b.pdf"</span>,<span class="at">width=</span><span class="dv">8</span>,<span class="at">height=</span><span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb98"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb98-1"><a href="#cb98-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(Fig3b, <span class="at">file=</span><span class="st">"output/figures/Fig3/Fig3b.pdf"</span>,<span class="at">width=</span><span class="dv">8</span>,<span class="at">height=</span><span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: Removed 31 rows containing missing values (`geom_point()`).</code></pre>
 </div>
@@ -1186,7 +1186,7 @@ Joining with `by = join_by(gene_id)`</code></pre>
 </section>
 <section id="fig3c-venn-diagrams" class="level3">
 <h3 class="anchored" data-anchor-id="fig3c-venn-diagrams">Fig3c: Venn Diagrams</h3>
-<div class="cell" data-hash="Figure3_IsoformSwitchAnalyzeR_cache/html/unnamed-chunk-27_5871fcf04d808536462a329dbe9fcb95">
+<div class="cell" data-hash="Figure3_IsoformSwitchAnalyzeR_cache/html/unnamed-chunk-27_f82dc879745c0a1623c7f89256f8701d">
 <div class="sourceCode cell-code" id="cb105"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb105-1"><a href="#cb105-1" aria-hidden="true" tabindex="-1"></a>gene_overlaps <span class="ot">=</span> tableS3 <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(gene_id) <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">DTE =</span> <span class="fu">any</span>(DTE), <span class="at">DGE=</span><span class="fu">any</span>(DGE), <span class="at">DTU=</span><span class="fu">any</span>(DTU)) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>gene_id)</span>
 <span id="cb105-2"><a href="#cb105-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb105-3"><a href="#cb105-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Sanity check: 2,679 of 10809 genes with DTU (iso_q_value&lt; .05)</span></span>
@@ -1230,7 +1230,7 @@ FALSE  TRUE
 <div class="cell-output-display">
 <p><img src="Figure3_IsoformSwitchAnalyzeR_files/figure-html/unnamed-chunk-27-1.png" class="img-fluid" width="672"></p>
 </div>
-<div class="sourceCode cell-code" id="cb114"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb114-1"><a href="#cb114-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(Fig3c, <span class="at">file=</span><span class="st">"output/figures/Fig3c.pdf"</span>,<span class="at">width=</span><span class="dv">8</span>,<span class="at">height=</span><span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb114"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb114-1"><a href="#cb114-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(Fig3c, <span class="at">file=</span><span class="st">"output/figures/Fig3/Fig3c.pdf"</span>,<span class="at">width=</span><span class="dv">8</span>,<span class="at">height=</span><span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
@@ -1266,8 +1266,8 @@ FALSE  TRUE
 <span id="cb115-25"><a href="#cb115-25" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Plot a gene:</p>
-<div class="cell" data-hash="Figure3_IsoformSwitchAnalyzeR_cache/html/unnamed-chunk-29_985d9509e4906b1a7fbe5438f67690ed">
-<div class="sourceCode cell-code" id="cb116"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb116-1"><a href="#cb116-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pdf</span>(<span class="at">file=</span><span class="st">"output/figures/Fig3_SMARCC2.pdf"</span>, <span class="at">height=</span><span class="dv">4</span>, <span class="at">width=</span><span class="dv">8</span>)</span>
+<div class="cell" data-hash="Figure3_IsoformSwitchAnalyzeR_cache/html/unnamed-chunk-29_b076ce67247edc2566956064326904db">
+<div class="sourceCode cell-code" id="cb116"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb116-1"><a href="#cb116-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pdf</span>(<span class="at">file=</span><span class="st">"output/figures/Fig3/Fig3_SMARCC2.pdf"</span>, <span class="at">height=</span><span class="dv">4</span>, <span class="at">width=</span><span class="dv">8</span>)</span>
 <span id="cb116-2"><a href="#cb116-2" aria-hidden="true" tabindex="-1"></a><span class="fu">switchPlot</span>(</span>
 <span id="cb116-3"><a href="#cb116-3" aria-hidden="true" tabindex="-1"></a>  talonSwitchList_part2,<span class="at">dIFcutoff =</span> .<span class="dv">1</span>,<span class="at">logYaxis =</span> <span class="cn">TRUE</span>,</span>
 <span id="cb116-4"><a href="#cb116-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">gene=</span><span class="st">'SMARCC2'</span></span>
@@ -1277,7 +1277,7 @@ FALSE  TRUE
 <pre><code>quartz_off_screen 
                 2 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb118"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb118-1"><a href="#cb118-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pdf</span>(<span class="at">file=</span><span class="st">"output/figures/FigS4_NF1.pdf"</span>, <span class="at">height=</span><span class="dv">4</span>, <span class="at">width=</span><span class="dv">6</span>)</span>
+<div class="sourceCode cell-code" id="cb118"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb118-1"><a href="#cb118-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pdf</span>(<span class="at">file=</span><span class="st">"output/figures/Fig4/FigS4_NF1.pdf"</span>, <span class="at">height=</span><span class="dv">4</span>, <span class="at">width=</span><span class="dv">6</span>)</span>
 <span id="cb118-2"><a href="#cb118-2" aria-hidden="true" tabindex="-1"></a><span class="fu">switchPlot</span>(</span>
 <span id="cb118-3"><a href="#cb118-3" aria-hidden="true" tabindex="-1"></a>  talonSwitchList_part2,<span class="at">dIFcutoff =</span> .<span class="dv">1</span>,<span class="at">logYaxis =</span> <span class="cn">TRUE</span>,</span>
 <span id="cb118-4"><a href="#cb118-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">gene=</span><span class="st">'NF1'</span></span>
@@ -1298,8 +1298,8 @@ FALSE  TRUE
 </section>
 <section id="functional-analysis-of-isoform-switches" class="level2">
 <h2 class="anchored" data-anchor-id="functional-analysis-of-isoform-switches">Functional Analysis of Isoform Switches:</h2>
-<div class="cell" data-hash="Figure3_IsoformSwitchAnalyzeR_cache/html/unnamed-chunk-30_b41e0c6543e17015bc728a87fbd8319a">
-<div class="sourceCode cell-code" id="cb121"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb121-1"><a href="#cb121-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pdf</span>(<span class="at">file=</span><span class="st">'output/figures/Fig3e.pdf'</span>, <span class="at">width=</span><span class="dv">7</span>,<span class="at">height=</span><span class="dv">5</span>)</span>
+<div class="cell" data-hash="Figure3_IsoformSwitchAnalyzeR_cache/html/unnamed-chunk-30_c41e991853593394f2860b2e254c05e0">
+<div class="sourceCode cell-code" id="cb121"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb121-1"><a href="#cb121-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pdf</span>(<span class="at">file=</span><span class="st">'output/figures/Fig3/Fig3e.pdf'</span>, <span class="at">width=</span><span class="dv">7</span>,<span class="at">height=</span><span class="dv">5</span>)</span>
 <span id="cb121-2"><a href="#cb121-2" aria-hidden="true" tabindex="-1"></a>switch_consequences <span class="ot">&lt;-</span> <span class="fu">extractConsequenceEnrichment</span>(</span>
 <span id="cb121-3"><a href="#cb121-3" aria-hidden="true" tabindex="-1"></a>    talonSwitchList_part2,<span class="at">dIFcutoff =</span> <span class="dv">0</span>,<span class="at">countGenes =</span> F,</span>
 <span id="cb121-4"><a href="#cb121-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">returnResult =</span> T <span class="co"># if TRUE returns a data.frame with the summary statistics</span></span>

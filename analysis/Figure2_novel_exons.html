@@ -235,7 +235,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<div class="cell">
+<div class="cell" data-hash="Figure2_novel_exons_cache/html/unnamed-chunk-1_a8de7c426c4e6d202ebb80553dcdf9c7">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">stringsAsFactors =</span> F)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">ucscChromosomeNames =</span> F)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -274,7 +274,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <section id="ashoks-code-using-bash-and-bedtools" class="level2">
 <h2 class="anchored" data-anchor-id="ashoks-code-using-bash-and-bedtools">Ashok’s code using bash and bedtools</h2>
-<div class="cell">
+<div class="cell" data-hash="Figure2_novel_exons_cache/html/unnamed-chunk-2_cb165a6f3b9e14ebd0d90b51b4fe06b1">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">gzcat</span> ref/gencode.v33lift37.annotation.gtf.gz <span class="kw">|</span> <span class="fu">awk</span> <span class="st">'{if($3=="exon") { for(i=1;i&lt;=NF;i++)if($i~/(exon_id)/){ print $1"\t"$4"\t"$5"\t"$7"\t"$16"\t"$i"\t"$(i+1)}}}'</span> <span class="kw">|</span>  <span class="fu">sed</span> <span class="st">'s/[";]//g'</span> <span class="kw">|</span> <span class="fu">awk</span> <span class="st">'{print $1"\t"$2"\t"$3"\t"$5"_"$6"_"$7"\t""1000""\t"$4}'</span> <span class="kw">|</span> <span class="fu">awk</span> <span class="st">'!seen[$0]++'</span> <span class="op">&gt;</span> data/working/novel_exons/All_Gencode_Exon.bed</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -297,7 +297,7 @@ GL000204.1  56744   57007   TALONG000062493_talon_exon_1018404  1000    -</code>
 </div>
 </div>
 <p>#Mike’s code using R</p>
-<div class="cell">
+<div class="cell" data-hash="Figure2_novel_exons_cache/html/unnamed-chunk-3_1e82ba12c4b8856e9c57832361cde33f">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#How many distinct GENCODE exons?</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  exons.gencode_unique <span class="ot">=</span> gr.gencode <span class="sc">%&gt;%</span> <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span> <span class="fu">filter</span>(type<span class="sc">==</span><span class="st">'exon'</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">select</span>(seqnames, start, end, exon_id)</span>
@@ -394,7 +394,7 @@ GL000204.1  56744   57007   TALONG000062493_talon_exon_1018404  1000    -</code>
  [9] "DDB1"            "TALONG000089386"</code></pre>
 </div>
 </div>
-<div class="cell">
+<div class="cell" data-hash="Figure2_novel_exons_cache/html/unnamed-chunk-4_fdb18c7f2ae28101873a37ea259c24d4">
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>these_novel <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 54

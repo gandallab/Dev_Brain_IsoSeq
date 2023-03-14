@@ -262,17 +262,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <section id="load-data" class="level2">
 <h2 class="anchored" data-anchor-id="load-data">Load Data</h2>
-<div class="cell" data-hash="Figure3_DTU_enrichments_cache/html/unnamed-chunk-1_ef8f72fe882c0a7f8c1c476a504ba8af">
+<div class="cell" data-hash="Figure3_DTU_enrichments_cache/html/unnamed-chunk-1_3cdf78e3feb047ec708f0dc44c669cb3">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressPackageStartupMessages</span>({</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(rtracklayer)</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(ggrepel)</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(biomaRt)</span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"code/fisher_overlap.R"</span>)</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>tableS3.isoform <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="st">"output/tables/TableS3_v3.tsv.gz"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">fig.width=</span><span class="dv">12</span>, <span class="at">fig.height=</span><span class="dv">8</span>) </span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"code/fisher_overlap.R"</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>tableS3.isoform <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="st">"output/tables/TableS3_v3.tsv.gz"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Rows: 102319 Columns: 17
 ── Column specification ────────────────────────────────────────────────────────
@@ -517,7 +518,7 @@ cols(
 </section>
 <section id="cell-type-makers" class="level2">
 <h2 class="anchored" data-anchor-id="cell-type-makers">Cell-type makers</h2>
-<div class="cell" data-hash="Figure3_DTU_enrichments_cache/html/unnamed-chunk-7_54df181c6ef408d51a23a4352c33970b">
+<div class="cell" data-hash="Figure3_DTU_enrichments_cache/html/unnamed-chunk-7_9f64a19a25ace259bb4c1ccc582b53f0">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load poliodakis et al markers (Table S4)</span></span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="co"># see: https://doi.org/10.1016/j.neuron.2019.06.011</span></span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>celltypemarkers <span class="ot">&lt;-</span> openxlsx<span class="sc">::</span><span class="fu">read.xlsx</span>(<span class="st">'https://www.cell.com/cms/10.1016/j.neuron.2019.06.011/attachment/508ae008-b926-487a-b871-844a12acc1f8/mmc5'</span>, <span class="at">sheet=</span><span class="st">'Cluster enriched genes'</span>) <span class="sc">%&gt;%</span> <span class="fu">as_tibble</span>()</span>
@@ -570,14 +571,14 @@ cols(
 <div class="cell-output-display">
 <p><img src="Figure3_DTU_enrichments_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
 </div>
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggsave</span>(Fig3f, <span class="at">file=</span><span class="st">"output/figures/Fig3f.pdf"</span>,<span class="at">width=</span><span class="dv">5</span>,<span class="at">height=</span><span class="dv">4</span>)</span>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggsave</span>(Fig3f, <span class="at">file=</span><span class="st">"output/figures/Fig3/Fig3f.pdf"</span>,<span class="at">width=</span><span class="dv">5</span>,<span class="at">height=</span><span class="dv">4</span>)</span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>Fig3f<span class="fl">.2</span> <span class="ot">=</span> <span class="fu">ggplot</span>(df_fisher,<span class="fu">aes</span>(<span class="at">x=</span><span class="fu">reorder</span>(cell, <span class="sc">-</span>Fisher.p), <span class="at">y=</span> <span class="sc">-</span><span class="fu">log10</span>(Fisher.p), <span class="at">size=</span>OR, <span class="at">color=</span> set)) <span class="sc">+</span></span>
 <span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">coord_flip</span>() <span class="sc">+</span> <span class="fu">facet_grid</span>(CellClass<span class="sc">~</span>., <span class="at">scales =</span> <span class="st">'free'</span>, <span class="at">space=</span><span class="st">'free_y'</span>) <span class="sc">+</span> <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
 <span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">1</span>,<span class="at">lty=</span><span class="dv">2</span>,<span class="at">color=</span><span class="st">'red'</span>) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">y=</span><span class="st">'Enrichment (-log10 q-value)'</span>,<span class="at">x=</span><span class="st">''</span>)</span>
 <span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(Fig3f<span class="fl">.2</span>, <span class="at">file=</span><span class="st">"output/figures/Fig3f_2.pdf"</span>,<span class="at">width=</span><span class="dv">4</span>,<span class="at">height=</span><span class="dv">6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(Fig3f<span class="fl">.2</span>, <span class="at">file=</span><span class="st">"output/figures/Fig3/Fig3f_2.pdf"</span>,<span class="at">width=</span><span class="dv">4</span>,<span class="at">height=</span><span class="dv">6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="rare-variant-logit" class="level2">
@@ -640,7 +641,7 @@ cols(
 </section>
 <section id="gene-level" class="level3">
 <h3 class="anchored" data-anchor-id="gene-level">Gene-level</h3>
-<div class="cell" data-hash="Figure3_DTU_enrichments_cache/html/unnamed-chunk-9_90c58c73cae93324cf86137050e11636">
+<div class="cell" data-hash="Figure3_DTU_enrichments_cache/html/unnamed-chunk-9_948b8e77df456b6829c8f0bc6a7d7d24">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>tableS3.isoform<span class="sc">$</span>ensg <span class="ot">=</span> <span class="fu">substr</span>(tableS3.isoform<span class="sc">$</span>gene_id,<span class="dv">1</span>,<span class="dv">15</span>)</span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>datAnno <span class="ot">=</span> tableS3.gene <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">ensg =</span> <span class="fu">substr</span>(gene_id,<span class="dv">1</span>,<span class="dv">15</span>))</span>
@@ -742,7 +743,7 @@ lgl (1): pval_infrIndel
 <div class="cell-output-display">
 <p><img src="Figure3_DTU_enrichments_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
 </div>
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(Fig3H,<span class="at">file=</span><span class="st">'output/figures/Fig3H.pdf'</span>,<span class="at">width=</span><span class="dv">5</span>,<span class="at">height=</span><span class="fl">2.5</span>)</span>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(Fig3H,<span class="at">file=</span><span class="st">'output/figures/Fig3/Fig3H.pdf'</span>,<span class="at">width=</span><span class="dv">5</span>,<span class="at">height=</span><span class="fl">2.5</span>)</span>
 <span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>df_logit<span class="sc">$</span>class[<span class="fu">grepl</span>(<span class="st">"-not-"</span>, df_logit<span class="sc">$</span>feature)] <span class="ot">=</span> <span class="st">"DTU-not-DGE/DTE"</span></span>
@@ -750,7 +751,7 @@ lgl (1): pval_infrIndel
 <span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>FigS4B<span class="ot">=</span><span class="fu">ggplot</span>(df_logit, <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">reorder</span>(set,<span class="sc">-</span>Q), <span class="at">y=</span><span class="sc">-</span><span class="fu">log10</span>(Q), <span class="at">color=</span>class, <span class="at">size=</span>OR, <span class="at">alpha=</span>OR<span class="sc">&gt;</span><span class="dv">1</span>)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
 <span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span> <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="sc">-</span><span class="fu">log10</span>(.<span class="dv">05</span>), <span class="at">lty=</span><span class="dv">2</span>,<span class="at">col=</span><span class="st">'red'</span>) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">y=</span><span class="st">"-log10(qvalue)"</span>,<span class="at">x=</span><span class="st">""</span>) <span class="sc">+</span> <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="fu">facet_wrap</span>(feature<span class="sc">~</span>.,<span class="at">ncol =</span> <span class="dv">3</span>) <span class="sc">+</span> <span class="fu">scale_alpha_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(.<span class="dv">5</span>, <span class="dv">1</span>))</span>
-<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(FigS4B,<span class="at">file=</span><span class="st">'output/figures/FigS4B.pdf'</span>,<span class="at">width=</span><span class="dv">7</span>,<span class="at">height=</span><span class="dv">5</span>)</span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(FigS4B,<span class="at">file=</span><span class="st">'output/figures/supplement/FigS4B.pdf'</span>,<span class="at">width=</span><span class="dv">7</span>,<span class="at">height=</span><span class="dv">5</span>)</span>
 <span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a>FigS4B</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Figure3_DTU_enrichments_files/figure-html/unnamed-chunk-9-2.png" class="img-fluid" width="672"></p>
@@ -764,7 +765,7 @@ lgl (1): pval_infrIndel
 <h2 class="anchored" data-anchor-id="rbp-enrichments">RBP Enrichments</h2>
 <section id="celines-rbp-targets" class="level3">
 <h3 class="anchored" data-anchor-id="celines-rbp-targets">Celine’s RBP Targets</h3>
-<div class="cell" data-hash="Figure3_DTU_enrichments_cache/html/unnamed-chunk-10_f432ea1fedda46e4e5653a3415a54689">
+<div class="cell" data-hash="Figure3_DTU_enrichments_cache/html/unnamed-chunk-10_6a995719ff610c850f7f88fefa8f63ee">
 <div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>rbp_targets <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="st">"ref/RBPs/RBP_targets_v2.csv"</span>)</span>
 <span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>rbp_targets<span class="sc">$</span>regulation[<span class="fu">is.na</span>(rbp_targets<span class="sc">$</span>regulation)]<span class="ot">=</span><span class="st">""</span></span>
 <span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -821,7 +822,7 @@ lgl (1): pval_infrIndel
 </div>
 <div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>    Fig3H<span class="fl">.2</span><span class="ot">=</span><span class="fu">ggplot</span>(df_fisher <span class="sc">%&gt;%</span> <span class="fu">filter</span>(set<span class="sc">==</span><span class="st">"DTU"</span>),<span class="fu">aes</span>(<span class="at">x=</span>target, <span class="at">label=</span>cell.type)) <span class="sc">+</span> <span class="fu">geom_tile</span>(<span class="fu">aes</span>(<span class="at">y=</span><span class="fu">factor</span>(<span class="dv">1</span>),<span class="at">fill=</span>data.type)) <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">y=</span><span class="fu">factor</span>(<span class="dv">1</span>), <span class="at">shape=</span>cell.type),<span class="at">position=</span><span class="fu">position_dodge2</span>()) <span class="sc">+</span> <span class="fu">scale_shape_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>)) <span class="sc">+</span> <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x=</span><span class="st">""</span>, <span class="at">y=</span><span class="st">""</span>)</span>
 <span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pdf</span>(<span class="at">file=</span><span class="st">"output/figures/Fig3H.pdf"</span>,<span class="at">width =</span> <span class="dv">8</span>,<span class="at">height=</span><span class="dv">5</span>)</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pdf</span>(<span class="at">file=</span><span class="st">"output/figures/Fig3/Fig3H.pdf"</span>,<span class="at">width =</span> <span class="dv">8</span>,<span class="at">height=</span><span class="dv">5</span>)</span>
 <span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>    gridExtra<span class="sc">::</span><span class="fu">grid.arrange</span>(<span class="at">grobs=</span><span class="fu">list</span>(Fig3H<span class="fl">.1</span>,Fig3H<span class="fl">.2</span>),<span class="at">layout_matrix=</span><span class="fu">cbind</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: Width not defined. Set with `position_dodge2(width = ...)`</code></pre>
@@ -838,7 +839,7 @@ lgl (1): pval_infrIndel
 <div class="cell-output-display">
 <p><img src="Figure3_DTU_enrichments_files/figure-html/unnamed-chunk-10-2.png" class="img-fluid" width="672"></p>
 </div>
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(Fig3H_supplement, <span class="at">file=</span><span class="st">"output/figures/Fig3H_supp.pdf"</span>,<span class="at">width =</span> <span class="dv">8</span>,<span class="at">height=</span><span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(Fig3H_supplement, <span class="at">file=</span><span class="st">"output/figures/supplement/Fig3H_supp.pdf"</span>,<span class="at">width =</span> <span class="dv">8</span>,<span class="at">height=</span><span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="rbp-motif" class="level3">
