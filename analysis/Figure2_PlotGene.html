@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.0.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Michael Gandal">
+
+<title>Dev Brain scIso-Seq CP/VZ - Figure 2 - Plot One Gene</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-sidebar floating">
+
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">Figure 2 - Plot One Gene</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Dev Brain scIso-Seq CP/VZ</a> 
+    </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/index.html" class="sidebar-item-text sidebar-link">Index</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure1_BulkTxomeAnalysis.html" class="sidebar-item-text sidebar-link">Figure 1 - BulkTxomeAnalysis</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure1_TableS1.html" class="sidebar-item-text sidebar-link">Figure 1 - generate Table S1</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure2_isoFraction.html" class="sidebar-item-text sidebar-link">Figure 2 - Isoform Fraction analysis</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure2_plotNovelGenes.html" class="sidebar-item-text sidebar-link">Figure 2 - Plot Novel Genes</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure2_PlotGene.html" class="sidebar-item-text sidebar-link active">Figure 2 - Plot One Gene</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure2_novel_exons.html" class="sidebar-item-text sidebar-link">Figure 2 - Novel Exons</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure3_IsoformSwitchAnalyzeR.html" class="sidebar-item-text sidebar-link">Figure 3 - IsoformSwitchAnalyzeR</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure3_DTU_enrichments.html" class="sidebar-item-text sidebar-link">Figure3_DTU_enrichments.qmd</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure3_APA.html" class="sidebar-item-text sidebar-link">Figure 3 - APA</a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#plot-one-gene" id="toc-plot-one-gene" class="nav-link active" data-scroll-target="#plot-one-gene">Plot One Gene</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">Figure 2 - Plot One Gene</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Michael Gandal </p>
+          </div>
+  </div>
+    
+    
+  </div>
+  
+
+</header>
+
+<div class="cell" data-hash="Figure2_PlotGene_cache/html/unnamed-chunk-1_fb2c361c870aee1fc000cfcce6d31c0c">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">stringsAsFactors =</span> F)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">ucscChromosomeNames =</span> F)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressMessages</span>({</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(data.table)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(IsoformSwitchAnalyzeR)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(rtracklayer)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(ggrepel)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(scales)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(GenomicFeatures)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(GenomicRanges)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(Gviz)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>colorVector <span class="ot">=</span> <span class="fu">c</span>(</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Known"</span> <span class="ot">=</span> <span class="st">"#009E73"</span>,</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>  <span class="st">"ISM"</span>   <span class="ot">=</span> <span class="st">"#0072B2"</span>,</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>  <span class="st">"ISM_Prefix"</span> <span class="ot">=</span> <span class="st">"#005996"</span>,</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>  <span class="st">"ISM_Suffix"</span> <span class="ot">=</span> <span class="st">"#378bcc"</span>,</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>  <span class="st">"NIC"</span>   <span class="ot">=</span> <span class="st">"#D55E00"</span>,</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>  <span class="st">"NNC"</span>   <span class="ot">=</span> <span class="st">"#E69F00"</span>,</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Other"</span> <span class="ot">=</span> <span class="st">"#000000"</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>colorVector_ismSplit <span class="ot">=</span> colorVector[<span class="sc">-</span><span class="dv">2</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-hash="Figure2_PlotGene_cache/html/unnamed-chunk-2_4afda0014fd54fd43ede20ce800cf4b5">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">file.exists</span>(<span class="st">'data/working/locusPlot_workingData.RData'</span>)) {</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># CAGE tracks</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  cage<span class="ot">=</span><span class="fu">AnnotationTrack</span>(<span class="at">range =</span> <span class="st">"ref/CAGE/hg19.cage_peak_phase1and2combined_coord.bed"</span>,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>                       <span class="at">background.panel =</span> <span class="st">"#99d8c9"</span>,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>                       <span class="at">fill=</span><span class="st">"#fc9272"</span>,</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>                       <span class="at">name =</span> <span class="st">"CAGE peaks"</span>,</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>                       <span class="at">col.line=</span><span class="st">"#99d8c9"</span>,</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>                       <span class="at">background.title=</span><span class="st">"#2ca25f"</span>,</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>                       <span class="at">fontcolor.title=</span><span class="st">"black"</span>)</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Intropolis junctions</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  jc<span class="ot">=</span><span class="fu">read.delim</span>(<span class="st">"ref/intropolis/intropolis_v1_hg19_2samples_10counts_starSJout.tsv.gz"</span>,<span class="at">header =</span> F)</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  jc<span class="ot">=</span> jc[jc<span class="sc">$</span>V7<span class="sc">&gt;</span><span class="dv">100</span>,]</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>  anchor.one <span class="ot">=</span> <span class="fu">GRanges</span>(jc<span class="sc">$</span>V1, <span class="fu">IRanges</span>(jc<span class="sc">$</span>V2 <span class="sc">+</span> <span class="dv">1</span>, <span class="at">width=</span><span class="dv">5</span>))</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>  anchor.two <span class="ot">=</span> <span class="fu">GRanges</span>(jc<span class="sc">$</span>V1, <span class="fu">IRanges</span>(jc<span class="sc">$</span>V3, <span class="at">width=</span><span class="dv">5</span>))</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>  interaction_counts <span class="ot">=</span> <span class="fu">log2</span>(jc<span class="sc">$</span>V7)</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>  jc_object<span class="ot">=</span><span class="fu">GenomicInteractions</span>(anchor.one,anchor.two,interaction_counts)</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>  jc_track<span class="ot">=</span><span class="fu">InteractionTrack</span>(jc_object,<span class="at">name =</span> <span class="st">"Intropolis junctions"</span>)</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">displayPars</span>(jc_track)<span class="ot">=</span><span class="fu">list</span>(<span class="at">background.panel =</span> <span class="st">"#fee0d2"</span>,</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>                             <span class="at">col.interactions =</span><span class="st">"#6a51a3"</span>, <span class="co">#"#43a2ca",</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>                             <span class="at">col.anchors.line =</span> <span class="st">"gray"</span>,</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>                             <span class="at">col.anchors.line =</span> <span class="st">"gray"</span>,</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>                             <span class="at">lwd=</span><span class="fl">0.6</span>,</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>                             <span class="at">fontcolor.title=</span><span class="st">"black"</span>,</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>                             <span class="at">background.title=</span><span class="st">"#de2d26"</span>,</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>                             <span class="at">plot.outside =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Gencode v33 Annotations</span></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>  gencode<span class="ot">=</span><span class="st">"ref/gencode.v33lift37.annotation.gtf.gz"</span></span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>  gencode_txdb<span class="ot">=</span><span class="fu">makeTxDbFromGFF</span>(gencode, <span class="at">format=</span><span class="st">"gtf"</span>)</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>  gencode_transcript<span class="ot">=</span><span class="fu">exonsBy</span>(gencode_txdb,<span class="at">by=</span><span class="st">"tx"</span>,<span class="at">use.names=</span>T)</span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>  gr.gencode <span class="ot">=</span> rtracklayer<span class="sc">::</span><span class="fu">import</span>(gencode) <span class="sc">%&gt;%</span> <span class="fu">as_tibble</span>()</span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Isoseq Annotations</span></span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>  isoseq<span class="ot">=</span><span class="st">"data/cp_vz_0.75_min_7_recovery_talon_corrected.gtf.cds.gff.gz"</span></span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>  isoseq_txdb<span class="ot">=</span><span class="fu">makeTxDbFromGFF</span>(isoseq, <span class="at">format=</span><span class="st">"gtf"</span>)</span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>  isoseq_transcript<span class="ot">=</span><span class="fu">exonsBy</span>(isoseq_txdb,<span class="at">by=</span><span class="st">"tx"</span>,<span class="at">use.names=</span>T)</span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>  gr.isoseq <span class="ot">=</span> rtracklayer<span class="sc">::</span><span class="fu">import</span>(isoseq) <span class="sc">%&gt;%</span> <span class="fu">as_tibble</span>()</span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>  cts <span class="ot">=</span> <span class="fu">read_table</span>(<span class="st">"data/cp_vz_0.75_min_7_recovery_talon_abundance_filtered.tsv.gz"</span>)</span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>cts<span class="sc">$</span>novelty2 <span class="ot">=</span> <span class="fu">as.character</span>(cts<span class="sc">$</span>transcript_novelty)</span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>cts<span class="sc">$</span>novelty2[<span class="fu">which</span>(cts<span class="sc">$</span>novelty2<span class="sc">==</span><span class="st">"ISM"</span> <span class="sc">&amp;</span> cts<span class="sc">$</span>ISM_subtype<span class="sc">==</span><span class="st">"Prefix"</span>)] <span class="ot">=</span> <span class="st">"ISM_Prefix"</span></span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>cts<span class="sc">$</span>novelty2[<span class="fu">which</span>(cts<span class="sc">$</span>novelty2<span class="sc">==</span><span class="st">"ISM"</span> <span class="sc">&amp;</span> cts<span class="sc">$</span>ISM_subtype<span class="sc">==</span><span class="st">"Suffix"</span>)] <span class="ot">=</span> <span class="st">"ISM_Suffix"</span></span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>cts<span class="sc">$</span>novelty2[cts<span class="sc">$</span>novelty2 <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Antisense"</span>, <span class="st">"Genomic"</span>, <span class="st">"Intergenic"</span>, <span class="st">"ISM"</span>)] <span class="ot">=</span> <span class="st">"Other"</span></span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>cts<span class="sc">$</span>novelty2 <span class="ot">=</span> <span class="fu">factor</span>(cts<span class="sc">$</span>novelty2,<span class="at">levels=</span><span class="fu">c</span>(<span class="st">"Known"</span>, <span class="st">"ISM_Prefix"</span>, <span class="st">"ISM_Suffix"</span>, <span class="st">"NIC"</span>, <span class="st">"NNC"</span>, <span class="st">"Other"</span>))</span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>cts<span class="sc">$</span>counts <span class="ot">=</span> <span class="fu">rowSums</span>(cts[,<span class="fu">c</span>(<span class="dv">12</span><span class="sc">:</span><span class="dv">35</span>)])</span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a>cts<span class="sc">$</span>cpm <span class="ot">=</span> cts<span class="sc">$</span>counts <span class="sc">/</span> (<span class="fu">sum</span>(cts<span class="sc">$</span>counts)<span class="sc">/</span><span class="dv">1000000</span>)</span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a>gr.isoseq.old <span class="ot">=</span> gr.isoseq</span>
+<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a>gr.isoseq <span class="ot">&lt;-</span> gr.isoseq.old <span class="sc">%&gt;%</span> <span class="fu">left_join</span>(cts, <span class="at">by=</span><span class="fu">c</span>(<span class="st">"transcript_id"</span> <span class="ot">=</span> <span class="st">"annot_transcript_id"</span>))</span>
+<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a>  <span class="fu">save.image</span>(<span class="st">'data/working/locusPlot_workingData.RData'</span>)</span>
+<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a>  <span class="fu">load</span>(<span class="st">'data/working/locusPlot_workingData.RData'</span>)</span>
+<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="plot-one-gene" class="level2">
+<h2 class="anchored" data-anchor-id="plot-one-gene">Plot One Gene</h2>
+<div class="cell" data-hash="Figure2_PlotGene_cache/html/unnamed-chunk-3_fb6248c6cf9a895884911c7fec56ede1">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>isoseq.gene.names <span class="ot">=</span> rtracklayer<span class="sc">::</span><span class="fu">import</span>(<span class="st">"data/cp_vz_0.75_min_7_recovery_talon.gtf.gz"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(type <span class="sc">==</span> <span class="st">"gene"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(gene_id, gene_name)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>gr.isoseq <span class="ot">=</span> gr.isoseq <span class="sc">%&gt;%</span> <span class="fu">left_join</span>(isoseq.gene.names)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Joining with `by = join_by(gene_id)`</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>annot.gene <span class="ot">=</span> <span class="fu">as_tibble</span>(gr.gencode) <span class="sc">%&gt;%</span> <span class="fu">filter</span>(type<span class="sc">==</span><span class="st">"gene"</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>current_gene<span class="ot">=</span><span class="st">"UBE3A"</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>genes_to_plot <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">V1 =</span> current_gene, <span class="at">V2 =</span> <span class="fu">unique</span>(<span class="fu">na.omit</span>(gr.gencode<span class="sc">$</span>transcript_id[<span class="fu">which</span>(gr.gencode<span class="sc">$</span>gene_name<span class="sc">==</span>current_gene)])), <span class="at">V3=</span><span class="st">"Gencode"</span>)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>genes_to_plot <span class="ot">=</span> <span class="fu">rbind</span>(genes_to_plot, <span class="fu">data.frame</span>(<span class="at">V1 =</span> current_gene, <span class="at">V2 =</span> <span class="fu">unique</span>(<span class="fu">na.omit</span>(gr.isoseq<span class="sc">$</span>transcript_id[<span class="fu">which</span>(gr.isoseq<span class="sc">$</span>gene_name<span class="sc">==</span>current_gene)])), <span class="at">V3=</span><span class="st">"Isoseq"</span>))</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>genes_to_plot <span class="ot">=</span> genes_to_plot[<span class="sc">!</span><span class="fu">apply</span>(<span class="fu">is.na</span>(genes_to_plot), <span class="dv">1</span>,any),]</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a> gencode_only<span class="ot">=</span>base<span class="sc">::</span><span class="fu">setdiff</span>(<span class="fu">with</span>(genes_to_plot,V2[V1 <span class="sc">==</span> current_gene <span class="sc">&amp;</span> V3<span class="sc">==</span><span class="st">"Gencode"</span>]) , <span class="fu">with</span>(genes_to_plot,V2[V1 <span class="sc">==</span> current_gene <span class="sc">&amp;</span> V3<span class="sc">==</span><span class="st">"Isoseq"</span>]))</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a> shared<span class="ot">=</span>base<span class="sc">::</span><span class="fu">intersect</span>(<span class="fu">with</span>(genes_to_plot,V2[V1 <span class="sc">==</span> current_gene <span class="sc">&amp;</span> V3<span class="sc">==</span><span class="st">"Gencode"</span>]) , <span class="fu">with</span>(genes_to_plot,V2[V1 <span class="sc">==</span> current_gene <span class="sc">&amp;</span> V3<span class="sc">==</span><span class="st">"Isoseq"</span>]))</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a> novel<span class="ot">=</span>base<span class="sc">::</span><span class="fu">setdiff</span>(<span class="fu">with</span>(genes_to_plot,V2[V1 <span class="sc">==</span> current_gene <span class="sc">&amp;</span> V3<span class="sc">==</span><span class="st">"Isoseq"</span>]) , <span class="fu">with</span>(genes_to_plot,V2[V1 <span class="sc">==</span> current_gene <span class="sc">&amp;</span> V3<span class="sc">==</span><span class="st">"Gencode"</span>]))</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>  novel<span class="ot">=</span>novel[<span class="fu">grepl</span>(<span class="st">"^TALON"</span>,novel)]</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>  <span class="co"># gencode tracks</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>  gencode_only_transcript_onegene<span class="ot">=</span>gencode_transcript[gencode_only,]</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>  gencode_only_transcript_onegene<span class="ot">=</span><span class="fu">unlist</span>(gencode_only_transcript_onegene)</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">elementMetadata</span>(gencode_only_transcript_onegene)<span class="sc">$</span>transcript <span class="ot">&lt;-</span> <span class="fu">names</span>(gencode_only_transcript_onegene)</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>  gencode_only_track<span class="ot">=</span><span class="fu">GeneRegionTrack</span>(gencode_only_transcript_onegene,<span class="at">group =</span> <span class="st">"transcript"</span>,<span class="at">name =</span> <span class="st">"Gencode undetected"</span>)</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>  shared_transcript<span class="ot">=</span>gencode_transcript[shared,]</span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>  shared_transcript<span class="ot">=</span><span class="fu">unlist</span>(shared_transcript)</span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">elementMetadata</span>(shared_transcript)<span class="sc">$</span>transcript<span class="ot">=</span><span class="fu">names</span>(shared_transcript)</span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>  shared_track<span class="ot">=</span><span class="fu">GeneRegionTrack</span>(shared_transcript,<span class="at">group =</span> <span class="st">"transcript"</span>,<span class="at">name =</span> <span class="st">"Gencode detected"</span>)</span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">displayPars</span>(gencode_only_track)<span class="ot">=</span><span class="fu">list</span>(<span class="at">stacking=</span><span class="st">"squish"</span>,</span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>                                       <span class="at">background.panel =</span> <span class="st">"#ffffb2"</span>,</span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>                                       <span class="at">fill=</span><span class="st">"#006d2c"</span>,</span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>                                       <span class="at">col=</span><span class="st">"#006d2c"</span>,</span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>                                       <span class="at">lwd=</span><span class="fl">0.3</span>,</span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>                                       <span class="at">col.line=</span><span class="st">"black"</span>,</span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>                                       <span class="at">fontcolor.title=</span><span class="st">"black"</span>,</span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a>                                       <span class="at">background.title=</span><span class="st">"#bd0026"</span>)</span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">displayPars</span>(shared_track)<span class="ot">=</span><span class="fu">list</span>(<span class="at">stacking=</span><span class="st">"squish"</span>,</span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">background.panel =</span> <span class="st">"#f1eef6"</span>,</span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">fill=</span><span class="st">"#d62424"</span>,</span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">col=</span><span class="st">"#d62424"</span>,</span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">lwd=</span><span class="fl">0.3</span>,</span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">col.line=</span><span class="st">"black"</span>,</span>
+<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">fontcolor.title=</span><span class="st">"black"</span>,</span>
+<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">background.title=</span><span class="st">"#045a8d"</span>)</span>
+<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a>  <span class="co"># isoseq tracks</span></span>
+<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a>  isoseq_transcript_onegene<span class="ot">=</span>isoseq_transcript[novel,]</span>
+<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a>  isoseq_transcript_onegene<span class="ot">=</span><span class="fu">unlist</span>(isoseq_transcript_onegene)</span>
+<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a>  <span class="fu">elementMetadata</span>(isoseq_transcript_onegene)<span class="sc">$</span>transcript<span class="ot">=</span><span class="fu">names</span>(isoseq_transcript_onegene)</span>
+<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a>  <span class="fu">seqlevels</span>(isoseq_transcript_onegene) <span class="ot">=</span> <span class="fu">seqlevels</span>(isoseq_transcript_onegene)[<span class="dv">1</span><span class="sc">:</span><span class="dv">25</span>]</span>
+<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a>  isoseq_track<span class="ot">=</span><span class="fu">GeneRegionTrack</span>(isoseq_transcript_onegene,<span class="at">group =</span> <span class="st">"transcript"</span>,<span class="at">name =</span> <span class="st">"Novel"</span>, <span class="at">u=</span><span class="cn">FALSE</span>)</span>
+<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a>  <span class="fu">displayPars</span>(isoseq_track)<span class="ot">=</span><span class="fu">list</span>(<span class="at">stacking=</span><span class="st">"squish"</span>,</span>
+<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">background.panel =</span> <span class="st">"#bcbddc"</span>,</span>
+<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">fill=</span><span class="st">"#171cc7"</span>,</span>
+<span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">col=</span><span class="st">"#171cc7"</span>,</span>
+<span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">lwd=</span><span class="fl">0.3</span>,</span>
+<span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">col.line=</span><span class="st">"black"</span>,</span>
+<span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">showId =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb5-58"><a href="#cb5-58" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">transcriptAnnotation =</span> <span class="st">"transcript"</span>,</span>
+<span id="cb5-59"><a href="#cb5-59" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">fontcolor.title=</span><span class="st">"black"</span>,</span>
+<span id="cb5-60"><a href="#cb5-60" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">background.title=</span><span class="st">"#7a0177"</span>)</span>
+<span id="cb5-61"><a href="#cb5-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-62"><a href="#cb5-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-63"><a href="#cb5-63" aria-hidden="true" tabindex="-1"></a>  <span class="co"># universal tracks</span></span>
+<span id="cb5-64"><a href="#cb5-64" aria-hidden="true" tabindex="-1"></a>  axisTrack <span class="ot">&lt;-</span> <span class="fu">GenomeAxisTrack</span>()</span>
+<span id="cb5-65"><a href="#cb5-65" aria-hidden="true" tabindex="-1"></a>  ideoTrack <span class="ot">&lt;-</span> <span class="fu">IdeogramTrack</span>(<span class="at">genome =</span> <span class="st">"hg19"</span>, <span class="at">chromosome =</span> <span class="fu">unique</span>(<span class="fu">seqnames</span>(gencode_only_track)))</span>
+<span id="cb5-66"><a href="#cb5-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-67"><a href="#cb5-67" aria-hidden="true" tabindex="-1"></a>  leftmost<span class="ot">=</span><span class="fu">min</span>(<span class="fu">c</span>(gencode_only_transcript_onegene<span class="sc">@</span>ranges<span class="sc">@</span>start,shared_transcript<span class="sc">@</span>ranges<span class="sc">@</span>start,isoseq_transcript_onegene<span class="sc">@</span>ranges<span class="sc">@</span>start))</span>
+<span id="cb5-68"><a href="#cb5-68" aria-hidden="true" tabindex="-1"></a>  rightmost<span class="ot">=</span><span class="fu">max</span>(<span class="fu">c</span>(gencode_only_transcript_onegene<span class="sc">@</span>ranges<span class="sc">@</span>start,shared_transcript<span class="sc">@</span>ranges<span class="sc">@</span>start,isoseq_transcript_onegene<span class="sc">@</span>ranges<span class="sc">@</span>start))</span>
+<span id="cb5-69"><a href="#cb5-69" aria-hidden="true" tabindex="-1"></a>  extra<span class="ot">=</span>(rightmost <span class="sc">-</span> leftmost)<span class="sc">*</span><span class="fl">0.05</span></span>
+<span id="cb5-70"><a href="#cb5-70" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plotTracks</span>(<span class="fu">list</span>(ideoTrack,axisTrack,jc_track,cage,gencode_only_track,shared_track,isoseq_track),</span>
+<span id="cb5-71"><a href="#cb5-71" aria-hidden="true" tabindex="-1"></a>             <span class="at">chromosome =</span> <span class="fu">unique</span>(<span class="fu">seqnames</span>(isoseq_track)),</span>
+<span id="cb5-72"><a href="#cb5-72" aria-hidden="true" tabindex="-1"></a>             <span class="at">from =</span> leftmost <span class="sc">-</span> extra,</span>
+<span id="cb5-73"><a href="#cb5-73" aria-hidden="true" tabindex="-1"></a>             <span class="at">to =</span> rightmost <span class="sc">+</span> extra,</span>
+<span id="cb5-74"><a href="#cb5-74" aria-hidden="true" tabindex="-1"></a>             <span class="at">sizes =</span> <span class="fu">c</span>(<span class="fl">1.5</span>,<span class="fl">1.5</span>,<span class="fl">1.5</span>,<span class="fl">1.5</span>,<span class="dv">5</span>, <span class="fu">max</span>(<span class="fl">1.5</span>,<span class="fl">0.35</span><span class="sc">*</span><span class="fu">length</span>(shared)),<span class="fu">max</span>(<span class="dv">2</span>,<span class="fl">0.3</span><span class="sc">*</span><span class="fu">length</span>(novel))))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: GenomicInteractions
+Loading required package: InteractionSet
+
+Attaching package: 'GenomicInteractions'
+
+The following object is masked from 'package:Gviz':
+
+    availableDisplayPars
+
+The following object is masked from 'package:scales':
+
+    is.trans
+
+The following object is masked from 'package:DESeq2':
+
+    plotCounts</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="Figure2_PlotGene_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell" data-hash="Figure2_PlotGene_cache/html/unnamed-chunk-4_1f875abfe9ad42280487b247666247b9">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#devtools::install_github("dzhang32/ggtranscript")</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggtranscript)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>this_gene<span class="ot">=</span><span class="st">"UBE3A"</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>these_exons <span class="ot">&lt;-</span> gr.isoseq <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(annot_gene_name <span class="sc">==</span> this_gene <span class="sc">&amp;</span> type <span class="sc">==</span> <span class="st">"exon"</span> <span class="sc">&amp;</span> (counts <span class="sc">&gt;</span> <span class="dv">10</span> <span class="sc">|</span> novelty2<span class="sc">==</span><span class="st">"Known"</span>))</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>this_cds <span class="ot">&lt;-</span> gr.isoseq <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(annot_gene_name <span class="sc">==</span> this_gene <span class="sc">&amp;</span> type <span class="sc">==</span> <span class="st">"CDS"</span> <span class="sc">&amp;</span> (counts <span class="sc">&gt;</span> <span class="dv">10</span> <span class="sc">|</span> novelty2<span class="sc">==</span><span class="st">"Known"</span>))</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>g1<span class="ot">&lt;-</span>these_exons <span class="sc">%&gt;%</span> </span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">xstart =</span> start,</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>        <span class="at">xend =</span> end,</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>        <span class="at">y =</span> <span class="fu">reorder</span>(annot_transcript_name, counts)</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>    )) <span class="sc">+</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_range</span>(</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>        <span class="fu">aes</span>(<span class="at">fill =</span> <span class="fu">log2</span>(<span class="dv">1</span><span class="sc">+</span>cpm), <span class="at">group=</span>novelty2), <span class="at">height=</span>.<span class="dv">25</span>) <span class="sc">+</span> </span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_range</span>(<span class="at">data=</span>this_cds, <span class="fu">aes</span>(<span class="at">fill =</span> <span class="fu">log2</span>(<span class="dv">1</span><span class="sc">+</span>cpm), <span class="at">group=</span>novelty2)) <span class="sc">+</span> </span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_intron</span>(</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> <span class="fu">to_intron</span>(these_exons, <span class="st">"annot_transcript_name"</span>),</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>        <span class="fu">aes</span>(<span class="at">strand =</span> strand),<span class="at">arrow.min.intron.length =</span> <span class="dv">500</span>,</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>        <span class="at">arrow =</span> grid<span class="sc">::</span><span class="fu">arrow</span>(<span class="at">ends =</span> <span class="st">"last"</span>, <span class="at">length =</span> grid<span class="sc">::</span><span class="fu">unit</span>(<span class="fl">0.1</span>, <span class="st">"inches"</span>)),</span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>        <span class="at">color=</span><span class="st">'grey60'</span>,</span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span> <span class="fu">facet_grid</span>(novelty2<span class="sc">~</span>.,<span class="at">scale=</span><span class="st">'free'</span>,<span class="at">space=</span><span class="st">'free'</span>) <span class="sc">+</span> <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">y=</span><span class="st">""</span>) <span class="sc">+</span> <span class="fu">ggtitle</span>(this_gene,<span class="at">subtitle =</span> <span class="fu">unique</span>(these_exons<span class="sc">$</span>seqnames)) <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust=</span>.<span class="dv">5</span>), <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">hjust=</span>.<span class="dv">5</span>))</span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>g1 </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Using the `size` aesthetic in this geom was deprecated in ggplot2 3.4.0.
+ℹ Please use `linewidth` in the `default_aes` field and elsewhere instead.</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="Figure2_PlotGene_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(g1, <span class="at">file=</span><span class="fu">paste0</span>(<span class="st">"output/figures/switch_plots/ggtranscript_"</span>, this_gene,<span class="st">".pdf"</span>),<span class="at">height=</span><span class="dv">10</span>, <span class="at">width=</span><span class="dv">12</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># these_exons &lt;- gr.isoseq %&gt;% dplyr::filter(annot_gene_name == this_gene &amp; (type == "exon" | type=="CDS")&amp; (counts &gt; 100 | novelty2=="Known"))</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="co"># this_gene_rescaled &lt;- shorten_gaps(</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co">#   these_exons, </span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co">#   to_intron(these_exons %&gt;% filter(type=="exon"), "annot_transcript_name"), </span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="co">#   group_var = "annot_transcript_name"</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="co">#   )</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="co"># this_cds_rescaled &lt;- shorten_gaps(</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="co">#   this_cds, </span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="co">#   to_intron(this_cds, "annot_transcript_name"), </span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="co">#   group_var = "annot_transcript_name"</span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="co">#   )</span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="co"># this_gene_rescaled %&gt;%</span></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a><span class="co">#     dplyr::filter(type == "exon") %&gt;%</span></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a><span class="co">#     ggplot(aes(</span></span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a><span class="co">#         xstart = start,</span></span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a><span class="co">#         xend = end,</span></span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a><span class="co">#         y = annot_transcript_name</span></span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a><span class="co">#     )) +</span></span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a><span class="co">#     geom_range(</span></span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a><span class="co">#       aes(fill = log(1+cpm)), height=.25) + </span></span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a><span class="co">#     geom_range(data=this_gene_rescaled %&gt;% filter(type=="CDS"),aes(fill = log(1+cpm)))+</span></span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a><span class="co">#     geom_intron(</span></span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a><span class="co">#         data = this_gene_rescaled %&gt;% dplyr::filter(type == "intron"), </span></span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a><span class="co">#         arrow.min.intron.length = 200, aes(strand=strand)</span></span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a><span class="co">#     )+ facet_grid(novelty2~.,scale='free',space='free') + theme_bw() + labs(y="")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

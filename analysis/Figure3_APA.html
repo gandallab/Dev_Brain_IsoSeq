@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.0.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Natalie Gong">
+<meta name="dcterms.date" content="2023-02-03">
+
+<title>Dev Brain scIso-Seq CP/VZ - Figure 3 - APA</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<script src="../site_libs/htmlwidgets-1.6.1/htmlwidgets.js"></script>
+<script src="../site_libs/plotly-binding-4.10.1/plotly.js"></script>
+<script src="../site_libs/typedarray-0.1/typedarray.min.js"></script>
+<script src="../site_libs/jquery-3.5.1/jquery.min.js"></script>
+<link href="../site_libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
+<script src="../site_libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<link href="../site_libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet">
+<script src="../site_libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-sidebar floating">
+
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">Figure 3 - APA</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Dev Brain scIso-Seq CP/VZ</a> 
+    </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/index.html" class="sidebar-item-text sidebar-link">Index</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure1_BulkTxomeAnalysis.html" class="sidebar-item-text sidebar-link">Figure 1 - BulkTxomeAnalysis</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure1_TableS1.html" class="sidebar-item-text sidebar-link">Figure 1 - generate Table S1</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure2_isoFraction.html" class="sidebar-item-text sidebar-link">Figure 2 - Isoform Fraction analysis</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure2_plotNovelGenes.html" class="sidebar-item-text sidebar-link">Figure 2 - Plot Novel Genes</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure2_PlotGene.html" class="sidebar-item-text sidebar-link">Figure 2 - Plot One Gene</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure2_novel_exons.html" class="sidebar-item-text sidebar-link">Figure 2 - Novel Exons</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure3_IsoformSwitchAnalyzeR.html" class="sidebar-item-text sidebar-link">Figure 3 - IsoformSwitchAnalyzeR</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure3_DTU_enrichments.html" class="sidebar-item-text sidebar-link">Figure3_DTU_enrichments.qmd</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure3_APA.html" class="sidebar-item-text sidebar-link active">Figure 3 - APA</a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">Figure 3 - APA</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Natalie Gong </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">February 3, 2023</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+</header>
+
+<p>Load PDUIs averaged dataframe. Get gene names from Gene column.</p>
+<div class="cell" data-hash="Figure3_APA_cache/html/unnamed-chunk-1_0444dc2866d2a58a0ecfc9994848dc55">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.0     ✔ readr     2.1.4
+✔ forcats   1.0.0     ✔ stringr   1.5.0
+✔ ggplot2   3.4.1     ✔ tibble    3.1.8
+✔ lubridate 1.9.2     ✔ tidyr     1.3.0
+✔ purrr     1.0.1     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the ]8;;http://conflicted.r-lib.org/conflicted package]8;; to force all conflicts to become errors</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggrepel)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gprofiler2)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">#Load df with averaged PDUIs across technical replicates and samples (PDUIS.averaged.stats)</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"data/dapars2/PDUIS.avg.with.stats.RData"</span>)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>gene_names <span class="ot">&lt;-</span>PDUIS.averaged.stats<span class="sc">$</span>Gene</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>get_geneName <span class="ot">&lt;-</span> <span class="cf">function</span>(tx_vec){</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">strsplit</span>(tx_vec, <span class="at">split =</span> <span class="st">"|"</span>, <span class="at">fixed =</span> <span class="cn">TRUE</span>)[[<span class="dv">1</span>]][<span class="dv">2</span>]</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>PDUIS.averaged.stats<span class="sc">$</span>geneNames <span class="ot">&lt;-</span> <span class="fu">sapply</span>(PDUIS.averaged.stats<span class="sc">$</span>Gene, get_geneName)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Paired two-sample T-tests comparing CP vs VZ transcript PDUIs, with associated ggplots.</p>
+<div class="cell" data-hash="Figure3_APA_cache/html/unnamed-chunk-2_0df8a4b1f0d6772dbc133b7d84e36ad6">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#T-test for overall averaged statistics. </span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(PDUIS.averaged.stats<span class="sc">$</span>CP.PDUI, PDUIS.averaged.stats<span class="sc">$</span>VZ.PDUI, <span class="at">paired =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Paired t-test
+
+data:  PDUIS.averaged.stats$CP.PDUI and PDUIS.averaged.stats$VZ.PDUI
+t = 23.028, df = 9895, p-value &lt; 2.2e-16
+alternative hypothesis: true mean difference is not equal to 0
+95 percent confidence interval:
+ 0.01068873 0.01267778
+sample estimates:
+mean difference 
+     0.01168326 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Density plot of PDUI distribution in CP vs VZ</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> PDUIS.averaged.stats) <span class="sc">+</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> CP.PDUI, <span class="at">color =</span> <span class="st">"red"</span>)) <span class="sc">+</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> VZ.PDUI, <span class="at">color =</span> <span class="st">"blue"</span>)) <span class="sc">+</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">name =</span> <span class="st">"Region"</span>, <span class="at">values =</span> <span class="fu">c</span>(<span class="st">'red'</span> <span class="ot">=</span> <span class="st">'red'</span>, <span class="st">'blue'</span> <span class="ot">=</span> <span class="st">'blue'</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">'GZ'</span>, <span class="st">'CP'</span>)) <span class="sc">+</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Density plot of PDUI distribution in CP vs VZ"</span>, <span class="at">x =</span> <span class="st">"PDUI"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Figure3_APA_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Histogram of distributions of VZ - CP difference</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> PDUIS.averaged.stats) <span class="sc">+</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> vz.cp.diff, <span class="at">y =</span> <span class="fu">after_stat</span>(density)), <span class="at">binwidth =</span> <span class="fl">0.05</span>) <span class="sc">+</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"GZ - CP PDUI difference"</span>, <span class="at">x =</span> <span class="st">"GZ.PDUI - CP.PDUI"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Figure3_APA_files/figure-html/unnamed-chunk-2-2.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Plot CP vs VZ PDUI, denote transcripts with significant difference (FDR &lt; 0.05 as per repeat measures ANOVA)</p>
+<div class="cell" data-hash="Figure3_APA_cache/html/unnamed-chunk-3_6e5939ffa6ad8a8be03ef6ad6a253a5a">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Get transcripts with significantly different PDUIs based on FDR cutoff of 0.05, separate to increased or decreased PDUI in CP compared to VZ. </span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>vz.cp.neg.sig <span class="ot">=</span>  PDUIS.averaged.stats <span class="sc">%&gt;%</span> <span class="fu">filter</span>(FDR <span class="sc">&lt;</span> <span class="fl">0.05</span>, vz.cp.diff <span class="sc">&lt;</span> <span class="dv">0</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>vz.cp.pos.sig <span class="ot">=</span> PDUIS.averaged.stats <span class="sc">%&gt;%</span> <span class="fu">filter</span>(FDR <span class="sc">&lt;</span> <span class="fl">0.05</span>, vz.cp.diff <span class="sc">&gt;</span> <span class="dv">0</span>)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>vz.cp.neg.sig <span class="ot">&lt;-</span> <span class="fu">arrange</span>(vz.cp.neg.sig, <span class="at">by =</span> FDR)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>vz.cp.pos.sig <span class="ot">=</span> <span class="fu">arrange</span>(vz.cp.pos.sig, <span class="at">by =</span> FDR)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co">#Get top 10 genes from vz.cp.neg.sig and vz.cp.pos.sig</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>vz.cp.pos.sig <span class="ot">&lt;-</span> vz.cp.pos.sig <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(<span class="sc">-</span>vz.cp.diff)</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>vz.cp.neg.sig <span class="ot">&lt;-</span> vz.cp.neg.sig <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(vz.cp.diff)</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>neg.sig.top10 <span class="ot">&lt;-</span> vz.cp.neg.sig[<span class="dv">1</span><span class="sc">:</span><span class="dv">15</span>,]</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>pos.sig.top10 <span class="ot">&lt;-</span> vz.cp.pos.sig[<span class="dv">1</span><span class="sc">:</span><span class="dv">15</span>,]</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>Fig3D<span class="ot">=</span><span class="fu">ggplot</span>(<span class="at">data =</span> PDUIS.averaged.stats) <span class="sc">+</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> CP.PDUI, <span class="at">y =</span> VZ.PDUI, <span class="at">color =</span> <span class="fu">cut</span>(FDR, <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.05</span>, <span class="cn">Inf</span>))), <span class="at">size =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values=</span><span class="fu">c</span>(<span class="st">"red"</span>, <span class="st">"gray"</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"&lt;0.05"</span>, <span class="st">"&gt;0.05"</span>)) <span class="sc">+</span></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"PDUIs for CP vs VZ"</span>, <span class="at">x =</span> <span class="st">"CP PDUI"</span>, <span class="at">y =</span> <span class="st">"VZ PDUI"</span>, <span class="at">color =</span> <span class="st">"FDR"</span>) <span class="sc">+</span></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text_repel</span>(<span class="at">data =</span> neg.sig.top10, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> CP.PDUI, <span class="at">y =</span> VZ.PDUI, <span class="at">label =</span> geneNames), <span class="at">color =</span> <span class="st">"blue"</span>, <span class="at">min.segment.length =</span> <span class="dv">0</span>, <span class="at">box.padding =</span> <span class="dv">1</span>, <span class="at">max.overlaps =</span> <span class="cn">Inf</span>, <span class="at">size=</span><span class="dv">3</span>,<span class="at">force =</span> <span class="dv">20</span>, <span class="at">nudge_y =</span> <span class="sc">-</span>.<span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text_repel</span>(<span class="at">data =</span> pos.sig.top10, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> CP.PDUI, <span class="at">y =</span> VZ.PDUI, <span class="at">label =</span> geneNames), <span class="at">color =</span> <span class="st">"purple"</span>, <span class="at">min.segment.length =</span> <span class="dv">0</span>, <span class="at">box.padding =</span> <span class="dv">0</span>, <span class="at">max.overlaps =</span> <span class="cn">Inf</span>, <span class="at">size=</span><span class="dv">3</span>,<span class="at">force =</span> <span class="dv">20</span>, <span class="at">nudge_y =</span> .<span class="dv">2</span>) <span class="sc">+</span> <span class="fu">theme_bw</span>()</span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>Fig3D</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Figure3_APA_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="at">file=</span><span class="st">'output/figures/Fig3/Fig3D_APA.pdf'</span>, <span class="at">width=</span><span class="dv">5</span>,<span class="at">height=</span><span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Pathway enrichment of top transcript PDUI changes using gprofiler2.</p>
+<div class="cell" data-hash="Figure3_APA_cache/html/unnamed-chunk-4_fa342d93b9fd71688bae432d9ea41ffd">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gprofiler2)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co">#Order significant genes by descending vz.cp.diff</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>vz.cp.neg.sig <span class="ot">&lt;-</span> vz.cp.neg.sig <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(vz.cp.diff) <span class="do">## Ordered by effect size</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>vz.cp.pos.sig <span class="ot">&lt;-</span> vz.cp.pos.sig <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(<span class="sc">-</span>vz.cp.diff) <span class="do">## Ordered by effect size</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>all.sig <span class="ot">&lt;-</span> <span class="fu">rbind</span>(vz.cp.neg.sig, vz.cp.pos.sig)</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>all.sig <span class="ot">&lt;-</span> all.sig <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(<span class="sc">-</span><span class="fu">abs</span>(vz.cp.diff))</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>gostres.neg <span class="ot">&lt;-</span> <span class="fu">gost</span>(<span class="at">query =</span> vz.cp.neg.sig<span class="sc">$</span>geneNames, <span class="at">organism =</span> <span class="st">"hsapiens"</span>, <span class="at">ordered_query =</span> <span class="cn">FALSE</span>, <span class="at">significant =</span> <span class="cn">TRUE</span>, <span class="at">custom_bg =</span> PDUIS.averaged.stats<span class="sc">$</span>geneNames, <span class="at">correction_method =</span> <span class="st">"fdr"</span>,<span class="at">sources =</span> <span class="fu">c</span>(<span class="st">"GO"</span>, <span class="st">"KEGG"</span>, <span class="st">"REAC"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Detected custom background input, domain scope is set to 'custom'</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_tibble</span>(gostres.neg<span class="sc">$</span>result)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 64 × 14
+   query   signi…¹ p_value term_…² query…³ inter…⁴ preci…⁵ recall term_id source
+   &lt;chr&gt;   &lt;lgl&gt;     &lt;dbl&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt; 
+ 1 query_1 TRUE    3.00e-5    5445     653     510  0.781  0.0937 GO:000… GO:CC 
+ 2 query_1 TRUE    1.59e-4    2462     653     259  0.397  0.105  GO:004… GO:CC 
+ 3 query_1 TRUE    1.59e-4    2462     653     259  0.397  0.105  GO:004… GO:CC 
+ 4 query_1 TRUE    1.59e-4    2775     653     287  0.440  0.103  GO:003… GO:CC 
+ 5 query_1 TRUE    1.59e-4      59     653      18  0.0276 0.305  GO:001… GO:CC 
+ 6 query_1 TRUE    5.03e-4    2522     653     261  0.400  0.103  GO:003… GO:CC 
+ 7 query_1 TRUE    4.07e-3    2998     653     294  0.450  0.0981 GO:007… GO:CC 
+ 8 query_1 TRUE    4.07e-3     163     653      29  0.0444 0.178  GO:003… GO:CC 
+ 9 query_1 TRUE    4.07e-3    2998     653     294  0.450  0.0981 GO:003… GO:CC 
+10 query_1 TRUE    4.07e-3    2998     653     294  0.450  0.0981 GO:004… GO:CC 
+# … with 54 more rows, 4 more variables: term_name &lt;chr&gt;,
+#   effective_domain_size &lt;int&gt;, source_order &lt;int&gt;, parents &lt;list&gt;, and
+#   abbreviated variable names ¹​significant, ²​term_size, ³​query_size,
+#   ⁴​intersection_size, ⁵​precision</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>gostres.pos <span class="ot">&lt;-</span> <span class="fu">gost</span>(<span class="at">query =</span> vz.cp.pos.sig<span class="sc">$</span>geneNames, <span class="at">organism =</span> <span class="st">"hsapiens"</span>, <span class="at">ordered_query =</span> <span class="cn">FALSE</span>, <span class="at">significant =</span> <span class="cn">TRUE</span>, <span class="at">custom_bg =</span> PDUIS.averaged.stats<span class="sc">$</span>geneNames, <span class="at">correction_method =</span> <span class="st">"fdr"</span>, </span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>                    <span class="at">sources =</span> <span class="fu">c</span>(<span class="st">"GO"</span>, <span class="st">"KEGG"</span>, <span class="st">"REAC"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Detected custom background input, domain scope is set to 'custom'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>No results to show
+Please make sure that the organism is correct or set significant = FALSE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># No significant pathway enrichments from genes with significantly longer PDUI in VZ vs CP</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>gostres_all <span class="ot">&lt;-</span> <span class="fu">gost</span>(<span class="at">query =</span> all.sig<span class="sc">$</span>geneNames, <span class="at">organism =</span> <span class="st">"hsapiens"</span>, <span class="at">ordered_query =</span> <span class="cn">FALSE</span>, <span class="at">significant =</span> <span class="cn">TRUE</span>, <span class="at">custom_bg =</span> PDUIS.averaged.stats<span class="sc">$</span>geneNames, <span class="at">correction_method =</span> <span class="st">"fdr"</span>, <span class="at">sources =</span> <span class="fu">c</span>(<span class="st">"GO"</span>, <span class="st">"KEGG"</span>, <span class="st">"REAC"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Detected custom background input, domain scope is set to 'custom'</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># No significant pathway enrichments when genes are ranked in order of decreasing magnitude of PDUI change between brain regions</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="co">#Working with all significant genes:</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="fu">gostplot</span>(gostres_all, <span class="at">capped =</span> <span class="cn">FALSE</span>, <span class="at">interactive =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="plotly html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-42fcab0757cadd0d48cb" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-42fcab0757cadd0d48cb">{"x":{"data":[{"x":[51.3629190306162,57.5661820019915,57.5818864652102,51.6416732527477,55.4382272358615,54.9906500341294,51.0802386926801,51.1391304297502,52.8587691521947,54.9670933393014,57.5858125810149,59.6116883362235,50.9231940604934,51.7241216846457,63.7066271204922,57.5701081177962,57.5583297703822,51.5474464734356,61.2645830899887,56.6160619772619,52.9961832053581,52.9490698157021,57.5622558861869,51.1077215033128,56.9301512416353,63.31794165583,51.6063382105056],"y":[5.63110206798432,5.44941864055381,5.44941864055381,4.36203737908991,3.61794389661714,3.61794389661714,3.17521216683235,3.17521216683235,3.17521216683235,3.05827127820471,3.05827127820471,3.05827127820471,2.86978023940708,2.69825933107748,2.43402569524111,2.03480553240157,2.01777468702177,1.80689105036062,1.67471196915148,1.67471196915148,1.67471196915148,1.67471196915148,1.62242349803667,1.55769829494629,1.54012204631387,1.49959391746873,1.49959391746873],"text":["GO:0005737 (5445) <br> cytoplasm <br> 2.338e-06","GO:0043228 (2462) <br> non-membrane-bounded organelle <br> 3.553e-06","GO:0043232 (2462) <br> intracellular non-membrane-bounded organelle <br> 3.553e-06","GO:0005829 (2832) <br> cytosol <br> 4.345e-05","GO:0032991 (2775) <br> protein-containing complex <br> 2.410e-04","GO:0031981 (2522) <br> nuclear lumen <br> 2.410e-04","GO:0005622 (6749) <br> intracellular anatomical structure <br> 6.680e-04","GO:0005654 (2329) <br> nucleoplasm <br> 6.680e-04","GO:0010494 (59) <br> cytoplasmic stress granule <br> 6.680e-04","GO:0031974 (2998) <br> membrane-enclosed lumen <br> 8.744e-04","GO:0043233 (2998) <br> organelle lumen <br> 8.744e-04","GO:0070013 (2998) <br> intracellular organelle lumen <br> 8.744e-04","GO:0005575 (7318) <br> cellular_component <br> 1.350e-03","GO:0005856 (1117) <br> cytoskeleton <br> 2.003e-03","GO:0110165 (7279) <br> cellular anatomical entity <br> 3.681e-03","GO:0043229 (6188) <br> intracellular organelle <br> 9.230e-03","GO:0043226 (6375) <br> organelle <br> 9.599e-03","GO:0005791 (37) <br> rough endoplasmic reticulum <br> 1.560e-02","GO:0072686 (110) <br> mitotic spindle <br> 2.115e-02","GO:0035770 (163) <br> ribonucleoprotein granule <br> 2.115e-02","GO:0016020 (3705) <br> membrane <br> 2.115e-02","GO:0015630 (745) <br> microtubule cytoskeleton <br> 2.115e-02","GO:0043227 (6106) <br> membrane-bounded organelle <br> 2.385e-02","GO:0005635 (297) <br> nuclear envelope <br> 2.769e-02","GO:0036464 (147) <br> cytoplasmic ribonucleoprotein granule <br> 2.883e-02","GO:0099080 (613) <br> supramolecular complex <br> 3.165e-02","GO:0005819 (263) <br> spindle <br> 3.165e-02"],"key":["GO:0005737","GO:0043228","GO:0043232","GO:0005829","GO:0032991","GO:0031981","GO:0005622","GO:0005654","GO:0010494","GO:0031974","GO:0043233","GO:0070013","GO:0005575","GO:0005856","GO:0110165","GO:0043229","GO:0043226","GO:0005791","GO:0072686","GO:0035770","GO:0016020","GO:0015630","GO:0043227","GO:0005635","GO:0036464","GO:0099080","GO:0005819"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(16,150,24,1)","opacity":0.8,"size":[22.1390886051465,20.6162165209491,20.6162165209491,20.8946897244236,20.8545311297684,20.664434225708,22.5297737539738,20.504475048076,9.39293653067572,21.0066973549485,21.0066973549485,21.0066973549485,22.67496920757,18.9487085544417,22.665418287416,22.372843587874,22.4268299286443,3.77952755905512,12.3572362359859,13.7862359702187,21.416812769067,18.0186852315677,22.3486029590289,15.6391399607571,13.4313292490971,17.5484835811177,15.2878009205223],"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(16,150,24,1)"}},"hoveron":"points","set":"SharedData053aa3e7","name":"GO:CC","legendgroup":"GO:CC","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","_isNestedKey":false,"frame":null},{"x":[3.26008328197026,3.35429511613626,3.37392258158751,7.8293572390213,7.8764631561043],"y":[3.57982667809613,3.57982667809613,3.57982667809613,3.57982667809613,3.57982667809613],"text":["GO:0003674 (7327) <br> molecular_function <br> 2.631e-04","GO:0003723 (1041) <br> RNA binding <br> 2.631e-04","GO:0003729 (214) <br> mRNA binding <br> 2.631e-04","GO:0005488 (6995) <br> binding <br> 2.631e-04","GO:0005515 (6385) <br> protein binding <br> 2.631e-04"],"key":["GO:0003674","GO:0003723","GO:0003729","GO:0005488","GO:0005515"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(220,57,18,1)","opacity":0.8,"size":[22.6771653543307,18.7910443972854,14.6660952478438,22.5941324334498,22.429667787632],"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(220,57,18,1)"}},"hoveron":"points","set":"SharedData053aa3e7","name":"GO:MF","legendgroup":"GO:MF","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","_isNestedKey":false,"frame":null},{"x":[184.438253927896,184.634860375806,184.650588891639,184.658453149555],"y":[1.82929681370501,1.82929681370501,1.82929681370501,1.68941960318213],"text":["KEGG:03013 (85) <br> Nucleocytoplasmic transport <br> 1.482e-02","KEGG:04110 (78) <br> Cell cycle <br> 1.482e-02","KEGG:04114 (65) <br> Oocyte meiosis <br> 1.482e-02","KEGG:04120 (106) <br> Ubiquitin mediated proteolysis <br> 2.044e-02"],"key":["KEGG:03013","KEGG:04110","KEGG:04114","KEGG:04120"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(221,68,119,1)","opacity":0.8,"size":[11.2739347219342,10.8761838524988,9.94803906900612,12.2101696058184],"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(221,68,119,1)"}},"hoveron":"points","set":"SharedData053aa3e7","name":"KEGG","legendgroup":"KEGG","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","_isNestedKey":false,"frame":null},{"x":[190.968706711984,194.769702558522,190.96085341478,190.964780063382,197.777515387497,195.264460282348,195.272313579552,197.76180879309,194.11002559342,195.244827039339,195.256606985144,200.003925144715,197.922801385763,194.333844563722],"y":[1.84300152722848,1.84300152722848,1.84300152722848,1.84300152722848,1.84300152722848,1.69143527174297,1.69143527174297,1.69143527174297,1.69143527174297,1.69143527174297,1.69143527174297,1.69143527174297,1.69143527174297,1.59455558536007],"text":["REAC:R-HSA-69278 (307) <br> Cell Cycle, Mitotic <br> 1.435e-02","REAC:R-HSA-68886 (232) <br> M Phase <br> 1.435e-02","REAC:R-HSA-1640170 (383) <br> Cell Cycle <br> 1.435e-02","REAC:R-HSA-69620 (158) <br> Cell Cycle Checkpoints <br> 1.435e-02","REAC:R-HSA-2990846 (107) <br> SUMOylation <br> 1.435e-02","REAC:R-HSA-68877 (121) <br> Mitotic Prometaphase <br> 2.035e-02","REAC:R-HSA-69618 (62) <br> Mitotic Spindle Checkpoint <br> 2.035e-02","REAC:R-HSA-3108232 (103) <br> SUMO E3 ligases SUMOylate target proteins <br> 2.035e-02","REAC:R-HSA-168256 (814) <br> Immune System <br> 2.035e-02","REAC:R-HSA-68882 (141) <br> Mitotic Anaphase <br> 2.035e-02","REAC:R-HSA-2555396 (142) <br> Mitotic Metaphase and Anaphase <br> 2.035e-02","REAC:0000000 (4581) <br> REACTOME root term <br> 2.035e-02","REAC:R-HSA-2467813 (107) <br> Separation of Sister Chromatids <br> 2.035e-02","REAC:R-HSA-913531 (81) <br> Interferon Signaling <br> 2.544e-02"],"key":["REAC:R-HSA-69278","REAC:R-HSA-68886","REAC:R-HSA-1640170","REAC:R-HSA-69620","REAC:R-HSA-2990846","REAC:R-HSA-68877","REAC:R-HSA-69618","REAC:R-HSA-3108232","REAC:R-HSA-168256","REAC:R-HSA-68882","REAC:R-HSA-2555396","REAC:0000000","REAC:R-HSA-2467813","REAC:R-HSA-913531"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(51,102,204,1)","opacity":0.8,"size":[15.7330488381925,14.9137581754292,16.3422991054837,13.6805545379246,12.2476917814284,12.7245423333248,9.68372887499156,12.0943913563726,18.2271942144507,13.2844294238566,13.3095012392761,21.8185349509786,12.2476917814284,11.0535290686014],"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(51,102,204,1)"}},"hoveron":"points","set":"SharedData053aa3e7","name":"REAC","legendgroup":"REAC","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","_isNestedKey":false,"frame":null},{"x":[2,46.2285306478471],"y":[-1,-1],"text":"","type":"scatter","mode":"lines","line":{"width":11.3385826771654,"color":"rgba(220,57,18,1)","dash":"solid"},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[50.1536753627785,66.0230354452462],"y":[-1,-1],"text":"","type":"scatter","mode":"lines","line":{"width":11.3385826771654,"color":"rgba(16,150,24,1)","dash":"solid"},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[69.9481801601776,179.69522638966],"y":[-1,-1],"text":"","type":"scatter","mode":"lines","line":{"width":11.3385826771654,"color":"rgba(255,153,0,1)","dash":"solid"},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[183.620371104591,185.830227579098],"y":[-1,-1],"text":"","type":"scatter","mode":"lines","line":{"width":11.3385826771654,"color":"rgba(221,68,119,1)","dash":"solid"},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[189.755372294029,200.003925144715],"y":[-1,-1],"text":"","type":"scatter","mode":"lines","line":{"width":11.3385826771654,"color":"rgba(51,102,204,1)","dash":"solid"},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":29.2835201328352,"r":6.6417600664176,"b":55.8781661388202,"l":66.8825238688253},"plot_bgcolor":"rgba(255,255,255,1)","paper_bgcolor":"rgba(255,255,255,1)","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[0,210],"tickmode":"array","ticktext":["GO:MF","GO:CC","GO:BP","KEGG","REAC"],"tickvals":[24.1142653239236,58.0883554040124,124.821703274919,184.725299341844,194.879648719372],"categoryorder":"array","categoryarray":["GO:MF","GO:CC","GO:BP","KEGG","REAC"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.65296803652968,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":10.6268161062682},"tickangle":-45,"showline":true,"linecolor":"rgba(190,190,190,1)","linewidth":0.132835201328352,"showgrid":false,"gridcolor":null,"gridwidth":0,"zeroline":false,"anchor":"y","title":"","hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-1,11],"tickmode":"array","ticktext":["0.0","2.5","5.0","7.5","10.0"],"tickvals":[0,2.5,5,7.5,10],"categoryorder":"array","categoryarray":["0.0","2.5","5.0","7.5","10.0"],"nticks":null,"ticks":"outside","tickcolor":"rgba(190,190,190,1)","ticklen":3.65296803652968,"tickwidth":0.66417600664176,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.689497716895},"tickangle":-0,"showline":true,"linecolor":"rgba(190,190,190,1)","linewidth":0.66417600664176,"showgrid":false,"gridcolor":null,"gridwidth":0,"zeroline":false,"anchor":"x","title":"","hoverformat":".2f"},"annotations":[{"text":"-log10(p-adj)","x":0,"y":0.5,"showarrow":false,"ax":0,"ay":0,"font":{"color":"rgba(0,0,0,1)","family":"","size":13.2835201328352},"xref":"paper","yref":"paper","textangle":-90,"xanchor":"right","yanchor":"center","annotationType":"axis","xshift":-43.2378580323786},{"text":"query_1","x":0.5,"y":1,"showarrow":false,"ax":0,"ay":0,"font":{"color":"rgba(169,169,169,1)","family":"","size":13.2835201328352},"xref":"paper","yref":"paper","textangle":-0,"xanchor":"center","yanchor":"bottom"}],"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1},{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":24.9730178497302,"yanchor":1,"ysizemode":"pixel"}],"showlegend":false,"legend":{"bgcolor":"rgba(255,255,255,1)","bordercolor":"transparent","borderwidth":1.88976377952756,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.689497716895}},"hovermode":"closest","barmode":"relative","dragmode":"zoom"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"526fa07f7b4":{"x":{},"y":{},"text":{},"colour":{},"size":{},"alpha":{},"type":"scatter"},"526f11174f91":{"x":{},"xend":{},"y":{},"yend":{}},"526f1168c15b":{"x":{},"xend":{},"y":{},"yend":{}},"526f746e464a":{"x":{},"xend":{},"y":{},"yend":{}},"526f73c8dffd":{"x":{},"xend":{},"y":{},"yend":{}},"526f8e9966e":{"x":{},"xend":{},"y":{},"yend":{}}},"cur_data":"526fa07f7b4","visdat":{"526fa07f7b4":["function (y) ","x"],"526f11174f91":["function (y) ","x"],"526f1168c15b":["function (y) ","x"],"526f746e464a":["function (y) ","x"],"526f73c8dffd":["function (y) ","x"],"526f8e9966e":["function (y) ","x"]},"highlight":{"on":"plotly_click","off":"plotly_doubleclick","persistent":false,"dynamic":false,"color":null,"selectize":false,"defaultValues":null,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0,"ctGroups":["SharedData053aa3e7"]},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>gostres_out <span class="ot">&lt;-</span> <span class="fu">subset</span>(gostres_all<span class="sc">$</span>result, <span class="at">select =</span> <span class="fu">c</span>(<span class="st">"significant"</span>, <span class="st">"p_value"</span>, <span class="st">"term_size"</span>, <span class="st">"query_size"</span>, <span class="st">"intersection_size"</span>, <span class="st">"precision"</span>, <span class="st">"recall"</span>, <span class="st">"term_id"</span>, <span class="st">"source"</span>, <span class="st">"term_name"</span>, <span class="st">"effective_domain_size"</span>, <span class="st">"source_order"</span>))</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">write.table</span>(gostres_out, <span class="st">"output/tables/TableS3_APA_GO_results.txt"</span>)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="co">#GO plot with RNA binding terms highlighted</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>rna_terms <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"RNA binding"</span>, <span class="st">"mRNA binding"</span>, <span class="st">"cytoplasmic stress granule"</span>)</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>rna_gostres_all <span class="ot">&lt;-</span> <span class="fu">subset</span>(gostres_all<span class="sc">$</span>result, term_name <span class="sc">%in%</span> rna_terms)</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="fu">publish_gostplot</span>(<span class="fu">gostplot</span>(gostres_all, <span class="at">capped =</span> <span class="cn">FALSE</span>, <span class="at">interactive =</span> <span class="cn">FALSE</span>), <span class="at">highlight_terms =</span> rna_gostres_all<span class="sc">$</span>term_id)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Figure3_APA_files/figure-html/unnamed-chunk-4-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="Figure3_APA_files/figure-html/unnamed-chunk-4-3.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Overrepresentation analysis: are transcripts w/significantly different PDUIs enriched for RBPs &amp; TFs compared to background genes? Use RBP list from Gebauer et al.&nbsp;2021</p>
+<div class="cell" data-hash="Figure3_APA_cache/html/unnamed-chunk-5_b976e16cabe0c76f65a958690d44f164">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Load RBP gene list from Gebauer et al. 2021</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>RBPs <span class="ot">&lt;-</span> <span class="fu">scan</span>(<span class="st">"ref/RBPs/rbps_gebauer_nrg_2021.txt"</span>, <span class="at">what =</span> <span class="st">""</span>, <span class="at">sep =</span> <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Get background genes (transcripts with no significant change in PDUI)</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>PDUIS.averaged.bckgrd <span class="ot">&lt;-</span> PDUIS.averaged.stats <span class="sc">%&gt;%</span> <span class="fu">filter</span>(FDR <span class="sc">&gt;=</span> <span class="fl">0.05</span>)</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>bckgrd.rbp <span class="ot">&lt;-</span> <span class="fu">nrow</span>(<span class="fu">subset</span>(PDUIS.averaged.bckgrd, geneNames <span class="sc">%in%</span> RBPs))</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>bckgrd.nonrbp <span class="ot">&lt;-</span> <span class="fu">nrow</span>(<span class="fu">subset</span>(PDUIS.averaged.bckgrd, <span class="sc">!</span>geneNames <span class="sc">%in%</span> RBPs))</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>sig.rbp <span class="ot">&lt;-</span> <span class="fu">nrow</span>(<span class="fu">subset</span>(PDUIS.averaged.stats <span class="sc">%&gt;%</span> <span class="fu">filter</span>(FDR <span class="sc">&lt;</span> <span class="fl">0.05</span>), geneNames <span class="sc">%in%</span> RBPs))</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>sig.nonrbp <span class="ot">&lt;-</span> <span class="fu">nrow</span>(<span class="fu">subset</span>(PDUIS.averaged.stats <span class="sc">%&gt;%</span> <span class="fu">filter</span>(FDR <span class="sc">&lt;</span> <span class="fl">0.05</span>), <span class="sc">!</span>geneNames <span class="sc">%in%</span> RBPs))</span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a><span class="co">#Run one-sided Fisher's exact test</span></span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">bckgrd =</span> <span class="fu">c</span>(bckgrd.rbp, bckgrd.nonrbp), <span class="at">sig =</span> <span class="fu">c</span>(sig.rbp, sig.nonrbp))</span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a><span class="fu">row.names</span>(d) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"RBP"</span>, <span class="st">"non-RBP"</span>)</span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>d</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        bckgrd sig
+RBP       3074 453
+non-RBP   5809 560</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fisher.test</span>(d, <span class="at">alternative =</span> <span class="st">"less"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Fisher's Exact Test for Count Data
+
+data:  d
+p-value = 2.06e-10
+alternative hypothesis: true odds ratio is less than 1
+95 percent confidence interval:
+ 0.0000000 0.7321337
+sample estimates:
+odds ratio 
+ 0.6541755 </code></pre>
+</div>
+</div>
+
+
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
