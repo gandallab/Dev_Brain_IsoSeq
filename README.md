@@ -1,1 +1,1 @@
-# devBrain_scIsoSeq
+# devBrainIsoSeq
