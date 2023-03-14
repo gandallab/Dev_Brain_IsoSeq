@@ -1,0 +1,2056 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.0.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Michael Gandal">
+
+<title>Dev Brain scIso-Seq CP/VZ - Figure 2 - Plot Novel Genes</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-sidebar floating">
+
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">Figure 2 - Plot Novel Genes</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Dev Brain scIso-Seq CP/VZ</a> 
+    </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/index.html" class="sidebar-item-text sidebar-link">Index</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure1_BulkTxomeAnalysis.html" class="sidebar-item-text sidebar-link">Figure 1 - BulkTxomeAnalysis</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure1_TableS1.html" class="sidebar-item-text sidebar-link">Figure 1 - generate Table S1</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure2_isoFraction.html" class="sidebar-item-text sidebar-link">Figure 2 - Isoform Fraction analysis</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure2_plotNovelGenes.html" class="sidebar-item-text sidebar-link active">Figure 2 - Plot Novel Genes</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure2_novel_exons.html" class="sidebar-item-text sidebar-link">Figure 2 - Novel Exons</a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#load-packages-and-data" id="toc-load-packages-and-data" class="nav-link active" data-scroll-target="#load-packages-and-data">Load Packages and Data</a></li>
+  <li><a href="#find-novel-intergenic-genes" id="toc-find-novel-intergenic-genes" class="nav-link" data-scroll-target="#find-novel-intergenic-genes">Find Novel Intergenic Genes</a></li>
+  <li><a href="#plot-antisense-genes" id="toc-plot-antisense-genes" class="nav-link" data-scroll-target="#plot-antisense-genes">Plot antisense genes</a></li>
+  <li><a href="#plot-top-expressed-ism-nic-nnc" id="toc-plot-top-expressed-ism-nic-nnc" class="nav-link" data-scroll-target="#plot-top-expressed-ism-nic-nnc">Plot top expressed ISM, NIC, NNC</a>
+  <ul class="collapse">
+  <li><a href="#novel-gene-talong000088362" id="toc-novel-gene-talong000088362" class="nav-link" data-scroll-target="#novel-gene-talong000088362">Novel gene: TALONG000088362</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">Figure 2 - Plot Novel Genes</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Michael Gandal </p>
+          </div>
+  </div>
+    
+    
+  </div>
+  
+
+</header>
+
+<section id="load-packages-and-data" class="level2">
+<h2 class="anchored" data-anchor-id="load-packages-and-data">Load Packages and Data</h2>
+<div class="cell" data-hash="Figure2_plotNovelGenes_cache/html/unnamed-chunk-1_4ee43e8a33c36e4d33bbad115c8d4a82">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">stringsAsFactors =</span> F)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">ucscChromosomeNames =</span> F)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressMessages</span>({</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(data.table)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(IsoformSwitchAnalyzeR)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(rtracklayer)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(ggrepel)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(scales)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(GenomicFeatures)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(GenomicRanges)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(GenomicInteractions)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(Gviz)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(ggtranscript)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>colorVector <span class="ot">=</span> <span class="fu">c</span>(</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Known"</span> <span class="ot">=</span> <span class="st">"#009E73"</span>,</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>  <span class="st">"ISM"</span>   <span class="ot">=</span> <span class="st">"#0072B2"</span>,</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>  <span class="st">"ISM_Prefix"</span> <span class="ot">=</span> <span class="st">"#005996"</span>,</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>  <span class="st">"ISM_Suffix"</span> <span class="ot">=</span> <span class="st">"#378bcc"</span>,</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>  <span class="st">"NIC"</span>   <span class="ot">=</span> <span class="st">"#D55E00"</span>,</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>  <span class="st">"NNC"</span>   <span class="ot">=</span> <span class="st">"#E69F00"</span>,</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Other"</span> <span class="ot">=</span> <span class="st">"#000000"</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>colorVector_ismSplit <span class="ot">=</span> colorVector[<span class="sc">-</span><span class="dv">2</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-hash="Figure2_plotNovelGenes_cache/html/unnamed-chunk-2_fa604864ffe483396643b4d329ee40a7">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">file.exists</span>(<span class="st">'data/working/locusPlot_workingData.RData'</span>)) {</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># CAGE tracks</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  cage<span class="ot">=</span><span class="fu">AnnotationTrack</span>(<span class="at">range =</span> <span class="st">"ref/CAGE/hg19.cage_peak_phase1and2combined_coord.bed"</span>,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>                       <span class="at">background.panel =</span> <span class="st">"#99d8c9"</span>,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>                       <span class="at">fill=</span><span class="st">"#fc9272"</span>,</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>                       <span class="at">name =</span> <span class="st">"CAGE peaks"</span>,</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>                       <span class="at">col.line=</span><span class="st">"#99d8c9"</span>,</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>                       <span class="at">background.title=</span><span class="st">"#2ca25f"</span>,</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>                       <span class="at">fontcolor.title=</span><span class="st">"black"</span>)</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Intropolis junctions</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  jc<span class="ot">=</span><span class="fu">read.delim</span>(<span class="st">"ref/intropolis/intropolis_v1_hg19_2samples_10counts_starSJout.tsv.gz"</span>,<span class="at">header =</span> F)</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  jc<span class="ot">=</span> jc[jc<span class="sc">$</span>V7<span class="sc">&gt;</span><span class="dv">100</span>,]</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>  anchor.one <span class="ot">=</span> <span class="fu">GRanges</span>(jc<span class="sc">$</span>V1, <span class="fu">IRanges</span>(jc<span class="sc">$</span>V2 <span class="sc">+</span> <span class="dv">1</span>, <span class="at">width=</span><span class="dv">5</span>))</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>  anchor.two <span class="ot">=</span> <span class="fu">GRanges</span>(jc<span class="sc">$</span>V1, <span class="fu">IRanges</span>(jc<span class="sc">$</span>V3, <span class="at">width=</span><span class="dv">5</span>))</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>  interaction_counts <span class="ot">=</span> <span class="fu">log2</span>(jc<span class="sc">$</span>V7)</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>  jc_object<span class="ot">=</span><span class="fu">GenomicInteractions</span>(anchor.one,anchor.two,interaction_counts)</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>  jc_track<span class="ot">=</span><span class="fu">InteractionTrack</span>(jc_object,<span class="at">name =</span> <span class="st">"Intropolis junctions"</span>)</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">displayPars</span>(jc_track)<span class="ot">=</span><span class="fu">list</span>(<span class="at">background.panel =</span> <span class="st">"#fee0d2"</span>,</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>                             <span class="at">col.interactions =</span><span class="st">"#6a51a3"</span>, <span class="co">#"#43a2ca",</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>                             <span class="at">col.anchors.line =</span> <span class="st">"gray"</span>,</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>                             <span class="at">col.anchors.line =</span> <span class="st">"gray"</span>,</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>                             <span class="at">lwd=</span><span class="fl">0.6</span>,</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>                             <span class="at">fontcolor.title=</span><span class="st">"black"</span>,</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>                             <span class="at">background.title=</span><span class="st">"#de2d26"</span>,</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>                             <span class="at">plot.outside =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Gencode v33 Annotations</span></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>  gencode<span class="ot">=</span><span class="st">"ref/gencode.v33lift37.annotation.gtf.gz"</span></span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>  gencode_txdb<span class="ot">=</span><span class="fu">makeTxDbFromGFF</span>(gencode, <span class="at">format=</span><span class="st">"gtf"</span>)</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>  gencode_transcript<span class="ot">=</span><span class="fu">exonsBy</span>(gencode_txdb,<span class="at">by=</span><span class="st">"tx"</span>,<span class="at">use.names=</span>T)</span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>  gr.gencode <span class="ot">=</span> rtracklayer<span class="sc">::</span><span class="fu">import</span>(gencode) <span class="sc">%&gt;%</span> <span class="fu">as_tibble</span>()</span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Isoseq Annotations</span></span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>  isoseq<span class="ot">=</span><span class="st">"data/sqanti/cp_vz_0.75_min_7_recovery_talon_corrected.gtf.cds.gff.gz"</span></span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>  isoseq_txdb<span class="ot">=</span><span class="fu">makeTxDbFromGFF</span>(isoseq, <span class="at">format=</span><span class="st">"gtf"</span>)</span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>  isoseq_transcript<span class="ot">=</span><span class="fu">exonsBy</span>(isoseq_txdb,<span class="at">by=</span><span class="st">"tx"</span>,<span class="at">use.names=</span>T)</span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>  gr.isoseq <span class="ot">=</span> rtracklayer<span class="sc">::</span><span class="fu">import</span>(isoseq) <span class="sc">%&gt;%</span> <span class="fu">as_tibble</span>()</span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>  cts <span class="ot">=</span> <span class="fu">read_table</span>(<span class="st">"data/cp_vz_0.75_min_7_recovery_talon_abundance_filtered.tsv.gz"</span>)</span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>cts<span class="sc">$</span>novelty2 <span class="ot">=</span> <span class="fu">as.character</span>(cts<span class="sc">$</span>transcript_novelty)</span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>cts<span class="sc">$</span>novelty2[<span class="fu">which</span>(cts<span class="sc">$</span>novelty2<span class="sc">==</span><span class="st">"ISM"</span> <span class="sc">&amp;</span> cts<span class="sc">$</span>ISM_subtype<span class="sc">==</span><span class="st">"Prefix"</span>)] <span class="ot">=</span> <span class="st">"ISM_Prefix"</span></span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>cts<span class="sc">$</span>novelty2[<span class="fu">which</span>(cts<span class="sc">$</span>novelty2<span class="sc">==</span><span class="st">"ISM"</span> <span class="sc">&amp;</span> cts<span class="sc">$</span>ISM_subtype<span class="sc">==</span><span class="st">"Suffix"</span>)] <span class="ot">=</span> <span class="st">"ISM_Suffix"</span></span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>cts<span class="sc">$</span>novelty2[cts<span class="sc">$</span>novelty2 <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Antisense"</span>, <span class="st">"Genomic"</span>, <span class="st">"Intergenic"</span>, <span class="st">"ISM"</span>)] <span class="ot">=</span> <span class="st">"Other"</span></span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>cts<span class="sc">$</span>novelty2 <span class="ot">=</span> <span class="fu">factor</span>(cts<span class="sc">$</span>novelty2,<span class="at">levels=</span><span class="fu">c</span>(<span class="st">"Known"</span>, <span class="st">"ISM_Prefix"</span>, <span class="st">"ISM_Suffix"</span>, <span class="st">"NIC"</span>, <span class="st">"NNC"</span>, <span class="st">"Other"</span>))</span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>cts<span class="sc">$</span>counts <span class="ot">=</span> <span class="fu">rowSums</span>(cts[,<span class="fu">c</span>(<span class="dv">12</span><span class="sc">:</span><span class="dv">35</span>)])</span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a>cts<span class="sc">$</span>cpm <span class="ot">=</span> cts<span class="sc">$</span>counts <span class="sc">/</span> (<span class="fu">sum</span>(cts<span class="sc">$</span>counts)<span class="sc">/</span><span class="dv">1000000</span>)</span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a>gr.isoseq.old <span class="ot">=</span> gr.isoseq</span>
+<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a>gr.isoseq <span class="ot">&lt;-</span> gr.isoseq.old <span class="sc">%&gt;%</span> <span class="fu">left_join</span>(cts, <span class="at">by=</span><span class="fu">c</span>(<span class="st">"transcript_id"</span> <span class="ot">=</span> <span class="st">"annot_transcript_id"</span>))</span>
+<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a>  <span class="fu">save.image</span>(<span class="st">'data/working/locusPlot_workingData.RData'</span>)</span>
+<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a>  <span class="fu">load</span>(<span class="st">'data/working/locusPlot_workingData.RData'</span>)</span>
+<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Import genomic features from the file as a GRanges object ... OK
+Prepare the 'metadata' data frame ... OK
+Make the TxDb object ... </code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in .get_cds_IDX(mcols0$type, mcols0$phase): The "phase" metadata column contains non-NA values for features of type
+  stop_codon. This information was ignored.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in .reject_transcripts(bad_tx, because): The following transcripts were dropped because they have incompatible
+  CDS and stop codons: ENST00000422803.2_2, ENST00000618549.1_2,
+  ENST00000619291.4_2, ENST00000621077.1_2, ENST00000621229.1_2,
+  ENST00000631326.2_2</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>OK
+Import genomic features from the file as a GRanges object ... OK
+Prepare the 'metadata' data frame ... OK
+Make the TxDb object ... </code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in .get_cds_IDX(mcols0$type, mcols0$phase): some CDS phases are missing
+or not between 0 and 2</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>OK
+
+── Column specification ────────────────────────────────────────────────────────
+cols(
+  .default = col_double(),
+  annot_gene_id = col_character(),
+  annot_transcript_id = col_character(),
+  annot_gene_name = col_character(),
+  annot_transcript_name = col_character(),
+  gene_novelty = col_character(),
+  transcript_novelty = col_character(),
+  ISM_subtype = col_character()
+)
+ℹ Use `spec()` for the full column specifications.</code></pre>
+</div>
+</div>
+</section>
+<section id="find-novel-intergenic-genes" class="level2">
+<h2 class="anchored" data-anchor-id="find-novel-intergenic-genes">Find Novel Intergenic Genes</h2>
+<div class="cell" data-hash="Figure2_plotNovelGenes_cache/html/unnamed-chunk-3_b8a89fd954e5bf12cadc776a021cf35a">
+<div class="cell-output cell-output-stdout">
+<pre><code>.
+ Antisense Intergenic      Known 
+       413        310     213793 </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[1]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[2]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[3]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[4]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[5]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[6]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[7]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[8]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[9]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[10]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[11]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[12]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[13]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[14]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[15]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[16]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[17]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[18]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[19]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[20]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[21]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[22]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[23]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[24]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[25]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[26]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[27]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[28]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[29]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[30]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[31]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[32]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[33]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[34]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[35]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[36]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[37]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[38]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[39]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[40]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[41]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[42]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[43]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[44]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[45]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[46]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[47]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[48]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[49]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[50]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[51]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[52]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[53]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[54]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[55]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[56]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[57]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[58]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[59]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[60]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[61]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[62]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>quartz_off_screen 
+                2 </code></pre>
+</div>
+</div>
+</section>
+<section id="plot-antisense-genes" class="level2">
+<h2 class="anchored" data-anchor-id="plot-antisense-genes">Plot antisense genes</h2>
+<div class="cell" data-hash="Figure2_plotNovelGenes_cache/html/unnamed-chunk-4_3c6aa5ff81d32ca010640f27acfcfe42">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0
+[1] 1
+[1] 2
+[1] 3
+[1] 4
+[1] 5
+[1] 6
+[1] 7
+[1] 8
+[1] 9
+[1] 10
+[1] 11
+[1] 12
+[1] 13
+[1] 14
+[1] 15
+[1] 16
+[1] 17
+[1] 18
+[1] 19
+[1] 20
+[1] 21
+[1] 22
+[1] 23
+[1] 24
+[1] 25
+[1] 26
+[1] 27
+[1] 28
+[1] 29
+[1] 30
+[1] 31
+[1] 32
+[1] 33
+[1] 34
+[1] 35
+[1] 36
+[1] 37
+[1] 38
+[1] 39
+[1] 40
+[1] 41
+[1] 42
+[1] 43
+[1] 44
+[1] 45
+[1] 46
+[1] 47
+[1] 48
+[1] 49
+[1] 50
+[1] 51
+[1] 52
+[1] 53
+[1] 54
+[1] 55
+[1] 56
+[1] 57
+[1] 58
+[1] 59
+[1] 60
+[1] 61
+[1] 62
+[1] 63
+[1] 64
+[1] 65
+[1] 66
+[1] 67
+[1] 68
+[1] 69
+[1] 70
+[1] 71
+[1] 72
+[1] 73
+[1] 74
+[1] 75
+[1] 76
+[1] 77
+[1] 78
+[1] 79
+[1] 80
+[1] 81
+[1] 82
+[1] 83
+[1] 84
+[1] 85
+[1] 86
+[1] 87
+[1] 88
+[1] 89
+[1] 90
+[1] 91
+[1] 92
+[1] 93
+[1] 94
+[1] 95
+[1] 96
+[1] 97
+[1] 98
+[1] 99
+[1] 100
+[1] 101
+[1] 102
+[1] 103
+[1] 104
+[1] 105
+[1] 106
+[1] 107
+[1] 108
+[1] 109
+[1] 110
+[1] 111
+[1] 112
+[1] 113
+[1] 114
+[1] 115
+[1] 116
+[1] 117
+[1] 118
+[1] 119
+[1] 120
+[1] 121
+[1] 122
+[1] 123
+[1] 124
+[1] 125
+[1] 126
+[1] 127
+[1] 128
+[1] 129
+[1] 130
+[1] 131
+[1] 132
+[1] 133
+[1] 134
+[1] 135
+[1] 136
+[1] 137
+[1] 138
+[1] 139
+[1] 140
+[1] 141
+[1] 142
+[1] 143
+[1] 144
+[1] 145
+[1] 146
+[1] 147
+[1] 148
+[1] 149
+[1] 150
+[1] 151
+[1] 152
+[1] 153
+[1] 154
+[1] 155
+[1] 156
+[1] 157
+[1] 158
+[1] 159
+[1] 160
+[1] 161
+[1] 162
+[1] 163
+[1] 164
+[1] 165
+[1] 166
+[1] 167
+[1] 168
+[1] 169
+[1] 170
+[1] 171
+[1] 172
+[1] 173
+[1] 174
+[1] 175
+[1] 176
+[1] 177
+[1] 178
+[1] 179
+[1] 180
+[1] 181
+[1] 182
+[1] 183
+[1] 184
+[1] 185
+[1] 186
+[1] 187
+[1] 188
+[1] 189
+[1] 190
+[1] 191
+[1] 192
+[1] 193
+[1] 194
+[1] 195
+[1] 196
+[1] 197
+[1] 198
+[1] 199
+[1] 200
+[1] 201
+[1] 202
+[1] 203
+[1] 204
+[1] 205
+[1] 206
+[1] 207
+[1] 208
+[1] 209
+[1] 210
+[1] 211
+[1] 212
+[1] 213
+[1] 214
+[1] 215
+[1] 216
+[1] 217
+[1] 218
+[1] 219
+[1] 220
+[1] 221
+[1] 222
+[1] 223
+[1] 224
+[1] 225
+[1] 226
+[1] 227
+[1] 228
+[1] 229
+[1] 230
+[1] 231
+[1] 232
+[1] 233
+[1] 234
+[1] 235
+[1] 236
+[1] 237
+[1] 238
+[1] 239
+[1] 240
+[1] 241
+[1] 242
+[1] 243
+[1] 244
+[1] 245
+[1] 246
+[1] 247</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[1]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[2]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[3]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[4]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[5]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[6]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[7]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[8]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[9]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[10]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[11]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[12]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[13]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[14]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[15]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[16]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[17]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[18]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[19]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[20]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[21]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[22]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[23]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[24]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[25]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[26]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[27]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[28]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[29]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[30]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[31]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[32]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[33]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[34]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[35]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[36]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[37]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[38]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[39]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[40]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[41]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[42]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[43]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[44]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[45]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[46]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[47]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[48]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[49]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[50]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[51]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[52]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[53]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[54]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[55]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[56]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[57]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[58]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[59]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[60]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[61]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[62]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[63]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[64]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[65]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[66]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[67]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[68]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[69]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[70]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[71]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[72]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[73]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[74]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[75]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[76]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[77]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[78]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[79]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[80]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[81]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[82]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[83]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[84]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[85]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[86]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[87]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[88]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[89]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[90]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[91]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[92]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[93]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[94]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[95]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[96]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[97]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[98]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[99]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[100]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[101]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[102]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[103]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[104]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[105]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[106]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[107]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[108]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[109]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[110]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[111]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[112]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[113]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[114]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[115]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[116]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[117]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[118]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[119]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[120]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[121]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[122]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[123]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[124]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[125]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[126]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[127]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[128]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[129]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[130]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[131]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[132]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[133]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[134]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[135]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[136]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[137]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[138]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[139]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[140]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[141]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[142]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[143]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[144]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[145]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[146]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[147]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[148]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[149]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[150]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[151]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[152]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[153]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[154]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[155]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[156]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[157]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[158]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[159]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[160]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[161]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[162]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[163]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[164]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[165]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[166]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[167]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[168]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[169]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[170]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[171]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[172]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[173]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[174]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[175]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[176]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[177]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[178]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[179]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[180]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[181]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[182]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[183]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[184]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[185]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[186]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[187]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[188]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[189]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[190]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[191]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[192]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[193]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[194]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[195]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[196]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[197]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[198]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[199]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[200]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[201]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[202]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[203]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[204]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[205]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[206]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[207]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[208]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[209]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[210]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[211]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[212]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[213]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[214]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[215]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[216]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[217]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[218]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[219]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[220]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[221]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[222]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[223]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[224]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[225]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[226]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[227]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[228]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[229]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[230]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[231]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[232]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[233]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[234]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[235]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[236]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[237]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[238]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[239]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[240]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[241]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[242]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[243]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[244]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[245]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[246]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[247]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[[248]]</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>quartz_off_screen 
+                2 </code></pre>
+</div>
+</div>
+</section>
+<section id="plot-top-expressed-ism-nic-nnc" class="level1">
+<h1>Plot top expressed ISM, NIC, NNC</h1>
+<div class="cell" data-hash="Figure2_plotNovelGenes_cache/html/unnamed-chunk-5_77b1d7b7e01ad1a530299b987384490c">
+<div class="sourceCode cell-code" id="cb323"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb323-1"><a href="#cb323-1" aria-hidden="true" tabindex="-1"></a>g <span class="ot">=</span> <span class="fu">list</span>()</span>
+<span id="cb323-2"><a href="#cb323-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb323-3"><a href="#cb323-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(this_gene <span class="cf">in</span> <span class="fu">c</span>(<span class="st">"NEFL"</span>, <span class="st">"WASF1"</span>, <span class="st">"CYFIP2"</span>, <span class="st">"MAP1B"</span>, <span class="st">"SMARCA4"</span>)) {</span>
+<span id="cb323-4"><a href="#cb323-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb323-5"><a href="#cb323-5" aria-hidden="true" tabindex="-1"></a>these_exons <span class="ot">&lt;-</span> gr.isoseq <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(annot_gene_name <span class="sc">%in%</span> this_gene <span class="sc">&amp;</span> type <span class="sc">==</span> <span class="st">"exon"</span> <span class="sc">&amp;</span> (counts <span class="sc">&gt;</span> <span class="dv">1000</span> <span class="sc">|</span> novelty2<span class="sc">==</span><span class="st">"Known"</span>))</span>
+<span id="cb323-6"><a href="#cb323-6" aria-hidden="true" tabindex="-1"></a>this_cds <span class="ot">&lt;-</span> gr.isoseq <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(annot_gene_name <span class="sc">%in%</span> this_gene <span class="sc">&amp;</span> type <span class="sc">==</span> <span class="st">"CDS"</span> <span class="sc">&amp;</span> (counts <span class="sc">&gt;</span> <span class="dv">1000</span> <span class="sc">|</span> novelty2<span class="sc">==</span><span class="st">"Known"</span>))</span>
+<span id="cb323-7"><a href="#cb323-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb323-8"><a href="#cb323-8" aria-hidden="true" tabindex="-1"></a>g[[<span class="fu">length</span>(g)<span class="sc">+</span><span class="dv">1</span>]] <span class="ot">=</span> these_exons <span class="sc">%&gt;%</span> </span>
+<span id="cb323-9"><a href="#cb323-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(</span>
+<span id="cb323-10"><a href="#cb323-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">xstart =</span> start,</span>
+<span id="cb323-11"><a href="#cb323-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">xend =</span> end,</span>
+<span id="cb323-12"><a href="#cb323-12" aria-hidden="true" tabindex="-1"></a>        <span class="at">y =</span> <span class="fu">reorder</span>(annot_transcript_name, counts)</span>
+<span id="cb323-13"><a href="#cb323-13" aria-hidden="true" tabindex="-1"></a>    )) <span class="sc">+</span></span>
+<span id="cb323-14"><a href="#cb323-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_range</span>(</span>
+<span id="cb323-15"><a href="#cb323-15" aria-hidden="true" tabindex="-1"></a>        <span class="fu">aes</span>(<span class="at">fill =</span> <span class="fu">log2</span>(<span class="dv">1</span><span class="sc">+</span>cpm), <span class="at">group=</span>novelty2), <span class="at">height=</span>.<span class="dv">25</span>) <span class="sc">+</span> </span>
+<span id="cb323-16"><a href="#cb323-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_range</span>(<span class="at">data=</span>this_cds, <span class="fu">aes</span>(<span class="at">fill =</span> <span class="fu">log2</span>(<span class="dv">1</span><span class="sc">+</span>cpm), <span class="at">group=</span>novelty2)) <span class="sc">+</span> </span>
+<span id="cb323-17"><a href="#cb323-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_intron</span>(</span>
+<span id="cb323-18"><a href="#cb323-18" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> <span class="fu">to_intron</span>(these_exons, <span class="st">"annot_transcript_name"</span>),</span>
+<span id="cb323-19"><a href="#cb323-19" aria-hidden="true" tabindex="-1"></a>        <span class="fu">aes</span>(<span class="at">strand =</span> strand), <span class="at">arrow.min.intron.length =</span> <span class="dv">1000</span>,</span>
+<span id="cb323-20"><a href="#cb323-20" aria-hidden="true" tabindex="-1"></a>        <span class="at">arrow =</span> grid<span class="sc">::</span><span class="fu">arrow</span>(<span class="at">ends =</span> <span class="st">"last"</span>, <span class="at">length =</span> grid<span class="sc">::</span><span class="fu">unit</span>(<span class="fl">0.05</span>, <span class="st">"inches"</span>)),</span>
+<span id="cb323-21"><a href="#cb323-21" aria-hidden="true" tabindex="-1"></a>        <span class="at">color=</span><span class="st">'grey60'</span>,</span>
+<span id="cb323-22"><a href="#cb323-22" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span> <span class="fu">facet_grid</span>(novelty2<span class="sc">~</span>.,<span class="at">scale=</span><span class="st">'free'</span>,<span class="at">space=</span><span class="st">'free'</span>) <span class="sc">+</span> <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">y=</span><span class="st">""</span>) <span class="sc">+</span> </span>
+<span id="cb323-23"><a href="#cb323-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(this_gene) <span class="sc">+</span> <span class="fu">scale_fill_gradient</span>(<span class="at">low =</span> <span class="st">'darkgrey'</span>, <span class="at">high=</span><span class="st">'red'</span>, <span class="at">limits=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">12</span>)) <span class="sc">+</span> </span>
+<span id="cb323-24"><a href="#cb323-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span> <span class="fu">unique</span>(these_exons<span class="sc">$</span>seqnames)) <span class="sc">+</span> </span>
+<span id="cb323-25"><a href="#cb323-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust=</span>.<span class="dv">5</span>), <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">hjust=</span>.<span class="dv">5</span>))</span>
+<span id="cb323-26"><a href="#cb323-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb323-27"><a href="#cb323-27" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="fu">length</span>(g) <span class="sc">&gt;</span> <span class="dv">1</span>) g[[<span class="fu">length</span>(g)]] <span class="ot">=</span> g[[<span class="fu">length</span>(g)]] <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span>
+<span id="cb323-28"><a href="#cb323-28" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb323-29"><a href="#cb323-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb323-30"><a href="#cb323-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb323-31"><a href="#cb323-31" aria-hidden="true" tabindex="-1"></a><span class="fu">pdf</span>(<span class="at">file=</span><span class="st">'output/figures/supplement/FigS3A-E.pdf'</span>, <span class="at">height=</span><span class="dv">5</span>, <span class="at">width=</span><span class="dv">14</span>)</span>
+<span id="cb323-32"><a href="#cb323-32" aria-hidden="true" tabindex="-1"></a>gridExtra<span class="sc">::</span><span class="fu">grid.arrange</span>(<span class="at">grobs=</span>g, <span class="at">layout_matrix =</span> <span class="fu">rbind</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">5</span>),<span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">5</span>)))</span>
+<span id="cb323-33"><a href="#cb323-33" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>quartz_off_screen 
+                2 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb325"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb325-1"><a href="#cb325-1" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb325-2"><a href="#cb325-2" aria-hidden="true" tabindex="-1"></a><span class="co"># cowplot::plot_grid(plotlist=g[1], labels=c("A"),ncol=1)</span></span>
+<span id="cb325-3"><a href="#cb325-3" aria-hidden="true" tabindex="-1"></a><span class="co"># cowplot::plot_grid(plotlist=g[2:4], labels=c("B", "C", "D"),ncol=1,rel_heights = c(2.5,2.5,1))</span></span>
+<span id="cb325-4"><a href="#cb325-4" aria-hidden="true" tabindex="-1"></a><span class="co"># cowplot::plot_grid(plotlist=g[5], labels=c("E"),ncol=1)</span></span>
+<span id="cb325-5"><a href="#cb325-5" aria-hidden="true" tabindex="-1"></a><span class="co"># dev.off()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="novel-gene-talong000088362" class="level2">
+<h2 class="anchored" data-anchor-id="novel-gene-talong000088362">Novel gene: TALONG000088362</h2>
+<div class="cell" data-hash="Figure2_plotNovelGenes_cache/html/unnamed-chunk-6_becef43500909a79107d95bfb2830d50">
+<div class="sourceCode cell-code" id="cb326"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb326-1"><a href="#cb326-1" aria-hidden="true" tabindex="-1"></a>this_gene <span class="ot">=</span> <span class="st">"TALONG000088362"</span>   </span>
+<span id="cb326-2"><a href="#cb326-2" aria-hidden="true" tabindex="-1"></a>these_exons <span class="ot">&lt;-</span> gr.isoseq <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(annot_gene_name <span class="sc">==</span> this_gene <span class="sc">&amp;</span> type <span class="sc">==</span> <span class="st">"exon"</span>)</span>
+<span id="cb326-3"><a href="#cb326-3" aria-hidden="true" tabindex="-1"></a>this_cds <span class="ot">&lt;-</span> gr.isoseq <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(annot_gene_name <span class="sc">==</span> this_gene <span class="sc">&amp;</span> type <span class="sc">==</span> <span class="st">"CDS"</span>)</span>
+<span id="cb326-4"><a href="#cb326-4" aria-hidden="true" tabindex="-1"></a>this.start <span class="ot">=</span> <span class="fu">min</span>(<span class="fu">c</span>(these_exons<span class="sc">$</span>start, these_exons<span class="sc">$</span>end)<span class="sc">-</span><span class="fl">5e4</span>)</span>
+<span id="cb326-5"><a href="#cb326-5" aria-hidden="true" tabindex="-1"></a>this.end <span class="ot">=</span> <span class="fu">max</span>(<span class="fu">c</span>(these_exons<span class="sc">$</span>start, these_exons<span class="sc">$</span>end)<span class="sc">+</span><span class="fl">5e4</span>)</span>
+<span id="cb326-6"><a href="#cb326-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb326-7"><a href="#cb326-7" aria-hidden="true" tabindex="-1"></a>gencode_exons <span class="ot">=</span>gr.gencode <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(type<span class="sc">==</span><span class="st">"exon"</span>, seqnames<span class="sc">==</span><span class="fu">as.character</span>(these_exons<span class="sc">$</span>seqnames[<span class="dv">1</span>]),start <span class="sc">&gt;</span> this.start, end <span class="sc">&lt;</span> this.end)</span>
+<span id="cb326-8"><a href="#cb326-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb326-9"><a href="#cb326-9" aria-hidden="true" tabindex="-1"></a>FigS3F <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(these_exons, <span class="fu">aes</span>(<span class="at">xstart =</span> start,<span class="at">xend =</span> end, <span class="at">y =</span> annot_transcript_name)) <span class="sc">+</span></span>
+<span id="cb326-10"><a href="#cb326-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_range</span>(<span class="fu">aes</span>(<span class="at">fill =</span> <span class="fu">log2</span>(<span class="dv">1</span><span class="sc">+</span>cpm), <span class="at">group=</span>novelty2), <span class="at">height=</span>.<span class="dv">25</span>) <span class="sc">+</span> </span>
+<span id="cb326-11"><a href="#cb326-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_range</span>(<span class="at">data=</span>this_cds, <span class="fu">aes</span>(<span class="at">fill =</span> <span class="fu">log2</span>(<span class="dv">1</span><span class="sc">+</span>cpm), <span class="at">group=</span>novelty2)) <span class="sc">+</span> </span>
+<span id="cb326-12"><a href="#cb326-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_intron</span>(</span>
+<span id="cb326-13"><a href="#cb326-13" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> <span class="fu">to_intron</span>(these_exons, <span class="st">"annot_transcript_name"</span>),</span>
+<span id="cb326-14"><a href="#cb326-14" aria-hidden="true" tabindex="-1"></a>        <span class="fu">aes</span>(<span class="at">strand =</span> strand),<span class="at">arrow.min.intron.length =</span> <span class="dv">5000</span>,</span>
+<span id="cb326-15"><a href="#cb326-15" aria-hidden="true" tabindex="-1"></a>        <span class="at">arrow =</span> grid<span class="sc">::</span><span class="fu">arrow</span>(<span class="at">ends =</span> <span class="st">"last"</span>, <span class="at">length =</span> grid<span class="sc">::</span><span class="fu">unit</span>(<span class="fl">0.1</span>, <span class="st">"inches"</span>)),</span>
+<span id="cb326-16"><a href="#cb326-16" aria-hidden="true" tabindex="-1"></a>        <span class="at">color=</span><span class="st">'grey60'</span>,</span>
+<span id="cb326-17"><a href="#cb326-17" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span></span>
+<span id="cb326-18"><a href="#cb326-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlim</span>(this.start, this.end) <span class="sc">+</span> </span>
+<span id="cb326-19"><a href="#cb326-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_range</span>(<span class="at">data=</span>gencode_exons, <span class="at">fill=</span><span class="st">'darkgrey'</span>, <span class="fu">aes</span>(<span class="at">xstart =</span> start,<span class="at">xend =</span> end, <span class="at">y=</span>gene_name)) <span class="sc">+</span></span>
+<span id="cb326-20"><a href="#cb326-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_intron</span>(</span>
+<span id="cb326-21"><a href="#cb326-21" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> <span class="fu">to_intron</span>(gencode_exons, <span class="st">"transcript_name"</span>),</span>
+<span id="cb326-22"><a href="#cb326-22" aria-hidden="true" tabindex="-1"></a>        <span class="fu">aes</span>(<span class="at">strand =</span> strand,<span class="at">y=</span>gene_name),<span class="at">arrow.min.intron.length =</span> <span class="dv">5000</span>,</span>
+<span id="cb326-23"><a href="#cb326-23" aria-hidden="true" tabindex="-1"></a>        <span class="at">arrow =</span> grid<span class="sc">::</span><span class="fu">arrow</span>(<span class="at">ends =</span> <span class="st">"last"</span>, <span class="at">length =</span> grid<span class="sc">::</span><span class="fu">unit</span>(<span class="fl">0.1</span>, <span class="st">"inches"</span>)),</span>
+<span id="cb326-24"><a href="#cb326-24" aria-hidden="true" tabindex="-1"></a>        <span class="at">color=</span><span class="st">'grey60'</span>,</span>
+<span id="cb326-25"><a href="#cb326-25" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span></span>
+<span id="cb326-26"><a href="#cb326-26" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb326-27"><a href="#cb326-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(source<span class="sc">~</span>.,<span class="at">scales =</span> <span class="st">'free'</span>, <span class="at">space =</span> <span class="st">'free'</span>) <span class="sc">+</span> <span class="fu">ggtitle</span>(this_gene, <span class="at">subtitle =</span> <span class="fu">paste0</span>(these_exons<span class="sc">$</span>seqnames[<span class="dv">1</span>], <span class="st">":"</span>, this.start<span class="fl">+5e4</span>,<span class="st">"-"</span>, this.end<span class="fl">-5e4</span>)) <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">'none'</span>) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x=</span>these_exons<span class="sc">$</span>seqnames[<span class="dv">1</span>], <span class="at">y=</span><span class="st">""</span>)  <span class="sc">+</span><span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="fu">scale_fill_gradient</span>(<span class="at">low =</span> <span class="st">'darkgrey'</span>, <span class="at">high=</span><span class="st">'red'</span>, <span class="at">limits=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">12</span>)) <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">'none'</span>)</span>
+<span id="cb326-28"><a href="#cb326-28" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(FigS3F, <span class="at">file=</span><span class="st">'output/figures/supplement/FigS3F.pdf'</span>, <span class="at">height=</span><span class="dv">4</span>, <span class="at">width=</span><span class="dv">6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

@@ -1,0 +1,10 @@
+/* css styles */
+.cell-output-display {
+    max-height: 56rem;
+    overflow-y: auto;
+}
+
+.cell-output-stderr>pre {
+    max-height: 56rem;
+    overflow-y: auto;
+}

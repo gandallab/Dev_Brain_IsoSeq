@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.0.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Connor Jops">
+
+<title>Dev Brain scIso-Seq CP/VZ - Figure 1 - generate Table S1</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-sidebar floating">
+
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">Figure 1 - generate Table S1</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Dev Brain scIso-Seq CP/VZ</a> 
+    </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/index.html" class="sidebar-item-text sidebar-link">Index</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure1_BulkTxomeAnalysis.html" class="sidebar-item-text sidebar-link">Figure 1 - BulkTxomeAnalysis</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure1_TableS1.html" class="sidebar-item-text sidebar-link active">Figure 1 - generate Table S1</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure2_isoFraction.html" class="sidebar-item-text sidebar-link">Figure 2 - Isoform Fraction analysis</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure2_plotNovelGenes.html" class="sidebar-item-text sidebar-link">Figure 2 - Plot Novel Genes</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure2_novel_exons.html" class="sidebar-item-text sidebar-link">Figure 2 - Novel Exons</a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">Figure 1 - generate Table S1</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Connor Jops </p>
+          </div>
+  </div>
+    
+    
+  </div>
+  
+
+</header>
+
+<div class="cell" data-hash="Figure1_TableS1_cache/html/unnamed-chunk-1_8ca0807c9c0b44322161637e49395885">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.0     ✔ readr     2.1.4
+✔ forcats   1.0.0     ✔ stringr   1.5.0
+✔ ggplot2   3.4.1     ✔ tibble    3.1.8
+✔ lubridate 1.9.2     ✔ tidyr     1.3.0
+✔ purrr     1.0.1     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the ]8;;http://conflicted.r-lib.org/conflicted package]8;; to force all conflicts to become errors</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rtracklayer)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: GenomicRanges
+Loading required package: stats4
+Loading required package: BiocGenerics
+
+Attaching package: 'BiocGenerics'
+
+The following objects are masked from 'package:lubridate':
+
+    intersect, setdiff, union
+
+The following objects are masked from 'package:dplyr':
+
+    combine, intersect, setdiff, union
+
+The following objects are masked from 'package:stats':
+
+    IQR, mad, sd, var, xtabs
+
+The following objects are masked from 'package:base':
+
+    anyDuplicated, aperm, append, as.data.frame, basename, cbind,
+    colnames, dirname, do.call, duplicated, eval, evalq, Filter, Find,
+    get, grep, grepl, intersect, is.unsorted, lapply, Map, mapply,
+    match, mget, order, paste, pmax, pmax.int, pmin, pmin.int,
+    Position, rank, rbind, Reduce, rownames, sapply, setdiff, sort,
+    table, tapply, union, unique, unsplit, which.max, which.min
+
+Loading required package: S4Vectors
+
+Attaching package: 'S4Vectors'
+
+The following objects are masked from 'package:lubridate':
+
+    second, second&lt;-
+
+The following objects are masked from 'package:dplyr':
+
+    first, rename
+
+The following object is masked from 'package:tidyr':
+
+    expand
+
+The following objects are masked from 'package:base':
+
+    expand.grid, I, unname
+
+Loading required package: IRanges
+
+Attaching package: 'IRanges'
+
+The following object is masked from 'package:lubridate':
+
+    %within%
+
+The following objects are masked from 'package:dplyr':
+
+    collapse, desc, slice
+
+The following object is masked from 'package:purrr':
+
+    reduce
+
+Loading required package: GenomeInfoDb</code></pre>
+</div>
+</div>
+<div class="cell" data-hash="Figure1_TableS1_cache/html/unnamed-chunk-2_1eb4609848eb6909a56b9310abbe6dcc">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">theme_bw</span>())</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_update</span>(</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="fu">rel</span>(<span class="fl">1.4</span>), <span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="fu">rel</span>(<span class="fl">1.2</span>)),</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">color=</span><span class="st">"black"</span>, <span class="at">size =</span> <span class="fu">rel</span>(<span class="dv">1</span>)),</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">legend.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="fu">rel</span>(<span class="fl">1.2</span>)),</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">color=</span><span class="st">"black"</span>, <span class="at">size =</span> <span class="fu">rel</span>(<span class="dv">1</span>)),</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">strip.text =</span> <span class="fu">element_text</span>(<span class="at">color=</span><span class="st">"black"</span>, <span class="at">size =</span> <span class="fu">rel</span>(<span class="dv">1</span>))</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-hash="Figure1_TableS1_cache/html/unnamed-chunk-3_abdc3e89e652c0d42ab066d3c53006c0">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>cts <span class="ot">=</span> <span class="fu">read_table</span>(<span class="st">"data/cp_vz_0.75_min_7_recovery_talon_abundance_filtered.tsv.gz"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+── Column specification ────────────────────────────────────────────────────────
+cols(
+  .default = col_double(),
+  annot_gene_id = col_character(),
+  annot_transcript_id = col_character(),
+  annot_gene_name = col_character(),
+  annot_transcript_name = col_character(),
+  gene_novelty = col_character(),
+  transcript_novelty = col_character(),
+  ISM_subtype = col_character()
+)
+ℹ Use `spec()` for the full column specifications.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>cts <span class="ot">=</span> cts <span class="sc">%&gt;%</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">VZ_209 =</span> <span class="fu">rowSums</span>(<span class="fu">across</span>(<span class="fu">matches</span>(<span class="st">"209_.*_VZ"</span>))),</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">VZ_334 =</span> <span class="fu">rowSums</span>(<span class="fu">across</span>(<span class="fu">matches</span>(<span class="st">"334_.*_VZ"</span>))),</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">VZ_336 =</span> <span class="fu">rowSums</span>(<span class="fu">across</span>(<span class="fu">matches</span>(<span class="st">"336_.*_VZ"</span>))),</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">CP_209 =</span> <span class="fu">rowSums</span>(<span class="fu">across</span>(<span class="fu">matches</span>(<span class="st">"209_.*_CP"</span>))),</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">CP_334 =</span> <span class="fu">rowSums</span>(<span class="fu">across</span>(<span class="fu">matches</span>(<span class="st">"334_.*_CP"</span>))),</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">CP_336 =</span> <span class="fu">rowSums</span>(<span class="fu">across</span>(<span class="fu">matches</span>(<span class="st">"336_.*_CP"</span>))),</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">.keep =</span> <span class="st">"unused"</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">!</span><span class="fu">c</span>(<span class="st">"gene_ID"</span>, <span class="st">"transcript_ID"</span>, <span class="st">"annot_transcript_name"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">gene_id =</span> <span class="st">"annot_gene_id"</span>,</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">transcript_id =</span> <span class="st">"annot_transcript_id"</span>,</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">gene_name =</span> <span class="st">"annot_gene_name"</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">gene_novelty =</span> <span class="fu">as.factor</span>(gene_novelty) <span class="sc">%&gt;%</span> <span class="fu">fct_infreq</span>() <span class="sc">%&gt;%</span> <span class="fu">fct_relevel</span>(<span class="st">"Known"</span>),</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">transcript_novelty =</span> <span class="fu">as.factor</span>(transcript_novelty)  <span class="sc">%&gt;%</span> <span class="fu">fct_infreq</span>(),</span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">ISM_subtype =</span> ISM_subtype <span class="sc">%&gt;%</span> <span class="fu">na_if</span>(<span class="st">"None"</span>) <span class="sc">%&gt;%</span> <span class="fu">factor</span>(<span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Prefix"</span>, <span class="st">"Suffix"</span>, <span class="st">"Both"</span>))</span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>cts</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 214,516 × 14
+   gene_id  trans…¹ gene_…² n_exons length gene_…³ trans…⁴ ISM_s…⁵ VZ_209 VZ_334
+   &lt;chr&gt;    &lt;chr&gt;   &lt;chr&gt;     &lt;dbl&gt;  &lt;dbl&gt; &lt;fct&gt;   &lt;fct&gt;   &lt;fct&gt;    &lt;dbl&gt;  &lt;dbl&gt;
+ 1 ENSG000… ENST00… AL6273…       1    755 Known   Known   &lt;NA&gt;         0      0
+ 2 ENSG000… ENST00… AP0062…       4   2257 Known   Known   &lt;NA&gt;         0      0
+ 3 ENSG000… ENST00… RP4-66…       1    180 Known   Known   &lt;NA&gt;         1      1
+ 4 ENSG000… ENST00… MTND2P…       1   1044 Known   Known   &lt;NA&gt;         0      1
+ 5 ENSG000… ENST00… MTCO1P…       1   1543 Known   Known   &lt;NA&gt;         0      0
+ 6 ENSG000… ENST00… LINC01…       3   1869 Known   Known   &lt;NA&gt;         0      2
+ 7 ENSG000… ENST00… LINC01…       2    566 Known   Known   &lt;NA&gt;         0      2
+ 8 ENSG000… ENST00… LINC01…       1   1873 Known   Known   &lt;NA&gt;         1      0
+ 9 ENSG000… ENST00… AL6698…       1    114 Known   Known   &lt;NA&gt;         3      0
+10 ENSG000… ENST00… LINC01…       5   6616 Known   Known   &lt;NA&gt;         1      0
+# … with 214,506 more rows, 4 more variables: VZ_336 &lt;dbl&gt;, CP_209 &lt;dbl&gt;,
+#   CP_334 &lt;dbl&gt;, CP_336 &lt;dbl&gt;, and abbreviated variable names ¹​transcript_id,
+#   ²​gene_name, ³​gene_novelty, ⁴​transcript_novelty, ⁵​ISM_subtype</code></pre>
+</div>
+</div>
+<div class="cell" data-hash="Figure1_TableS1_cache/html/unnamed-chunk-4_fd479d5d5147d053c582f392727447e4">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>talon_gtf <span class="ot">=</span> rtracklayer<span class="sc">::</span><span class="fu">import</span>(<span class="st">"data/cp_vz_0.75_min_7_recovery_talon.gtf.gz"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-hash="Figure1_TableS1_cache/html/unnamed-chunk-5_b6ad33916e918d3361e202aa24c8611a">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>talon_gtf <span class="ot">=</span> talon_gtf <span class="sc">%&gt;%</span> <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span> <span class="fu">filter</span>(type <span class="sc">==</span> <span class="st">"transcript"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-hash="Figure1_TableS1_cache/html/unnamed-chunk-6_7e99bed8d6a88f33239a6a0cc3f5747d">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>sqanti <span class="ot">=</span> <span class="fu">read_tsv</span>(<span class="st">"data/sqanti/cp_vz_0.75_min_7_recovery_talon_classification.txt.gz"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 214516 Columns: 48
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: "\t"
+chr (14): isoform, chrom, strand, structural_category, associated_gene, asso...
+dbl (21): length, exons, ref_length, ref_exons, diff_to_TSS, diff_to_TTS, di...
+lgl (13): RTS_stage, FL, n_indels, n_indels_junc, bite, iso_exp, gene_exp, r...
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+</div>
+<p>External support used for TALON whitelist creation (some is from our initial unfiltered run of SQANTI and some is from TALON scripts)</p>
+<p>(there might be something wrong with this file - contains NAs)</p>
+<div class="cell" data-hash="Figure1_TableS1_cache/html/unnamed-chunk-7_cc46ae8c23e3207e511ce56a4ecc9e3f">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>whitelist_support <span class="ot">=</span> <span class="fu">read_tsv</span>(<span class="st">"data/cp_vz_unfiltered_external_support.tsv.gz"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 214516 Columns: 22
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: "\t"
+chr  (7): annot_transcript_id, annot_gene_id, annot_gene_name, gene_novelty,...
+dbl  (5): n_reads, n_donors, dist_to_CAGE_peak, dist_to_polyA_site, dist_to_...
+lgl (10): within_CAGE_peak, within_polyA_site, polyA_motif_found, CAGE_suppo...
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>whitelist_support</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 214,516 × 22
+   annot_trans…¹ annot…² annot…³ gene_…⁴ trans…⁵ ISM_s…⁶ n_reads n_don…⁷ dist_…⁸
+   &lt;chr&gt;         &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;     &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+ 1 ENST00000000… ENSG00… ARF5    Known   Known   &lt;NA&gt;        825       3       6
+ 2 ENST00000000… ENSG00… M6PR    Known   Known   &lt;NA&gt;       1955       3      19
+ 3 ENST00000000… ENSG00… ESRRA   Known   Known   &lt;NA&gt;         11       3       2
+ 4 ENST00000001… ENSG00… FKBP4   Known   Known   &lt;NA&gt;       2319       3     -30
+ 5 ENST00000001… ENSG00… CYP26B1 Known   Known   &lt;NA&gt;         63       3    6497
+ 6 ENST00000002… ENSG00… NDUFAF7 Known   Known   &lt;NA&gt;        158       3     -19
+ 7 ENST00000002… ENSG00… FUCA2   Known   Known   &lt;NA&gt;        663       3     -10
+ 8 ENST00000002… ENSG00… DBNDD1  Known   Known   &lt;NA&gt;        421       3       0
+ 9 ENST00000002… ENSG00… HS3ST1  Known   Known   &lt;NA&gt;       1351       3      -8
+10 ENST00000003… ENSG00… CYP51A1 Known   Known   &lt;NA&gt;       6691       3     -22
+# … with 214,506 more rows, 13 more variables: within_CAGE_peak &lt;lgl&gt;,
+#   dist_to_polyA_site &lt;dbl&gt;, within_polyA_site &lt;lgl&gt;, polyA_motif &lt;chr&gt;,
+#   dist_to_polyA_motif &lt;dbl&gt;, polyA_motif_found &lt;lgl&gt;, CAGE_support_100 &lt;lgl&gt;,
+#   CAGE_support_250 &lt;lgl&gt;, CAGE_support_500 &lt;lgl&gt;, PAS_motif_support_35 &lt;lgl&gt;,
+#   PAS_motif_support_50 &lt;lgl&gt;, PAS_motif_support_100 &lt;lgl&gt;,
+#   long_read_db &lt;lgl&gt;, and abbreviated variable names ¹​annot_transcript_id,
+#   ²​annot_gene_id, ³​annot_gene_name, ⁴​gene_novelty, ⁵​transcript_novelty, …</code></pre>
+</div>
+</div>
+<div class="cell" data-hash="Figure1_TableS1_cache/html/unnamed-chunk-8_091ed5a6b9957b1f592bb3b366115a0b">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>sanity_check <span class="ot">=</span> whitelist_support <span class="sc">%&gt;%</span> <span class="fu">left_join</span>(sqanti, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"annot_transcript_id"</span> <span class="ot">=</span> <span class="st">"isoform"</span>))</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>sanity_check <span class="sc">%&gt;%</span> <span class="fu">filter</span>(within_CAGE_peak.x <span class="sc">!=</span> within_CAGE_peak.y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 0 × 69
+# … with 69 variables: annot_transcript_id &lt;chr&gt;, annot_gene_id &lt;chr&gt;,
+#   annot_gene_name &lt;chr&gt;, gene_novelty &lt;chr&gt;, transcript_novelty &lt;chr&gt;,
+#   ISM_subtype &lt;chr&gt;, n_reads &lt;dbl&gt;, n_donors &lt;dbl&gt;,
+#   dist_to_CAGE_peak.x &lt;dbl&gt;, within_CAGE_peak.x &lt;lgl&gt;,
+#   dist_to_polyA_site.x &lt;dbl&gt;, within_polyA_site.x &lt;lgl&gt;, polyA_motif.x &lt;chr&gt;,
+#   dist_to_polyA_motif &lt;dbl&gt;, polyA_motif_found.x &lt;lgl&gt;,
+#   CAGE_support_100 &lt;lgl&gt;, CAGE_support_250 &lt;lgl&gt;, CAGE_support_500 &lt;lgl&gt;, …</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>sanity_check <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="fu">is.na</span>(within_CAGE_peak.x) <span class="sc">&amp;</span> <span class="sc">!</span>within_CAGE_peak.y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3,163 × 69
+   annot_trans…¹ annot…² annot…³ gene_…⁴ trans…⁵ ISM_s…⁶ n_reads n_don…⁷ dist_…⁸
+   &lt;chr&gt;         &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;     &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+ 1 ENST00000070… ENSG00… PKP2    Known   Known   &lt;NA&gt;         NA      NA      NA
+ 2 ENST00000218… ENSG00… STAG2   Known   Known   &lt;NA&gt;         NA      NA      NA
+ 3 ENST00000238… ENSG00… ZC2HC1C Known   Known   &lt;NA&gt;         NA      NA      NA
+ 4 ENST00000245… ENSG00… RPL23   Known   Known   &lt;NA&gt;         NA      NA      NA
+ 5 ENST00000252… ENSG00… FUT5    Known   Known   &lt;NA&gt;         NA      NA      NA
+ 6 ENST00000254… ENSG00… UBE2L2  Known   Known   &lt;NA&gt;         NA      NA      NA
+ 7 ENST00000254… ENSG00… ZSWIM4  Known   Known   &lt;NA&gt;         NA      NA      NA
+ 8 ENST00000254… ENSG00… AL3919… Known   Known   &lt;NA&gt;         NA      NA      NA
+ 9 ENST00000261… ENSG00… FOXN3   Known   Known   &lt;NA&gt;         NA      NA      NA
+10 ENST00000262… ENSG00… IKZF4   Known   Known   &lt;NA&gt;         NA      NA      NA
+# … with 3,153 more rows, 60 more variables: within_CAGE_peak.x &lt;lgl&gt;,
+#   dist_to_polyA_site.x &lt;dbl&gt;, within_polyA_site.x &lt;lgl&gt;, polyA_motif.x &lt;chr&gt;,
+#   dist_to_polyA_motif &lt;dbl&gt;, polyA_motif_found.x &lt;lgl&gt;,
+#   CAGE_support_100 &lt;lgl&gt;, CAGE_support_250 &lt;lgl&gt;, CAGE_support_500 &lt;lgl&gt;,
+#   PAS_motif_support_35 &lt;lgl&gt;, PAS_motif_support_50 &lt;lgl&gt;,
+#   PAS_motif_support_100 &lt;lgl&gt;, long_read_db &lt;lgl&gt;, chrom &lt;chr&gt;, strand &lt;chr&gt;,
+#   length &lt;dbl&gt;, exons &lt;dbl&gt;, structural_category &lt;chr&gt;, …</code></pre>
+</div>
+</div>
+<div class="cell" data-hash="Figure1_TableS1_cache/html/unnamed-chunk-9_22ac0a6f90a0e1f21804797e6de00aed">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>support_for_plot <span class="ot">=</span> cts <span class="sc">%&gt;%</span> <span class="fu">select</span>(transcript_id, transcript_novelty) <span class="sc">%&gt;%</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">read_csv</span>(<span class="st">"data/within_CAGE/cpvz_refTSS_200_CAGE_results.csv"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate</span>(<span class="at">CAGE_support =</span> CAGE_support <span class="sc">==</span> <span class="st">"yes"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>      dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="at">within_CAGE_refTSS =</span> <span class="st">"CAGE_support"</span>),</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"transcript_id"</span> <span class="ot">=</span> <span class="st">"transcript_ID"</span>)</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">read_csv</span>(<span class="st">"data/within_CAGE/cpvz_fetal_200_CAGE_results.csv"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate</span>(<span class="at">CAGE_support =</span> CAGE_support <span class="sc">==</span> <span class="st">"yes"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>      dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="at">within_CAGE_fetal =</span> <span class="st">"CAGE_support"</span>),</span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"transcript_id"</span> <span class="ot">=</span> <span class="st">"transcript_ID"</span>)</span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(</span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">read_csv</span>(<span class="st">"data/within_ATAC/cpvz_Greenleaf_500_ATAC_results.csv"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate</span>(<span class="at">CAGE_support =</span> CAGE_support <span class="sc">==</span> <span class="st">"yes"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a>      dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="at">within_ATAC_Greenleaf =</span> <span class="st">"CAGE_support"</span>),</span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"transcript_id"</span> <span class="ot">=</span> <span class="st">"transcript_ID"</span>)</span>
+<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(</span>
+<span id="cb22-21"><a href="#cb22-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">read_csv</span>(<span class="st">"data/within_ATAC/cpvz_Nowakowski_500_ATAC_results.csv"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb22-22"><a href="#cb22-22" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate</span>(<span class="at">CAGE_support =</span> CAGE_support <span class="sc">==</span> <span class="st">"yes"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb22-23"><a href="#cb22-23" aria-hidden="true" tabindex="-1"></a>      dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="at">within_ATAC_Nowakowski =</span> <span class="st">"CAGE_support"</span>),</span>
+<span id="cb22-24"><a href="#cb22-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"transcript_id"</span> <span class="ot">=</span> <span class="st">"transcript_ID"</span>)</span>
+<span id="cb22-25"><a href="#cb22-25" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb22-26"><a href="#cb22-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(</span>
+<span id="cb22-27"><a href="#cb22-27" aria-hidden="true" tabindex="-1"></a>    <span class="fu">read_csv</span>(<span class="st">"data/within_ATAC/cpvz_LuisCP_500_ATAC_results.csv"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb22-28"><a href="#cb22-28" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate</span>(<span class="at">CAGE_support =</span> CAGE_support <span class="sc">==</span> <span class="st">"yes"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb22-29"><a href="#cb22-29" aria-hidden="true" tabindex="-1"></a>      dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="at">within_ATAC_LuisCP =</span> <span class="st">"CAGE_support"</span>),</span>
+<span id="cb22-30"><a href="#cb22-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"transcript_id"</span> <span class="ot">=</span> <span class="st">"transcript_ID"</span>)</span>
+<span id="cb22-31"><a href="#cb22-31" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb22-32"><a href="#cb22-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(</span>
+<span id="cb22-33"><a href="#cb22-33" aria-hidden="true" tabindex="-1"></a>    <span class="fu">read_csv</span>(<span class="st">"data/within_ATAC/cpvz_LuisVZ_500_ATAC_results.csv"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb22-34"><a href="#cb22-34" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate</span>(<span class="at">CAGE_support =</span> CAGE_support <span class="sc">==</span> <span class="st">"yes"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb22-35"><a href="#cb22-35" aria-hidden="true" tabindex="-1"></a>      dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="at">within_ATAC_LuisGZ =</span> <span class="st">"CAGE_support"</span>),</span>
+<span id="cb22-36"><a href="#cb22-36" aria-hidden="true" tabindex="-1"></a>    <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"transcript_id"</span> <span class="ot">=</span> <span class="st">"transcript_ID"</span>)</span>
+<span id="cb22-37"><a href="#cb22-37" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb22-38"><a href="#cb22-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(</span>
+<span id="cb22-39"><a href="#cb22-39" aria-hidden="true" tabindex="-1"></a>    sqanti <span class="sc">%&gt;%</span> <span class="fu">select</span>(isoform, within_polyA_site, polyA_motif_found),</span>
+<span id="cb22-40"><a href="#cb22-40" aria-hidden="true" tabindex="-1"></a>    <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"transcript_id"</span> <span class="ot">=</span> <span class="st">"isoform"</span>)</span>
+<span id="cb22-41"><a href="#cb22-41" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb22-42"><a href="#cb22-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="sc">!</span><span class="fu">c</span>(<span class="st">"transcript_id"</span>, <span class="st">"transcript_novelty"</span>), <span class="sc">~</span><span class="fu">replace_na</span>(., F)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 214516 Columns: 2
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (2): transcript_ID, CAGE_support
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+Rows: 214516 Columns: 2
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (2): transcript_ID, CAGE_support
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+Rows: 214516 Columns: 2
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (2): transcript_ID, CAGE_support
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+Rows: 214516 Columns: 2
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (2): transcript_ID, CAGE_support
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+Rows: 214516 Columns: 2
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (2): transcript_ID, CAGE_support
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+Rows: 214516 Columns: 2
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (2): transcript_ID, CAGE_support
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>support_for_plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 214,516 × 10
+   transcript_id trans…¹ withi…² withi…³ withi…⁴ withi…⁵ withi…⁶ withi…⁷ withi…⁸
+   &lt;chr&gt;         &lt;fct&gt;   &lt;lgl&gt;   &lt;lgl&gt;   &lt;lgl&gt;   &lt;lgl&gt;   &lt;lgl&gt;   &lt;lgl&gt;   &lt;lgl&gt;  
+ 1 ENST00000494… Known   FALSE   FALSE   FALSE   FALSE   FALSE   FALSE   FALSE  
+ 2 ENST00000424… Known   FALSE   FALSE   FALSE   FALSE   FALSE   FALSE   FALSE  
+ 3 ENST00000445… Known   FALSE   FALSE   FALSE   FALSE   FALSE   FALSE   FALSE  
+ 4 ENST00000457… Known   TRUE    TRUE    TRUE    TRUE    FALSE   FALSE   TRUE   
+ 5 ENST00000414… Known   TRUE    FALSE   FALSE   FALSE   FALSE   FALSE   TRUE   
+ 6 ENST00000655… Known   FALSE   TRUE    TRUE    TRUE    FALSE   FALSE   FALSE  
+ 7 ENST00000457… Known   FALSE   TRUE    TRUE    TRUE    FALSE   FALSE   FALSE  
+ 8 ENST00000591… Known   FALSE   FALSE   FALSE   FALSE   FALSE   FALSE   TRUE   
+ 9 ENST00000644… Known   FALSE   FALSE   FALSE   FALSE   FALSE   FALSE   FALSE  
+10 ENST00000445… Known   TRUE    TRUE    TRUE    TRUE    FALSE   FALSE   TRUE   
+# … with 214,506 more rows, 1 more variable: polyA_motif_found &lt;lgl&gt;, and
+#   abbreviated variable names ¹​transcript_novelty, ²​within_CAGE_refTSS,
+#   ³​within_CAGE_fetal, ⁴​within_ATAC_Greenleaf, ⁵​within_ATAC_Nowakowski,
+#   ⁶​within_ATAC_LuisCP, ⁷​within_ATAC_LuisGZ, ⁸​within_polyA_site</code></pre>
+</div>
+</div>
+<div class="cell" data-hash="Figure1_TableS1_cache/html/unnamed-chunk-10_ba5ba53ed431c175c86bbd06899b627f">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>support_for_plot2 <span class="ot">=</span> support_for_plot <span class="sc">%&gt;%</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(transcript_novelty) <span class="sc">%&gt;%</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="co">#    any_5p = sum(within_CAGE_refTSS | within_CAGE_fetal | within_ATAC_Greenleaf | within_ATAC_Nowakowski, na.rm = T),</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">within_CAGE_peak =</span> <span class="fu">sum</span>(within_CAGE_refTSS <span class="sc">|</span> within_CAGE_fetal, <span class="at">na.rm =</span> T),</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">within_ATAC_peak =</span> <span class="fu">sum</span>(within_ATAC_Greenleaf <span class="sc">|</span> within_ATAC_Nowakowski <span class="sc">|</span> within_ATAC_LuisCP <span class="sc">|</span> within_ATAC_LuisGZ, <span class="at">na.rm =</span> T),</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="co">#    any_3p = sum(within_polyA_site | polyA_motif_found, na.rm = T),</span></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">within_polyA_site =</span> <span class="fu">sum</span>(within_polyA_site, <span class="at">na.rm =</span> T),</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">polyA_motif_found =</span> <span class="fu">sum</span>(polyA_motif_found, <span class="at">na.rm =</span> T),</span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">n</span>()</span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">!</span><span class="fu">c</span>(<span class="st">"transcript_novelty"</span>, <span class="st">"n"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">prop =</span> value <span class="sc">/</span> n) <span class="sc">%&gt;%</span></span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">end =</span> <span class="fu">if_else</span>(name <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"within_polyA_site"</span>, <span class="st">"polyA_motif_found"</span>, <span class="st">"any_3p"</span>), <span class="st">"3′-end support"</span>, <span class="st">"5′-end support"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">end =</span> end <span class="sc">%&gt;%</span> <span class="fu">factor</span>(<span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"5′-end support"</span>, <span class="st">"3′-end support"</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">name =</span> name <span class="sc">%&gt;%</span> <span class="fu">as_factor</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">transcript_novelty =</span> transcript_novelty <span class="sc">%&gt;%</span> <span class="fu">fct_relevel</span>(<span class="st">"Known"</span>) <span class="sc">%&gt;%</span> <span class="fu">fct_other</span>(<span class="at">drop =</span> <span class="fu">c</span>(<span class="st">"Antisense"</span>, <span class="st">"Intergenic"</span>, <span class="st">"Genomic"</span>)))</span>
+<span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a>support_for_plot2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 28 × 6
+   transcript_novelty     n name              value  prop end           
+   &lt;fct&gt;              &lt;int&gt; &lt;fct&gt;             &lt;int&gt; &lt;dbl&gt; &lt;fct&gt;         
+ 1 ISM                83089 within_CAGE_peak  41387 0.498 5′-end support
+ 2 ISM                83089 within_ATAC_peak  45668 0.550 5′-end support
+ 3 ISM                83089 within_polyA_site 63833 0.768 3′-end support
+ 4 ISM                83089 polyA_motif_found 65760 0.791 3′-end support
+ 5 Known              65006 within_CAGE_peak  49495 0.761 5′-end support
+ 6 Known              65006 within_ATAC_peak  54138 0.833 5′-end support
+ 7 Known              65006 within_polyA_site 42187 0.649 3′-end support
+ 8 Known              65006 polyA_motif_found 41856 0.644 3′-end support
+ 9 NIC                50621 within_CAGE_peak  49442 0.977 5′-end support
+10 NIC                50621 within_ATAC_peak  49674 0.981 5′-end support
+# … with 18 more rows</code></pre>
+</div>
+</div>
+<div class="cell" data-hash="Figure1_TableS1_cache/html/unnamed-chunk-11_05fcf6fe2c033709d9065550a85ab4d2">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(support_for_plot2, <span class="fu">aes</span>(<span class="at">x =</span> prop, <span class="at">y =</span> transcript_novelty, <span class="at">fill =</span> <span class="fu">fct_rev</span>(name))) <span class="sc">+</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">position =</span> <span class="st">"dodge"</span>) <span class="sc">+</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_discrete</span>(<span class="at">limits =</span> rev) <span class="sc">+</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">limits =</span> <span class="fu">c</span>(<span class="st">"within_CAGE_peak"</span>, <span class="st">"within_ATAC_peak"</span>, <span class="st">"within_polyA_site"</span>, <span class="st">"polyA_motif_found"</span>),</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"CAGE"</span>, <span class="st">"ATAC-seq"</span>, <span class="st">"polyA site"</span>, <span class="st">"polyA motif"</span>),</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">values =</span> <span class="fu">c</span>(<span class="st">"#00bfc4"</span>, <span class="st">"#00a9ff"</span>, <span class="st">"#c77cff"</span>, <span class="st">"#ff61cc"</span>)</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Proportion of transcripts"</span>,</span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="cn">NULL</span>,</span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="cn">NULL</span></span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(</span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="fu">guide_legend</span>(<span class="at">ncol =</span> <span class="dv">2</span>)</span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.major =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb28-20"><a href="#cb28-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">"bottom"</span>,</span>
+<span id="cb28-21"><a href="#cb28-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.spacing =</span> <span class="fu">unit</span>(<span class="dv">2</span>, <span class="st">"lines"</span>),</span>
+<span id="cb28-22"><a href="#cb28-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.margin =</span> <span class="fu">margin</span>(<span class="dv">11</span>, <span class="dv">11</span>, <span class="dv">11</span>, <span class="dv">11</span>, <span class="st">"points"</span>)</span>
+<span id="cb28-23"><a href="#cb28-23" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb28-24"><a href="#cb28-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="fu">vars</span>(end))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Figure1_TableS1_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell" data-hash="Figure1_TableS1_cache/html/unnamed-chunk-12_6e45adeba9dc0334bbca2fb825d10bcd">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co">#ggsave("output/figures/Fig1_external_support_v8.png", width = 11, height = 8.5, units = "in", dpi = 300)</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">"output/figures/Fig2/Fig2B_external_support_v2.pdf"</span>, <span class="at">width =</span> <span class="dv">8</span>, <span class="at">height =</span> <span class="dv">6</span>, <span class="at">units =</span> <span class="st">"in"</span>, <span class="at">dpi =</span> <span class="dv">300</span>, <span class="at">device=</span>cairo_pdf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-hash="Figure1_TableS1_cache/html/unnamed-chunk-13_600afcff1ee809cd10d1d11e405eb4c1">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>tableS1 <span class="ot">=</span> talon_gtf <span class="sc">%&gt;%</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(seqnames, start, end, strand, gene_id, gene_name, gene_status, gene_type, transcript_id, transcript_status, transcript_type) <span class="sc">%&gt;%</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>    cts <span class="sc">%&gt;%</span> <span class="fu">select</span>(transcript_id, gene_novelty, transcript_novelty, ISM_subtype, n_exons, length),</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">by =</span> <span class="st">"transcript_id"</span></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(</span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>    support_for_plot,</span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"transcript_id"</span>, <span class="st">"transcript_novelty"</span>)</span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a><span class="co">#  dplyr::rename(gencode_gene_type = "gene_type", gencode_transcript_type = "transcript_type") %&gt;%</span></span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(gene_novelty, <span class="at">.after =</span> gene_type) <span class="sc">%&gt;%</span></span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">within_CAGE_peak =</span> within_CAGE_refTSS <span class="sc">|</span> within_CAGE_fetal,</span>
+<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">within_ATAC_peak =</span> within_ATAC_Greenleaf <span class="sc">|</span> within_ATAC_Nowakowski <span class="sc">|</span> within_ATAC_LuisCP <span class="sc">|</span> within_ATAC_LuisGZ,</span>
+<span id="cb30-16"><a href="#cb30-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">.keep =</span> <span class="st">"unused"</span>,</span>
+<span id="cb30-17"><a href="#cb30-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">.before =</span> within_polyA_site</span>
+<span id="cb30-18"><a href="#cb30-18" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb30-19"><a href="#cb30-19" aria-hidden="true" tabindex="-1"></a>tableS1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 214,516 × 20
+   seqnames start   end strand gene_id   gene_…¹ gene_…² gene_…³ gene_…⁴ trans…⁵
+   &lt;fct&gt;    &lt;int&gt; &lt;int&gt; &lt;fct&gt;  &lt;chr&gt;     &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;fct&gt;   &lt;chr&gt;  
+ 1 chr1     14404 29570 -      ENSG0000… WASH7P  KNOWN   unproc… Known   TALONT…
+ 2 chr1     14404 21859 -      ENSG0000… WASH7P  KNOWN   unproc… Known   TALONT…
+ 3 chr1     14404 29570 -      ENSG0000… WASH7P  KNOWN   unproc… Known   TALONT…
+ 4 chr1     14404 21119 -      ENSG0000… WASH7P  KNOWN   unproc… Known   TALONT…
+ 5 chr1     14404 29570 -      ENSG0000… WASH7P  KNOWN   unproc… Known   TALONT…
+ 6 chr1     14404 29570 -      ENSG0000… WASH7P  KNOWN   unproc… Known   TALONT…
+ 7 chr1     14404 29570 -      ENSG0000… WASH7P  KNOWN   unproc… Known   TALONT…
+ 8 chr1     14404 29570 -      ENSG0000… WASH7P  KNOWN   unproc… Known   TALONT…
+ 9 chr1     14404 29570 -      ENSG0000… WASH7P  KNOWN   unproc… Known   TALONT…
+10 chr1     14404 29570 -      ENSG0000… WASH7P  KNOWN   unproc… Known   TALONT…
+# … with 214,506 more rows, 10 more variables: transcript_status &lt;chr&gt;,
+#   transcript_type &lt;chr&gt;, transcript_novelty &lt;fct&gt;, ISM_subtype &lt;fct&gt;,
+#   n_exons &lt;dbl&gt;, length &lt;dbl&gt;, within_CAGE_peak &lt;lgl&gt;,
+#   within_ATAC_peak &lt;lgl&gt;, within_polyA_site &lt;lgl&gt;, polyA_motif_found &lt;lgl&gt;,
+#   and abbreviated variable names ¹​gene_name, ²​gene_status, ³​gene_type,
+#   ⁴​gene_novelty, ⁵​transcript_id</code></pre>
+</div>
+</div>
+<div class="cell" data-hash="Figure1_TableS1_cache/html/unnamed-chunk-14_f8c9d4b540f1242d4806d8fb50be1044">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>tableS1 <span class="sc">%&gt;%</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">write_tsv</span>(<span class="st">"output/tables/TableS1_v5.tsv.gz"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Numbers for manuscript text:</p>
+<div class="cell" data-hash="Figure1_TableS1_cache/html/unnamed-chunk-15_61879ea443199b921076fc2cafda4bc4">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>tableS1 <span class="sc">%&gt;%</span> <span class="fu">count</span>(transcript_status)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 2
+  transcript_status      n
+  &lt;chr&gt;              &lt;int&gt;
+1 KNOWN              65006
+2 NOVEL             149510</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>tableS1Novel1 <span class="ot">=</span> tableS1 <span class="sc">%&gt;%</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(transcript_novelty <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"NIC"</span>, <span class="st">"NNC"</span>))</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>tableS1Novel1 <span class="sc">%&gt;%</span></span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">n =</span> <span class="fu">n</span>(), <span class="at">n_genes =</span> <span class="fu">n_distinct</span>(gene_id))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 2
+      n n_genes
+  &lt;int&gt;   &lt;int&gt;
+1 65184   10175</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>tableS1Novel2 <span class="ot">=</span> tableS1 <span class="sc">%&gt;%</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(transcript_novelty <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"NIC"</span>, <span class="st">"NNC"</span>, <span class="st">"ISM"</span>))</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>tableS1Novel2 <span class="sc">%&gt;%</span></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(within_CAGE_peak, within_ATAC_peak) <span class="sc">%&gt;%</span></span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">prop =</span> n<span class="sc">/</span><span class="fu">nrow</span>(tableS1Novel2))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 4
+  within_CAGE_peak within_ATAC_peak     n   prop
+  &lt;lgl&gt;            &lt;lgl&gt;            &lt;int&gt;  &lt;dbl&gt;
+1 FALSE            FALSE            28580 0.193 
+2 FALSE            TRUE             15183 0.102 
+3 TRUE             FALSE            10204 0.0688
+4 TRUE             TRUE             94306 0.636 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>tableS1Novel2 <span class="sc">%&gt;%</span> <span class="fu">count</span>(within_CAGE_peak) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">prop =</span> n<span class="sc">/</span><span class="fu">nrow</span>(tableS1Novel2))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 3
+  within_CAGE_peak      n  prop
+  &lt;lgl&gt;             &lt;int&gt; &lt;dbl&gt;
+1 FALSE             43763 0.295
+2 TRUE             104510 0.705</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>tableS1Novel2 <span class="sc">%&gt;%</span> <span class="fu">count</span>(within_ATAC_peak) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">prop =</span> n<span class="sc">/</span><span class="fu">nrow</span>(tableS1Novel2))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 3
+  within_ATAC_peak      n  prop
+  &lt;lgl&gt;             &lt;int&gt; &lt;dbl&gt;
+1 FALSE             38784 0.262
+2 TRUE             109489 0.738</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>tableS1Novel2 <span class="sc">%&gt;%</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(within_polyA_site, polyA_motif_found) <span class="sc">%&gt;%</span></span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">prop =</span> n<span class="sc">/</span><span class="fu">nrow</span>(tableS1Novel2))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 4
+  within_polyA_site polyA_motif_found      n   prop
+  &lt;lgl&gt;             &lt;lgl&gt;              &lt;int&gt;  &lt;dbl&gt;
+1 FALSE             FALSE              13342 0.0900
+2 FALSE             TRUE               13429 0.0906
+3 TRUE              FALSE              12279 0.0828
+4 TRUE              TRUE              109223 0.737 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>tableS1 <span class="sc">%&gt;%</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(transcript_novelty <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Known"</span>, <span class="st">"ISM"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(transcript_novelty, within_polyA_site <span class="sc">|</span> polyA_motif_found)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 3
+  transcript_novelty `within_polyA_site | polyA_motif_found`     n
+  &lt;fct&gt;              &lt;lgl&gt;                                   &lt;int&gt;
+1 ISM                FALSE                                    9997
+2 ISM                TRUE                                    73092
+3 Known              FALSE                                   15470
+4 Known              TRUE                                    49536</code></pre>
+</div>
+</div>
+<p>Splice junctions from SQANTI:</p>
+<div class="cell" data-hash="Figure1_TableS1_cache/html/unnamed-chunk-16_d57f48304400fa36d4f5d0005f8ea095">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>sqantiJunc <span class="ot">=</span> <span class="fu">read_tsv</span>(<span class="st">"data/sqanti/cp_vz_0.75_min_7_recovery_talon_junctions.txt.gz"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 1901871 Columns: 24
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: "\t"
+chr (10): isoform, chrom, strand, junction_number, transcript_coord, junctio...
+dbl  (9): genomic_start_coord, genomic_end_coord, diff_to_Ref_start_site, di...
+lgl  (5): bite_junction, RTS_junction, indel_near_junct, phyloP_start, phylo...
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>uniqueJunc <span class="ot">=</span> sqantiJunc <span class="sc">%&gt;%</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(chrom, strand, genomic_start_coord, genomic_end_coord) <span class="sc">%&gt;%</span></span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">sum</span>(intropolis.v1.hg19.tsv.min_count_10_unique),</span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">intropolis_support =</span> n <span class="sc">&gt;</span> <span class="dv">0</span>,</span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">novel =</span> <span class="fu">all</span>(junction_category <span class="sc">==</span> <span class="st">"novel"</span>),</span>
+<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">canonical =</span> <span class="fu">all</span>(canonical <span class="sc">==</span> <span class="st">"canonical"</span>),</span>
+<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">"drop"</span></span>
+<span id="cb49-9"><a href="#cb49-9" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb49-10"><a href="#cb49-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-11"><a href="#cb49-11" aria-hidden="true" tabindex="-1"></a>uniqueJunc <span class="sc">%&gt;%</span> <span class="fu">count</span>(intropolis_support) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">prop =</span> n<span class="sc">/</span><span class="fu">nrow</span>(uniqueJunc))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 3
+  intropolis_support      n   prop
+  &lt;lgl&gt;               &lt;int&gt;  &lt;dbl&gt;
+1 FALSE               10896 0.0471
+2 TRUE               220360 0.953 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>uniqueJunc <span class="sc">%&gt;%</span> <span class="fu">count</span>(novel) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">prop =</span> n<span class="sc">/</span><span class="fu">nrow</span>(uniqueJunc))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 3
+  novel      n  prop
+  &lt;lgl&gt;  &lt;int&gt; &lt;dbl&gt;
+1 FALSE 193141 0.835
+2 TRUE   38115 0.165</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>uniqueJunc <span class="sc">%&gt;%</span> <span class="fu">filter</span>(novel) <span class="sc">%&gt;%</span> <span class="fu">count</span>(intropolis_support) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">prop =</span> n<span class="sc">/</span><span class="fu">nrow</span>(uniqueJunc <span class="sc">%&gt;%</span> <span class="fu">filter</span>(novel)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 3
+  intropolis_support     n  prop
+  &lt;lgl&gt;              &lt;int&gt; &lt;dbl&gt;
+1 FALSE               9862 0.259
+2 TRUE               28253 0.741</code></pre>
+</div>
+</div>
+<p>Problematic <code>spliceJns.txt</code> gives us 57.5% novel SJs:</p>
+<div class="cell" data-hash="Figure1_TableS1_cache/html/unnamed-chunk-17_916e0ebd58e525cb1cc4b12095463c9e">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>gencodeJuncOld <span class="ot">=</span> <span class="fu">read_tsv</span>(<span class="st">"data/splice_junctions/spliceJns.problematic.txt"</span>, <span class="at">col_names =</span> <span class="fu">c</span>(<span class="st">"chrom"</span>, <span class="st">"genomic_start_coord"</span>, <span class="st">"genomic_end_coord"</span>, <span class="st">"strand"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">!</span><span class="fu">starts_with</span>(<span class="st">"X"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">strand =</span> <span class="fu">case_when</span>(strand <span class="sc">==</span> <span class="dv">1</span> <span class="sc">~</span> <span class="st">"+"</span>, strand <span class="sc">==</span> <span class="dv">2</span> <span class="sc">~</span> <span class="st">"-"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">novel2 =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 474236 Columns: 9
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: "\t"
+chr (1): chrom
+dbl (5): genomic_start_coord, genomic_end_coord, strand, X5, X6
+lgl (3): X7, X8, X9
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>uniqueJunc2 <span class="ot">=</span> uniqueJunc <span class="sc">%&gt;%</span> <span class="fu">left_join</span>(gencodeJuncOld) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">novel2 =</span> <span class="fu">replace_na</span>(novel2, <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Joining with `by = join_by(chrom, strand, genomic_start_coord,
+genomic_end_coord)`</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>uniqueJunc2 <span class="sc">%&gt;%</span> <span class="fu">count</span>(novel2) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">prop =</span> n<span class="sc">/</span><span class="fu">nrow</span>(uniqueJunc2))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 3
+  novel2      n  prop
+  &lt;lgl&gt;   &lt;int&gt; &lt;dbl&gt;
+1 FALSE   98334 0.425
+2 TRUE   132922 0.575</code></pre>
+</div>
+</div>
+<p>Updated <code>spliceJns.txt</code> agrees with SQANTI:</p>
+<div class="cell" data-hash="Figure1_TableS1_cache/html/unnamed-chunk-18_07aac8ce4d4ade6d0e1eda0e76ea9321">
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>gencodeJunc <span class="ot">=</span> <span class="fu">read_tsv</span>(<span class="st">"data/splice_junctions/spliceJns.exon_reorder.txt"</span>, <span class="at">col_names =</span> <span class="fu">c</span>(<span class="st">"chrom"</span>, <span class="st">"genomic_start_coord"</span>, <span class="st">"genomic_end_coord"</span>, <span class="st">"strand"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">!</span><span class="fu">starts_with</span>(<span class="st">"X"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">strand =</span> <span class="fu">case_when</span>(strand <span class="sc">==</span> <span class="dv">1</span> <span class="sc">~</span> <span class="st">"+"</span>, strand <span class="sc">==</span> <span class="dv">2</span> <span class="sc">~</span> <span class="st">"-"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb61-4"><a href="#cb61-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">novel2 =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 383616 Columns: 9
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: "\t"
+chr (1): chrom
+dbl (5): genomic_start_coord, genomic_end_coord, strand, X5, X6
+lgl (3): X7, X8, X9
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>uniqueJunc2 <span class="ot">=</span> uniqueJunc <span class="sc">%&gt;%</span> <span class="fu">left_join</span>(gencodeJunc) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">novel2 =</span> <span class="fu">replace_na</span>(novel2, <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Joining with `by = join_by(chrom, strand, genomic_start_coord,
+genomic_end_coord)`</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>uniqueJunc2 <span class="sc">%&gt;%</span> <span class="fu">count</span>(novel2) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">prop =</span> n<span class="sc">/</span><span class="fu">nrow</span>(uniqueJunc2))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 3
+  novel2      n  prop
+  &lt;lgl&gt;   &lt;int&gt; &lt;dbl&gt;
+1 FALSE  192904 0.834
+2 TRUE    38352 0.166</code></pre>
+</div>
+</div>
+<p>Joining with intropolis junctions also agrees with SQANTI:</p>
+<div class="cell" data-hash="Figure1_TableS1_cache/html/unnamed-chunk-19_f70f06811498d870e27f784cf2f92011">
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>intropJunc <span class="ot">=</span> <span class="fu">read_tsv</span>(<span class="st">"ref/intropolis/intropolis_v1_hg19_2samples_10counts_starSJout.tsv.gz"</span>, <span class="at">col_names =</span> <span class="fu">c</span>(<span class="st">"chrom"</span>, <span class="st">"genomic_start_coord"</span>, <span class="st">"genomic_end_coord"</span>, <span class="st">"strand"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">!</span><span class="fu">starts_with</span>(<span class="st">"X"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">strand =</span> <span class="fu">case_when</span>(strand <span class="sc">==</span> <span class="dv">1</span> <span class="sc">~</span> <span class="st">"+"</span>, strand <span class="sc">==</span> <span class="dv">2</span> <span class="sc">~</span> <span class="st">"-"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb67-4"><a href="#cb67-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">intropolis_support2 =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 4974342 Columns: 10
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: "\t"
+chr (1): chrom
+dbl (8): genomic_start_coord, genomic_end_coord, strand, X5, X6, X7, X8, X9
+lgl (1): X10
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>uniqueJunc2 <span class="ot">=</span> uniqueJunc <span class="sc">%&gt;%</span></span>
+<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(intropJunc) <span class="sc">%&gt;%</span></span>
+<span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">intropolis_support2 =</span> <span class="fu">replace_na</span>(intropolis_support2, <span class="cn">FALSE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Joining with `by = join_by(chrom, strand, genomic_start_coord,
+genomic_end_coord)`</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a>uniqueJunc2 <span class="sc">%&gt;%</span> <span class="fu">count</span>(intropolis_support2) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">prop =</span> n<span class="sc">/</span><span class="fu">nrow</span>(uniqueJunc2))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 3
+  intropolis_support2      n   prop
+  &lt;lgl&gt;                &lt;int&gt;  &lt;dbl&gt;
+1 FALSE                10897 0.0471
+2 TRUE                220359 0.953 </code></pre>
+</div>
+</div>
+
+
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

@@ -1,0 +1,1122 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.0.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Michael Gandal">
+
+<title>Dev Brain scIso-Seq CP/VZ - Figure 1 - BulkTxomeAnalysis</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-sidebar floating">
+
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">Figure 1 - BulkTxomeAnalysis</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Dev Brain scIso-Seq CP/VZ</a> 
+    </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/index.html" class="sidebar-item-text sidebar-link">Index</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure1_BulkTxomeAnalysis.html" class="sidebar-item-text sidebar-link active">Figure 1 - BulkTxomeAnalysis</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure1_TableS1.html" class="sidebar-item-text sidebar-link">Figure 1 - generate Table S1</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure2_isoFraction.html" class="sidebar-item-text sidebar-link">Figure 2 - Isoform Fraction analysis</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure2_plotNovelGenes.html" class="sidebar-item-text sidebar-link">Figure 2 - Plot Novel Genes</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure2_novel_exons.html" class="sidebar-item-text sidebar-link">Figure 2 - Novel Exons</a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#load-data" id="toc-load-data" class="nav-link active" data-scroll-target="#load-data">Load Data</a></li>
+  <li><a href="#technical-and-biological-replicates" id="toc-technical-and-biological-replicates" class="nav-link" data-scroll-target="#technical-and-biological-replicates">Technical and Biological Replicates</a>
+  <ul class="collapse">
+  <li><a href="#fig1b-isoform-level-mds" id="toc-fig1b-isoform-level-mds" class="nav-link" data-scroll-target="#fig1b-isoform-level-mds">Fig1B: Isoform level MDS</a></li>
+  <li><a href="#fig1c-smoothscatter" id="toc-fig1c-smoothscatter" class="nav-link" data-scroll-target="#fig1c-smoothscatter">Fig1C: smoothscatter</a></li>
+  <li><a href="#fig1e-tx-novelty" id="toc-fig1e-tx-novelty" class="nav-link" data-scroll-target="#fig1e-tx-novelty">Fig1E: tx novelty</a></li>
+  </ul></li>
+  <li><a href="#analyses-of-transcript-length" id="toc-analyses-of-transcript-length" class="nav-link" data-scroll-target="#analyses-of-transcript-length">Analyses of Transcript Length</a>
+  <ul class="collapse">
+  <li><a href="#fig1f-tx-length-histogra" id="toc-fig1f-tx-length-histogra" class="nav-link" data-scroll-target="#fig1f-tx-length-histogra">Fig1F: Tx Length Histogra</a></li>
+  <li><a href="#fig1g-exons-gene" id="toc-fig1g-exons-gene" class="nav-link" data-scroll-target="#fig1g-exons-gene">Fig1G: # Exons / gene</a></li>
+  </ul></li>
+  <li><a href="#analyses-of-transcripts-per-gene-disease" id="toc-analyses-of-transcripts-per-gene-disease" class="nav-link" data-scroll-target="#analyses-of-transcripts-per-gene-disease">Analyses of transcripts per gene &amp; disease</a>
+  <ul class="collapse">
+  <li><a href="#ndd-risk-genes-unique-transcipts-per-gene" id="toc-ndd-risk-genes-unique-transcipts-per-gene" class="nav-link" data-scroll-target="#ndd-risk-genes-unique-transcipts-per-gene">NDD risk genes ~ unique transcipts per gene</a></li>
+  <li><a href="#figs3-ndd-risk-genes-unique-novel-transcipts-per-gene" id="toc-figs3-ndd-risk-genes-unique-novel-transcipts-per-gene" class="nav-link" data-scroll-target="#figs3-ndd-risk-genes-unique-novel-transcipts-per-gene">FigS3: NDD risk genes ~ unique NOVEL transcipts per gene</a></li>
+  </ul></li>
+  <li><a href="#pathway-analysis" id="toc-pathway-analysis" class="nav-link" data-scroll-target="#pathway-analysis">Pathway Analysis</a></li>
+  <li><a href="#gene-body-coverage" id="toc-gene-body-coverage" class="nav-link" data-scroll-target="#gene-body-coverage">Gene Body Coverage</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">Figure 1 - BulkTxomeAnalysis</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Michael Gandal </p>
+          </div>
+  </div>
+    
+    
+  </div>
+  
+
+</header>
+
+<div class="cell" data-hash="Figure1_BulkTxomeAnalysis_cache/html/unnamed-chunk-1_bb2dc0506dde6439c4b33b417f61c041">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressPackageStartupMessages</span>({</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(IsoformSwitchAnalyzeR)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(rtracklayer)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(ggrepel)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(scales)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(GenomicFeatures)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(DescTools)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(magrittr)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>colorVector <span class="ot">=</span> <span class="fu">c</span>(</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Known"</span> <span class="ot">=</span> <span class="st">"#009E73"</span>,</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  <span class="st">"ISM"</span>   <span class="ot">=</span> <span class="st">"#0072B2"</span>,</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="st">"ISM_Prefix"</span> <span class="ot">=</span> <span class="st">"#005996"</span>,</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>  <span class="st">"ISM_Suffix"</span> <span class="ot">=</span> <span class="st">"#378bcc"</span>,</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>  <span class="st">"NIC"</span>   <span class="ot">=</span> <span class="st">"#D55E00"</span>,</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>  <span class="st">"NNC"</span>   <span class="ot">=</span> <span class="st">"#E69F00"</span>,</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Other"</span> <span class="ot">=</span> <span class="st">"#000000"</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>colorVector_ismSplit <span class="ot">=</span> colorVector[<span class="sc">-</span><span class="dv">2</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="load-data" class="level2">
+<h2 class="anchored" data-anchor-id="load-data">Load Data</h2>
+<div class="cell" data-hash="Figure1_BulkTxomeAnalysis_cache/html/unnamed-chunk-2_2d3663890ecdb66b66affbdb62d4a119">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">file.exists</span>(<span class="st">"data/working/bulkTxome.Rdata"</span>)) {</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  talon_gtf <span class="ot">=</span> rtracklayer<span class="sc">::</span><span class="fu">import</span>(<span class="st">"data/cp_vz_0.75_min_7_recovery_talon.gtf.gz"</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  tx.isoseq <span class="ot">=</span>  talon_gtf <span class="sc">%&gt;%</span> <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span> <span class="fu">filter</span>(type <span class="sc">==</span> <span class="st">"transcript"</span>) </span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  sqanti_gtf <span class="ot">=</span> rtracklayer<span class="sc">::</span><span class="fu">import</span>(<span class="st">"data/sqanti/cp_vz_0.75_min_7_recovery_talon_corrected.gtf.cds.gtf.gz"</span>)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  tx.sqanti <span class="ot">=</span> sqanti_gtf <span class="sc">%&gt;%</span> <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span> <span class="fu">filter</span>(type <span class="sc">==</span> <span class="st">"transcript"</span>)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  gencode_gtf <span class="ot">=</span> rtracklayer<span class="sc">::</span><span class="fu">import</span>(<span class="st">"ref/gencode.v33lift37.annotation.gtf.gz"</span>) </span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  tx.gencode <span class="ot">=</span>  gencode_gtf <span class="sc">%&gt;%</span> <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span> <span class="fu">filter</span>(type <span class="sc">==</span> <span class="st">"transcript"</span>)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  txdb.gencode <span class="ot">=</span> <span class="fu">makeTxDbFromGRanges</span>(gencode_gtf)</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  gencodelengths<span class="ot">=</span> <span class="fu">transcriptLengths</span>(txdb.gencode)</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  txdb.isoseq <span class="ot">=</span> <span class="fu">makeTxDbFromGRanges</span>(talon_gtf)</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>  isoSeqLengths <span class="ot">=</span> <span class="fu">transcriptLengths</span>(txdb.isoseq)</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>  samps <span class="ot">=</span> <span class="fu">tribble</span>( </span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    <span class="sc">~</span>sample_id, <span class="sc">~</span>condition,</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    <span class="st">"VZ_209"</span>, <span class="st">"VZ"</span>,</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    <span class="st">"VZ_334"</span>, <span class="st">"VZ"</span>,</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>    <span class="st">"VZ_336"</span>, <span class="st">"VZ"</span>,</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>    <span class="st">"CP_209"</span>, <span class="st">"CP"</span>,</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>    <span class="st">"CP_334"</span>, <span class="st">"CP"</span>,</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>    <span class="st">"CP_336"</span>, <span class="st">"CP"</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">mutate</span>(</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>      dplyr<span class="sc">::</span><span class="fu">across</span>(condition, as_factor)</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>  cts <span class="ot">=</span> <span class="fu">read_table</span>(<span class="st">"data/cp_vz_0.75_min_7_recovery_talon_abundance_filtered.tsv.gz"</span>)</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>  cts.collapse <span class="ot">=</span> cts <span class="sc">%&gt;%</span></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>      <span class="at">VZ_209 =</span> <span class="fu">rowSums</span>(<span class="fu">across</span>(<span class="fu">matches</span>(<span class="st">"209_.*_VZ"</span>))),</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>      <span class="at">VZ_334 =</span> <span class="fu">rowSums</span>(<span class="fu">across</span>(<span class="fu">matches</span>(<span class="st">"334_.*_VZ"</span>))),</span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>      <span class="at">VZ_336 =</span> <span class="fu">rowSums</span>(<span class="fu">across</span>(<span class="fu">matches</span>(<span class="st">"336_.*_VZ"</span>))),</span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>      <span class="at">CP_209 =</span> <span class="fu">rowSums</span>(<span class="fu">across</span>(<span class="fu">matches</span>(<span class="st">"209_.*_CP"</span>))),</span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>      <span class="at">CP_334 =</span> <span class="fu">rowSums</span>(<span class="fu">across</span>(<span class="fu">matches</span>(<span class="st">"334_.*_CP"</span>))),</span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>      <span class="at">CP_336 =</span> <span class="fu">rowSums</span>(<span class="fu">across</span>(<span class="fu">matches</span>(<span class="st">"336_.*_CP"</span>))),</span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>      <span class="at">.keep =</span> <span class="st">"unused"</span></span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span></span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">!</span><span class="fu">c</span>(<span class="st">"gene_ID"</span>, <span class="st">"transcript_ID"</span>, <span class="st">"annot_transcript_name"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">rename</span>(</span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>      <span class="at">gene_id =</span> <span class="st">"annot_gene_id"</span>,</span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>      <span class="at">transcript_id =</span> <span class="st">"annot_transcript_id"</span>,</span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>      <span class="at">gene_name =</span> <span class="st">"annot_gene_name"</span></span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span></span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>      <span class="at">gene_novelty =</span> <span class="fu">as.factor</span>(gene_novelty),</span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>      <span class="at">transcript_novelty =</span> <span class="fu">as.factor</span>(transcript_novelty),</span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a>      <span class="at">ISM_subtype =</span> ISM_subtype <span class="sc">%&gt;%</span> <span class="fu">na_if</span>(<span class="st">"None"</span>) <span class="sc">%&gt;%</span> <span class="fu">as.factor</span>()</span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a>  cts<span class="sc">$</span>counts <span class="ot">=</span> <span class="fu">rowSums</span>(<span class="fu">as.matrix</span>(cts.collapse[,<span class="dv">9</span><span class="sc">:</span><span class="dv">14</span>]))</span>
+<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a>  cts<span class="sc">$</span>novelty2 <span class="ot">=</span> <span class="fu">as.character</span>(cts<span class="sc">$</span>transcript_novelty)</span>
+<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a>  cts<span class="sc">$</span>novelty2[<span class="fu">which</span>(cts<span class="sc">$</span>novelty2<span class="sc">==</span><span class="st">"ISM"</span> <span class="sc">&amp;</span> cts<span class="sc">$</span>ISM_subtype<span class="sc">==</span><span class="st">"Prefix"</span>)] <span class="ot">=</span> <span class="st">"ISM_Prefix"</span></span>
+<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a>  cts<span class="sc">$</span>novelty2[<span class="fu">which</span>(cts<span class="sc">$</span>novelty2<span class="sc">==</span><span class="st">"ISM"</span> <span class="sc">&amp;</span> cts<span class="sc">$</span>ISM_subtype<span class="sc">==</span><span class="st">"Suffix"</span>)] <span class="ot">=</span> <span class="st">"ISM_Suffix"</span></span>
+<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a>  cts<span class="sc">$</span>novelty2[cts<span class="sc">$</span>novelty2 <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Antisense"</span>, <span class="st">"Genomic"</span>, <span class="st">"Intergenic"</span>, <span class="st">"ISM"</span>)] <span class="ot">=</span> <span class="st">"Other"</span></span>
+<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a>  cts<span class="sc">$</span>novelty2 <span class="ot">=</span> <span class="fu">factor</span>(cts<span class="sc">$</span>novelty2,<span class="at">levels=</span><span class="fu">c</span>(<span class="st">"Known"</span>, <span class="st">"ISM_Prefix"</span>, <span class="st">"ISM_Suffix"</span>, <span class="st">"NIC"</span>, <span class="st">"NNC"</span>, <span class="st">"Other"</span>))</span>
+<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a>  TableS1 <span class="ot">=</span> tx.isoseq <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(gene_id, transcript_id, gene_name, transcript_name, seqnames, start, end, strand, <span class="at">transcript_length=</span>width, source, gene_status, gene_type, transcript_status,transcript_type,  havana_transcript, ccdsid, protein_id)</span>
+<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a>  TableS1 <span class="ot">=</span> TableS1 <span class="sc">%&gt;%</span> <span class="fu">left_join</span>(cts <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="at">transcript_id=</span>annot_transcript_id, transcript_novelty, ISM_subtype, <span class="at">transcript_novelty2 =</span> novelty2, n_exons, <span class="at">cds_length =</span> length, <span class="at">expression_counts =</span> counts))</span>
+<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a>  TableS1<span class="sc">$</span>expression_TPM <span class="ot">=</span> TableS1<span class="sc">$</span>expression_counts <span class="sc">/</span> (<span class="fu">sum</span>(TableS1<span class="sc">$</span>expression_counts <span class="sc">/</span> <span class="dv">1000000</span>))</span>
+<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a>  <span class="fu">write_tsv</span>(TableS1, <span class="at">file=</span><span class="st">"output/tables/TableS1_transcript_annotation.tsv"</span>)</span>
+<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a>  <span class="fu">save.image</span>(<span class="st">"data/working/bulkTxome.Rdata"</span>)</span>
+<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a>  <span class="fu">load</span>(<span class="st">"data/working/bulkTxome.Rdata"</span>)</span>
+<span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in .get_cds_IDX(mcols0$type, mcols0$phase): The "phase" metadata column contains non-NA values for features of type
+  stop_codon. This information was ignored.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in .reject_transcripts(bad_tx, because): The following transcripts were dropped because they have incompatible
+  CDS and stop codons: ENST00000422803.2_2, ENST00000618549.1_2,
+  ENST00000619291.4_2, ENST00000621077.1_2, ENST00000621229.1_2,
+  ENST00000631326.2_2</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+── Column specification ────────────────────────────────────────────────────────
+cols(
+  .default = col_double(),
+  annot_gene_id = col_character(),
+  annot_transcript_id = col_character(),
+  annot_gene_name = col_character(),
+  annot_transcript_name = col_character(),
+  gene_novelty = col_character(),
+  transcript_novelty = col_character(),
+  ISM_subtype = col_character()
+)
+ℹ Use `spec()` for the full column specifications.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Joining with `by = join_by(transcript_id)`</code></pre>
+</div>
+</div>
+</section>
+<section id="technical-and-biological-replicates" class="level2">
+<h2 class="anchored" data-anchor-id="technical-and-biological-replicates">Technical and Biological Replicates</h2>
+<section id="fig1b-isoform-level-mds" class="level3">
+<h3 class="anchored" data-anchor-id="fig1b-isoform-level-mds">Fig1B: Isoform level MDS</h3>
+<div class="cell" data-hash="Figure1_BulkTxomeAnalysis_cache/html/unnamed-chunk-3_0392591965cd5ea13e247eedb193eed3">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="do">##</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">unique</span>(cts<span class="sc">$</span>annot_transcript_id)) <span class="co">#214516 total isoforms</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 214516</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">unique</span>(cts<span class="sc">$</span>annot_gene_id)) <span class="co">#24554 genes</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 24554</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Collapsing across technical replicates</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>countMat <span class="ot">=</span> <span class="fu">as.matrix</span>(cts.collapse[,<span class="dv">9</span><span class="sc">:</span><span class="dv">14</span>])</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>cs <span class="ot">=</span> <span class="fu">colSums</span>(countMat) <span class="sc">/</span> <span class="dv">1000000</span> <span class="do">## TPM normalize</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>countMat.tpm <span class="ot">=</span> <span class="fu">t</span>(<span class="fu">apply</span>(countMat, <span class="dv">1</span>, <span class="cf">function</span>(x) { x <span class="sc">/</span> cs}))</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(<span class="fu">rowSums</span>(countMat.tpm <span class="sc">&gt;</span> <span class="fl">0.1</span>) <span class="sc">&gt;</span><span class="dv">3</span>)  <span class="do">## 175730 isoforms @ TPM &gt; 0.1 in half of samples</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ FALSE   TRUE 
+ 38786 175730 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(<span class="fu">rowSums</span>(countMat.tpm <span class="sc">&gt;</span> <span class="dv">1</span>) <span class="sc">&gt;</span><span class="dv">3</span>)  <span class="do">## 58102 @ TPM &gt; 1 in half of samples</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ FALSE   TRUE 
+156414  58102 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>expressedIsoforms <span class="ot">=</span> <span class="fu">rowSums</span>(countMat.tpm <span class="sc">&gt;</span> .<span class="dv">1</span>) <span class="sc">&gt;</span><span class="dv">3</span>  <span class="do">## TPM &gt; .1 in half of samples</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">unique</span>(cts<span class="sc">$</span>annot_gene_id[expressedIsoforms])) <span class="do">## 17,299 genes with expressed isoforms (TPM &gt; .1)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 17299</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Analyze technical replicates separately</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>cts.all <span class="ot">=</span> cts[,<span class="dv">12</span><span class="sc">:</span><span class="dv">35</span>]</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>cs <span class="ot">=</span> <span class="fu">colSums</span>(cts.all) <span class="sc">/</span> <span class="dv">1000000</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>cts.all.tpm <span class="ot">=</span> <span class="fu">t</span>(<span class="fu">apply</span>(cts.all, <span class="dv">1</span>, <span class="cf">function</span>(x) { x <span class="sc">/</span> cs}))</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>mds <span class="ot">=</span> <span class="fu">cmdscale</span>(<span class="fu">dist</span>(<span class="fu">t</span>(<span class="fu">log2</span>(.<span class="dv">1</span><span class="sc">+</span>cts.all.tpm))),<span class="at">k =</span> <span class="dv">4</span>)</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>df <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">sample=</span><span class="fu">rownames</span>(mds), <span class="at">PC1 =</span> mds[,<span class="dv">1</span>], <span class="at">PC2=</span>mds[,<span class="dv">2</span>], <span class="at">PC3=</span>mds[,<span class="dv">3</span>], <span class="at">PC4=</span>mds[,<span class="dv">4</span>])</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>Region <span class="ot">=</span> <span class="fu">substr</span>(df<span class="sc">$</span>sample, <span class="dv">7</span>,<span class="dv">9</span>)</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>Subject <span class="ot">=</span> <span class="fu">substr</span>(df<span class="sc">$</span>sample, <span class="dv">1</span>,<span class="dv">3</span>)</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>batch <span class="ot">=</span> <span class="fu">substr</span>(df<span class="sc">$</span>sample, <span class="dv">5</span>,<span class="dv">5</span>)</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>Fig1B<span class="ot">=</span><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x=</span>PC1,<span class="at">y=</span>PC2, <span class="at">color=</span>Region, <span class="at">shape=</span>Subject,<span class="at">label=</span>batch)) <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">size=</span><span class="dv">4</span>) <span class="sc">+</span>  <span class="fu">geom_text</span>(<span class="at">color=</span><span class="st">'black'</span>, <span class="at">size=</span><span class="dv">2</span>) <span class="sc">+</span>  <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">"Isoform level clustering"</span>)</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>Fig1B</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Figure1_BulkTxomeAnalysis_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(Fig1B,<span class="at">filename =</span> <span class="st">"output/figures/Fig1/Fig1B.pdf"</span>, <span class="at">width =</span> <span class="fl">3.5</span>,<span class="at">height=</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="fig1c-smoothscatter" class="level3">
+<h3 class="anchored" data-anchor-id="fig1c-smoothscatter">Fig1C: smoothscatter</h3>
+<div class="cell" data-hash="Figure1_BulkTxomeAnalysis_cache/html/unnamed-chunk-4_3843caaba1e8f0c392ce71295ae935bd">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>geneCountMap.tpm <span class="ot">=</span> <span class="fu">tibble</span>(<span class="at">gene =</span> cts<span class="sc">$</span>annot_gene_name, <span class="fu">as_tibble</span>(cts.all.tpm)) <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(gene) <span class="sc">%&gt;%</span>  <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">everything</span>(), sum))</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>mds <span class="ot">=</span> <span class="fu">cmdscale</span>(<span class="fu">dist</span>(<span class="fu">t</span>(<span class="fu">log2</span>(.<span class="dv">1</span><span class="sc">+</span>geneCountMap.tpm <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>gene)))),<span class="at">k =</span> <span class="dv">4</span>)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>df <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">sample=</span><span class="fu">rownames</span>(mds), <span class="at">PC1 =</span> mds[,<span class="dv">1</span>], <span class="at">PC2=</span>mds[,<span class="dv">2</span>], <span class="at">PC3=</span>mds[,<span class="dv">3</span>], <span class="at">PC4=</span>mds[,<span class="dv">4</span>])</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>Region <span class="ot">=</span> <span class="fu">substr</span>(df<span class="sc">$</span>sample, <span class="dv">7</span>,<span class="dv">9</span>)</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>Subject <span class="ot">=</span> <span class="fu">substr</span>(df<span class="sc">$</span>sample, <span class="dv">1</span>,<span class="dv">3</span>)</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>TechnicalReplicate <span class="ot">=</span> <span class="fu">substr</span>(df<span class="sc">$</span>sample, <span class="dv">5</span>,<span class="dv">5</span>)</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="co">#ggplot(df, aes(x=PC1,y=PC2, color=Region, shape=Subject)) + geom_point(size=3) + theme_bw() + ggtitle("Gene level clustering")</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>Fig1C<span class="ot">=</span><span class="fu">ggplot</span>(<span class="fu">as.data.frame</span>(countMat.tpm), <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">log2</span>(<span class="dv">1</span><span class="sc">+</span>VZ_334), <span class="at">y=</span><span class="fu">log2</span>(<span class="dv">1</span><span class="sc">+</span>VZ_336))) <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">color=</span><span class="st">'blue'</span>,<span class="at">size=</span>.<span class="dv">4</span>,<span class="at">alpha=</span>.<span class="dv">5</span>) <span class="sc">+</span> <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="fu">geom_abline</span>(<span class="at">slope=</span><span class="dv">1</span>,<span class="at">lty=</span><span class="dv">2</span>) <span class="sc">+</span> <span class="fu">geom_smooth</span>(<span class="at">method=</span><span class="st">'lm'</span>,<span class="at">color=</span><span class="st">'black'</span>) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">"R=0.93, p&lt;2e-16"</span>)</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>Fig1C</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="Figure1_BulkTxomeAnalysis_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(Fig1C ,<span class="at">filename =</span> <span class="st">"output/figures/Fig1/Fig1C.pdf"</span>, <span class="at">width =</span> <span class="dv">3</span>,<span class="at">height=</span><span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pdf</span>(<span class="at">file=</span> <span class="st">"output/figures/Fig1/Fig1Cb.pdf"</span>, <span class="at">width =</span> <span class="dv">4</span>, <span class="at">height=</span><span class="dv">4</span>)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">smoothScatter</span>(<span class="fu">log2</span>(<span class="dv">1</span><span class="sc">+</span>countMat.tpm[,<span class="st">"VZ_334"</span>]), <span class="fu">log2</span>(<span class="dv">1</span><span class="sc">+</span>countMat.tpm[,<span class="st">"VZ_336"</span>]))</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>quartz_off_screen 
+                2 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">smoothScatter</span>(<span class="fu">log2</span>(<span class="dv">1</span><span class="sc">+</span>countMat.tpm[,<span class="st">"VZ_334"</span>]), <span class="fu">log2</span>(<span class="dv">1</span><span class="sc">+</span>countMat.tpm[,<span class="st">"VZ_336"</span>]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Figure1_BulkTxomeAnalysis_files/figure-html/unnamed-chunk-4-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>panel.cor <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y, <span class="at">digits =</span> <span class="dv">2</span>, <span class="at">prefix =</span> <span class="st">"R="</span>, cex.cor, ...)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>    usr <span class="ot">&lt;-</span> <span class="fu">par</span>(<span class="st">"usr"</span>); <span class="fu">on.exit</span>(<span class="fu">par</span>(usr))</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">par</span>(<span class="at">usr =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>))</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>    r <span class="ot">&lt;-</span> <span class="fu">abs</span>(<span class="fu">cor</span>(x, y))</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>    txt <span class="ot">&lt;-</span> <span class="fu">format</span>(<span class="fu">c</span>(r, <span class="fl">0.123456789</span>), <span class="at">digits =</span> digits)[<span class="dv">1</span>]</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>    txt <span class="ot">&lt;-</span> <span class="fu">paste0</span>(prefix, txt)</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(<span class="fu">missing</span>(cex.cor)) cex.cor <span class="ot">&lt;-</span> <span class="fl">0.8</span><span class="sc">/</span><span class="fu">strwidth</span>(txt)</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">text</span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>, txt, <span class="at">cex =</span><span class="dv">1</span>)</span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a><span class="fu">pdf</span>(<span class="at">file=</span><span class="st">"output/figures/supplement/FigS2_bio_replicates.pdf"</span>, <span class="at">width=</span><span class="dv">8</span>,<span class="at">height=</span><span class="dv">6</span>)  </span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a><span class="fu">pairs</span>(<span class="fu">log2</span>(<span class="dv">1</span><span class="sc">+</span>countMat.tpm), <span class="at">panel=</span><span class="cf">function</span>(x,y){<span class="fu">smoothScatter</span>(x,y,<span class="at">add=</span>T)},<span class="at">upper.panel =</span> panel.cor)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in par(usr): argument 1 does not name a graphical parameter
+
+Warning in par(usr): argument 1 does not name a graphical parameter
+
+Warning in par(usr): argument 1 does not name a graphical parameter
+
+Warning in par(usr): argument 1 does not name a graphical parameter
+
+Warning in par(usr): argument 1 does not name a graphical parameter
+
+Warning in par(usr): argument 1 does not name a graphical parameter
+
+Warning in par(usr): argument 1 does not name a graphical parameter
+
+Warning in par(usr): argument 1 does not name a graphical parameter
+
+Warning in par(usr): argument 1 does not name a graphical parameter
+
+Warning in par(usr): argument 1 does not name a graphical parameter
+
+Warning in par(usr): argument 1 does not name a graphical parameter
+
+Warning in par(usr): argument 1 does not name a graphical parameter
+
+Warning in par(usr): argument 1 does not name a graphical parameter
+
+Warning in par(usr): argument 1 does not name a graphical parameter
+
+Warning in par(usr): argument 1 does not name a graphical parameter</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>quartz_off_screen 
+                2 </code></pre>
+</div>
+</div>
+</section>
+<section id="fig1e-tx-novelty" class="level3">
+<h3 class="anchored" data-anchor-id="fig1e-tx-novelty">Fig1E: tx novelty</h3>
+<div class="cell" data-hash="Figure1_BulkTxomeAnalysis_cache/html/unnamed-chunk-5_02a4779eeb6d2eeb03fbf5a9802036ae">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>Fig1E <span class="ot">=</span> <span class="fu">ggplot</span>(cts <span class="sc">%&gt;%</span> <span class="fu">filter</span>(counts<span class="sc">&gt;</span><span class="dv">10</span>,), <span class="fu">aes</span>(<span class="at">x=</span>counts, <span class="at">fill=</span>novelty2)) <span class="sc">+</span> <span class="fu">geom_histogram</span>(<span class="at">position=</span><span class="fu">position_fill</span>(),<span class="at">alpha=</span>.<span class="dv">75</span>, <span class="at">binwidth =</span> .<span class="dv">3</span>)<span class="sc">+</span> <span class="fu">theme_bw</span>()  <span class="sc">+</span>  <span class="fu">scale_x_log10</span>()<span class="sc">+</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotation_logticks</span>(<span class="at">scaled =</span> T,<span class="at">sides=</span><span class="st">'b'</span>)<span class="sc">+</span> <span class="fu">theme</span>(<span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Min observed counts"</span>, <span class="at">y=</span><span class="st">"Proportion of transcripts"</span>) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">"Transcript novelty &amp; type"</span>) <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust=</span>.<span class="dv">5</span>))  <span class="sc">+</span> <span class="fu">scale_fill_manual</span>(<span class="at">values=</span>colorVector_ismSplit)</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>Fig1E</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Figure1_BulkTxomeAnalysis_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="at">file=</span><span class="st">"output/figures/Fig1/Fig1E.pdf"</span>,<span class="at">width=</span><span class="dv">5</span>,<span class="at">height=</span><span class="dv">3</span>)</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Removing MAP1B</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cts <span class="sc">%&gt;%</span> <span class="fu">filter</span>(counts<span class="sc">&gt;</span><span class="dv">10</span>,annot_gene_name<span class="sc">!=</span><span class="st">"MAP1B"</span>), <span class="fu">aes</span>(<span class="at">x=</span>counts, <span class="at">fill=</span>novelty2)) <span class="sc">+</span> <span class="fu">geom_histogram</span>(<span class="at">position=</span><span class="fu">position_fill</span>(),<span class="at">alpha=</span>.<span class="dv">5</span>, <span class="at">binwidth =</span> .<span class="dv">3</span>)<span class="sc">+</span> <span class="fu">theme_bw</span>()  <span class="sc">+</span>  <span class="fu">scale_x_log10</span>()<span class="sc">+</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotation_logticks</span>(<span class="at">scaled =</span> T,<span class="at">sides=</span><span class="st">'b'</span>)<span class="sc">+</span> <span class="fu">theme</span>(<span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Min observed counts"</span>, <span class="at">y=</span><span class="st">"Proportion of transcripts"</span>) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">"Transcript novelty &amp; type"</span>,<span class="at">subtitle =</span> <span class="st">'(MAP1B removed)'</span>) <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust=</span>.<span class="dv">5</span>))  <span class="sc">+</span> <span class="fu">scale_fill_manual</span>(<span class="at">values=</span>colorVector_ismSplit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Figure1_BulkTxomeAnalysis_files/figure-html/unnamed-chunk-5-2.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="analyses-of-transcript-length" class="level2">
+<h2 class="anchored" data-anchor-id="analyses-of-transcript-length">Analyses of Transcript Length</h2>
+<section id="fig1f-tx-length-histogra" class="level3">
+<h3 class="anchored" data-anchor-id="fig1f-tx-length-histogra">Fig1F: Tx Length Histogra</h3>
+<div class="cell" data-hash="Figure1_BulkTxomeAnalysis_cache/html/unnamed-chunk-6_a682a23f6a563906097626e14ebd83a6">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>df<span class="ot">&lt;-</span> cts<span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="st">"annot_transcript_id"</span>, <span class="st">"transcript_novelty"</span>, <span class="st">"ISM_subtype"</span>, <span class="st">"annot_gene_name"</span>, <span class="st">"counts"</span>) <span class="sc">%&gt;%</span> <span class="fu">right_join</span>(isoSeqLengths, <span class="at">by=</span><span class="fu">c</span>(<span class="st">"annot_transcript_id"</span> <span class="ot">=</span> <span class="st">"tx_name"</span>)) </span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>novelty2 <span class="ot">=</span> <span class="fu">as.character</span>(df<span class="sc">$</span>transcript_novelty)</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>novelty2[<span class="fu">which</span>(df<span class="sc">$</span>novelty2<span class="sc">==</span><span class="st">"ISM"</span> <span class="sc">&amp;</span> df<span class="sc">$</span>ISM_subtype<span class="sc">==</span><span class="st">"Prefix"</span>)] <span class="ot">=</span> <span class="st">"ISM_Prefix"</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>novelty2[<span class="fu">which</span>(df<span class="sc">$</span>novelty2<span class="sc">==</span><span class="st">"ISM"</span> <span class="sc">&amp;</span> df<span class="sc">$</span>ISM_subtype<span class="sc">==</span><span class="st">"Suffix"</span>)] <span class="ot">=</span> <span class="st">"ISM_Suffix"</span></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>novelty2[df<span class="sc">$</span>novelty2 <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Antisense"</span>, <span class="st">"Genomic"</span>, <span class="st">"Intergenic"</span>, <span class="st">"ISM"</span>)] <span class="ot">=</span> <span class="st">"Other"</span></span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>novelty2 <span class="ot">=</span> <span class="fu">factor</span>(df<span class="sc">$</span>novelty2,<span class="at">levels=</span><span class="fu">c</span>(<span class="st">"Known"</span>, <span class="st">"ISM_Prefix"</span>, <span class="st">"ISM_Suffix"</span>, <span class="st">"NIC"</span>, <span class="st">"NNC"</span>, <span class="st">"Other"</span>))</span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(tx_len <span class="sc">&gt;</span> <span class="dv">900</span>, tx_len <span class="sc">&lt;</span> <span class="dv">6000</span>) <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(novelty2) <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">peak=</span><span class="dv">10</span><span class="sc">^</span><span class="fu">mean</span>(<span class="fu">log10</span>(tx_len)), <span class="fu">median</span>(tx_len), <span class="fu">mean</span>(tx_len))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 4
+  novelty2    peak `median(tx_len)` `mean(tx_len)`
+  &lt;fct&gt;      &lt;dbl&gt;            &lt;dbl&gt;          &lt;dbl&gt;
+1 Known      2305.             2317          2588.
+2 ISM_Prefix 2604.             2701          2809.
+3 ISM_Suffix 2833.             2914          3019.
+4 NIC        3023.             3100          3193.
+5 NNC        2867.             2953          3033.
+6 Other      2616.             2716          2807.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>Fig1F <span class="ot">=</span> <span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x=</span>tx_len, <span class="at">fill=</span>novelty2)) <span class="sc">+</span> <span class="fu">geom_histogram</span>(<span class="at">alpha=</span>.<span class="dv">75</span>,<span class="at">binwidth =</span> .<span class="dv">03</span>)<span class="sc">+</span> </span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="fu">scale_fill_manual</span>(<span class="at">values=</span>colorVector_ismSplit) <span class="sc">+</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">trans =</span> <span class="fu">log10_trans</span>(),<span class="at">breaks =</span> <span class="fu">trans_breaks</span>(<span class="st">"log10"</span>, <span class="cf">function</span>(x) <span class="dv">10</span><span class="sc">^</span>x),</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">labels =</span> <span class="fu">trans_format</span>(<span class="st">"log10"</span>, <span class="fu">math_format</span>(<span class="dv">10</span><span class="sc">^</span>.x)),<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">50</span>,<span class="dv">10</span><span class="sc">^</span><span class="dv">5</span>)) <span class="sc">+</span> <span class="fu">annotation_logticks</span>() <span class="sc">+</span></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Transcript Length (bp)"</span>) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">"Transcript length distribution"</span>)</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>Fig1F</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 6 rows containing non-finite values (`stat_bin()`).</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 12 rows containing missing values (`geom_bar()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="Figure1_BulkTxomeAnalysis_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(Fig1F,<span class="at">file=</span><span class="st">'output/figures/Fig1/Fig1F.pdf'</span>, <span class="at">width=</span><span class="dv">5</span>,<span class="at">height=</span><span class="fl">2.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 6 rows containing non-finite values (`stat_bin()`).
+Removed 12 rows containing missing values (`geom_bar()`).</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Zoomed in</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x=</span>tx_len, <span class="at">fill=</span>novelty2)) <span class="sc">+</span> <span class="fu">geom_histogram</span>(<span class="at">alpha=</span>.<span class="dv">5</span>,<span class="at">binwidth =</span> <span class="dv">100</span>)<span class="sc">+</span> </span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="fu">scale_fill_manual</span>(<span class="at">values=</span>colorVector_ismSplit) <span class="sc">+</span> <span class="fu">xlim</span>(<span class="dv">800</span>,<span class="dv">5500</span>) <span class="sc">+</span> </span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Transcript Length (bp)"</span>) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">"Transcript length distribution"</span>) <span class="sc">+</span> </span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">2588</span>, <span class="at">lty=</span><span class="dv">2</span>,<span class="at">color=</span><span class="st">"#009E73"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 27594 rows containing non-finite values (`stat_bin()`).
+Removed 12 rows containing missing values (`geom_bar()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="Figure1_BulkTxomeAnalysis_files/figure-html/unnamed-chunk-6-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(df<span class="sc">$</span>tx_len[df<span class="sc">$</span>novelty2<span class="sc">==</span><span class="st">"Known"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2276.283</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(df<span class="sc">$</span>tx_len[df<span class="sc">$</span>novelty2<span class="sc">==</span><span class="st">"Known"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2224.66</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(df<span class="sc">$</span>tx_len[df<span class="sc">$</span>novelty2<span class="sc">!=</span><span class="st">"Known"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3072.309</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(df<span class="sc">$</span>tx_len[df<span class="sc">$</span>novelty2<span class="sc">!=</span><span class="st">"Known"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1168.997</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Linear model: Known is the intercept</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(<span class="fu">log2</span>(tx_len) <span class="sc">~</span> novelty2,<span class="at">data=</span>df[df<span class="sc">$</span>tx_len <span class="sc">&gt;</span> <span class="dv">1000</span>,]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = log2(tx_len) ~ novelty2, data = df[df$tx_len &gt; 1000, 
+    ])
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.6246 -0.3952  0.0137  0.3949  6.2778 
+
+Coefficients:
+                    Estimate Std. Error  t value Pr(&gt;|t|)    
+(Intercept)        11.367558   0.002874 3955.796  &lt; 2e-16 ***
+novelty2ISM_Prefix  0.016804   0.005031    3.341 0.000836 ***
+novelty2ISM_Suffix  0.126745   0.003850   32.923  &lt; 2e-16 ***
+novelty2NIC         0.224224   0.003922   57.172  &lt; 2e-16 ***
+novelty2NNC         0.137284   0.005755   23.855  &lt; 2e-16 ***
+novelty2Other       0.012843   0.008076    1.590 0.111768    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.5991 on 190337 degrees of freedom
+Multiple R-squared:  0.0208,    Adjusted R-squared:  0.02078 
+F-statistic: 808.7 on 5 and 190337 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(<span class="fu">log2</span>(tx_len) <span class="sc">~</span> novelty2<span class="sc">==</span><span class="st">"Known"</span>,<span class="at">data=</span>df))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = log2(tx_len) ~ novelty2 == "Known", data = df)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-5.5655 -0.4458  0.0731  0.5117  7.0423 
+
+Coefficients:
+                         Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)             11.472348   0.002319  4948.1   &lt;2e-16 ***
+novelty2 == "Known"TRUE -0.869348   0.004212  -206.4   &lt;2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.8965 on 214514 degrees of freedom
+Multiple R-squared:  0.1657,    Adjusted R-squared:  0.1657 
+F-statistic: 4.26e+04 on 1 and 214514 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Non-parametric test</span></span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="fu">kruskal.test</span>((tx_len) <span class="sc">~</span> novelty2<span class="sc">==</span><span class="st">"Known"</span>,<span class="at">data=</span>df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Kruskal-Wallis rank sum test
+
+data:  (tx_len) by novelty2 == "Known"
+Kruskal-Wallis chi-squared = 23404, df = 1, p-value &lt; 2.2e-16</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kruskal.test</span>(<span class="fu">log2</span>(tx_len) <span class="sc">~</span> novelty2,<span class="at">data=</span>df[df<span class="sc">$</span>tx_len <span class="sc">&gt;</span> <span class="dv">1000</span>,])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Kruskal-Wallis rank sum test
+
+data:  log2(tx_len) by novelty2
+Kruskal-Wallis chi-squared = 4511.4, df = 5, p-value &lt; 2.2e-16</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>DescTools<span class="sc">::</span><span class="fu">DunnTest</span>(<span class="fu">log2</span>(tx_len) <span class="sc">~</span> novelty2, <span class="at">data=</span>df[df<span class="sc">$</span>tx_len <span class="sc">&gt;</span> <span class="dv">1000</span>,], <span class="at">method=</span><span class="st">'bonferroni'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ Dunn's test of multiple comparisons using rank sums : bonferroni  
+
+                      mean.rank.diff    pval    
+ISM_Prefix-Known           3089.5845 3.2e-10 ***
+ISM_Suffix-Known          13024.1853 &lt; 2e-16 ***
+NIC-Known                 22131.1682 &lt; 2e-16 ***
+NNC-Known                 13892.0679 &lt; 2e-16 ***
+Other-Known                2480.9445  0.0121 *  
+ISM_Suffix-ISM_Prefix      9934.6008 &lt; 2e-16 ***
+NIC-ISM_Prefix            19041.5837 &lt; 2e-16 ***
+NNC-ISM_Prefix            10802.4834 &lt; 2e-16 ***
+Other-ISM_Prefix           -608.6399  1.0000    
+NIC-ISM_Suffix             9106.9829 &lt; 2e-16 ***
+NNC-ISM_Suffix              867.8826  1.0000    
+Other-ISM_Suffix         -10543.2407 &lt; 2e-16 ***
+NNC-NIC                   -8239.1003 &lt; 2e-16 ***
+Other-NIC                -19650.2236 &lt; 2e-16 ***
+Other-NNC                -11411.1233 &lt; 2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Boxplot</span></span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a><span class="co"># ggplot(df, aes(x=novelty2, y=tx_len, fill=novelty2)) + geom_boxplot()+ </span></span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   theme_bw()  + scale_fill_manual(values=colorVector_ismSplit) + </span></span>
+<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a><span class="co">#   scale_y_continuous(trans = log10_trans(),breaks = trans_breaks("log10", function(x) 10^x),</span></span>
+<span id="cb59-5"><a href="#cb59-5" aria-hidden="true" tabindex="-1"></a><span class="co">#     labels = trans_format("log10", math_format(10^.x)))</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="fig1g-exons-gene" class="level3">
+<h3 class="anchored" data-anchor-id="fig1g-exons-gene">Fig1G: # Exons / gene</h3>
+<div class="cell" data-hash="Figure1_BulkTxomeAnalysis_cache/html/unnamed-chunk-7_61fcf6d60e7cb7775f15f5650593ec30">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>Fig1G <span class="ot">=</span> <span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x=</span>nexon, <span class="at">fill=</span>novelty2)) <span class="sc">+</span> <span class="fu">geom_histogram</span>(<span class="at">alpha=</span>.<span class="dv">75</span>, <span class="at">binwidth =</span> <span class="dv">1</span>) <span class="sc">+</span> <span class="fu">theme_bw</span>() <span class="sc">+</span> </span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="dv">1</span>,<span class="dv">40</span>) <span class="sc">+</span> <span class="fu">scale_fill_manual</span>(<span class="at">values=</span>colorVector_ismSplit) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"# Exons"</span>, <span class="at">y=</span><span class="st">"# Transcripts"</span>) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">'Exons per  Transcript'</span>) <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>Fig1G</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 597 rows containing non-finite values (`stat_bin()`).</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 12 rows containing missing values (`geom_bar()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="Figure1_BulkTxomeAnalysis_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(Fig1G,<span class="at">file=</span><span class="st">'output/figures/Fig1/Fig1G.pdf'</span>, <span class="at">width=</span><span class="dv">3</span>,<span class="at">height=</span><span class="fl">2.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 597 rows containing non-finite values (`stat_bin()`).
+Removed 12 rows containing missing values (`geom_bar()`).</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(novelty2) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(nexon) <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="fu">median</span>(nexon), <span class="fu">mean</span>(nexon), <span class="fu">sd</span>(nexon), <span class="fu">quantile</span>(nexon, .<span class="dv">05</span>), <span class="fu">quantile</span>(nexon,.<span class="dv">95</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Adding missing grouping variables: `novelty2`</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 6
+  novelty2   `median(nexon)` `mean(nexon)` `sd(nexon)` quantile(nexon,…¹ quant…²
+  &lt;fct&gt;                &lt;dbl&gt;         &lt;dbl&gt;       &lt;dbl&gt;             &lt;dbl&gt;   &lt;dbl&gt;
+1 Known                    5          7.16        6.88                 1      21
+2 ISM_Prefix               8         10.1         6.99                 2      23
+3 ISM_Suffix               8         10.1         7.01                 2      24
+4 NIC                     12         13.2         7.31                 4      27
+5 NNC                      9         10.3         6.80                 2      23
+6 Other                    5          7.30        6.24                 2      20
+# … with abbreviated variable names ¹​`quantile(nexon, 0.05)`,
+#   ²​`quantile(nexon, 0.95)`</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(novelty2<span class="sc">==</span><span class="st">"Known"</span>) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(nexon) <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="fu">median</span>(nexon), <span class="fu">mean</span>(nexon), <span class="fu">sd</span>(nexon), <span class="fu">quantile</span>(nexon, .<span class="dv">05</span>), <span class="fu">quantile</span>(nexon,.<span class="dv">95</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Adding missing grouping variables: `novelty2 == "Known"`</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 6
+  `novelty2 == "Known"` `median(nexon)` `mean(nexon)` sd(nexon…¹ quant…² quant…³
+  &lt;lgl&gt;                           &lt;dbl&gt;         &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+1 FALSE                              10         11.0        7.25       2      25
+2 TRUE                                5          7.16       6.88       1      21
+# … with abbreviated variable names ¹​`sd(nexon)`, ²​`quantile(nexon, 0.05)`,
+#   ³​`quantile(nexon, 0.95)`</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Linear model (known is intercept)</span></span>
+<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(<span class="fu">log2</span>(df<span class="sc">$</span>nexon) <span class="sc">~</span> df<span class="sc">$</span>novelty2))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = log2(df$nexon) ~ df$novelty2)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-2.4927 -0.6853  0.0657  0.8222  4.0657 
+
+Coefficients:
+                      Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)           2.256270   0.004331 520.977   &lt;2e-16 ***
+df$novelty2ISM_Prefix 0.720984   0.008605  83.788   &lt;2e-16 ***
+df$novelty2ISM_Suffix 0.728883   0.006378 114.275   &lt;2e-16 ***
+df$novelty2NIC        1.236409   0.006545 188.897   &lt;2e-16 ***
+df$novelty2NNC        0.776082   0.010123  76.663   &lt;2e-16 ***
+df$novelty2Other      0.127124   0.014200   8.952   &lt;2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 1.104 on 214510 degrees of freedom
+Multiple R-squared:  0.1525,    Adjusted R-squared:  0.1525 
+F-statistic:  7720 on 5 and 214510 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Non-parametric test</span></span>
+<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a><span class="fu">kruskal.test</span>(<span class="fu">log2</span>(df<span class="sc">$</span>nexon) <span class="sc">~</span> <span class="fu">as.factor</span>(df<span class="sc">$</span>novelty2))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Kruskal-Wallis rank sum test
+
+data:  log2(df$nexon) by as.factor(df$novelty2)
+Kruskal-Wallis chi-squared = 29541, df = 5, p-value &lt; 2.2e-16</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kruskal.test</span>(<span class="fu">log2</span>(df<span class="sc">$</span>nexon) <span class="sc">~</span> <span class="fu">as.factor</span>(df<span class="sc">$</span>novelty2<span class="sc">==</span><span class="st">"Known"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Kruskal-Wallis rank sum test
+
+data:  log2(df$nexon) by as.factor(df$novelty2 == "Known")
+Kruskal-Wallis chi-squared = 20319, df = 1, p-value &lt; 2.2e-16</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kruskal.test</span>((df<span class="sc">$</span>nexon) <span class="sc">~</span> <span class="fu">as.factor</span>(df<span class="sc">$</span>novelty2<span class="sc">==</span><span class="st">"Known"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Kruskal-Wallis rank sum test
+
+data:  (df$nexon) by as.factor(df$novelty2 == "Known")
+Kruskal-Wallis chi-squared = 20319, df = 1, p-value &lt; 2.2e-16</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a>DescTools<span class="sc">::</span><span class="fu">DunnTest</span>(<span class="fu">log2</span>(df<span class="sc">$</span>nexon) <span class="sc">~</span> <span class="fu">as.factor</span>(df<span class="sc">$</span>novelty2),<span class="at">method=</span><span class="st">'bonferroni'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ Dunn's test of multiple comparisons using rank sums : bonferroni  
+
+                      mean.rank.diff    pval    
+ISM_Prefix-Known          32693.6946 &lt; 2e-16 ***
+ISM_Suffix-Known          33127.7388 &lt; 2e-16 ***
+NIC-Known                 61043.3188 &lt; 2e-16 ***
+NNC-Known                 35434.2011 &lt; 2e-16 ***
+Other-Known                3206.1675 0.00083 ***
+ISM_Suffix-ISM_Prefix       434.0442 1.00000    
+NIC-ISM_Prefix            28349.6241 &lt; 2e-16 ***
+NNC-ISM_Prefix             2740.5065 0.00050 ***
+Other-ISM_Prefix         -29487.5271 &lt; 2e-16 ***
+NIC-ISM_Suffix            27915.5799 &lt; 2e-16 ***
+NNC-ISM_Suffix             2306.4623 0.00092 ***
+Other-ISM_Suffix         -29921.5713 &lt; 2e-16 ***
+NNC-NIC                  -25609.1177 &lt; 2e-16 ***
+Other-NIC                -57837.1512 &lt; 2e-16 ***
+Other-NNC                -32228.0336 &lt; 2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="analyses-of-transcripts-per-gene-disease" class="level2">
+<h2 class="anchored" data-anchor-id="analyses-of-transcripts-per-gene-disease">Analyses of transcripts per gene &amp; disease</h2>
+<section id="ndd-risk-genes-unique-transcipts-per-gene" class="level3">
+<h3 class="anchored" data-anchor-id="ndd-risk-genes-unique-transcipts-per-gene">NDD risk genes ~ unique transcipts per gene</h3>
+<div class="cell" data-hash="Figure1_BulkTxomeAnalysis_cache/html/unnamed-chunk-8_589057e417299567f0b38278a784d513">
+<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a>risk_genes <span class="ot">=</span><span class="fu">read.csv</span>(<span class="st">"ref/ASD+SCZ+DDD_2022.csv"</span>)</span>
+<span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a>pLI_scores <span class="ot">=</span> <span class="fu">read.table</span>(<span class="st">'ref/pLI_scores.ensid.txt'</span>,<span class="at">header =</span> T)</span>
+<span id="cb81-3"><a href="#cb81-3" aria-hidden="true" tabindex="-1"></a>asd_genes <span class="ot">=</span> risk_genes<span class="sc">$</span>Gene[risk_genes<span class="sc">$</span>Set<span class="sc">==</span><span class="st">"ASD (SFARI score 1)"</span>]</span>
+<span id="cb81-4"><a href="#cb81-4" aria-hidden="true" tabindex="-1"></a>ddd_genes <span class="ot">=</span> risk_genes<span class="sc">$</span>Gene[risk_genes<span class="sc">$</span>Set<span class="sc">==</span><span class="st">"DDD (Kaplanis et al. 2019)"</span>]</span>
+<span id="cb81-5"><a href="#cb81-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb81-6"><a href="#cb81-6" aria-hidden="true" tabindex="-1"></a>geneCounts <span class="ot">=</span> cts <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(<span class="at">gene_id=</span><span class="fu">substr</span>(annot_gene_id,<span class="dv">1</span>,<span class="dv">15</span>)) <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">gene_counts =</span> <span class="fu">sum</span>(counts))</span>
+<span id="cb81-7"><a href="#cb81-7" aria-hidden="true" tabindex="-1"></a>geneCounts<span class="sc">$</span>gene_counts <span class="ot">=</span> geneCounts<span class="sc">$</span>gene_counts <span class="sc">/</span> (<span class="fu">sum</span>(geneCounts<span class="sc">$</span>gene_counts) <span class="sc">/</span> <span class="dv">1000000</span>)</span>
+<span id="cb81-8"><a href="#cb81-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb81-9"><a href="#cb81-9" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> talon_gtf <span class="sc">%&gt;%</span> <span class="fu">as_tibble</span>()  <span class="sc">%&gt;%</span> </span>
+<span id="cb81-10"><a href="#cb81-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">gene_id =</span> <span class="fu">str_sub</span>(gene_id, <span class="dv">1</span>, <span class="dv">15</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb81-11"><a href="#cb81-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(gene_id) <span class="sc">%&gt;%</span></span>
+<span id="cb81-12"><a href="#cb81-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">n_transcripts =</span> <span class="fu">n_distinct</span>(<span class="fu">na.omit</span>(transcript_id)), <span class="at">n_exons =</span> <span class="fu">n_distinct</span>(<span class="fu">na.omit</span>(exon_id))) <span class="sc">%&gt;%</span></span>
+<span id="cb81-13"><a href="#cb81-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() </span>
+<span id="cb81-14"><a href="#cb81-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb81-15"><a href="#cb81-15" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span><span class="fu">as_tibble</span>(gencode_gtf) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(type<span class="sc">==</span><span class="st">"gene"</span>) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">gene_id=</span><span class="fu">substr</span>(gene_id,<span class="dv">0</span>,<span class="dv">15</span>)) <span class="sc">%&gt;%</span> <span class="fu">right_join</span>(df, <span class="at">by=</span><span class="st">"gene_id"</span>)</span>
+<span id="cb81-16"><a href="#cb81-16" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">left_join</span>(geneCounts) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Joining with `by = join_by(gene_id)`</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb83"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> pLI_scores <span class="sc">%&gt;%</span> <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="at">gene_id=</span>gene, pLI) <span class="sc">%&gt;%</span> <span class="fu">right_join</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Joining with `by = join_by(gene_id)`</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in right_join(., df): Each row in `x` is expected to match at most 1 row in `y`.
+ℹ Row 476 of `x` matches multiple rows.
+ℹ If multiple matches are expected, set `multiple = "all"` to silence this
+  warning.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb86"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>gene_rank <span class="ot">=</span> <span class="fu">rank</span>(<span class="sc">-</span>df<span class="sc">$</span>n_transcripts, <span class="at">ties.method =</span> <span class="st">'first'</span>)</span>
+<span id="cb86-2"><a href="#cb86-2" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>DDD <span class="ot">=</span> <span class="cn">FALSE</span></span>
+<span id="cb86-3"><a href="#cb86-3" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>DDD[df<span class="sc">$</span>gene_name <span class="sc">%in%</span> <span class="fu">c</span>(asd_genes, ddd_genes)] <span class="ot">=</span> <span class="cn">TRUE</span></span>
+<span id="cb86-4"><a href="#cb86-4" aria-hidden="true" tabindex="-1"></a>s<span class="ot">=</span><span class="fu">summary</span>(<span class="fu">glm</span>(DDD <span class="sc">~</span> <span class="fu">log10</span>(n_transcripts)  <span class="sc">+</span> <span class="fu">log10</span>(width)  <span class="sc">+</span> <span class="fu">log10</span>(gene_counts), <span class="at">data=</span>df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(gene_type <span class="sc">==</span> <span class="st">"protein_coding"</span>), <span class="at">family=</span><span class="st">'binomial'</span>))</span>
+<span id="cb86-5"><a href="#cb86-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(s)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+glm(formula = DDD ~ log10(n_transcripts) + log10(width) + log10(gene_counts), 
+    family = "binomial", data = df %&gt;% filter(gene_type == "protein_coding"))
+
+Deviance Residuals: 
+    Min       1Q   Median       3Q      Max  
+-0.8652  -0.2530  -0.1708  -0.1059   3.5222  
+
+Coefficients:
+                     Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)          -10.2296     0.5162 -19.819  &lt; 2e-16 ***
+log10(n_transcripts)   1.1084     0.2013   5.507 3.64e-08 ***
+log10(width)           1.0441     0.1057   9.882  &lt; 2e-16 ***
+log10(gene_counts)     0.3320     0.1161   2.859  0.00425 ** 
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 3522.0  on 15146  degrees of freedom
+Residual deviance: 3145.4  on 15143  degrees of freedom
+AIC: 3153.4
+
+Number of Fisher Scoring iterations: 7</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb88"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(s<span class="sc">$</span>coefficients[,<span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>         (Intercept) log10(n_transcripts)         log10(width) 
+        3.608466e-05         3.029439e+00         2.840918e+00 
+  log10(gene_counts) 
+        1.393712e+00 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb90"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a>Fig1H<span class="ot">=</span><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> gene_rank, <span class="at">y =</span> n_transcripts,<span class="at">color=</span>DDD)) <span class="sc">+</span></span>
+<span id="cb90-2"><a href="#cb90-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">geom_line</span>(<span class="at">color=</span><span class="st">'blue'</span>) <span class="sc">+</span> </span>
+<span id="cb90-3"><a href="#cb90-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_label_repel</span>(<span class="at">data =</span> df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(n_transcripts <span class="sc">&gt;</span> <span class="dv">150</span> <span class="sc">|</span> (n_transcripts <span class="sc">&gt;</span> <span class="dv">75</span> <span class="sc">&amp;</span> DDD<span class="sc">==</span><span class="cn">TRUE</span>)),<span class="fu">aes</span>(<span class="at">label =</span> gene_name),<span class="at">force =</span> <span class="dv">30</span>, <span class="at">direction=</span><span class="st">'both'</span>,<span class="at">nudge_y=</span><span class="sc">-</span>.<span class="dv">1</span>,<span class="at">nudge_x =</span> .<span class="dv">3</span>, <span class="at">max.iter =</span> <span class="dv">10000</span>,<span class="at">max.overlaps =</span> <span class="dv">50</span>, <span class="at">size=</span><span class="fl">2.5</span>) <span class="sc">+</span> <span class="fu">scale_color_manual</span>(<span class="at">values=</span><span class="fu">c</span>(<span class="st">"TRUE"</span> <span class="ot">=</span> <span class="st">"red"</span>, <span class="st">"FALSE"</span> <span class="ot">=</span> <span class="st">"black"</span>)) <span class="sc">+</span> <span class="fu">scale_y_log10</span>() <span class="sc">+</span> <span class="fu">scale_x_log10</span>() <span class="sc">+</span> <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="fu">annotation_logticks</span>() <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">'none'</span>) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Gene rank"</span>, <span class="at">y=</span><span class="st">"# Transcripts"</span>) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">"NDD risk genes ~ unique  transcipts per gene"</span>,<span class="at">subtitle=</span><span class="fu">paste0</span>(<span class="st">"OR "</span>,<span class="fu">signif</span>(<span class="fu">exp</span>(s<span class="sc">$</span>coefficients[<span class="dv">2</span>,<span class="dv">1</span>]),<span class="dv">3</span>),<span class="st">", P="</span>, <span class="fu">signif</span>(s<span class="sc">$</span>coefficients[<span class="dv">2</span>,<span class="dv">4</span>],<span class="dv">2</span>)))</span>
+<span id="cb90-4"><a href="#cb90-4" aria-hidden="true" tabindex="-1"></a>Fig1H</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Figure1_BulkTxomeAnalysis_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb91"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="at">file=</span><span class="st">"output/figures/Fig1/Fig1H.pdf"</span>,Fig1H, <span class="at">width =</span> <span class="dv">8</span>, <span class="at">height=</span><span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="figs3-ndd-risk-genes-unique-novel-transcipts-per-gene" class="level3">
+<h3 class="anchored" data-anchor-id="figs3-ndd-risk-genes-unique-novel-transcipts-per-gene">FigS3: NDD risk genes ~ unique NOVEL transcipts per gene</h3>
+<div class="cell" data-hash="Figure1_BulkTxomeAnalysis_cache/html/unnamed-chunk-9_f74b4d91a129d5723c9c94ec37e0796e">
+<div class="sourceCode cell-code" id="cb92"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a>df.novel <span class="ot">&lt;-</span> talon_gtf <span class="sc">%&gt;%</span> <span class="fu">as_tibble</span>()  <span class="sc">%&gt;%</span> <span class="fu">filter</span>(type<span class="sc">==</span><span class="st">"transcript"</span>, transcript_id <span class="sc">%in%</span> cts<span class="sc">$</span>annot_transcript_id[cts<span class="sc">$</span>novelty2<span class="sc">!=</span><span class="st">"Known"</span>]) <span class="sc">%&gt;%</span> </span>
+<span id="cb92-2"><a href="#cb92-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">gene_id =</span> <span class="fu">str_sub</span>(gene_id, <span class="dv">1</span>, <span class="dv">15</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb92-3"><a href="#cb92-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(gene_id) <span class="sc">%&gt;%</span></span>
+<span id="cb92-4"><a href="#cb92-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">n_transcripts =</span> <span class="fu">n_distinct</span>(<span class="fu">na.omit</span>(transcript_id)), <span class="at">n_exons =</span> <span class="fu">n_distinct</span>(<span class="fu">na.omit</span>(exon_id))) <span class="sc">%&gt;%</span></span>
+<span id="cb92-5"><a href="#cb92-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() </span>
+<span id="cb92-6"><a href="#cb92-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb92-7"><a href="#cb92-7" aria-hidden="true" tabindex="-1"></a>df.novel <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(gencode_gtf) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(type<span class="sc">==</span><span class="st">"gene"</span>) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">gene_id=</span><span class="fu">substr</span>(gene_id,<span class="dv">0</span>,<span class="dv">15</span>)) <span class="sc">%&gt;%</span> <span class="fu">right_join</span>(df.novel, <span class="at">by=</span><span class="st">"gene_id"</span>)</span>
+<span id="cb92-8"><a href="#cb92-8" aria-hidden="true" tabindex="-1"></a>df.novel <span class="ot">&lt;-</span> df.novel <span class="sc">%&gt;%</span> <span class="fu">left_join</span>(geneCounts) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Joining with `by = join_by(gene_id)`</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb94"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a>df.novel<span class="sc">$</span>gene_rank <span class="ot">=</span> <span class="fu">rank</span>(<span class="sc">-</span>df.novel<span class="sc">$</span>n_transcripts, <span class="at">ties.method =</span> <span class="st">'first'</span>)</span>
+<span id="cb94-2"><a href="#cb94-2" aria-hidden="true" tabindex="-1"></a>df.novel<span class="sc">$</span>DDD <span class="ot">=</span> <span class="cn">FALSE</span></span>
+<span id="cb94-3"><a href="#cb94-3" aria-hidden="true" tabindex="-1"></a>df.novel<span class="sc">$</span>DDD[df.novel<span class="sc">$</span>gene_name <span class="sc">%in%</span> <span class="fu">c</span>(asd_genes, ddd_genes)] <span class="ot">=</span> <span class="cn">TRUE</span></span>
+<span id="cb94-4"><a href="#cb94-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb94-5"><a href="#cb94-5" aria-hidden="true" tabindex="-1"></a>s<span class="ot">=</span><span class="fu">summary</span>(<span class="fu">glm</span>(DDD <span class="sc">~</span> <span class="fu">log10</span>(n_transcripts)  <span class="sc">+</span> <span class="fu">log10</span>(width)  <span class="sc">+</span> <span class="fu">log10</span>(gene_counts), <span class="at">data=</span>df.novel <span class="sc">%&gt;%</span> <span class="fu">filter</span>(gene_type <span class="sc">==</span> <span class="st">"protein_coding"</span>), <span class="at">family=</span><span class="st">'binomial'</span>))</span>
+<span id="cb94-6"><a href="#cb94-6" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(s)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+glm(formula = DDD ~ log10(n_transcripts) + log10(width) + log10(gene_counts), 
+    family = "binomial", data = df.novel %&gt;% filter(gene_type == 
+        "protein_coding"))
+
+Deviance Residuals: 
+    Min       1Q   Median       3Q      Max  
+-0.7978  -0.2842  -0.2103  -0.1501   3.4149  
+
+Coefficients:
+                     Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)           -9.9549     0.5723 -17.394  &lt; 2e-16 ***
+log10(n_transcripts)   0.5682     0.1645   3.453 0.000554 ***
+log10(width)           1.0640     0.1115   9.546  &lt; 2e-16 ***
+log10(gene_counts)     0.5614     0.1217   4.612 3.98e-06 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 3142.7  on 11204  degrees of freedom
+Residual deviance: 2904.9  on 11201  degrees of freedom
+AIC: 2912.9
+
+Number of Fisher Scoring iterations: 7</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb96"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb96-1"><a href="#cb96-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span>(<span class="fu">exp</span>(s<span class="sc">$</span>coefficients[,<span class="dv">1</span>]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>         (Intercept)   log10(gene_counts) log10(n_transcripts) 
+        0.0000474938         1.7531245449         1.7651452731 
+        log10(width) 
+        2.8979142259 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb98"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb98-1"><a href="#cb98-1" aria-hidden="true" tabindex="-1"></a>FigS3<span class="ot">=</span><span class="fu">ggplot</span>(df.novel, <span class="fu">aes</span>(<span class="at">x =</span> gene_rank, <span class="at">y =</span> n_transcripts,<span class="at">color=</span>DDD)) <span class="sc">+</span></span>
+<span id="cb98-2"><a href="#cb98-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">geom_line</span>(<span class="at">color=</span><span class="st">'blue'</span>) <span class="sc">+</span> </span>
+<span id="cb98-3"><a href="#cb98-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_label_repel</span>(<span class="at">data =</span> df.novel <span class="sc">%&gt;%</span> <span class="fu">filter</span>(n_transcripts <span class="sc">&gt;</span> <span class="dv">150</span> <span class="sc">|</span> (n_transcripts <span class="sc">&gt;</span> <span class="dv">75</span> <span class="sc">&amp;</span> DDD<span class="sc">==</span><span class="cn">TRUE</span>)),<span class="fu">aes</span>(<span class="at">label =</span> gene_name),<span class="at">force =</span> <span class="dv">30</span>, <span class="at">direction=</span><span class="st">'both'</span>,<span class="at">nudge_y=</span><span class="sc">-</span>.<span class="dv">1</span>,<span class="at">nudge_x =</span> .<span class="dv">3</span>, <span class="at">max.iter =</span> <span class="dv">10000</span>,<span class="at">max.overlaps =</span> <span class="dv">50</span>, <span class="at">size=</span><span class="fl">2.5</span>) <span class="sc">+</span> <span class="fu">scale_color_manual</span>(<span class="at">values=</span><span class="fu">c</span>(<span class="st">"TRUE"</span> <span class="ot">=</span> <span class="st">"red"</span>, <span class="st">"FALSE"</span> <span class="ot">=</span> <span class="st">"black"</span>)) <span class="sc">+</span> <span class="fu">scale_y_log10</span>() <span class="sc">+</span> <span class="fu">scale_x_log10</span>() <span class="sc">+</span> <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="fu">annotation_logticks</span>() <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">'none'</span>) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Gene rank"</span>, <span class="at">y=</span><span class="st">"# Transcripts"</span>) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">"NDD risk genes ~ unique novel transcipts per gene"</span>,<span class="at">subtitle=</span><span class="fu">paste0</span>(<span class="st">"OR "</span>,<span class="fu">signif</span>(<span class="fu">exp</span>(s<span class="sc">$</span>coefficients[<span class="dv">2</span>,<span class="dv">1</span>]),<span class="dv">2</span>),<span class="st">", P="</span>, <span class="fu">signif</span>(s<span class="sc">$</span>coefficients[<span class="dv">2</span>,<span class="dv">4</span>],<span class="dv">2</span>)))</span>
+<span id="cb98-4"><a href="#cb98-4" aria-hidden="true" tabindex="-1"></a>FigS3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Figure1_BulkTxomeAnalysis_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb99"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="at">file=</span><span class="st">"output/figures/supplement/FigS3G.pdf"</span>,FigS3, <span class="at">width =</span> <span class="dv">8</span>, <span class="at">height=</span><span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="pathway-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="pathway-analysis">Pathway Analysis</h2>
+<div class="cell" data-hash="Figure1_BulkTxomeAnalysis_cache/html/unnamed-chunk-10_7ddbcbcc650775fc8a674ee0b48e831d">
+<div class="sourceCode cell-code" id="cb100"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb100-1"><a href="#cb100-1" aria-hidden="true" tabindex="-1"></a>sumstats <span class="ot">&lt;-</span> tx.isoseq <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(gene_name, gene_type) <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">total =</span> <span class="fu">n_distinct</span>(transcript_id), <span class="at">known =</span> <span class="fu">sum</span>(transcript_status<span class="sc">==</span><span class="st">"KNOWN"</span>), <span class="at">ISM.pre =</span> <span class="fu">sum</span>(ISM.prefix_transcript<span class="sc">==</span><span class="st">"TRUE"</span>, <span class="at">na.rm=</span>T), <span class="at">ISM.suffix =</span> <span class="fu">sum</span>(ISM.suffix_transcript<span class="sc">==</span><span class="st">"TRUE"</span>, <span class="at">na.rm=</span>T), <span class="at">NIC =</span> <span class="fu">sum</span>(NIC_transcript<span class="sc">==</span><span class="cn">TRUE</span>, <span class="at">na.rm =</span> T), <span class="at">NNC =</span> <span class="fu">sum</span>(NNC_transcript<span class="sc">==</span><span class="cn">TRUE</span>, <span class="at">na.rm =</span> T))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`summarise()` has grouped output by 'gene_name'. You can override using the
+`.groups` argument.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb102"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb102-1"><a href="#cb102-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(<span class="at">file=</span><span class="st">"output/isoformNovetyCounts_at_geneLevel.csv"</span>,sumstats)</span>
+<span id="cb102-2"><a href="#cb102-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-3"><a href="#cb102-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-4"><a href="#cb102-4" aria-hidden="true" tabindex="-1"></a>query <span class="ot">=</span> <span class="fu">sort</span>(<span class="fu">unique</span>(tx.isoseq<span class="sc">$</span>gene_name[tx.isoseq<span class="sc">$</span>transcript_status<span class="sc">==</span><span class="st">"NOVEL"</span> <span class="sc">&amp;</span> (tx.isoseq<span class="sc">$</span>NNC_transcript<span class="sc">==</span><span class="cn">TRUE</span> <span class="sc">|</span> tx.isoseq<span class="sc">$</span>NIC_transcript <span class="sc">==</span> <span class="cn">TRUE</span>)]))</span>
+<span id="cb102-5"><a href="#cb102-5" aria-hidden="true" tabindex="-1"></a>bg <span class="ot">=</span> <span class="fu">sort</span>(<span class="fu">unique</span>(tx.isoseq<span class="sc">$</span>gene_name[tx.isoseq<span class="sc">$</span>transcript_status<span class="sc">==</span><span class="st">"NOVEL"</span> <span class="sc">|</span> tx.isoseq<span class="sc">$</span>transcript_status<span class="sc">==</span><span class="st">"KNOWN"</span>]))</span>
+<span id="cb102-6"><a href="#cb102-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-7"><a href="#cb102-7" aria-hidden="true" tabindex="-1"></a>go <span class="ot">=</span> gprofiler2<span class="sc">::</span><span class="fu">gost</span>(<span class="at">query =</span> query,<span class="at">custom_bg =</span> bg,<span class="at">sources =</span> <span class="fu">c</span>(<span class="st">"GO"</span>, <span class="st">"KEGG"</span>, <span class="st">"REACTOME"</span>),<span class="at">as_short_link =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Detected custom background input, domain scope is set to 'custom'</code></pre>
+</div>
+</div>
+</section>
+<section id="gene-body-coverage" class="level2">
+<h2 class="anchored" data-anchor-id="gene-body-coverage">Gene Body Coverage</h2>
+<div class="cell" data-hash="Figure1_BulkTxomeAnalysis_cache/html/unnamed-chunk-11_f7d203ca0296def73abdaf1a8ec13d7b">
+<div class="sourceCode cell-code" id="cb104"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb104-1"><a href="#cb104-1" aria-hidden="true" tabindex="-1"></a>files <span class="ot">=</span> <span class="fu">dir</span>(<span class="at">path =</span> <span class="st">"data/QC/RNA_Metrics/"</span>, <span class="at">pattern=</span><span class="st">"RNA_Metrics"</span>)</span>
+<span id="cb104-2"><a href="#cb104-2" aria-hidden="true" tabindex="-1"></a>df_coverage_isoseq <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">Position=</span><span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">100</span>))</span>
+<span id="cb104-3"><a href="#cb104-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb104-4"><a href="#cb104-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(files)) {</span>
+<span id="cb104-5"><a href="#cb104-5" aria-hidden="true" tabindex="-1"></a>  this_file <span class="ot">=</span> data.table<span class="sc">::</span><span class="fu">fread</span>(<span class="fu">paste0</span>(<span class="st">"data/QC/RNA_Metrics/"</span>, files[i]),<span class="at">skip=</span><span class="dv">10</span>)</span>
+<span id="cb104-6"><a href="#cb104-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">names</span>(this_file)[<span class="dv">2</span>] <span class="ot">=</span> <span class="fu">gsub</span>(<span class="st">".RNA_Metrics"</span>, <span class="st">""</span>, files[i])</span>
+<span id="cb104-7"><a href="#cb104-7" aria-hidden="true" tabindex="-1"></a>  df_coverage_isoseq <span class="ot">=</span> <span class="fu">cbind</span>(df_coverage_isoseq, this_file[,<span class="dv">2</span>])</span>
+<span id="cb104-8"><a href="#cb104-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb104-9"><a href="#cb104-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb104-10"><a href="#cb104-10" aria-hidden="true" tabindex="-1"></a>files <span class="ot">=</span> <span class="fu">dir</span>(<span class="at">path =</span> <span class="st">"data/QC/RNA_Metrics_short_read//"</span>, <span class="at">pattern=</span><span class="st">"RNA_Metrics"</span>)</span>
+<span id="cb104-11"><a href="#cb104-11" aria-hidden="true" tabindex="-1"></a>df_coverage_shortread <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">Position=</span><span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">100</span>))</span>
+<span id="cb104-12"><a href="#cb104-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb104-13"><a href="#cb104-13" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(files)) {</span>
+<span id="cb104-14"><a href="#cb104-14" aria-hidden="true" tabindex="-1"></a>  this_file <span class="ot">=</span> data.table<span class="sc">::</span><span class="fu">fread</span>(<span class="fu">paste0</span>(<span class="st">"data/QC/RNA_Metrics_short_read/"</span>, files[i]),<span class="at">skip=</span><span class="dv">10</span>)</span>
+<span id="cb104-15"><a href="#cb104-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">names</span>(this_file)[<span class="dv">2</span>] <span class="ot">=</span> <span class="fu">gsub</span>(<span class="st">".RNA_Metrics"</span>, <span class="st">""</span>, files[i])</span>
+<span id="cb104-16"><a href="#cb104-16" aria-hidden="true" tabindex="-1"></a>  df_coverage_shortread <span class="ot">=</span> <span class="fu">cbind</span>(df_coverage_shortread, this_file[,<span class="dv">2</span>])</span>
+<span id="cb104-17"><a href="#cb104-17" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb104-18"><a href="#cb104-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb104-19"><a href="#cb104-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb104-20"><a href="#cb104-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb104-21"><a href="#cb104-21" aria-hidden="true" tabindex="-1"></a>df_coverage_isoseq <span class="ot">&lt;-</span> df_coverage_isoseq <span class="sc">%&gt;%</span> <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span>Position, <span class="at">names_to =</span> <span class="st">"Sample"</span>, <span class="at">values_to =</span> <span class="st">"Normalized_coverage"</span>)</span>
+<span id="cb104-22"><a href="#cb104-22" aria-hidden="true" tabindex="-1"></a>df_coverage_isoseq<span class="sc">$</span>modality <span class="ot">=</span> <span class="st">"IsoSeq"</span></span>
+<span id="cb104-23"><a href="#cb104-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb104-24"><a href="#cb104-24" aria-hidden="true" tabindex="-1"></a>df_coverage_shortread <span class="ot">&lt;-</span> df_coverage_shortread <span class="sc">%&gt;%</span> <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span>Position, <span class="at">names_to =</span> <span class="st">"Sample"</span>, <span class="at">values_to =</span> <span class="st">"Normalized_coverage"</span>)</span>
+<span id="cb104-25"><a href="#cb104-25" aria-hidden="true" tabindex="-1"></a>df_coverage_shortread<span class="sc">$</span>modality <span class="ot">=</span> <span class="st">"short-read</span><span class="sc">\n</span><span class="st">RNAseq</span><span class="sc">\n</span><span class="st">(ribozero)"</span> </span>
+<span id="cb104-26"><a href="#cb104-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb104-27"><a href="#cb104-27" aria-hidden="true" tabindex="-1"></a>FigS2A<span class="ot">=</span> <span class="fu">ggplot</span>(<span class="fu">rbind</span>(df_coverage_isoseq, df_coverage_shortread), <span class="fu">aes</span>(<span class="at">x=</span>Position,<span class="at">y=</span>Normalized_coverage,<span class="at">group=</span>Sample, <span class="at">color=</span>modality)) <span class="sc">+</span> <span class="fu">geom_path</span>() <span class="sc">+</span> <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Gene body position (5' -&gt; 3')"</span>, <span class="at">y=</span><span class="st">"Normalized coverage"</span>)</span>
+<span id="cb104-28"><a href="#cb104-28" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(FigS2A,<span class="at">file=</span><span class="st">"output/figures/supplement/FigS2A_coverage.pdf"</span>,<span class="at">width=</span><span class="dv">5</span>,<span class="at">height=</span><span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
