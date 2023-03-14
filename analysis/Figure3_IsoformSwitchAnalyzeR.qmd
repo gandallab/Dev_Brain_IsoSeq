@@ -1,0 +1,769 @@
+---
+title: "Figure 3 - IsoformSwitchAnalyzeR"
+author: "Connor Jops"
+format: html
+date: "9/19/22"
+execute:
+  cache: true
+editor: source
+editor_options:
+  chunk_output_type: console
+---
+
+<https://bioconductor.org/packages/3.14/bioc/vignettes/IsoformSwitchAnalyzeR/inst/doc/IsoformSwitchAnalyzeR.html>
+
+
+
+```{r}
+suppressPackageStartupMessages({
+  library(IsoformSwitchAnalyzeR)
+  library(rtracklayer)
+  library(DESeq2)
+  library(ggVennDiagram)
+    library(tidyverse)
+library(readr)
+})
+```
+
+```{r}
+packageVersion('IsoformSwitchAnalyzeR')
+colorVector = c(
+  "Known" = "#009E73",
+  "ISM"   = "#0072B2",
+  "ISM_Prefix" = "#005996",
+  "ISM_Suffix" = "#378bcc",
+  "NIC"   = "#D55E00",
+  "NNC"   = "#E69F00",
+  "Other" = "#000000"
+)
+colorVector_ismSplit = colorVector[-2]
+
+```
+
+## Build switch list
+
+### Make design
+
+```{r}
+myDesign = tribble(
+  ~sampleID, ~condition, ~donor,
+  "VZ_209", "VZ", "209",
+  "VZ_334", "VZ", "334",
+  "VZ_336", "VZ", "336",
+  "CP_209", "CP", "209",
+  "CP_334", "CP", "334",
+  "CP_336", "CP", "336",
+) %>%
+  dplyr::mutate(
+    dplyr::across(c(condition, donor), as_factor)
+  )
+```
+
+### Extract Expresssion
+
+```{r}
+cts = read_table("data/cp_vz_0.75_min_7_recovery_talon_abundance_filtered.tsv.gz")
+cts = cts %>%
+  mutate(
+    VZ_209 = rowSums(across(matches("209_.*_VZ"))),
+    VZ_334 = rowSums(across(matches("334_.*_VZ"))),
+    VZ_336 = rowSums(across(matches("336_.*_VZ"))),
+    CP_209 = rowSums(across(matches("209_.*_CP"))),
+    CP_334 = rowSums(across(matches("334_.*_CP"))),
+    CP_336 = rowSums(across(matches("336_.*_CP"))),
+    .keep = "unused"
+  ) %>%
+  dplyr::select(!c("gene_ID", "transcript_ID", "annot_transcript_name")) %>%
+  dplyr::rename(
+    gene_id = "annot_gene_id",
+    transcript_id = "annot_transcript_id",
+    gene_name = "annot_gene_name"
+  ) %>%
+  mutate(
+    gene_novelty = as.factor(gene_novelty),
+    transcript_novelty = as.factor(transcript_novelty),
+    ISM_subtype = ISM_subtype %>% na_if("None") %>% as.factor()
+  )
+talonExpression = cts %>%
+  dplyr::select(transcript_id, starts_with(c("VZ", "CP"))) %>%
+  dplyr::rename(isoform_id = "transcript_id")
+talonExpression
+```
+
+### Create pre-filtered switchAnalyzeRlist
+
+IsoformSwitchAnalyzeR will make assumptions based on whether file extension is
+.gtf(.gz) or .gff(.gz)... was necessary to symlink `_corrected.gtf.cds.gff`.
+
+```{r}
+rdata_path  = "data/working/talonSwitchList_preFilter.rds"
+if(!file.exists(rdata_path)) { 
+  talonSwitchList <- importRdata(
+      isoformCountMatrix   = talonExpression,
+      designMatrix         = myDesign,
+      isoformExonAnnoation = 'data/cp_vz_0.75_min_7_recovery_talon.gtf.gz',
+      isoformNtFasta       = 'data/sqanti/cp_vz_0.75_min_7_recovery_talon_corrected.fasta.gz',
+      addAnnotatedORFs     = FALSE,
+      fixStringTieAnnotationProblem = FALSE # otherwise will mess up gene_ids
+  )
+  talonSwitchList <- addORFfromGTF(
+    switchAnalyzeRlist     = talonSwitchList,
+    pathToGTF              = 'data/sqanti/cp_vz_0.75_min_7_recovery_talon_corrected.gtf.cds.gtf.gz'
+  )
+  talonSwitchList <- preFilter(
+    switchAnalyzeRlist         = talonSwitchList,
+    geneExpressionCutoff       = 1,     # default
+    isoformExpressionCutoff    = 0,     # default
+    IFcutoff                   = 0.01,  # default
+    removeSingleIsoformGenes   = TRUE,  # default
+    reduceToSwitchingGenes     = FALSE, # default (we didn't run DEXSeq yet)
+    keepIsoformInAllConditions = TRUE   # we only have 2 conditions so doesn't matter
+  )
+  saveRDS(talonSwitchList, file = rdata_path)
+} else {
+  talonSwitchList = readRDS(rdata_path)
+}
+summary(talonSwitchList)
+```
+
+```{r}
+switchPlot(
+  talonSwitchList,
+  gene='KMT2E'
+)
+```
+
+## Run DESeq2
+
+### DTE
+
+```{r}
+cts_preFilter = talonExpression %>% filter(isoform_id %in% talonSwitchList$isoformFeatures$isoform_id)
+cts_preFilter
+```
+
+```{r}
+dds = DESeqDataSetFromMatrix(
+  as.data.frame(cts_preFilter),
+  as.data.frame(myDesign),
+  ~ donor + condition,
+  tidy = T
+)
+```
+
+```{r}
+# takes 30sec
+system.time({
+  dds  = DESeq(dds)
+})
+DTE_results = DESeq2::results(dds)
+DTE_results
+```
+
+```{r}
+DTE_results = DTE_results %>%
+  as_tibble(rownames = "isoform_id") %>%
+  mutate(padj = replace_na(padj, 1))
+```
+
+### DGE
+
+Mike note -- lets calculate DGE for all genes (expressed) not just those in
+talonSwitchList_part1, which filters out genes with only 1 isoform, etc
+Should be ~25k
+
+```{r}
+cts_gene = read_table("data/cp_vz_talon_abundance.tsv.gz") %>%
+  mutate(
+    VZ_209 = rowSums(across(matches("209_.*_VZ"))),
+    VZ_334 = rowSums(across(matches("334_.*_VZ"))),
+    VZ_336 = rowSums(across(matches("336_.*_VZ"))),
+    CP_209 = rowSums(across(matches("209_.*_CP"))),
+    CP_334 = rowSums(across(matches("334_.*_CP"))),
+    CP_336 = rowSums(across(matches("336_.*_CP"))),
+    .keep = "unused"
+  ) %>%
+  group_by(annot_gene_id, annot_gene_name, gene_novelty) %>%
+  summarize(across(starts_with(c("VZ", "CP")), sum), .groups = "drop") %>%
+  dplyr::rename(
+    gene_id = "annot_gene_id",
+    gene_name = "annot_gene_name"
+  ) %>%
+  mutate(gene_novelty = as.factor(gene_novelty))
+cts_gene_preFilter = cts_gene %>%
+  filter(gene_id %in% unique(cts$gene_id)) %>% # Filtering for those with at least one detected isoform
+  dplyr::select(gene_id, starts_with(c("VZ", "CP")))
+cts_gene_preFilter
+```
+
+```{r}
+dds_gene = DESeqDataSetFromMatrix(
+  as.data.frame(cts_gene_preFilter),
+  as.data.frame(myDesign),
+  ~ donor + condition,
+  tidy = T
+)
+```
+
+```{r}
+# takes 10sec
+system.time({
+  dds_gene  = DESeq(dds_gene)
+})
+DGE_results = DESeq2::results(dds_gene)
+DGE_results
+```
+
+```{r}
+DGE_results = DGE_results %>%
+  as_tibble(rownames = "gene_id") %>%
+  mutate(padj = replace_na(padj, 1))
+```
+
+## Switch analysis part 1
+
+```{r}
+rdata_path  = "data/working/talonSwitchList_part1.rds"
+if (!file.exists(rdata_path)) {
+  ### DEXSeq DTU - takes 15min
+  talonSwitchList_part1 <- isoformSwitchTestDEXSeq(
+    switchAnalyzeRlist         = talonSwitchList,
+    reduceToSwitchingGenes     = FALSE
+  )
+
+  ### Add DTE/DGE to switchList
+  idx = match(talonSwitchList_part1$isoformFeatures$isoform_id, DTE_results$isoform_id)
+  talonSwitchList_part1$isoformFeatures$iso_q_value = DTE_results$padj[idx]
+
+  idx = match(talonSwitchList_part1$isoformFeatures$gene_id, DGE_results$gene_id)
+  talonSwitchList_part1$isoformFeatures$gene_q_value = DGE_results$padj[idx]
+  
+  ### Extract AA sequences
+  talonSwitchList_part1$aaSequence = NULL
+  isoformFeatures_part1 = talonSwitchList_part1$isoformFeatures
+  talonSwitchList_part1$isoformFeatures = isoformFeatures_part1 %>%
+    as_tibble() %>%
+    group_by(gene_id) %>%
+    mutate(
+      isoform_switch_q_value = if_else(any(
+        # our actual filtering criteria - genes with DTU, DTE, or DGE
+        (isoform_switch_q_value < 0.05 & dIF > 0.1) | iso_q_value < 0.05 | gene_q_value < 0.05
+      ), 0, 1),
+      dIF = 1
+    ) %>%
+    ungroup() %>%
+    as.data.frame()
+  talonSwitchList_part1 <- extractSequence(
+    switchAnalyzeRlist = talonSwitchList_part1,
+    pathToOutput       = "data/working/IsoformSwitchAnalyzeR/",
+    extractNTseq       = TRUE,
+    extractAAseq       = TRUE,
+    removeShortAAseq   = TRUE,
+    removeLongAAseq    = FALSE,
+    onlySwitchingGenes = TRUE
+  )
+  talonSwitchList_part1$isoformFeatures = isoformFeatures_part1
+  
+  ### Save to file
+  saveRDS(talonSwitchList_part1, file = rdata_path)
+} else {
+  talonSwitchList_part1 = readRDS(rdata_path)
+}
+summary(talonSwitchList_part1)
+```
+
+WARNING: `extractSequence()` silently caches its result in `switchList$aaSequence`.
+If this object exists, `extractSequence()` will return the same result, no matter
+if you adjust `alpha`, `dIFcutoff`, or even re-run `isoformSwitchTestDEXSeq()`.
+
+What are the exact isoforms `extractSequence()` will return sequences for?
+(Slightly fewer if `removeShortAAseq = TRUE`)
+
+```{r}
+orf_isoforms = talonSwitchList_part1$orfAnalysis %>% as_tibble() %>%
+  drop_na(orfTransciptStart) %>%
+  pull(isoform_id)
+talonSwitchList_part1$isoformFeatures %>% as_tibble() %>%
+  group_by(gene_id) %>% filter(any(isoform_switch_q_value < 0.05 & abs(dIF) > 0.1)) %>% ungroup() %>%
+  filter(isoform_id %in% orf_isoforms)
+```
+
+## Table S3
+
+### What genes does IsoformSwitchAnalyzeR think are significant?
+
+```{r}
+extractTopSwitches(
+  talonSwitchList_part1, filterForConsequences = FALSE, n=Inf
+) %>%  as_tibble()
+```
+
+```{r}
+talonSwitchList_part1$isoformFeatures %>% as_tibble() %>%
+  group_by(gene_ref, gene_id, gene_name, condition_1, condition_2, gene_switch_q_value) %>%
+  filter(any(isoform_switch_q_value < 0.05 & abs(dIF) > 0.1)) %>%
+  summarize() %>%
+  arrange(gene_switch_q_value)
+```
+
+### What transcripts does IsoformSwitchAnalyzeR think are significant?
+
+```{r}
+extractTopSwitches(
+  talonSwitchList_part1, extractGenes = FALSE, filterForConsequences = FALSE, n=Inf
+) %>%  as_tibble()
+```
+
+```{r}
+talonSwitchList_part1$isoformFeatures %>% as_tibble() %>%
+  filter(isoform_switch_q_value < 0.05 & abs(dIF) > 0.1) %>%
+  dplyr::select(iso_ref, gene_ref, isoform_id, gene_id, gene_name, condition_1, condition_2, IF1, IF2, dIF, isoform_switch_q_value) %>%
+  arrange(isoform_switch_q_value)
+```
+
+### Create our Table S3
+
+Note: isoformSwitchAnalyzer uses both q-value (<.05) and effect size cutoff |dIF>.1|
+for DTU calling. Lets remove the dIF effect size cutoff here so that we can directly
+compare DGE, DTE, and DTU genes in the Venn Diagram below
+
+```{r}
+tableS3 = talonSwitchList_part1$isoformFeatures %>%
+  as_tibble() %>%
+  dplyr::select(isoform_id, gene_id, gene_name, condition_1, condition_2) %>%
+  left_join(
+    talonSwitchList_part1$isoformSwitchAnalysis %>% dplyr::select(isoform_id, dIF, pvalue, padj)
+  ) %>%
+  dplyr::rename(
+    DTU_dIF    = "dIF",
+    DTU_pval   = "pvalue",
+    DTU_qval   = "padj"
+  ) %>%
+  mutate(
+    DTU = DTU_qval < 0.05 # & abs(DTU_dIF) > 0.1
+  ) %>%
+  left_join(
+    DTE_results %>% dplyr::select(isoform_id, log2FoldChange, pvalue, padj)
+  ) %>%
+  dplyr::rename(
+    DTE_log2FC = "log2FoldChange",
+    DTE_pval   = "pvalue",
+    DTE_qval   = "padj"
+  ) %>%
+  mutate(
+    DTE = DTE_qval < 0.05
+  ) %>%
+  left_join(
+    DGE_results %>% dplyr::select(gene_id, log2FoldChange, pvalue, padj)
+  ) %>%
+  dplyr::rename(
+    DGE_log2FC = "log2FoldChange",
+    DGE_pval   = "pvalue",
+    DGE_qval   = "padj"
+  ) %>%
+  mutate(
+    DGE = DGE_qval < 0.05
+  )
+tableS3
+```
+
+```{r}
+tableS3 %>% write_tsv("output/tables/TableS3_v3.tsv.gz")
+
+tableS3b_geneLevel = tableS3 %>%
+  group_by(gene_name, gene_id) %>%
+  summarize(
+    DTU = any(DTU), DTE = any(DTE), DGE = any(DGE),
+    DTU_qval_min = min(DTU_qval), DTU_pval_min = min(DTU_pval),
+    DTE_qval_min = min(DTE_qval), DTE_pval_min = min(DTE_pval),
+    DGE_pval = min(DGE_pval), DGE_qval = min(DGE_qval)
+  )
+tableS3b_geneLevel %>% write_tsv("output/tables/TableS3b_geneLevel.tsv.gz")
+```
+
+Note: log2fc in switchlist are based on the calculated RPKM values, not raw counts,
+so they don't agree with DESEq2 log2fc columns.
+
+Sanity check: The isoform_switch_q_value column in switchList$isoformFeatures
+comes from the padj column in switchList$isoformSwitchAnalysis (which is the
+DEXSeq results). gene_switch_q_value is just the minimum padj of any isoform
+for that gene.
+
+```{r}
+left_join(
+  talonSwitchList_part1$isoformFeatures %>% as_tibble(),
+  talonSwitchList_part1$isoformSwitchAnalysis %>% as_tibble(),
+  by = "isoform_id"
+) %>%
+  filter(isoform_switch_q_value != padj)
+
+left_join(
+  talonSwitchList_part1$isoformFeatures %>% as_tibble(),
+  talonSwitchList_part1$isoformSwitchAnalysis %>% as_tibble(),
+  by = "isoform_id"
+) %>%
+  group_by(gene_id) %>%
+  filter(gene_switch_q_value != min(padj))
+```
+
+## Fig3
+
+### Fig3a: Volcano Plots
+
+```{r}
+cts$novelty2 = as.character(cts$transcript_novelty)
+cts$novelty2[which(cts$novelty2=="ISM" & cts$ISM_subtype=="Prefix")] = "ISM_Prefix"
+cts$novelty2[which(cts$novelty2=="ISM" & cts$ISM_subtype=="Suffix")] = "ISM_Suffix"
+cts$novelty2[cts$novelty2 %in% c("Antisense", "Genomic", "Intergenic", "ISM")] = "Other"
+cts$novelty2 = factor(cts$novelty2,levels=c("Known", "ISM_Prefix", "ISM_Suffix", "NIC", "NNC", "Other"))
+
+data_to_label1 = talonSwitchList_part1$isoformFeatures %>%
+  filter((-log10(isoform_switch_q_value) > 50 & (abs(dIF) > .1)) | 
+           (abs(dIF) > .5 & isoform_switch_q_value < 1e-10))
+data_to_label2 = talonSwitchList_part1$isoformFeatures %>% 
+  filter(isoform_switch_q_value < .05, gene_name %in% c("SRRM1", "PTBP2", "ELAVL2", "ELAVL4", "RBFOX2","NF1", "TSC2", "UBE3A", "KMT2E", "KMT5B", "SMARCD3", "SMARCA1", "FOXP2", "GRIA3", "VAMP1", "GAD1", "NLGN4X", "NRXN1")) %>% group_by(gene_name) %>% slice_max(n = 1, abs(dIF))
+
+data_to_label <- bind_rows(data_to_label1,data_to_label2)
+
+Fig3a = ggplot(data=talonSwitchList_part1$isoformFeatures %>% left_join(cts %>% dplyr::select(isoform_id=transcript_id, novelty=novelty2)), 
+       aes(x=dIF, y=-log10(isoform_switch_q_value))) +
+     geom_point(
+        aes(color=novelty), # default cutoff
+        size=2, alpha=.5) +
+    geom_hline(yintercept = -log10(0.05), linetype='dashed',color='red') + # default cutoff
+    labs(x='difference in isoform fraction (dIF)', y='-log10 ( Isoform Switch Q Value )') +
+    theme_bw() + xlim(-1,1) + scale_color_manual(values=colorVector_ismSplit) + 
+  ggrepel::geom_text_repel(data =  data_to_label %>% filter(dIF < 0),aes(label=gene_name, segment.size	= .1),size=3,force = 10, max.overlaps = 50,nudge_y = 10, nudge_x = -.2) + 
+  ggrepel::geom_text_repel(data =  data_to_label %>% filter(dIF > 0),aes(label=gene_name, segment.size	= .1),size=3,force = 10, max.overlaps = 50,nudge_y = 10, nudge_x = .2) + theme(legend.position = 'none') + geom_vline(xintercept = 0,lty=1,color='darkgrey')
+Fig3a
+ggsave(Fig3a, file="output/figures/Fig3a.pdf",width=6,height=4)
+
+
+Fig3a.fg = ggplot(data=talonSwitchList_part1$isoformFeatures %>% left_join(cts %>% dplyr::select(isoform_id=transcript_id, novelty=novelty2)), 
+       aes(x=dIF, y=-log10(isoform_switch_q_value))) +
+     geom_point(
+        aes(color=novelty), color=NA, # default cutoff
+        size=2, alpha=.5) +
+    geom_hline(yintercept = -log10(0.05), linetype='dashed',color='red') + # default cutoff
+    labs(x='difference in isoform fraction (dIF)', y='-log10 ( Isoform Switch Q Value )') +
+    theme_bw() + xlim(-1,1) + scale_color_manual(values=colorVector_ismSplit) + 
+ ggrepel::geom_text_repel(data =  data_to_label %>% filter(dIF < 0),aes(label=gene_name, segment.size	= .1),size=3,force = 10, max.overlaps = 50,nudge_y = 10, nudge_x = -.2) + 
+  ggrepel::geom_text_repel(data =  data_to_label %>% filter(dIF > 0),aes(label=gene_name, segment.size	= .1),size=3,force = 10, max.overlaps = 50,nudge_y = 10, nudge_x = .2)+theme(legend.position = 'none') + geom_vline(xintercept = 0,lty=1,color='darkgrey')
+Fig3a.fg
+ggsave(Fig3a.fg, file="output/figures/Fig3a_fg.pdf",width=6,height=4)
+
+
+
+Fig3a.bg =ggplot(data=talonSwitchList_part1$isoformFeatures %>% left_join(cts %>% dplyr::select(isoform_id=transcript_id, novelty=novelty2)), 
+       aes(x=dIF, y=-log10(isoform_switch_q_value))) +
+     geom_point(
+        aes(color=novelty), # default cutoff
+        size=2, alpha=.5)  + scale_color_manual(values=colorVector_ismSplit) + theme_void()  + theme(legend.position = 'none')
+ggsave(Fig3a.bg, file="output/figures/Fig3a_bg.jpg",width=6,height=4)
+
+
+```
+
+### Fig3a_2: Pie Chart
+```{r}
+this_df = talonSwitchList_part1$isoformFeatures %>% 
+  left_join(cts %>% dplyr::select(isoform_id=transcript_id, novelty=novelty2)) %>%
+  filter(isoform_switch_q_value < .05) %>% group_by(novelty) %>% summarise(switches=n_distinct(isoform_id))
+ 
+this_df<-this_df %>% arrange(desc(novelty)) %>%
+  mutate(prop = switches / sum(switches) *100) %>%
+  mutate(ypos = cumsum(prop)- 0.5*prop )
+
+Fig3a_part2 = ggplot(this_df, aes(x="", y=prop, fill=novelty)) +
+  geom_bar(stat="identity", width=1, color="white") +
+  coord_polar("y",start=0) + 
+  theme_void() + theme(legend.position = 'none', plot.title = element_text(hjust=.5)) +
+  scale_fill_manual(values=colorVector_ismSplit) + 
+  geom_text(aes(y=ypos, label = paste0(novelty,"\n(N=", switches, ")")), color = "white", size=5) 
+  Fig3a_part2
+  ggsave(Fig3a_part2, file="output/figures/Fig3a_part2.pdf",width=4,height=4)
+
+```
+
+
+### Fig3b: DGE vs DTU plots
+
+```{r}
+
+this_df = talonSwitchList_part1$isoformFeatures %>% 
+  left_join(cts %>% dplyr::select(isoform_id=transcript_id, novelty=novelty2))
+this_df$gene_q_value = DGE_results$padj[match(this_df$gene_id, DGE_results$gene_id)]
+
+Fig3b = ggplot(data=this_df, 
+       aes(x=gene_log2_fold_change, y=dIF)) +
+     geom_point(
+        aes(color=abs(dIF) > 0.1 & isoform_switch_q_value < 0.05, # default cutoff
+            shape = abs(gene_log2_fold_change) > .1 & gene_q_value < .05),
+        size=1, alpha=.5,
+    ) +
+    geom_hline(yintercept = 0, linetype='dashed') + # default cutoff
+    geom_vline(xintercept =0, linetype='dashed') + # default cutoff
+    labs(y='difference in isoform fraction (dIF)', x='Gene log2FC') +
+    theme_bw()  + xlim(-5,5)+
+  scale_color_manual('Signficant\nIsoform Switch', values = c('black','red')) +
+  scale_shape_manual('Signficant\nDGE', values = c("FALSE"=1, "TRUE"=16)) +
+  ggrepel::geom_text_repel(data = talonSwitchList_part1$isoformFeatures %>% filter(abs(dIF) > .5 & isoform_switch_q_value < 0.05), aes(label=gene_name),size=3, max.overlaps = 20)
+
+Fig3b
+ggsave(Fig3b, file="output/figures/Fig3b.pdf",width=8,height=5)
+
+
+## DGE Volcano plot colored by DTU
+this_df = DGE_results %>% left_join(cts_gene %>% dplyr::select(gene_id, gene_name)) %>% 
+  left_join(tableS3 %>% dplyr::select(gene_id, DTU) %>% group_by(gene_id) %>% summarise(DTU = any(DTU)))
+this_df$DTU[is.na(this_df$DTU)] = F
+this_df$DTU = factor(this_df$DTU, levels=c("TRUE", "FALSE"))
+ggplot(this_df %>% filter(DTU==FALSE), aes(x=log2FoldChange, y=-log10(padj))) + geom_point(alpha=.25, color='grey') + geom_point(data=this_df %>% filter(DTU==TRUE), alpha=.5, color='red') + theme_bw()
+  
+
+
+```
+
+### Fig3c: Venn Diagrams
+
+```{r}
+
+gene_overlaps = tableS3 %>% group_by(gene_id) %>% summarise(DTE = any(DTE), DGE=any(DGE), DTU=any(DTU)) %>% dplyr::select(-gene_id)
+
+# Sanity check: 2,679 of 10809 genes with DTU (iso_q_value< .05)
+switches=extractTopSwitches(
+  talonSwitchList_part1, extractGenes = TRUE, dIFcutoff = 0, filterForConsequences = FALSE, n=Inf
+) %>%  as_tibble()
+table(gene_overlaps$DTU)
+
+# Gene-level DGE:  4475 of 24554 -- note different backgrounds
+table(DGE_results$padj < .05)
+
+# Fisher's Exact Test
+source(file = "code/fisher_overlap.R")
+ORA(tableS3$gene_id[tableS3$DTU_qval<.05],DGE_results$gene_id[DGE_results$padj<.05], tableS3$gene_id, DGE_results$gene_id)
+
+# 1411 isoform-switching genes without even nominally significant evidence of DGE
+length(intersect(tableS3$gene_id[tableS3$DTU_qval<.05], DGE_results$gene_id[DGE_results$pvalue>.05]))
+
+Fig3c = ggVennDiagram(list(DTU = which(gene_overlaps$DTU), 
+                                  DGE = which(gene_overlaps$DGE),
+                                  DTE = which(gene_overlaps$DTE))) + 
+  scale_fill_gradient(low="grey",high = "red")
+Fig3c
+
+ggsave(Fig3c, file="output/figures/Fig3c.pdf",width=8,height=5)
+```
+
+## Switch analysis part 2 (functional consequences)
+
+IUPred and SignalP are difficult to run. Non-webserver IUPred2A/3 only takes
+a single sequence at a time, so requires a wrapper. Although "V5 is supported"
+for SignalP (I guess through the webserver?) v5.0 and v6.0 no longer seem to
+produce the expected output (`-f summary`) of v4.1.
+
+Currently, trying to import from the `webtools_v3` crashes R.
+
+```{r}
+rdata_path  = "data/working/talonSwitchList_part2.rds"
+if (!file.exists(rdata_path)) {
+  talonSwitchList_part2 <- isoformSwitchAnalysisPart2(
+    switchAnalyzeRlist        = talonSwitchList_part1, 
+    n                         = 10, # number of PDF plots to generate
+    removeNoncodinORFs        = FALSE,
+    pathToCPC2resultFile      = "data/working/IsoformSwitchAnalyzeR_webtools_v4/result_cpc2.txt",
+    pathToPFAMresultFile      = "data/working/IsoformSwitchAnalyzeR_webtools_v4/result_pfam_scan.txt",
+    # might want to disable smoothing through `analyzeIUPred2A` since IUPred3 now
+    # performs smoothing:
+    pathToIUPred2AresultFile  = "data/working/IsoformSwitchAnalyzeR_webtools_v4/result_iupred3.txt.gz",
+    pathToSignalPresultFile   = "data/working/IsoformSwitchAnalyzeR_webtools_v4/result_signalP.txt",
+    pathToOutput              = "output/IsoformSwitchAnalyzeR/",
+    outputPlots               = T
+  )
+  # todo - split this into individual functions because `analyzeSwitchConsequences`
+  # is still filtering on dIF in addition to qval
+  
+  talonSwitchList_part2 <- analyzeSwitchConsequences(talonSwitchList_part2, onlySigIsoforms = T, dIFcutoff = 0, consequencesToAnalyze = c('tss','tts','last_exon','isoform_length','exon_number','intron_structure','ORF_length', '5_utr_seq_similarity', '5_utr_length', '3_utr_seq_similarity', '3_utr_length','coding_potential','ORF_seq_similarity','NMD_status','domains_identified','signal_peptide_identified'))
+  
+  
+  saveRDS(talonSwitchList_part2, file=rdata_path)
+} else {
+  talonSwitchList_part2 = readRDS(rdata_path)
+}
+```
+
+Plot a gene:
+
+```{r}
+pdf(file="output/figures/Fig3_SMARCC2.pdf", height=4, width=8)
+switchPlot(
+  talonSwitchList_part2,dIFcutoff = .1,logYaxis = TRUE,
+  gene='SMARCC2'
+)
+dev.off()
+
+
+pdf(file="output/figures/FigS4_NF1.pdf", height=4, width=6)
+switchPlot(
+  talonSwitchList_part2,dIFcutoff = .1,logYaxis = TRUE,
+  gene='NF1'
+)
+dev.off()
+
+switchPlot(
+  talonSwitchList_part2,
+  gene='TALONG000088362'
+)
+```
+
+## Functional Analysis of Isoform Switches:
+
+```{r}
+
+pdf(file='output/figures/Fig3e.pdf', width=7,height=5)
+switch_consequences <- extractConsequenceEnrichment(
+    talonSwitchList_part2,dIFcutoff = 0,countGenes = F,
+    returnResult = T # if TRUE returns a data.frame with the summary statistics
+)
+dev.off()
+write_tsv(switch_consequences, file="output/tables/TableS3_switchConsequences_summary_v2.tsv")
+write_tsv(talonSwitchList_part2$switchConsequence, file="output/tables/TableS3_switchConsequences_data.tsv")
+
+consequence = extractConsequenceSummary(
+    talonSwitchList_part2, includeCombined = T,
+    dIFcutoff=0, returnResult = T)
+
+
+extractSplicingEnrichment(
+    talonSwitchList_part2,dIFcutoff = 0,onlySigIsoforms = T,
+    countGenes = F,
+    returnResult = TRUE # if TRUE returns a data.frame with the summary statistics
+)
+extractSplicingSummary(talonSwitchList_part2,
+                       splicingToAnalyze = 'all',dIFcutoff = 0,
+                       onlySigIsoforms = T,asFractionTotal = F)
+
+
+
+```
+
+
+### Alternative TSS isoform switches
+```{r}
+
+TSS_switches =talonSwitchList_part2$switchConsequence %>% as_tibble() %>% 
+  filter(featureCompared == 'tss', isoformsDifferent==TRUE) %>% 
+  dplyr::select(gene_name, isoformUpregulated, isoformDownregulated) %>%
+  left_join(talonSwitchList_part2$isoformFeatures %>% dplyr::select(isoformUpregulated=isoform_id, dIF, isoform_switch_q_value)) 
+
+# Top 10 TSS switches by isoform fraction
+TSS_switches%>% arrange(-abs(dIF))
+
+for(top_genes in TSS_switches %>% arrange(-abs(dIF)) %>% dplyr::select(gene_name) %>% 
+    unique() %>% head(10) %>% pull()) {
+switchPlot(
+  talonSwitchList_part2,
+  gene=top_genes)
+
+}
+
+# Top 10 TSS switches by q-value
+TSS_switches%>% arrange(isoform_switch_q_value)
+
+for(top_genes in TSS_switches %>% arrange(isoform_switch_q_value) %>% dplyr::select(gene_name) %>% 
+    unique() %>% head(10) %>% pull()) {
+switchPlot(
+  talonSwitchList_part2,
+  gene=top_genes)
+}
+
+
+write_tsv(TSS_switches, file="output/tables/TableS3_tss_switches.tsv")
+
+```
+
+## Plot interesting disease genes
+
+```{r}
+pdf_path = "output/figures/switch_plots/switch_plots_diseaseGenes.pdf"
+if(!file.exists(pdf_path)) {
+  disease_genes = read.csv('ref/ASD+SCZ+DDD_2022.csv')
+  interesting_genes = extractTopSwitches(talonSwitchList_part2, filterForConsequences = T, n = Inf)
+  interesting_genes = interesting_genes$gene_name
+  interesting_genes = interesting_genes[interesting_genes %in% disease_genes$Gene]
+
+  pdf(file=pdf_path)
+  for(this_gene in interesting_genes) {
+  switchPlot(
+    talonSwitchList_part2,
+    gene=this_gene
+  )
+    print(this_gene)
+  }
+  dev.off()
+}
+```
+
+## Plot genes with top switching novel isoforms 
+
+```{r}
+pdf_path = "output/figures/switch_plots/Fig3_switch_plots_novelIsoforms.pdf"
+if(!file.exists(pdf_path)) {
+  disease_genes = read.csv('ref/ASD+SCZ+DDD_2022.csv')
+  switches = talonSwitchList_part2$isoformFeatures %>% left_join(cts %>% dplyr::select(isoform_id=transcript_id, novelty=novelty2))
+  interesting_genes <- switches %>% filter(novelty!="Known" & isoform_switch_q_value < 10e-15 ) %>% dplyr::arrange(isoform_switch_q_value) %>% dplyr::select(gene_name) %>% pull() %>% unique()
+  
+  interesting_genes = unique(c(interesting_genes[1:10], interesting_genes[interesting_genes%in% disease_genes$Gene]))
+  interesting_genes
+  
+  pdf(file = pdf_path)
+    for(this_gene in interesting_genes) {
+    switchPlot(
+      talonSwitchList_part2,
+      gene=this_gene
+    )
+      print(this_gene)
+    }
+  dev.off()
+}
+```
+
+this is a disgusting hack
+
+```{r}
+strp <- function(x) str_extract(x, "^[^\\.]*")
+
+strippedSwitchList = function(switchList) {
+  switchList$isoformFeatures$isoform_id <- strp(switchList$isoformFeatures$isoform_id)
+  switchList[["exons"]]@elementMetadata@listData[["isoform_id"]] <- strp(switchList[["exons"]]@elementMetadata@listData[["isoform_id"]])
+  switchList$isoformCountMatrix$isoform_id <- strp(switchList$isoformCountMatrix$isoform_id)
+  switchList$isoformRepExpression$isoform_id <- strp(switchList$isoformRepExpression$isoform_id)
+  switchList$orfAnalysis$isoform_id <- strp(switchList$orfAnalysis$isoform_id)
+  switchList$isoformSwitchAnalysis$isoform_id <- strp(switchList$isoformSwitchAnalysis$isoform_id)
+  switchList$domainAnalysis$isoform_id <- strp(switchList$domainAnalysis$isoform_id)
+  switchList$idrAnalysis$isoform_id <- strp(switchList$idrAnalysis$isoform_id)
+  switchList$signalPeptideAnalysis$isoform_id <- strp(switchList$signalPeptideAnalysis$isoform_id)
+  switchList$AlternativeSplicingAnalysis$isoform_id <- strp(switchList$AlternativeSplicingAnalysis$isoform_id)
+  
+  switchList$switchConsequence$isoformUpregulated <- strp(switchList$switchConsequence$isoformUpregulated)
+  switchList$switchConsequence$isoformDownregulated <- strp(switchList$switchConsequence$isoformDownregulated)
+  return(switchList)
+}
+
+talonSwitchList_part2_strp = strippedSwitchList(talonSwitchList_part2)
+```
+
+
+```{r}
+theme_set(theme_gray(base_size = 18))
+theme_update(
+  axis.text = element_text(color="black"),
+  plot.title = element_text(size = rel(1), hjust = 0.5)
+)
+```
+
+export at 8 x 6in
+```{r}
+switchPlot(talonSwitchList_part2_strp, gene = "KMT2E")
+switchPlot(talonSwitchList_part2_strp, gene = "UBE3A")
+```

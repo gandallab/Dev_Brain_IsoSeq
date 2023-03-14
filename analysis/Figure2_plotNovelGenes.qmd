@@ -1,0 +1,284 @@
+---
+title: "Figure 2 - Plot Novel Genes"
+author: "Michael Gandal"
+format: html
+execute:
+  cache: true
+editor: source
+editor_options:
+  chunk_output_type: console
+  markdown: 
+    wrap: 72
+---
+
+## Load Packages and Data
+```{r}
+options(stringsAsFactors = F)
+options(ucscChromosomeNames = F)
+
+suppressMessages({
+  library(data.table)
+  library(tidyverse)
+  library(IsoformSwitchAnalyzeR)
+  library(rtracklayer)
+  library(ggrepel)
+  library(scales)
+  library(GenomicFeatures)
+  library(GenomicRanges)
+  library(GenomicInteractions)
+  library(Gviz)
+  library(ggtranscript)
+
+
+})
+
+colorVector = c(
+  "Known" = "#009E73",
+  "ISM"   = "#0072B2",
+  "ISM_Prefix" = "#005996",
+  "ISM_Suffix" = "#378bcc",
+  "NIC"   = "#D55E00",
+  "NNC"   = "#E69F00",
+  "Other" = "#000000"
+)
+colorVector_ismSplit = colorVector[-2]
+```
+
+```{r}
+if(!file.exists('data/working/locusPlot_workingData.RData')) {
+  
+  # CAGE tracks
+  cage=AnnotationTrack(range = "ref/CAGE/hg19.cage_peak_phase1and2combined_coord.bed",
+                       background.panel = "#99d8c9",
+                       fill="#fc9272",
+                       name = "CAGE peaks",
+                       col.line="#99d8c9",
+                       background.title="#2ca25f",
+                       fontcolor.title="black")
+  
+  # Intropolis junctions
+  jc=read.delim("ref/intropolis/intropolis_v1_hg19_2samples_10counts_starSJout.tsv.gz",header = F)
+  jc= jc[jc$V7>100,]
+  anchor.one = GRanges(jc$V1, IRanges(jc$V2 + 1, width=5))
+  anchor.two = GRanges(jc$V1, IRanges(jc$V3, width=5))
+  interaction_counts = log2(jc$V7)
+  
+  jc_object=GenomicInteractions(anchor.one,anchor.two,interaction_counts)
+  jc_track=InteractionTrack(jc_object,name = "Intropolis junctions")
+  displayPars(jc_track)=list(background.panel = "#fee0d2",
+                             col.interactions ="#6a51a3", #"#43a2ca",
+                             col.anchors.line = "gray",
+                             col.anchors.line = "gray",
+                             lwd=0.6,
+                             fontcolor.title="black",
+                             background.title="#de2d26",
+                             plot.outside = FALSE)
+  
+  # Gencode v33 Annotations
+  gencode="ref/gencode.v33lift37.annotation.gtf.gz"
+  gencode_txdb=makeTxDbFromGFF(gencode, format="gtf")
+  gencode_transcript=exonsBy(gencode_txdb,by="tx",use.names=T)
+  gr.gencode = rtracklayer::import(gencode) %>% as_tibble()
+  
+  # Isoseq Annotations
+  isoseq="data/sqanti/cp_vz_0.75_min_7_recovery_talon_corrected.gtf.cds.gff.gz"
+  isoseq_txdb=makeTxDbFromGFF(isoseq, format="gtf")
+  isoseq_transcript=exonsBy(isoseq_txdb,by="tx",use.names=T)
+  gr.isoseq = rtracklayer::import(isoseq) %>% as_tibble()
+  
+  cts = read_table("data/cp_vz_0.75_min_7_recovery_talon_abundance_filtered.tsv.gz")
+cts$novelty2 = as.character(cts$transcript_novelty)
+cts$novelty2[which(cts$novelty2=="ISM" & cts$ISM_subtype=="Prefix")] = "ISM_Prefix"
+cts$novelty2[which(cts$novelty2=="ISM" & cts$ISM_subtype=="Suffix")] = "ISM_Suffix"
+cts$novelty2[cts$novelty2 %in% c("Antisense", "Genomic", "Intergenic", "ISM")] = "Other"
+cts$novelty2 = factor(cts$novelty2,levels=c("Known", "ISM_Prefix", "ISM_Suffix", "NIC", "NNC", "Other"))
+cts$counts = rowSums(cts[,c(12:35)])
+cts$cpm = cts$counts / (sum(cts$counts)/1000000)
+
+gr.isoseq.old = gr.isoseq
+
+gr.isoseq <- gr.isoseq.old %>% left_join(cts, by=c("transcript_id" = "annot_transcript_id"))
+
+  save.image('data/working/locusPlot_workingData.RData')
+
+} else {
+  load('data/working/locusPlot_workingData.RData')
+}
+
+```
+
+
+
+## Find Novel Intergenic Genes
+```{r,echo=FALSE,warning=FALSE}
+
+gr.isoseq %>% filter(type == "transcript") %>% dplyr::select(gene_novelty) %>% pull() %>% table()
+
+intergenic <-  gr.isoseq %>% filter(type == "transcript",gene_novelty=="Intergenic", transcript_novelty %in% c("Genomic", "Intergenic"), !grepl("^GL", seqnames)) %>% arrange(-counts)
+
+#table(intergenic$transcript_novelty)
+#intergenic %>% dplyr::select(seqnames, start, end, annot_gene_id, transcript_id, gene_id, gene_name, counts, gene_novelty, novelty2) %>% arrange(-counts)
+
+
+
+g = list()
+for(this_gene in unique(intergenic$annot_gene_name)) {
+
+
+these_exons <- gr.isoseq %>% dplyr::filter(annot_gene_name == this_gene & type == "exon")
+this_cds <- gr.isoseq %>% dplyr::filter(annot_gene_name == this_gene & type == "CDS")
+this.start = min(c(these_exons$start, these_exons$end)-5e4)
+this.end = max(c(these_exons$start, these_exons$end)+5e4)
+
+gencode_exons =gr.gencode %>% dplyr::filter(type=="exon", seqnames==as.character(these_exons$seqnames[1]),start > this.start, end < this.end)
+
+g[[length(g) + 1]] = ggplot(these_exons, aes(xstart = start,xend = end, y = annot_transcript_name)) +
+  geom_range(aes(fill = counts, group=novelty2), height=.25) + 
+  geom_range(data=this_cds, aes(fill = counts, group=novelty2)) + 
+    geom_intron(
+        data = to_intron(these_exons, "annot_transcript_name"),
+        aes(strand = strand),arrow.min.intron.length = 5000,
+        arrow = grid::arrow(ends = "last", length = grid::unit(0.1, "inches")),
+        color='grey60',
+    ) +
+  xlim(this.start, this.end) + 
+  geom_range(data=gencode_exons, fill='darkgrey', aes(xstart = start,xend = end, y=gene_name)) +
+  geom_intron(
+        data = to_intron(gencode_exons, "transcript_name"),
+        aes(strand = strand,y=gene_name),arrow.min.intron.length = 5000,
+        arrow = grid::arrow(ends = "last", length = grid::unit(0.1, "inches")),
+        color='grey60',
+    ) +
+  
+  facet_grid(source~.,scales = 'free', space = 'free') + ggtitle(this_gene, subtitle = paste0(these_exons$seqnames[1], ":", this.start+5e4,"-", this.end-5e4)) + theme(legend.position = 'none') + labs(x=these_exons$seqnames[1], y="")  +theme_bw()
+}
+
+pdf(file="output/figures/supplement/Fig2_supplement_novelGenes.pdf",width=10,height=8)
+g
+dev.off()
+
+```
+
+
+## Plot antisense genes
+```{r,echo=FALSE,warning=FALSE}
+
+antisense = gr.isoseq %>% filter(type == "transcript",gene_novelty=="Antisense", !grepl("^GL", seqnames)) %>% arrange(-counts)
+
+
+g.antisense = list()
+for(this_gene in unique(antisense$annot_gene_name)) {
+print(length(g.antisense))
+
+these_exons <- gr.isoseq %>% dplyr::filter(annot_gene_name == this_gene & type == "exon")
+this_cds <- gr.isoseq %>% dplyr::filter(annot_gene_name == this_gene & type == "CDS")
+this.start = min(c(these_exons$start, these_exons$end)-5e4)
+this.end = max(c(these_exons$start, these_exons$end)+5e4)
+
+gencode_exons =gr.gencode %>% dplyr::filter(type=="exon", seqnames==as.character(these_exons$seqnames[1]),start > this.start, end < this.end)
+
+g.antisense[[length(g.antisense) + 1]] = ggplot(these_exons, aes(xstart = start,xend = end, y = annot_transcript_name)) +
+  geom_range(aes(fill = counts, group=novelty2), height=.25) + 
+  geom_range(data=this_cds, aes(fill = counts, group=novelty2)) + 
+    geom_intron(
+        data = to_intron(these_exons, "annot_transcript_name"),
+        aes(strand = strand),arrow.min.intron.length = 5000,
+        arrow = grid::arrow(ends = "last", length = grid::unit(0.1, "inches")),
+        color='grey60',
+    ) +
+  xlim(this.start, this.end) + 
+  geom_range(data=gencode_exons, fill='darkgrey', aes(xstart = start,xend = end, y=gene_name)) +
+  geom_intron(
+        data = to_intron(gencode_exons, "transcript_name"),
+        aes(strand = strand,y=gene_name),arrow.min.intron.length = 5000,
+        arrow = grid::arrow(ends = "last", length = grid::unit(0.1, "inches")),
+        color='grey60',
+    ) +
+  
+  facet_grid(source~.,scales = 'free', space = 'free') + ggtitle(this_gene, subtitle = paste0(these_exons$seqnames[1], ":", this.start+5e4,"-", this.end-5e4)) + theme(legend.position = 'none') + labs(x=these_exons$seqnames[1], y="")  +theme_bw()
+}
+
+pdf(file="output/figures/supplement/Fig2_supplement_antisenseGenes.pdf",width=10,height=8)
+g.antisense
+dev.off()
+
+```
+
+
+# Plot top expressed ISM, NIC, NNC
+```{r}
+g = list()
+
+for(this_gene in c("NEFL", "WASF1", "CYFIP2", "MAP1B", "SMARCA4")) {
+
+these_exons <- gr.isoseq %>% dplyr::filter(annot_gene_name %in% this_gene & type == "exon" & (counts > 1000 | novelty2=="Known"))
+this_cds <- gr.isoseq %>% dplyr::filter(annot_gene_name %in% this_gene & type == "CDS" & (counts > 1000 | novelty2=="Known"))
+
+g[[length(g)+1]] = these_exons %>% 
+    ggplot(aes(
+        xstart = start,
+        xend = end,
+        y = reorder(annot_transcript_name, counts)
+    )) +
+    geom_range(
+        aes(fill = log2(1+cpm), group=novelty2), height=.25) + 
+  geom_range(data=this_cds, aes(fill = log2(1+cpm), group=novelty2)) + 
+    geom_intron(
+        data = to_intron(these_exons, "annot_transcript_name"),
+        aes(strand = strand), arrow.min.intron.length = 1000,
+        arrow = grid::arrow(ends = "last", length = grid::unit(0.05, "inches")),
+        color='grey60',
+    ) + facet_grid(novelty2~.,scale='free',space='free') + theme_bw() + labs(y="") + 
+  ggtitle(this_gene) + scale_fill_gradient(low = 'darkgrey', high='red', limits=c(0,12)) + 
+  labs(x= unique(these_exons$seqnames)) + 
+  theme(plot.title = element_text(hjust=.5), plot.subtitle = element_text(hjust=.5))
+
+if(length(g) > 1) g[[length(g)]] = g[[length(g)]] + theme(legend.position = "none")
+}
+
+
+pdf(file='output/figures/supplement/FigS3A-E.pdf', height=5, width=14)
+gridExtra::grid.arrange(grobs=g, layout_matrix = rbind(c(1,3,5),c(2,4,5)))
+dev.off()
+# 
+# cowplot::plot_grid(plotlist=g[1], labels=c("A"),ncol=1)
+# cowplot::plot_grid(plotlist=g[2:4], labels=c("B", "C", "D"),ncol=1,rel_heights = c(2.5,2.5,1))
+# cowplot::plot_grid(plotlist=g[5], labels=c("E"),ncol=1)
+# dev.off()
+```
+   
+
+## Novel gene:  TALONG000088362
+```{r}
+this_gene = "TALONG000088362"   
+these_exons <- gr.isoseq %>% dplyr::filter(annot_gene_name == this_gene & type == "exon")
+this_cds <- gr.isoseq %>% dplyr::filter(annot_gene_name == this_gene & type == "CDS")
+this.start = min(c(these_exons$start, these_exons$end)-5e4)
+this.end = max(c(these_exons$start, these_exons$end)+5e4)
+
+gencode_exons =gr.gencode %>% dplyr::filter(type=="exon", seqnames==as.character(these_exons$seqnames[1]),start > this.start, end < this.end)
+
+FigS3F <- ggplot(these_exons, aes(xstart = start,xend = end, y = annot_transcript_name)) +
+  geom_range(aes(fill = log2(1+cpm), group=novelty2), height=.25) + 
+  geom_range(data=this_cds, aes(fill = log2(1+cpm), group=novelty2)) + 
+    geom_intron(
+        data = to_intron(these_exons, "annot_transcript_name"),
+        aes(strand = strand),arrow.min.intron.length = 5000,
+        arrow = grid::arrow(ends = "last", length = grid::unit(0.1, "inches")),
+        color='grey60',
+    ) +
+  xlim(this.start, this.end) + 
+  geom_range(data=gencode_exons, fill='darkgrey', aes(xstart = start,xend = end, y=gene_name)) +
+  geom_intron(
+        data = to_intron(gencode_exons, "transcript_name"),
+        aes(strand = strand,y=gene_name),arrow.min.intron.length = 5000,
+        arrow = grid::arrow(ends = "last", length = grid::unit(0.1, "inches")),
+        color='grey60',
+    ) +
+  
+  facet_grid(source~.,scales = 'free', space = 'free') + ggtitle(this_gene, subtitle = paste0(these_exons$seqnames[1], ":", this.start+5e4,"-", this.end-5e4)) + theme(legend.position = 'none') + labs(x=these_exons$seqnames[1], y="")  +theme_bw() + scale_fill_gradient(low = 'darkgrey', high='red', limits=c(0,12)) + theme(legend.position = 'none')
+ggsave(FigS3F, file='output/figures/supplement/FigS3F.pdf', height=4, width=6)
+
+
+```
+

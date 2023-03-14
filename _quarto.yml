@@ -1,0 +1,40 @@
+project:
+  type: website
+  render:
+    - analysis/index.qmd
+    - analysis/Figure1_BulkTxomeAnalysis.qmd
+    - analysis/Figure1_TableS1.qmd
+    - analysis/Figure2_isoFraction.qmd
+    - analysis/Figure2_novel_exons.qmd
+    - analysis/Figure2_PlotGene.qmd
+    - analysis/Figure2_plotNovelGenes.qmd
+    - analysis/Figure3_IsoformSwitchAnalyzeR.qmd
+    - analysis/Figure3_DTU_enrichments.qmd
+    - analysis/Figure3_APA.qmd
+
+
+  execute-dir: project
+
+website:
+  title: "Dev Brain scIso-Seq CP/VZ"
+  sidebar:
+    style: "floating"
+    search: false
+    contents:
+      - analysis/index.qmd
+      - analysis/Figure1_BulkTxomeAnalysis.qmd
+      - analysis/Figure1_TableS1.qmd
+      - analysis/Figure2_isoFraction.qmd
+      - analysis/Figure2_plotNovelGenes.qmd
+      - analysis/Figure2_PlotGene.qmd
+      - analysis/Figure2_novel_exons.qmd
+      - analysis/Figure3_IsoformSwitchAnalyzeR.qmd
+      - analysis/Figure3_DTU_enrichments.qmd
+      - analysis/Figure3_APA.qmd
+
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true

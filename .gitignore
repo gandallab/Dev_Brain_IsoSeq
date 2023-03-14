@@ -2,8 +2,14 @@
 .Rhistory
 .Rapp.history
 
+# Analysis cache
+analysis/*.png
+analysis/*.html
+
 # Session Data files
 .RData
+./data/working/locusPlot_workingData.RData
+./data/working/bulkTxome.Rdata
 
 # User-specific files
 .Ruserdata
@@ -37,3 +43,5 @@ vignettes/*.pdf
 
 # R Environment Variables
 .Renviron
+
+/.quarto/

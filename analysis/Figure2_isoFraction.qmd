@@ -1,0 +1,159 @@
+---
+title: "Figure 2 - Isoform Fraction analysis"
+author: "Michael Gandal"
+execute:
+  cache: false
+editor: source
+editor_options:
+  chunk_output_type: console
+  markdown: 
+    wrap: 72
+---
+
+```{r,echo=FALSE,warning=FALSE}
+suppressPackageStartupMessages({
+  library(tidyverse)
+  library(IsoformSwitchAnalyzeR)
+  library(rtracklayer)
+  library(limma)
+  library(edgeR)
+  library(DESeq2)
+  library(WGCNA)
+})
+
+myDesign = tribble(
+  ~sampleID, ~condition,~donor,
+  "VZ_209", "VZ","209",
+  "VZ_334", "VZ","334",
+  "VZ_336", "VZ","336",
+  "CP_209", "CP","209",
+  "CP_334", "CP","334",
+  "CP_336", "CP","336",
+) %>%
+  dplyr::mutate(
+    dplyr::across(condition, as_factor)
+  )
+
+cts = read_tsv("data/cp_vz_0.75_min_7_recovery_talon_abundance_filtered.tsv.gz")
+cts.collapse = cts %>%
+    mutate(
+      VZ_209 = rowSums(across(matches("209_.*_VZ"))),
+      VZ_334 = rowSums(across(matches("334_.*_VZ"))),
+      VZ_336 = rowSums(across(matches("336_.*_VZ"))),
+      CP_209 = rowSums(across(matches("209_.*_CP"))),
+      CP_334 = rowSums(across(matches("334_.*_CP"))),
+      CP_336 = rowSums(across(matches("336_.*_CP"))),
+      .keep = "unused"
+    ) %>%
+    dplyr::select(!c("gene_ID", "transcript_ID", "annot_transcript_name")) %>%
+    dplyr::rename(
+      gene_id = "annot_gene_id",
+      transcript_id = "annot_transcript_id",
+      gene_name = "annot_gene_name"
+    ) %>%
+    mutate(
+      gene_novelty = as.factor(gene_novelty),
+      transcript_novelty = as.factor(transcript_novelty),
+      ISM_subtype = ISM_subtype %>% na_if("None") %>% as.factor()
+    )
+  cts$counts = rowSums(as.matrix(cts.collapse[,9:14]))
+  
+  cts$novelty2 = as.character(cts$transcript_novelty)
+  cts$novelty2[which(cts$novelty2=="ISM" & cts$ISM_subtype=="Prefix")] = "ISM_Prefix"
+  cts$novelty2[which(cts$novelty2=="ISM" & cts$ISM_subtype=="Suffix")] = "ISM_Suffix"
+  cts$novelty2[cts$novelty2 %in% c("Antisense", "Genomic", "Intergenic", "ISM")] = "Other"
+  cts$novelty2 = factor(cts$novelty2,levels=c("Known", "ISM_Prefix", "ISM_Suffix", "NIC", "NNC", "Other"))
+  
+datExpr.counts = as.data.frame(cts.collapse[,9:14])
+rownames(datExpr.counts) = cts$annot_transcript_id
+
+talonSwitchList = readRDS("data/working/talonSwitchList_preFilter.rds")
+talon_filtered_isoforms = talonSwitchList$isoformFeatures$isoform_id
+localAnnoation <- unique(as.data.frame(talonSwitchList$exons@elementMetadata[,c("gene_id", "isoform_id")]))
+
+
+```
+
+## Get average gene expression and isoform number
+
+```{r}
+genes = cts %>% dplyr::select(annot_gene_id, annot_transcript_id,annot_gene_name) %>% group_by(annot_gene_id) %>% summarise(numIso=n_distinct(annot_transcript_id))
+
+countMat = as.matrix(cts.collapse[,9:14])
+cs = colSums(countMat) / 1000000 ## TPM normalize
+countMat.tpm = t(apply(countMat, 1, function(x) { x / cs}))
+isoTPM = data.frame(annot_gene_id = cts$annot_gene_id, annot_transcript_id = cts$annot_transcript_id, isoTPM=rowMeans(countMat.tpm))
+
+genes <- genes %>% left_join(isoTPM %>% group_by(annot_gene_id) %>% summarise(geneTPM = log2(.1 + mean(isoTPM))))
+```
+
+# Calculate isoform fraction
+
+```{r}
+genes_with_multiple_isoforms = genes %>% filter(numIso>1) %>% dplyr::select(annot_gene_id) %>% pull()
+
+datExpr.tx <- cts.collapse[,c(1:2,9:14)] %>% filter(gene_id %in% genes_with_multiple_isoforms) %>% pivot_longer(-c("gene_id", "transcript_id"),names_to = "sample", values_to = "counts")
+
+datExpr.gene = datExpr.tx %>% group_by(gene_id, sample) %>% summarise(gene_counts=sum(counts))
+datExpr.gene <- datExpr.gene %>% left_join(datExpr.gene %>% group_by(sample) %>% summarise(read_depth = sum(gene_counts)))
+
+expressed_genes_with_multiple_isoforms <- datExpr.gene %>% group_by(gene_id) %>% summarise(samples_expressed=sum(gene_counts/(read_depth/1000000)>1)) %>% filter(samples_expressed >=3) %>% dplyr::select(gene_id) %>% pull()
+
+datExpr.tx <- datExpr.tx %>% filter(gene_id %in% expressed_genes_with_multiple_isoforms) %>% left_join(datExpr.gene, by=c("gene_id", "sample")) %>% mutate(iso_usage=counts/gene_counts)
+datExpr.tx$iso_usage[is.na(datExpr.tx$iso_usage)] = 0
+
+datExpr.tx %>% group_by(gene_id) %>% summarise(expr=sum(iso_usage>0)) %>% arrange(expr)
+
+datExpr.if = datExpr.tx %>% dplyr::select(transcript_id, sample, iso_usage) %>% pivot_wider(names_from = sample, values_from = iso_usage)
+
+datExpr.if_avg = datExpr.tx %>% dplyr::select(transcript_id, sample, iso_usage) %>% group_by(transcript_id) %>% summarise(avgIF = mean(iso_usage))
+
+datExpr.if_avg <- datExpr.if_avg %>% left_join(cts.collapse %>% dplyr::select(gene_id,transcript_id))
+
+this_df = datExpr.if_avg %>% group_by(gene_id) %>% summarise(dominantIF = max(avgIF)) %>% left_join(genes, by=c("gene_id"= "annot_gene_id"))
+
+head(this_df)
+this_df$numIsoQuantile = ntile(this_df$numIso,5)
+this_df$geneTPMquantile = ntile(this_df$geneTPM,5)
+Fig2_domIso=ggplot(this_df, aes(x=dominantIF,fill=factor(geneTPMquantile))) + geom_histogram(bins = 20) + scale_fill_brewer(palette = "Blues") + theme_bw() + 
+  labs(x="Dominant isoform expression fraction", y="Gene count", fill="Gene\nExpression\nQuintile") + 
+  theme(legend.title = )
+Fig2_domIso
+ggsave(Fig2_domIso, file="output/figures/Fig2/Fig2_domIso.pdf",width=4,height=2.5)
+
+```
+
+## TreePlot
+
+```{r}
+library(treemapify)
+
+df_treemap = cts  %>% dplyr::select(Gene=annot_gene_name, Isoform=annot_transcript_name, novelty2, counts) %>% filter(Gene%in% c("TBR1","SATB2", "SOX5", "SOX2", "EOMES", "DLX1","POU3F2", "HOPX", "HES1", "RBFOX2"))
+
+
+ggplot(df_treemap, aes(area=counts, fill=Gene, label=Isoform, alpha=(novelty2=="Known"), subgroup=Gene)) + 
+  geom_treemap() +geom_treemap_subgroup_border(colour = "black", size = 5, alpha=1) +
+  geom_treemap_subgroup_text(place = "centre", grow = TRUE,
+                             alpha = 0.95, colour = "black",
+                             fontface = "italic") +
+  geom_treemap_text(colour = "white", place = "top", alpha=.5,
+                    size = 15, grow = F)+   theme(legend.position = "none")
+
+
+
+
+
+df_treemap = cts  %>% dplyr::select(Gene=annot_gene_name, Isoform=annot_transcript_name, novelty2, counts) %>% filter(Gene%in% c("SCN2A", "CHD8", "SYNGAP1", "ADNP", "PTEN", "FOXP1", "CHD2", "POGZ", "GRIN2B", "KTM5B", "ARID1B", "ASH1L"))
+
+
+Fig5_ASDtreeplot = ggplot(df_treemap, aes(area=counts, fill=Gene, label=Isoform, alpha=(novelty2=="Known"), subgroup=Gene)) + 
+  geom_treemap() +geom_treemap_subgroup_border(colour = "black", size = 2, alpha=1) +
+  geom_treemap_subgroup_text(place = "centre", grow = F,
+                             alpha = 0.95, colour = "black",
+                             fontface = "italic") +
+  geom_treemap_text(colour = "grey", place = "top", alpha=.5,
+                    size = 15, grow = F)+   theme(legend.position = "none") + 
+  scale_fill_brewer(palette = 'Paired')
+
+ggsave(Fig5_ASDtreeplot, file="output/figures/Fig5/Fig5_ASDtreeplot.pdf",width=5,height=3)
+```

@@ -1,0 +1,140 @@
+---
+title: "Figure 3 - APA"
+author: "Natalie Gong"
+date: 2/3/23
+format: html
+execute:
+  cache: true
+editor: source
+editor_options:
+  chunk_output_type: console
+  markdown: 
+    wrap: 72
+---
+
+
+
+Load PDUIs averaged dataframe. Get gene names from Gene column.
+```{r}
+library(tidyverse)
+library(dplyr)
+library(ggplot2)
+library(ggrepel)
+library(gprofiler2)
+
+#Load df with averaged PDUIs across technical replicates and samples (PDUIS.averaged.stats)
+load("data/dapars2/PDUIS.avg.with.stats.RData")
+gene_names <-PDUIS.averaged.stats$Gene
+
+get_geneName <- function(tx_vec){
+  strsplit(tx_vec, split = "|", fixed = TRUE)[[1]][2]
+}
+
+PDUIS.averaged.stats$geneNames <- sapply(PDUIS.averaged.stats$Gene, get_geneName)
+
+
+```
+
+Paired two-sample T-tests comparing CP vs VZ transcript PDUIs, with associated ggplots.
+```{r}
+#T-test for overall averaged statistics. 
+t.test(PDUIS.averaged.stats$CP.PDUI, PDUIS.averaged.stats$VZ.PDUI, paired = TRUE)
+
+#Density plot of PDUI distribution in CP vs VZ
+ggplot(data = PDUIS.averaged.stats) +
+  geom_density(mapping = aes(x = CP.PDUI, color = "red")) +
+  geom_density(mapping = aes(x = VZ.PDUI, color = "blue")) +
+  scale_color_manual(name = "Region", values = c('red' = 'red', 'blue' = 'blue'), labels = c('GZ', 'CP')) +
+  labs(title = "Density plot of PDUI distribution in CP vs VZ", x = "PDUI") 
+
+#Histogram of distributions of VZ - CP difference
+ggplot(data = PDUIS.averaged.stats) +
+  geom_histogram(mapping = aes(x = vz.cp.diff, y = after_stat(density)), binwidth = 0.05) +
+  labs(title = "GZ - CP PDUI difference", x = "GZ.PDUI - CP.PDUI")
+
+
+```
+Plot CP vs VZ PDUI, denote transcripts with significant difference (FDR < 0.05 as per repeat measures ANOVA)
+```{r}
+#Get transcripts with significantly different PDUIs based on FDR cutoff of 0.05, separate to increased or decreased PDUI in CP compared to VZ. 
+vz.cp.neg.sig =  PDUIS.averaged.stats %>% filter(FDR < 0.05, vz.cp.diff < 0)
+vz.cp.pos.sig = PDUIS.averaged.stats %>% filter(FDR < 0.05, vz.cp.diff > 0)
+vz.cp.neg.sig <- arrange(vz.cp.neg.sig, by = FDR)
+vz.cp.pos.sig = arrange(vz.cp.pos.sig, by = FDR)
+
+#Get top 10 genes from vz.cp.neg.sig and vz.cp.pos.sig
+vz.cp.pos.sig <- vz.cp.pos.sig %>% arrange(-vz.cp.diff)
+vz.cp.neg.sig <- vz.cp.neg.sig %>% arrange(vz.cp.diff)
+
+neg.sig.top10 <- vz.cp.neg.sig[1:15,]
+pos.sig.top10 <- vz.cp.pos.sig[1:15,]
+
+
+Fig3D=ggplot(data = PDUIS.averaged.stats) +
+  geom_point(mapping = aes(x = CP.PDUI, y = VZ.PDUI, color = cut(FDR, c(0, 0.05, Inf))), size = 0.5) +
+  scale_color_manual(values=c("red", "gray"), labels = c("<0.05", ">0.05")) +
+  labs(title = "PDUIs for CP vs VZ", x = "CP PDUI", y = "VZ PDUI", color = "FDR") +
+  geom_text_repel(data = neg.sig.top10, mapping = aes(x = CP.PDUI, y = VZ.PDUI, label = geneNames), color = "blue", min.segment.length = 0, box.padding = 1, max.overlaps = Inf, size=3,force = 20, nudge_y = -.2) +
+  geom_text_repel(data = pos.sig.top10, mapping = aes(x = CP.PDUI, y = VZ.PDUI, label = geneNames), color = "purple", min.segment.length = 0, box.padding = 0, max.overlaps = Inf, size=3,force = 20, nudge_y = .2) + theme_bw()
+
+Fig3D
+ggsave(file='output/figures/Fig3/Fig3D_APA.pdf', width=5,height=4)
+```
+
+Pathway enrichment of top transcript PDUI changes using gprofiler2.
+```{r}
+library(gprofiler2)
+
+#Order significant genes by descending vz.cp.diff
+vz.cp.neg.sig <- vz.cp.neg.sig %>% arrange(vz.cp.diff) ## Ordered by effect size
+vz.cp.pos.sig <- vz.cp.pos.sig %>% arrange(-vz.cp.diff) ## Ordered by effect size
+all.sig <- rbind(vz.cp.neg.sig, vz.cp.pos.sig)
+all.sig <- all.sig %>% arrange(-abs(vz.cp.diff))
+
+gostres.neg <- gost(query = vz.cp.neg.sig$geneNames, organism = "hsapiens", ordered_query = FALSE, significant = TRUE, custom_bg = PDUIS.averaged.stats$geneNames, correction_method = "fdr",sources = c("GO", "KEGG", "REAC"))
+as_tibble(gostres.neg$result)
+
+gostres.pos <- gost(query = vz.cp.pos.sig$geneNames, organism = "hsapiens", ordered_query = FALSE, significant = TRUE, custom_bg = PDUIS.averaged.stats$geneNames, correction_method = "fdr", 
+                    sources = c("GO", "KEGG", "REAC"))
+# No significant pathway enrichments from genes with significantly longer PDUI in VZ vs CP
+
+gostres_all <- gost(query = all.sig$geneNames, organism = "hsapiens", ordered_query = FALSE, significant = TRUE, custom_bg = PDUIS.averaged.stats$geneNames, correction_method = "fdr", sources = c("GO", "KEGG", "REAC"))
+# No significant pathway enrichments when genes are ranked in order of decreasing magnitude of PDUI change between brain regions
+
+#Working with all significant genes:
+gostplot(gostres_all, capped = FALSE, interactive = T)
+
+gostres_out <- subset(gostres_all$result, select = c("significant", "p_value", "term_size", "query_size", "intersection_size", "precision", "recall", "term_id", "source", "term_name", "effective_domain_size", "source_order"))
+write.table(gostres_out, "output/tables/TableS3_APA_GO_results.txt")
+
+#GO plot with RNA binding terms highlighted
+rna_terms <- c("RNA binding", "mRNA binding", "cytoplasmic stress granule")
+rna_gostres_all <- subset(gostres_all$result, term_name %in% rna_terms)
+publish_gostplot(gostplot(gostres_all, capped = FALSE, interactive = FALSE), highlight_terms = rna_gostres_all$term_id)
+
+
+```
+
+Overrepresentation analysis: are transcripts w/significantly different PDUIs enriched for RBPs & TFs compared to background genes? Use RBP list from Gebauer et al. 2021
+```{r}
+#Load RBP gene list from Gebauer et al. 2021
+RBPs <- scan("ref/RBPs/rbps_gebauer_nrg_2021.txt", what = "", sep = "\n")
+
+#Get background genes (transcripts with no significant change in PDUI)
+PDUIS.averaged.bckgrd <- PDUIS.averaged.stats %>% filter(FDR >= 0.05)
+
+bckgrd.rbp <- nrow(subset(PDUIS.averaged.bckgrd, geneNames %in% RBPs))
+bckgrd.nonrbp <- nrow(subset(PDUIS.averaged.bckgrd, !geneNames %in% RBPs))
+
+sig.rbp <- nrow(subset(PDUIS.averaged.stats %>% filter(FDR < 0.05), geneNames %in% RBPs))
+sig.nonrbp <- nrow(subset(PDUIS.averaged.stats %>% filter(FDR < 0.05), !geneNames %in% RBPs))
+
+#Run one-sided Fisher's exact test
+d <- data.frame(bckgrd = c(bckgrd.rbp, bckgrd.nonrbp), sig = c(sig.rbp, sig.nonrbp))
+row.names(d) <- c("RBP", "non-RBP")
+
+d
+
+fisher.test(d, alternative = "less")
+
+```
