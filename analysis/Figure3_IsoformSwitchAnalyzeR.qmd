@@ -436,7 +436,7 @@ Fig3a = ggplot(data=talonSwitchList_part1$isoformFeatures %>% left_join(cts %>% 
   ggrepel::geom_text_repel(data =  data_to_label %>% filter(dIF < 0),aes(label=gene_name, segment.size	= .1),size=3,force = 10, max.overlaps = 50,nudge_y = 10, nudge_x = -.2) + 
   ggrepel::geom_text_repel(data =  data_to_label %>% filter(dIF > 0),aes(label=gene_name, segment.size	= .1),size=3,force = 10, max.overlaps = 50,nudge_y = 10, nudge_x = .2) + theme(legend.position = 'none') + geom_vline(xintercept = 0,lty=1,color='darkgrey')
 Fig3a
-ggsave(Fig3a, file="output/figures/Fig3a.pdf",width=6,height=4)
+ggsave(Fig3a, file="output/figures/Fig3/Fig3a.pdf",width=6,height=4)
 
 
 Fig3a.fg = ggplot(data=talonSwitchList_part1$isoformFeatures %>% left_join(cts %>% dplyr::select(isoform_id=transcript_id, novelty=novelty2)), 
@@ -450,7 +450,7 @@ Fig3a.fg = ggplot(data=talonSwitchList_part1$isoformFeatures %>% left_join(cts %
  ggrepel::geom_text_repel(data =  data_to_label %>% filter(dIF < 0),aes(label=gene_name, segment.size	= .1),size=3,force = 10, max.overlaps = 50,nudge_y = 10, nudge_x = -.2) + 
   ggrepel::geom_text_repel(data =  data_to_label %>% filter(dIF > 0),aes(label=gene_name, segment.size	= .1),size=3,force = 10, max.overlaps = 50,nudge_y = 10, nudge_x = .2)+theme(legend.position = 'none') + geom_vline(xintercept = 0,lty=1,color='darkgrey')
 Fig3a.fg
-ggsave(Fig3a.fg, file="output/figures/Fig3a_fg.pdf",width=6,height=4)
+ggsave(Fig3a.fg, file="output/figures/Fig3/Fig3a_fg.pdf",width=6,height=4)
 
 
 
@@ -459,7 +459,7 @@ Fig3a.bg =ggplot(data=talonSwitchList_part1$isoformFeatures %>% left_join(cts %>
      geom_point(
         aes(color=novelty), # default cutoff
         size=2, alpha=.5)  + scale_color_manual(values=colorVector_ismSplit) + theme_void()  + theme(legend.position = 'none')
-ggsave(Fig3a.bg, file="output/figures/Fig3a_bg.jpg",width=6,height=4)
+ggsave(Fig3a.bg, file="output/figures/Fig3/Fig3a_bg.jpg",width=6,height=4)
 
 
 ```
@@ -481,7 +481,7 @@ Fig3a_part2 = ggplot(this_df, aes(x="", y=prop, fill=novelty)) +
   scale_fill_manual(values=colorVector_ismSplit) + 
   geom_text(aes(y=ypos, label = paste0(novelty,"\n(N=", switches, ")")), color = "white", size=5) 
   Fig3a_part2
-  ggsave(Fig3a_part2, file="output/figures/Fig3a_part2.pdf",width=4,height=4)
+  ggsave(Fig3a_part2, file="output/figures/Fig3/Fig3a_part2.pdf",width=4,height=4)
 
 ```
 
@@ -510,7 +510,7 @@ Fig3b = ggplot(data=this_df,
   ggrepel::geom_text_repel(data = talonSwitchList_part1$isoformFeatures %>% filter(abs(dIF) > .5 & isoform_switch_q_value < 0.05), aes(label=gene_name),size=3, max.overlaps = 20)
 
 Fig3b
-ggsave(Fig3b, file="output/figures/Fig3b.pdf",width=8,height=5)
+ggsave(Fig3b, file="output/figures/Fig3/Fig3b.pdf",width=8,height=5)
 
 
 ## DGE Volcano plot colored by DTU
@@ -552,7 +552,7 @@ Fig3c = ggVennDiagram(list(DTU = which(gene_overlaps$DTU),
   scale_fill_gradient(low="grey",high = "red")
 Fig3c
 
-ggsave(Fig3c, file="output/figures/Fig3c.pdf",width=8,height=5)
+ggsave(Fig3c, file="output/figures/Fig3/Fig3c.pdf",width=8,height=5)
 ```
 
 ## Switch analysis part 2 (functional consequences)
@@ -595,7 +595,7 @@ if (!file.exists(rdata_path)) {
 Plot a gene:
 
 ```{r}
-pdf(file="output/figures/Fig3_SMARCC2.pdf", height=4, width=8)
+pdf(file="output/figures/Fig3/Fig3_SMARCC2.pdf", height=4, width=8)
 switchPlot(
   talonSwitchList_part2,dIFcutoff = .1,logYaxis = TRUE,
   gene='SMARCC2'
@@ -603,7 +603,7 @@ switchPlot(
 dev.off()
 
 
-pdf(file="output/figures/FigS4_NF1.pdf", height=4, width=6)
+pdf(file="output/figures/Fig4/FigS4_NF1.pdf", height=4, width=6)
 switchPlot(
   talonSwitchList_part2,dIFcutoff = .1,logYaxis = TRUE,
   gene='NF1'
@@ -620,7 +620,7 @@ switchPlot(
 
 ```{r}
 
-pdf(file='output/figures/Fig3e.pdf', width=7,height=5)
+pdf(file='output/figures/Fig3/Fig3e.pdf', width=7,height=5)
 switch_consequences <- extractConsequenceEnrichment(
     talonSwitchList_part2,dIFcutoff = 0,countGenes = F,
     returnResult = T # if TRUE returns a data.frame with the summary statistics

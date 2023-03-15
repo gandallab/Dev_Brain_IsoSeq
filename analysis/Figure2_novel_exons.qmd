@@ -2,7 +2,7 @@
 title: "Figure 2 - Novel Exons"
 author: "Michael Gandal"
 execute:
-  cache: false
+  cache: true
 editor: source
 editor_options:
   chunk_output_type: console
