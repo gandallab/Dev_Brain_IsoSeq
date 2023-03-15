@@ -1,6 +1,6 @@
 # devBrainIsoSeq
 
-<https://gandallab.github.io/devBrainIsoSeq/>
+<https://gandallab.github.io/Dev_Brain_IsoSeq/>
 
 ## How to use this repository
 
