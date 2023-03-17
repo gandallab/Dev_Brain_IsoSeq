@@ -6,8 +6,11 @@ analysis/*.png
 analysis/*.html
 # Session Data files
 .RData
-./data/working/locusPlot_workingData.RData
-./data/working/bulkTxome.Rdata
+*.Rproj
+.Rproj.user
+/data/working/locusPlot_workingData.RData
+/data/working/bulkTxome.Rdata
+/data/working/isoT4k_filter.rds
 # User-specific files
 .Ruserdata
 # Example code in package build process
@@ -32,4 +35,7 @@ vignettes/*.pdf
 # R Environment Variables
 .Renviron
 /.quarto/
+/_site/
 .DS_Store
+# jupyter
+.ipynb_checkpoints/

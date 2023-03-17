@@ -1,0 +1,274 @@
+---
+title: "Figure 5 - Seurat Clustering"
+author: "Ashok Patowary"
+execute:
+  cache: false
+  freeze: auto
+editor: source
+editor_options:
+  chunk_output_type: console
+---
+
+```{r}
+library(Seurat)
+library(tidyverse)
+library(patchwork)
+library(sctransform)
+library(cowplot)
+library(data.table)
+library(RColorBrewer)
+#rm(list=ls())
+```
+
+```{r}
+#isoT_7k.data <- data.frame(fread("zcat Isoform_counts_7189_allSingleCells_4seurat.tsv.gz", header=TRUE, sep="auto"), row.names = 1)
+
+#With new Id
+isoT_7k.data <- data.frame(fread("data/AllBarcode_newId_with_geneID.txt.gz", header=TRUE, sep="auto"), row.names = 1)
+dim(isoT_7k.data)
+```
+
+```{r}
+isoT7k<- CreateSeuratObject(counts = isoT_7k.data, project = "7kTranscript", min.cells = 3, min.features = 85)
+isoT7k
+head(isoT7k@meta.data)
+```
+
+```{r}
+# Compute percent mito and ribo ratio
+isoT7k[["percent.mt"]] <- PercentageFeatureSet(isoT7k, pattern = "^MT-")
+isoT7k[["percent.RP"]] <- PercentageFeatureSet(isoT7k, pattern = "^RP")
+
+####DropOut
+dropouts <- Matrix::colSums(isoT7k@assays$RNA@data == 0)/nrow(isoT7k@assays$RNA)
+isoT7k[['dropouts']] <- dropouts
+
+head(isoT7k@meta.data)
+```
+
+```{r}
+# Add number of genes per UMI for each cell to metadata
+isoT7k$log10GenesPerUMI <- log10(isoT7k$nFeature_RNA) / log10(isoT7k$nCount_RNA)
+head(isoT7k@meta.data)
+```
+
+```{r}
+# Create metadata dataframe
+metadataisoT7k <- isoT7k@meta.data
+
+# Add cell IDs to metadata
+metadataisoT7k$cells <- str_split(rownames(metadataisoT7k), pattern = "_", simplify = T)[,2]
+
+# Rename columns
+metadataisoT7k <- metadataisoT7k %>%
+  dplyr::rename(CellType = orig.ident,
+                nUMI = nCount_RNA,
+                nGene = nFeature_RNA)
+
+##Create method column
+metadataisoT7k$method <- "LongRead"
+```
+
+```{r}
+#Donor Innformation
+donor<-read.table("ref/polioudakis_neuron2020/TableS3_Cell_metadata.csv", header=TRUE, row.names=1)
+df<- as.data.frame.matrix(donor)
+
+# Add additional innfo into the metadata
+#metadataisoT7k$DonorID=df$DonorID[match(metadataisoT7k$cells,rownames(df))]
+metadataisoT7k$Layer=df$Layer[match(metadataisoT7k$cells,rownames(df))]
+metadataisoT7k$Donor=df$Donor[match(metadataisoT7k$cells,rownames(df))]
+metadataisoT7k$Gestation_week=df$Gestation_week[match(metadataisoT7k$cells,rownames(df))]
+
+# Add metadata back to Seurat object
+isoT7k@meta.data<- metadataisoT7k
+head(isoT7k@meta.data)
+```
+
+```{r}
+####Some Quality Check
+#VlnPlot(isoT7k, features = c("nGene", "nUMI", "percent.mt", "percent.RP", "dropouts"), ncol = 5, group.by="method", pt.size=0.25)
+VlnPlot(isoT7k, features = c("nGene", "nUMI", "percent.mt"), ncol = 3, group.by="method", pt.size=0.25)
+```
+
+```{r}
+FeatureScatter(isoT7k, feature1 = "nUMI", feature2 = "percent.mt", group.by="method")
+```
+
+```{r}
+FeatureScatter(isoT7k, feature1 = "nUMI", feature2 = "nGene", group.by="method")
+```
+
+```{r}
+isoT7k_filter <- subset(x = isoT7k, 
+                        subset= (nGene >= 85) & 
+                          (nGene < 2000)  &
+                          (percent.mt < 7))
+```
+
+```{r}
+####Some Quality Check after Filtering
+VlnPlot(isoT7k_filter, features = c("nGene", "nUMI", "percent.mt", "percent.RP", "dropouts"), ncol = 5, group.by="method", pt.size=0.25)
+```
+
+
+```{r}
+# Output a logical vector for every gene on whether the more than zero counts per cell
+# Extract counts
+counts <- GetAssayData(object = isoT7k_filter, slot = "counts")
+
+# Output a logical vector for every gene on whether the more than zero counts per cell
+nonzero <- counts > 0
+
+# Filter Isoforms
+keep_genes <- Matrix::rowSums(nonzero) >= 3
+
+# Only keeping those filtered isoforms 
+filtered_counts <- counts[keep_genes, ]
+
+# Reassign to filtered Seurat object
+isoT7k_filter <- CreateSeuratObject(filtered_counts, meta.data = isoT7k_filter@meta.data)
+```
+
+```{r}
+######Filter Known Cells
+isoT4k_sub <- subset(x = isoT7k_filter,
+                        subset= CellType != "Unknown" ) 
+
+# Output a logical vector for every gene on whether the more than zero counts per cell
+# Extract counts
+counts <- GetAssayData(object = isoT4k_sub, slot = "counts")
+
+# Output a logical vector for every gene on whether the more than zero counts per cell
+nonzero <- counts > 0
+
+# Filter non expresses isoforms
+keep_genes <- Matrix::rowSums(nonzero) >= 0
+
+# Only keeping filtered isoforms
+filtered_counts <- counts[keep_genes, ]
+
+# Reassign to filtered Seurat object and Running seurat
+
+isoT4k_filter <- CreateSeuratObject(filtered_counts, meta.data = isoT4k_sub@meta.data) %>%
+  SCTransform(
+    verbose = FALSE, 
+    assay = 'RNA',
+    variable.features.n = 10000,
+    #return.only.var.genes = FALSE,
+    new.assay.name = 'SCT', 
+    vars.to.regress = "percent.mt" #,
+    #n_genes=10000
+  ) %>%
+  RunPCA( )
+```
+
+```{r}
+####Some Quality Check after Filtering
+VlnPlot(isoT4k_filter, features = c("nGene", "nUMI", "percent.mt", "percent.RP", "dropouts"), ncol = 5, group.by="method", pt.size=0.25)
+```
+
+```{r}
+# Plot PCA
+PCAPlot(isoT4k_filter ) 
+#FeaturePlot(isoT4k_filter,  reduction='pca', features=c("nGene", "nUMI",  "percent.mt", "percent.RP"), ncol = 2)
+```
+
+```{r}
+####Elbow Plot
+ElbowPlot(isoT4k_filter, ndims = 50)
+```
+
+```{r}
+# Run UMAP
+isoT4k_filter<- RunUMAP(isoT4k_filter,
+                        n.neighbors = 15,
+                        min.dist = 0.15,
+                        dims = 1:26)
+```
+
+```{r}
+# Determine the K-nearest neighbor graph
+isoT4k_filter <- FindNeighbors(object = isoT4k_filter, 
+                               reduction = "pca",
+                               features = VariableFeatures(object = isoT4k_filter),
+                               dims = 1:26,
+                               nn.method = "annoy") # annoy or rann
+```
+
+```{r}
+isoT4k_filter <- FindClusters(isoT4k_filter, verbose = FALSE,
+                              resolution = seq(1, 2, 0.1))
+```
+
+```{r}
+Idents(isoT4k_filter) <- "SCT_snn_res.1.6"
+Idents(isoT4k_filter) <- isoT4k_filter$SCT_snn_res.1.6
+new.cluster.ids <- c("ExM", "ExN-ExM", "ExM-U", "ExN-1", "ExN-2", "In",
+                     "vRG-ExN", "oRG", "IP", "ExDp", "ExN-3", "vRG", "PgS", "PgG2M", "Mic/Per/End")
+names(new.cluster.ids) <- levels(isoT4k_filter)
+isoT4k_filter <- RenameIdents(isoT4k_filter, new.cluster.ids)
+isoT4k_filter@meta.data$isoCellType <- Idents(isoT4k_filter)
+Idents(isoT4k_filter) <- isoT4k_filter$isoCellType
+write.table(isoT4k_filter@meta.data, file='output/tables/TableS5A.txt', quote=FALSE, sep='\t', col.names = TRUE)
+
+##used the old metadata file
+#ap4<-read.table("meta_2212022_v3.txt", header=T)
+#df4<- as.data.frame.matrix(ap4)
+#isoT4k_filter@meta.data<- df4
+#Idents(isoT4k_filter) <- isoT4k_filter$isoCellType
+```
+
+```{r}
+p1<- DimPlot(isoT4k_filter, reduction = "umap",label = TRUE, pt.size = 0.5, label.size = 3.5,repel=TRUE) +
+            NoLegend() + 
+            ggtitle('Cells Clustered by Isoform Expression') +
+            theme(plot.title = element_text(size = 10, face = "bold")) +
+            ggeasy::easy_center_title() &
+            theme(text = element_text(), #face = "bold"
+            axis.text=element_text(size=6), #angle=45, hjust=1,
+            axis.title = element_text(size=8 ),   #face="bold"),
+            axis.title.y.right = element_text(size = 2),
+            legend.text=element_text(size=8),
+            legend.title=element_text(size=8),
+            axis.line = element_line(size=0.5))
+
+
+p2<- DimPlot(isoT4k_filter, reduction = "umap",label = TRUE, group.by = "CellType", pt.size = 0.5, label.size = 3.5, repel=TRUE) + 
+            NoLegend() + 
+            ggtitle('Cells Clustered by Gene Expression') +
+            theme(plot.title = element_text(size = 10, face = "bold")) +
+            ggeasy::easy_center_title() &
+            theme(text = element_text(), #face = "bold"
+            axis.text=element_text(size=6), #angle=45, hjust=1,
+            axis.title = element_text(size=8 ),   #face="bold"),
+            axis.title.y.right = element_text(size = 2),
+            legend.text=element_text(size=8),
+            legend.title=element_text(size=8),
+            axis.line = element_line(size=0.5))
+
+p1 + p2
+```
+
+```{r}
+ggsave("output/figures/Fig5/Fig5_UMAP.pdf", width = 8, height = 10/3)
+```
+
+```{r}
+# Select the RNA counts slot to be the default assay
+Idents(isoT4k_filter) <- isoT4k_filter$isoCellType
+DefaultAssay(isoT4k_filter) <- "RNA"
+
+# Normalize RNA data for visualization purposes
+isoT4k_filter <- NormalizeData(isoT4k_filter, normalization.method = "LogNormalize", scale.factor = 100000, verbose = FALSE)
+
+#Scal Data
+all.genes <- rownames(isoT4k_filter)
+isoT4k_filter <- ScaleData(isoT4k_filter, features = all.genes)
+```
+
+```{r}
+if (!file.exists("data/working/isoT4k_filter.rds")) {
+  saveRDS(isoT4k_filter, "data/working/isoT4k_filter.rds")
+}
+```

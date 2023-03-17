@@ -1,0 +1,51 @@
+*********************************************************************
+* LD Score Regression (LDSC)
+* Version 1.0.1
+* (C) 2014-2019 Brendan Bulik-Sullivan and Hilary Finucane
+* Broad Institute of MIT and Harvard / MIT Department of Mathematics
+* GNU General Public License v3
+*********************************************************************
+Call: 
+./ldsc.py \
+--h2-cts /u/project/gandalm/jops/ucdavis_cpvz_isoseq/LDSC_novel_exons/snakemake2/input/gwas/MDD_Howard_2019.hm3_filter.sumstats.gz \
+--ref-ld-chr /u/project/gandalm/margolis/alexandria/pipelines/ldsc_snake/resources/1000G_phase3/baseline_v1.2/baseline. \
+--out DE/DE_cts_result/MDD_Howard_2019 \
+--ref-ld-chr-cts DE/DE.ldcts \
+--w-ld-chr /u/project/gandalm/margolis/alexandria/pipelines/ldsc_snake/resources/1000G_phase3/weights/weights.hm3_noMHC. 
+
+Beginning analysis at Fri Jan 27 14:53:31 2023
+Reading summary statistics from /u/project/gandalm/jops/ucdavis_cpvz_isoseq/LDSC_novel_exons/snakemake2/input/gwas/MDD_Howard_2019.hm3_filter.sumstats.gz ...
+Read summary statistics for 1163585 SNPs.
+Reading reference panel LD Score from /u/project/gandalm/margolis/alexandria/pipelines/ldsc_snake/resources/1000G_phase3/baseline_v1.2/baseline.[1-22] ... (ldscore_fromlist)
+Read reference panel LD Scores for 1190321 SNPs.
+Removing partitioned LD Scores with zero variance.
+Reading regression weight LD Score from /u/project/gandalm/margolis/alexandria/pipelines/ldsc_snake/resources/1000G_phase3/weights/weights.hm3_noMHC.[1-22] ... (ldscore_fromlist)
+Read regression weight LD Scores for 1187349 SNPs.
+After merging with reference panel LD, 1151645 SNPs remain.
+After merging with regression SNP LD, 1148945 SNPs remain.
+Removed 0 SNPs with chi^2 > 807.553 (1148945 SNPs remain)
+Reading cts reference panel LD Score from DE/DE_ldscores/DTU.,DE/DE_ldscores/DE.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from DE/DE_ldscores/DTU.up.,DE/DE_ldscores/DE.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from DE/DE_ldscores/DTU.down.,DE/DE_ldscores/DE.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from DE/DE_ldscores/DTU.not.DGE.,DE/DE_ldscores/DE.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from DE/DE_ldscores/DTU.not.DTE.,DE/DE_ldscores/DE.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from DE/DE_ldscores/DTE.,DE/DE_ldscores/DE.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from DE/DE_ldscores/DTE.up.,DE/DE_ldscores/DE.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from DE/DE_ldscores/DTE.down.,DE/DE_ldscores/DE.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from DE/DE_ldscores/DGE.,DE/DE_ldscores/DE.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from DE/DE_ldscores/DGE.up.,DE/DE_ldscores/DE.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from DE/DE_ldscores/DGE.down.,DE/DE_ldscores/DE.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Results printed to DE/DE_cts_result/MDD_Howard_2019.cell_type_results.txt
+Analysis finished at Fri Jan 27 14:56:25 2023
+Total time elapsed: 2.0m:54.58s

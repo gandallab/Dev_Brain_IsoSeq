@@ -1,0 +1,33 @@
+---
+title: "Figure 2 - Peptide Support"
+author: "Pan Zhang"
+execute:
+  cache: true
+editor: source
+editor_options:
+  chunk_output_type: console
+---
+
+Required libraries
+
+```{r}
+library(tidyverse)
+library(scatterpie)
+```
+
+plot
+
+```{r}
+plotdat=read.delim("data/stepwise_filtering_by_novelty.txt")
+plotdat$category=factor(plotdat$category,levels = c("total","protein_coding","validatable_orf","peptide_supported"))
+plotdat$novelty=factor(plotdat$novelty,levels = c("Known","ISM","NIC","NNC","other"))
+ggplot(plotdat)+
+  geom_bar(aes(novelty,N,fill=category),stat = "identity",position = "dodge")+
+#  scale_y_continuous(labels = scales::percent)+
+#  scale_y_continuous(labels = scientific_10)+
+  xlab("")+
+  ylab(expression(Transcript~(x10^3)))+
+  theme_bw()+
+  theme(text = element_text(family = "Arial",size = 16,face = "bold"))
+```
+

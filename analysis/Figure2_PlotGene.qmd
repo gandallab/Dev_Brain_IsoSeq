@@ -23,6 +23,7 @@ suppressMessages({
   library(scales)
   library(GenomicFeatures)
   library(GenomicRanges)
+  library(GenomicInteractions)
   library(Gviz)
 
 })
@@ -76,7 +77,7 @@ if(!file.exists('data/working/locusPlot_workingData.RData')) {
   gr.gencode = rtracklayer::import(gencode) %>% as_tibble()
   
   # Isoseq Annotations
-  isoseq="data/cp_vz_0.75_min_7_recovery_talon_corrected.gtf.cds.gff.gz"
+  isoseq="data/sqanti/cp_vz_0.75_min_7_recovery_talon_corrected.gtf.cds.gff.gz"
   isoseq_txdb=makeTxDbFromGFF(isoseq, format="gtf")
   isoseq_transcript=exonsBy(isoseq_txdb,by="tx",use.names=T)
   gr.isoseq = rtracklayer::import(isoseq) %>% as_tibble()

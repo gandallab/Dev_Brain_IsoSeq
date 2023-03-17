@@ -110,7 +110,7 @@ gr.isoseq <- gr.isoseq.old %>% left_join(cts, by=c("transcript_id" = "annot_tran
 
 
 ## Find Novel Intergenic Genes
-```{r,echo=FALSE,warning=FALSE}
+```{r, results=FALSE}
 
 gr.isoseq %>% filter(type == "transcript") %>% dplyr::select(gene_novelty) %>% pull() %>% table()
 
@@ -161,7 +161,7 @@ dev.off()
 
 
 ## Plot antisense genes
-```{r,echo=FALSE,warning=FALSE}
+```{r, results=FALSE}
 
 antisense = gr.isoseq %>% filter(type == "transcript",gene_novelty=="Antisense", !grepl("^GL", seqnames)) %>% arrange(-counts)
 

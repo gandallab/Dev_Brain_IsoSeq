@@ -1,0 +1,270 @@
+---
+title: "Figure 6 - Track Plots"
+author: "Pan Zhang"
+execute:
+  cache: true
+editor: source
+editor_options:
+  chunk_output_type: console
+---
+
+Required libraries
+
+```{r}
+library(Gviz)
+library(GenomicFeatures)
+library(GenomicRanges)
+library(GenomicInteractions)
+library(data.table)
+```
+
+options
+
+```{r}
+options(stringsAsFactors = F)
+options(Gviz.scheme = "myScheme")
+options(ucscChromosomeNames = F)
+```
+
+global themes
+
+```{r}
+scheme <- getScheme()
+scheme$GeneRegionTrack$col <- NULL
+addScheme(scheme, "myScheme")
+```
+
+prepare gencode
+
+```{r}
+gencode="ref/gencode.v33lift37.annotation.gtf.gz"
+gencode_txdb=makeTxDbFromGFF(gencode, format="auto")
+gencode_cds=cdsBy(gencode_txdb,by="tx",use.names=T)
+gencode_5utr=fiveUTRsByTranscript(gencode_txdb,use.names=T)
+gencode_3utr=threeUTRsByTranscript(gencode_txdb,use.names=T)
+
+```
+
+prepare fetalIsoSeq
+
+```{r}
+isoseq="data/realBulk_talonOnly.fasta.transdecoder_allCoding_genome_reformat1.gff3.gz"
+isoseq_txdb=makeTxDbFromGFF(isoseq, format="gff3")
+isoseq_cds=cdsBy(isoseq_txdb,by="tx",use.names=T)
+isoseq_5utr=fiveUTRsByTranscript(isoseq_txdb,use.names=T)
+isoseq_3utr=threeUTRsByTranscript(isoseq_txdb,use.names=T)
+```
+
+peak files
+
+```{r}
+cagefile=fread("data/all_cage.txt.gz",header = F)
+polyafile=fread("data/polya.txt.gz",header = F)
+atacfile=fread("data/all_atac.txt.gz",header = F)
+```
+
+ORF to plot
+
+```{r}
+known=c("ENST00000389744.8_2","ENST00000553286.5_2","ENST00000452929.6_2","ENST00000348520.10_2")
+novel=c("TALONT000423578.p1")
+```
+
+GRange object for known and novel ORFs
+
+```{r}
+known_transcript=GRanges()
+for (i in known){
+  if (!i %in% names(gencode_cds)){
+    cat("Known transcript is not coding:",i)
+    next
+  }
+  thistranscript=unlist(gencode_cds[i,])
+  elementMetadata(thistranscript)=NULL
+  elementMetadata(thistranscript)$feature="cds"
+  known_transcript=c(known_transcript,thistranscript)
+  if (i %in% names(gencode_5utr)){
+    thistranscript=unlist(gencode_5utr[i,])
+    elementMetadata(thistranscript)=NULL
+    elementMetadata(thistranscript)$feature="utr"
+    known_transcript=c(known_transcript,thistranscript)
+  }
+  if (i %in% names(gencode_3utr)){
+    thistranscript=unlist(gencode_3utr[i,])
+    elementMetadata(thistranscript)=NULL
+    elementMetadata(thistranscript)$feature="utr"
+    known_transcript=c(known_transcript,thistranscript)
+  }
+}
+novel_transcript=GRanges()
+for (i in novel){
+  if (!i %in% names(isoseq_cds)){
+    cat("Novel transcript is not coding:",i)
+    next
+  }
+  thistranscript=unlist(isoseq_cds[i,])
+  elementMetadata(thistranscript)=NULL
+  elementMetadata(thistranscript)$feature="cds"
+  novel_transcript=c(novel_transcript,thistranscript)
+  if (i %in% names(isoseq_5utr)){
+    thistranscript=unlist(isoseq_5utr[i,])
+    elementMetadata(thistranscript)=NULL
+    elementMetadata(thistranscript)$feature="utr"
+    novel_transcript=c(novel_transcript,thistranscript)
+  }
+  if (i %in% names(isoseq_3utr)){
+    thistranscript=unlist(isoseq_3utr[i,])
+    elementMetadata(thistranscript)=NULL
+    elementMetadata(thistranscript)$feature="utr"
+    novel_transcript=c(novel_transcript,thistranscript)
+  }
+}
+
+known_chr=as.character(known_transcript@seqnames)[1]
+novel_chr=as.character(novel_transcript@seqnames)[1]
+if (known_chr == novel_chr){
+  chr=known_chr
+}else{
+  stop("chr differs between known and novel")
+}
+
+known_strd=as.character(known_transcript@strand)[1]
+novel_strd=as.character(novel_transcript@strand)[1]
+if (known_strd == novel_strd){
+  strd=known_strd
+}else{
+  stop("strand differs between known and novel")
+}
+```
+
+known ORF track
+
+```{r}
+elementMetadata(known_transcript)$transcript <- names(known_transcript)
+known_track=GeneRegionTrack(known_transcript,group = "transcirpt",name = "Canonical")
+
+displayPars(known_track)=list(stacking="squish",
+                                     background.panel = "#ffffb2",
+                                     fill="#006d2c",
+                                     col="#006d2c",
+                                     lwd=0.3,
+                                     utr="gray",
+                                     #thinBoxFeature=c("exon_1","exon_4","exon_35"),
+                                     col.line="black",
+                                     fontcolor.title="black",
+                                     background.title="#d1861d")
+```
+
+novel ORF track
+
+```{r}
+elementMetadata(novel_transcript)$transcript=names(novel_transcript)
+isoseq_track=GeneRegionTrack(novel_transcript,group = "transcript",name = "Novel")
+displayPars(isoseq_track)=list(stacking="squish",
+                               background.panel = "#bcbddc",
+                               fill="#171cc7",
+                               col="#171cc7",
+                               lwd=0.3,
+                               col.line="black",
+                               utr="gray",
+                               showId = TRUE,
+                               transcriptAnnotation = "transcript",
+                               fontcolor.title="black",
+                               background.title="#045a8d")
+```
+
+universal tracks
+
+```{r}
+axisTrack <- GenomeAxisTrack()
+ideoTrack <- IdeogramTrack(genome = "hg19", chromosome = chr)
+```
+
+find plot range
+
+```{r}
+leftmost=min(c(known_transcript@ranges@start,novel_transcript@ranges@start))
+rightmost=max(c(known_transcript@ranges@start,novel_transcript@ranges@start))
+
+currentcagefile=cagefile[cagefile$V1 == chr & cagefile$V4 == strd & cagefile$V2 >= leftmost & cagefile$V3 <= rightmost,]
+currentpolyafile=polyafile[polyafile$V1 == chr & polyafile$V4 == strd & polyafile$V2 >= leftmost & polyafile$V3 <= rightmost,]
+currentatacfile=atacfile[atacfile$V1 == chr & atacfile$V2 >= leftmost & atacfile$V3 <= rightmost,]
+
+currentcagefile=currentcagefile[!duplicated(currentcagefile),]
+currentpolyafile=currentpolyafile[!duplicated(currentpolyafile),]
+currentatacfile=currentatacfile[!duplicated(currentatacfile),]
+```
+
+CAGE, ployA and ATAC tracks
+
+```{r}
+cage=AnnotationTrack(start=currentcagefile$V2,
+                     end = currentcagefile$V3,
+                     chromosome = currentcagefile$V1,
+                     strand = currentcagefile$V4,
+                     background.panel = "#99d8c9",
+                     stacking = "full",
+                     fill="black",
+                     name = "CAGE peaks",
+                     col=NULL,
+                     col.line="#99d8c9",
+                     background.title="#2ca25f",
+                     fontcolor.title="black")
+
+
+
+polya=AnnotationTrack(start=currentpolyafile$V2,
+                      end = currentpolyafile$V3,
+                      chromosome = currentpolyafile$V1,
+                      strand = currentpolyafile$V4,
+                      background.panel = "#fee0d2",
+                      fill="black",
+                      name = "PolyA sites",
+                      col=NULL,
+                      col.line="#fee0d2",
+                      background.title="#ef6548",
+                      fontcolor.title="black")
+
+
+atac=AnnotationTrack(start=currentatacfile$V2,
+                     end = currentatacfile$V3,
+                     chromosome = currentatacfile$V1,
+                     background.panel = "#f0bdd7",
+                     fill="black",
+                     name = "ATAC",
+                     col=NULL,
+                     col.line="#f0bdd7",
+                     background.title="#e67ab1",
+                     fontcolor.title="black")
+
+displayPars(cage)$stacking="dense"
+displayPars(polya)$stacking="dense"
+displayPars(atac)$stacking="dense"
+```
+
+overview plot
+
+```{r}
+extra=(rightmost - leftmost)*0.05
+
+
+ht <- HighlightTrack(trackList=list(cage,polya,atac,known_track,isoseq_track),start=104129236,end=104129236,chromosome = chr,inBackground=FALSE)
+
+
+plotTracks(list(ideoTrack,axisTrack,ht),
+           chromosome = chr,
+           from = leftmost - extra,
+           to = rightmost - extra)
+```
+
+zoom in plot
+
+```{r}
+ht <- HighlightTrack(trackList=list(cage,known_track,isoseq_track),start=104129236,end=104129236,chromosome = chr,inBackground=FALSE,fill="red",size=0.5)
+
+plotTracks(list(ideoTrack,axisTrack,ht),
+           chromosome = chr,
+           from = 104129000,
+           to = 104129300)
+```
+

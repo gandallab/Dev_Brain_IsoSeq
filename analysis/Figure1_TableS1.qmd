@@ -1,5 +1,5 @@
 ---
-title: "Figure 1 - generate Table S1"
+title: "Figure 1 - Table S1"
 author: "Connor Jops"
 format: html
 execute:

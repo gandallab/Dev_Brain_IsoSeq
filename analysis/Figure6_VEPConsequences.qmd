@@ -1,0 +1,91 @@
+---
+title: "Figure 6 - VEP Consequences"
+author: "Pan Zhang"
+execute:
+  cache: true
+editor: source
+editor_options:
+  chunk_output_type: console
+---
+
+Required libraries
+
+```{r}
+library(tidyverse)
+library(scatterpie)
+```
+
+Required input files
+
+```{r}
+vep_severity <- read.delim("data/VEP/vep_severity.txt")
+
+vep_info=read.delim("data/VEP/pmid29700473_30545852_32461655_dnm_meta_fixMultiVar.txt.gz")
+
+gencode <- read.delim("data/VEP/pmid29700473_30545852_32461655_dnm_most_severe_gencode.txt.gz",comment.char = "#",header = FALSE)
+
+withNovel <- read.delim("data/VEP/pmid29700473_30545852_32461655_dnm_most_severe_withNovelIsoform.txt.gz",comment.char = "#",header = FALSE)
+
+```
+
+Process data and make plot
+
+```{r}
+vep_anno <- merge(gencode[,c(1,2,7)], withNovel[,c(1,2,7)], suffixes = c("_GENCODE","_withNovel"), by=c("V1","V2"))
+
+colnames(vep_anno)=c("Uploaded_variation","Location","Consequence_GENCODE","Consequence_withNovel")
+
+reassign <- vep_anno %>%
+  dplyr::filter(Consequence_withNovel != Consequence_GENCODE)
+
+reassign$severity_gencode=vep_severity$RANK[match(reassign$Consequence_GENCODE,vep_severity$SO.term)]
+
+reassign$severity_withNovel=vep_severity$RANK[match(reassign$Consequence_withNovel,vep_severity$SO.term)]
+
+reassign=reassign[reassign$severity_gencode > reassign$severity_withNovel,]
+
+reassign=merge(reassign,vep_info,by.x="Uploaded_variation",by.y="varId")
+
+reassign_sum=reassign %>%
+  group_by(Consequence_GENCODE,Consequence_withNovel,Pheno) %>%
+  summarise(N=n()) %>%
+  spread(Pheno,N,fill = 0)
+
+reassign_sum$severity_gencode=vep_severity$RANK[match(reassign_sum$Consequence_GENCODE,vep_severity$SO.term)]
+
+reassign_sum$severity_withNovel=vep_severity$RANK[match(reassign_sum$Consequence_withNovel,vep_severity$SO.term)]
+
+reassign_sum$Consequence_GENCODE=gsub("_variant","",reassign_sum$Consequence_GENCODE)
+
+reassign_sum$Consequence_withNovel=gsub("_variant","",reassign_sum$Consequence_withNovel)
+
+reassign_sum$region=factor(1:nrow(reassign_sum))
+
+reassign_sum$Consequence_withNovel=reorder(reassign_sum$Consequence_withNovel, reassign_sum$severity_withNovel)
+
+reassign_sum$Consequence_GENCODE=reorder(reassign_sum$Consequence_GENCODE, reassign_sum$severity_gencode)
+
+reassign_sum$Consequence_GENCODE=as.numeric(reassign_sum$Consequence_GENCODE)
+
+reassign_sum$Consequence_withNovel=as.numeric(reassign_sum$Consequence_withNovel)
+
+reassign_sum$total=log(reassign_sum$case+reassign_sum$control+1,2) ^ 0.5 / 6.5
+
+ggplot() +
+  geom_scatterpie(aes(x=Consequence_GENCODE, y=Consequence_withNovel, group=region,r=total),cols=c("case","control"),data=reassign_sum) +
+  scale_x_continuous(breaks = seq(1,17))+
+  scale_y_continuous(breaks = seq(1,21))+
+  coord_fixed()+
+  theme_bw(base_size=16) +
+  theme(legend.position = "bottom",
+        text = element_text(family = "Arial"),
+        panel.grid.major = element_line(size=0.5),
+        panel.grid.minor = element_blank(),
+        axis.title = element_text(face = "bold"),
+        axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  ylab("Reassigned VEP Consequence") +
+  xlab("Previous VEP Consequence")
+
+```
+
+Note that `geom_scatterpie` requires both x and y aesthetics to be numeric, so I converted the VEP consequences into numeric and make the plot. As a result, the corresponding consequences need to be manually added back to the plot.

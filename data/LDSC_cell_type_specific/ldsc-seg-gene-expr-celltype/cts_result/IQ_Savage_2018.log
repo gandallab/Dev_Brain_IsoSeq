@@ -1,0 +1,61 @@
+*********************************************************************
+* LD Score Regression (LDSC)
+* Version 1.0.1
+* (C) 2014-2019 Brendan Bulik-Sullivan and Hilary Finucane
+* Broad Institute of MIT and Harvard / MIT Department of Mathematics
+* GNU General Public License v3
+*********************************************************************
+Call: 
+./ldsc.py \
+--h2-cts /u/project/gandalm/jops/ucdavis_cpvz_isoseq/LDSC/snakemake2/input/gwas/IQ_Savage_2018.hm3_filter.sumstats.gz \
+--ref-ld-chr /u/project/gandalm/margolis/alexandria/pipelines/ldsc_snake/resources/1000G_phase3/baseline_v1.2/baseline. \
+--out ldsc-seg/cts_result/IQ_Savage_2018 \
+--ref-ld-chr-cts ldsc-seg/ldsc.ldcts \
+--w-ld-chr /u/project/gandalm/margolis/alexandria/pipelines/ldsc_snake/resources/1000G_phase3/weights/weights.hm3_noMHC. 
+
+Beginning analysis at Wed Jan 11 09:55:12 2023
+Reading summary statistics from /u/project/gandalm/jops/ucdavis_cpvz_isoseq/LDSC/snakemake2/input/gwas/IQ_Savage_2018.hm3_filter.sumstats.gz ...
+Read summary statistics for 665728 SNPs.
+Reading reference panel LD Score from /u/project/gandalm/margolis/alexandria/pipelines/ldsc_snake/resources/1000G_phase3/baseline_v1.2/baseline.[1-22] ... (ldscore_fromlist)
+Read reference panel LD Scores for 1190321 SNPs.
+Removing partitioned LD Scores with zero variance.
+Reading regression weight LD Score from /u/project/gandalm/margolis/alexandria/pipelines/ldsc_snake/resources/1000G_phase3/weights/weights.hm3_noMHC.[1-22] ... (ldscore_fromlist)
+Read regression weight LD Scores for 1187349 SNPs.
+After merging with reference panel LD, 658553 SNPs remain.
+After merging with regression SNP LD, 656128 SNPs remain.
+Removed 0 SNPs with chi^2 > 269.867 (656128 SNPs remain)
+Reading cts reference panel LD Score from ldsc-seg/ldscore/End.,ldsc-seg/ldscore/background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from ldsc-seg/ldscore/ExDp1.,ldsc-seg/ldscore/background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from ldsc-seg/ldscore/ExDp2.,ldsc-seg/ldscore/background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from ldsc-seg/ldscore/ExM.,ldsc-seg/ldscore/background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from ldsc-seg/ldscore/ExM-U.,ldsc-seg/ldscore/background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from ldsc-seg/ldscore/ExN.,ldsc-seg/ldscore/background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from ldsc-seg/ldscore/InCGE.,ldsc-seg/ldscore/background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from ldsc-seg/ldscore/InMGE.,ldsc-seg/ldscore/background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from ldsc-seg/ldscore/Mic.,ldsc-seg/ldscore/background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from ldsc-seg/ldscore/OPC.,ldsc-seg/ldscore/background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from ldsc-seg/ldscore/oRG.,ldsc-seg/ldscore/background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from ldsc-seg/ldscore/Per.,ldsc-seg/ldscore/background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from ldsc-seg/ldscore/PgG2M.,ldsc-seg/ldscore/background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from ldsc-seg/ldscore/PgS.,ldsc-seg/ldscore/background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from ldsc-seg/ldscore/vRG.,ldsc-seg/ldscore/background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from ldsc-seg/ldscore/IP.,ldsc-seg/ldscore/background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Results printed to ldsc-seg/cts_result/IQ_Savage_2018.cell_type_results.txt
+Analysis finished at Wed Jan 11 09:59:47 2023
+Total time elapsed: 4.0m:35.73s

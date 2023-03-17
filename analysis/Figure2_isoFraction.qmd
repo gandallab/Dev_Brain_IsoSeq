@@ -2,7 +2,7 @@
 title: "Figure 2 - Isoform Fraction analysis"
 author: "Michael Gandal"
 execute:
-  cache: false
+  cache: true
 editor: source
 editor_options:
   chunk_output_type: console
@@ -10,7 +10,7 @@ editor_options:
     wrap: 72
 ---
 
-```{r,echo=FALSE,warning=FALSE}
+```{r}
 suppressPackageStartupMessages({
   library(tidyverse)
   library(IsoformSwitchAnalyzeR)

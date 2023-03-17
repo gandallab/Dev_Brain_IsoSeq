@@ -1,0 +1,89 @@
+*********************************************************************
+* LD Score Regression (LDSC)
+* Version 1.0.1
+* (C) 2014-2019 Brendan Bulik-Sullivan and Hilary Finucane
+* Broad Institute of MIT and Harvard / MIT Department of Mathematics
+* GNU General Public License v3
+*********************************************************************
+Call: 
+./ldsc.py \
+--h2-cts /u/project/gandalm/jops/ucdavis_cpvz_isoseq/LDSC_novel_exons/snakemake2/input/gwas/Insomnia_Jansen_2018.hm3_filter.sumstats.gz \
+--ref-ld-chr /u/project/gandalm/margolis/alexandria/pipelines/ldsc_snake/resources/1000G_phase3/baseline_v1.2/baseline. \
+--out networks/isoUsage_cts_result/Insomnia_Jansen_2018 \
+--ref-ld-chr-cts networks/isoUsage.ldcts \
+--w-ld-chr /u/project/gandalm/margolis/alexandria/pipelines/ldsc_snake/resources/1000G_phase3/weights/weights.hm3_noMHC. 
+
+Beginning analysis at Mon Jan 23 11:44:06 2023
+Reading summary statistics from /u/project/gandalm/jops/ucdavis_cpvz_isoseq/LDSC_novel_exons/snakemake2/input/gwas/Insomnia_Jansen_2018.hm3_filter.sumstats.gz ...
+Read summary statistics for 1136202 SNPs.
+Reading reference panel LD Score from /u/project/gandalm/margolis/alexandria/pipelines/ldsc_snake/resources/1000G_phase3/baseline_v1.2/baseline.[1-22] ... (ldscore_fromlist)
+Read reference panel LD Scores for 1190321 SNPs.
+Removing partitioned LD Scores with zero variance.
+Reading regression weight LD Score from /u/project/gandalm/margolis/alexandria/pipelines/ldsc_snake/resources/1000G_phase3/weights/weights.hm3_noMHC.[1-22] ... (ldscore_fromlist)
+Read regression weight LD Scores for 1187349 SNPs.
+After merging with reference panel LD, 1125102 SNPs remain.
+After merging with regression SNP LD, 1122297 SNPs remain.
+Removed 0 SNPs with chi^2 > 386.533 (1122297 SNPs remain)
+Reading cts reference panel LD Score from networks/isoUsage_ldscores/isoUsage.M1_turquoise.,networks/isoUsage_ldscores/isoUsage.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/isoUsage_ldscores/isoUsage.M2_blue.,networks/isoUsage_ldscores/isoUsage.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/isoUsage_ldscores/isoUsage.M0_grey.,networks/isoUsage_ldscores/isoUsage.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/isoUsage_ldscores/isoUsage.M4_yellow.,networks/isoUsage_ldscores/isoUsage.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/isoUsage_ldscores/isoUsage.M7_black.,networks/isoUsage_ldscores/isoUsage.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/isoUsage_ldscores/isoUsage.M5_green.,networks/isoUsage_ldscores/isoUsage.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/isoUsage_ldscores/isoUsage.M16_lightcyan.,networks/isoUsage_ldscores/isoUsage.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/isoUsage_ldscores/isoUsage.M18_lightgreen.,networks/isoUsage_ldscores/isoUsage.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/isoUsage_ldscores/isoUsage.M20_royalblue.,networks/isoUsage_ldscores/isoUsage.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/isoUsage_ldscores/isoUsage.M6_red.,networks/isoUsage_ldscores/isoUsage.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/isoUsage_ldscores/isoUsage.M3_brown.,networks/isoUsage_ldscores/isoUsage.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/isoUsage_ldscores/isoUsage.M10_purple.,networks/isoUsage_ldscores/isoUsage.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/isoUsage_ldscores/isoUsage.M24_darkgrey.,networks/isoUsage_ldscores/isoUsage.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/isoUsage_ldscores/isoUsage.M14_cyan.,networks/isoUsage_ldscores/isoUsage.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/isoUsage_ldscores/isoUsage.M12_tan.,networks/isoUsage_ldscores/isoUsage.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/isoUsage_ldscores/isoUsage.M23_darkturquoise.,networks/isoUsage_ldscores/isoUsage.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/isoUsage_ldscores/isoUsage.M13_salmon.,networks/isoUsage_ldscores/isoUsage.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/isoUsage_ldscores/isoUsage.M8_pink.,networks/isoUsage_ldscores/isoUsage.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/isoUsage_ldscores/isoUsage.M19_lightyellow.,networks/isoUsage_ldscores/isoUsage.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/isoUsage_ldscores/isoUsage.M17_grey60.,networks/isoUsage_ldscores/isoUsage.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/isoUsage_ldscores/isoUsage.M28_skyblue.,networks/isoUsage_ldscores/isoUsage.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/isoUsage_ldscores/isoUsage.M25_orange.,networks/isoUsage_ldscores/isoUsage.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/isoUsage_ldscores/isoUsage.M29_saddlebrown.,networks/isoUsage_ldscores/isoUsage.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/isoUsage_ldscores/isoUsage.M27_white.,networks/isoUsage_ldscores/isoUsage.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/isoUsage_ldscores/isoUsage.M11_greenyellow.,networks/isoUsage_ldscores/isoUsage.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/isoUsage_ldscores/isoUsage.M21_darkred.,networks/isoUsage_ldscores/isoUsage.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/isoUsage_ldscores/isoUsage.M9_magenta.,networks/isoUsage_ldscores/isoUsage.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/isoUsage_ldscores/isoUsage.M15_midnightblue.,networks/isoUsage_ldscores/isoUsage.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/isoUsage_ldscores/isoUsage.M22_darkgreen.,networks/isoUsage_ldscores/isoUsage.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/isoUsage_ldscores/isoUsage.M26_darkorange.,networks/isoUsage_ldscores/isoUsage.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Results printed to networks/isoUsage_cts_result/Insomnia_Jansen_2018.cell_type_results.txt
+Analysis finished at Mon Jan 23 11:54:54 2023
+Total time elapsed: 10.0m:47.41s

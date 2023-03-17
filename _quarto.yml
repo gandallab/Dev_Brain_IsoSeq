@@ -1,40 +1,78 @@
 project:
   type: website
+  execute-dir: project
   render:
     - analysis/index.qmd
     - analysis/Figure1_BulkTxomeAnalysis.qmd
     - analysis/Figure1_TableS1.qmd
+    - code/Fig1_MetaCoverage.ipynb
     - analysis/Figure2_isoFraction.qmd
     - analysis/Figure2_novel_exons.qmd
     - analysis/Figure2_PlotGene.qmd
     - analysis/Figure2_plotNovelGenes.qmd
+    - analysis/Figure2_NF1Locus.qmd
+    - analysis/Figure2_PeptideSupport.qmd
     - analysis/Figure3_IsoformSwitchAnalyzeR.qmd
     - analysis/Figure3_DTU_enrichments.qmd
+    - analysis/Figure3_RBPEnrichments.qmd
     - analysis/Figure3_APA.qmd
-
-
-  execute-dir: project
+    - analysis/Figure4_combinedNetworks.qmd
+    - analysis/Figure4_Networks_Enrichments.qmd
+    - analysis/Figure5_SeuratClustering.qmd
+    - analysis/Figure5_MarkerGenesFigs.qmd
+    - analysis/Figure5_TableS5D.qmd
+    - analysis/Figure5_PseudotimeAnalysis.qmd
+    - analysis/Figure5_Sankey.qmd
+    - analysis/Figure6_rareVariant.qmd
+    - analysis/Figure6_VEPConsequences.qmd
+    - analysis/Figure6_TrackPlots.qmd
+    - analysis/FigureS9_cor_plots.qmd
 
 website:
-  title: "Dev Brain scIso-Seq CP/VZ"
+  title: "Dev Brain Iso-Seq"
   sidebar:
     style: "floating"
+    tools:
+      - icon: github
+        href: https://github.com/gandallab/Dev_Brain_IsoSeq
     search: false
     contents:
-      - analysis/index.qmd
       - analysis/Figure1_BulkTxomeAnalysis.qmd
       - analysis/Figure1_TableS1.qmd
+      - code/Fig1_MetaCoverage.ipynb
+      - text: "---"
       - analysis/Figure2_isoFraction.qmd
       - analysis/Figure2_plotNovelGenes.qmd
       - analysis/Figure2_PlotGene.qmd
       - analysis/Figure2_novel_exons.qmd
+      - analysis/Figure2_NF1Locus.qmd
+      - analysis/Figure2_PeptideSupport.qmd
+      - text: "---"
       - analysis/Figure3_IsoformSwitchAnalyzeR.qmd
       - analysis/Figure3_DTU_enrichments.qmd
+      - analysis/Figure3_RBPEnrichments.qmd
       - analysis/Figure3_APA.qmd
-
+      - text: "---"
+      - analysis/Figure4_combinedNetworks.qmd
+      - analysis/Figure4_Networks_Enrichments.qmd
+      - text: "---"
+      - analysis/Figure5_SeuratClustering.qmd
+      - analysis/Figure5_MarkerGenesFigs.qmd
+      - analysis/Figure5_TableS5D.qmd
+      - analysis/Figure5_PseudotimeAnalysis.qmd
+      - analysis/Figure5_Sankey.qmd
+      - text: "---"
+      - analysis/Figure6_rareVariant.qmd
+      - analysis/Figure6_VEPConsequences.qmd
+      - analysis/Figure6_TrackPlots.qmd
+      - text: "---"
+      - analysis/FigureS9_cor_plots.qmd
 
 format:
   html:
     theme: cosmo
     css: styles.css
     toc: true
+
+execute:
+  cache: true

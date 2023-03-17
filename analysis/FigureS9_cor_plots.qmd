@@ -1,0 +1,459 @@
+---
+title: "Figure S9 - Correlation plots"
+author: "Connor Jops"
+date: "2023-01-31"
+execute:
+  cache: false
+  freeze: auto
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r}
+library(tidyverse)
+library(rtracklayer)
+Sys.setenv("VROOM_CONNECTION_SIZE" = 524288) # 512kb - default is 128kb. entire line must fit inside this buffer and we have very long lines
+```
+
+```{r}
+base_size_pt = 16
+theme_set(theme_bw(base_size = base_size_pt))
+theme_update(
+  plot.title = element_text(size = rel(1.2), hjust = 0.5),
+  axis.title = element_text(size = rel(1)),
+  axis.text = element_text(color="black", size = rel(1)),
+  legend.title = element_text(size = rel(1)),
+  legend.text = element_text(color="black", size = rel(1)),
+  strip.text = element_text(color="black", size = rel(1))
+)
+base_size_mm = base_size_pt * 25.4 / 72.27
+```
+
+```{r}
+isoseq = read_tsv("data/AllBarcode_newID_geneLevel.txt.gz")
+isoseq
+```
+
+```{r}
+short_read = read_tsv("data/single_cell/Raw_Single_Cell_4281.tsv.gz")
+short_read
+```
+
+```{r}
+cell_metadata = read_tsv("ref/polioudakis_neuron2020/TableS3_Cell_metadata.csv")
+cell_metadata
+```
+
+## Gene expr
+
+```{r}
+gene_counts = inner_join(
+  isoseq %>% mutate(
+    cts_isoseq = rowSums(across(where(is.numeric))),
+    .keep = "unused"
+  ),
+  short_read %>% mutate(
+    cts_short_read = rowSums(across(where(is.numeric))),
+    .keep = "unused"
+  ),
+  by = "gene_name"
+) %>%
+  filter(!if_any(starts_with("cts_"), ~.x == 0))
+gene_counts
+```
+
+```{r}
+gene_counts_logRPM = gene_counts %>%
+  mutate(across(
+    starts_with("cts_"),
+    ~log2(1 + (.x / (sum(.x) / 1000000)))
+  ))
+gene_counts_logRPM
+```
+
+```{r}
+cor = cor.test(gene_counts_logRPM$cts_isoseq, gene_counts_logRPM$cts_short_read, method = "pearson")
+cor
+```
+
+```{r}
+ggplot(
+  gene_counts_logRPM,
+  aes(x = cts_short_read, y = cts_isoseq)
+) +
+  geom_point(alpha = 0.1, color = "#08519c") +
+  geom_abline() +
+  annotate(
+    geom = "text",
+    label = str_c("r = ", round(cor$estimate[[1]], digits = 3), ", p\uadvalue < 2.2e-16"),
+    size = base_size_mm,
+    x = 0, y = 16,
+    vjust = "middle", hjust = "left",
+    parse = F
+  ) +
+  xlim(0, 16) +
+  ylim(0, 16) +
+  labs(
+    x = "Gene Expr (RNA\uadSeq)\nlog2(TPM+1)",
+    y = "Gene Expr (Iso\uadSeq)\nlog2(TPM+1)"
+  )
+```
+
+```{r}
+ggsave("output/figures/supplement/FigS9_GeneExprCor.pdf", width = 5, height = 5)
+```
+
+## UMI
+
+```{r}
+UMI_counts = inner_join(
+  short_read %>%
+    select(-gene_name) %>%
+    summarize(across(everything(), sum)) %>%
+    pivot_longer(everything(), names_to = "UMI", values_to = "cts_short_read"),
+  isoseq %>%
+    select(-gene_name) %>%
+    summarize(across(everything(), sum)) %>%
+    pivot_longer(everything(), names_to = "UMI", values_to = "cts_isoseq"),
+  by = "UMI"
+)
+UMI_counts
+```
+
+```{r}
+cor = cor.test(UMI_counts$cts_isoseq, UMI_counts$cts_short_read, method = "pearson")
+cor
+```
+
+```{r}
+ggplot(
+  UMI_counts,
+  aes(x = cts_short_read, y = cts_isoseq)
+) +
+  geom_point(alpha = 0.1) +
+  annotate(
+    geom = "text",
+    label = str_c("r = ", round(cor$estimate[[1]], digits = 3), ", p\uadvalue < 2.2e-16"),
+    size = base_size_mm,
+    x = 0, y = 5500,
+    vjust = "middle", hjust = "left",
+    parse = F
+  ) +
+  scale_x_continuous(limits = c(0, 8000), breaks = seq(0, 8000, by = 2000)) +
+  scale_y_continuous(limits = c(0, 5500), breaks = seq(0, 5000, by = 1000)) +
+  labs(
+    x = "Total UMI count in RNA\uadSeq",
+    y = "Total UMI count in Iso\uadSeq"
+  )
+
+```
+
+```{r}
+ggsave("output/figures/supplement/FigS9_UMICountCor.pdf", width = 5, height = 5)
+```
+
+## Unique transcripts per cell
+
+mean = 538.6
+
+```{r}
+isoseq_tx = read_tsv("data/AllBarcode_newID_4281.txt.gz")
+isoseq_tx
+```
+
+```{r}
+tx_per_cell = isoseq_tx %>% select(!(c(gene_name, transcript_id))) %>%
+  summarize(across(everything(), ~sum(.x > 0))) %>%
+  pivot_longer(everything())
+tx_per_cell
+```
+
+```{r}
+summary(tx_per_cell)
+```
+
+## Donor v donor in iso-seq
+
+### Filtered for isoforms present in 3 or more cells
+
+```{r}
+cpgz = rtracklayer::import("data/cp_vz_sc_unified_talon.gtf.gz")
+```
+
+```{r}
+donor_counts_filt = read_tsv("data/AllBarcode_newID_byDonor_min3cells.txt.gz") %>%
+  rename_with(~str_c("donor_", .x), .cols = where(is.numeric))
+donor_counts_filt
+```
+
+```{r}
+donor_counts_filt = donor_counts_filt %>% filter(transcript_id %in% str_extract(cpgz$transcript_id, "^[^\\.]*"))
+donor_counts_filt
+```
+
+```{r}
+cpgz.exons = cpgz[cpgz$type == "exon" & str_extract(cpgz$transcript_id, "^[^\\.]*") %in% donor_counts_filt$transcript_id]
+cpgz.exons.by.gene = split(cpgz.exons, cpgz.exons$gene_name)
+donor_counts_filt = donor_counts_filt %>% left_join(
+  enframe(
+    sum(width(reduce(ranges(cpgz.exons.by.gene)))), # calculate exonic width
+    name = "gene_name",
+    value = "gene_length"
+  )
+)
+donor_counts_filt
+```
+
+wrong but matches old plots:
+
+```{r}
+total = sum(donor_counts_filt %>% select(starts_with("donor_")))
+donor_counts_filt_logRPM_wrong = donor_counts_filt %>%
+  mutate(across(
+    starts_with("donor_"),
+    ~log10(1 + (.x / (total / 1000000)))
+  ))
+donor_counts_filt_logRPM_wrong
+```
+
+correctly calculate logRPM:
+
+```{r}
+donor_counts_filt_logRPM = donor_counts_filt %>%
+  mutate(across(
+    starts_with("donor_"),
+    ~log10(1 + (.x / (sum(.x) / 1000000)))
+  ))
+donor_counts_filt_logRPM
+```
+
+correctly calculate logTPM:
+
+```{r}
+donor_counts_filt_logTPM = donor_counts_filt %>%
+  mutate(across(
+    starts_with("donor_"),
+    ~log10(1 + ((.x / (gene_length / 1000)) / (sum(.x) / 1000000)))
+  ))
+donor_counts_filt_logTPM
+```
+
+### Digression - Gene expression is correlated to gene length
+
+```{r}
+weighted.mean(donor_counts_filt$gene_length, donor_counts_filt$donor_370)
+weighted.mean(donor_counts_filt$gene_length, donor_counts_filt$donor_371)
+weighted.mean(donor_counts_filt$gene_length, donor_counts_filt$donor_372)
+```
+
+```{r}
+cpgz.exons = cpgz[cpgz$type == "exon" & str_extract(cpgz$transcript_id, "^[^\\.]*") %in% donor_counts_filt$transcript_id]
+cpgz.exons.by.gene = split(cpgz.exons, cpgz.exons$gene_name)
+donor_counts_filt = donor_counts_filt %>% left_join(
+  enframe(
+    sum(width(reduce(ranges(cpgz.exons.by.gene)))), # calculate exonic width
+    name = "gene_name",
+    value = "gene_length"
+  )
+)
+donor_counts_filt
+```
+
+```{r}
+donor_gene_counts = donor_counts_filt %>% group_by(gene_name) %>%
+  summarize(across(starts_with("donor_"), sum), gene_length = dplyr::first(gene_length)) %>%
+  mutate(
+    gene_length = gene_length / 1000,
+    across(starts_with("donor_"), ~.x / (sum(.x) / 1000000))
+  ) %>%
+  mutate(
+    across(where(is.numeric), ~log10(.x + 1))
+  ) #%>%
+#  mutate(across(starts_with("donor_"), ~na_if(.x, 0)))
+donor_gene_counts
+```
+
+```{r, eval = FALSE}
+ggplot(
+  donor_gene_counts %>%
+    pivot_longer(cols = starts_with("donor_"), names_to = "donor", values_to = "count"),
+  aes(x = count, y = gene_length)
+) +
+#  geom_point() +
+  geom_point(alpha = 0.05) +
+#  geom_rug(alpha = 0.01) +
+#  geom_hex(bins = 20) +
+  xlim(0, 5) +
+  ylim(0, 3) +
+  abline() +
+  labs(
+    x = "Gene expression (logRPM)",
+    y = "Gene length (logKB)"
+  ) +
+  facet_wrap(vars(donor))
+```
+
+```{r, eval = FALSE}
+ggsave("output/figures/supplement/FigS9_GeneLengthCor.pdf", width = 14, height = 7)
+```
+
+```{r}
+cor.test(donor_gene_counts$donor_370, donor_gene_counts$gene_length, method = "pearson")
+cor.test(donor_gene_counts$donor_371, donor_gene_counts$gene_length, method = "pearson")
+cor.test(donor_gene_counts$donor_372, donor_gene_counts$gene_length, method = "pearson")
+```
+
+### Unfiltered
+
+We will use this but instead filter out isoforms with 0 counts in either donor
+from each comparison.
+
+```{r}
+donor_counts = read_tsv("data/AllBarcode_newID_byDonor.txt.gz") %>%
+  rename_with(~str_c("donor_", .x), .cols = where(is.numeric))
+donor_counts
+```
+
+```{r}
+donor_counts = donor_counts %>% filter(transcript_id %in% str_extract(cpgz$transcript_id, "^[^\\.]*"))
+donor_counts
+```
+
+```{r}
+cpgz.exons = cpgz[cpgz$type == "exon" & str_extract(cpgz$transcript_id, "^[^\\.]*") %in% donor_counts$transcript_id]
+cpgz.exons.by.gene = split(cpgz.exons, cpgz.exons$gene_name)
+donor_counts = donor_counts %>% left_join(
+  enframe(
+    sum(width(reduce(ranges(cpgz.exons.by.gene)))), # calculate exonic width
+    name = "gene_name",
+    value = "gene_length"
+  )
+)
+donor_counts
+```
+
+correctly calculate logRPM:
+
+```{r}
+donor_counts_logRPM = donor_counts %>%
+  mutate(across(
+    starts_with("donor_"),
+    ~log2(1 + (.x / (sum(.x) / 1000000)))
+  ))
+donor_counts_logRPM
+```
+
+correctly calculate logTPM:
+
+```{r}
+donor_counts_logTPM = donor_counts %>%
+  mutate(across(
+    starts_with("donor_"),
+    ~log10(1 + ((.x / (gene_length / 1000)) / (sum(.x) / 1000000)))
+  ))
+donor_counts_logTPM
+```
+
+### Final plots
+
+#### Donor 370 + Donor 371
+
+```{r}
+cor = cor.test(na_if(donor_counts_logRPM$donor_370, 0), na_if(donor_counts_logRPM$donor_371, 0), method = "pearson")
+cor
+```
+
+```{r}
+ggplot(
+  donor_counts_logRPM %>% mutate(across(starts_with("donor_"), na_if, 0)),
+  aes(x = donor_370, y = donor_371)
+) +
+  geom_point(alpha = 0.1, color = "#08519c") +
+  geom_abline() +
+  annotate(
+    geom = "text",
+    label = str_c("r = ", round(cor$estimate[[1]], digits = 3), ", p\uadvalue < 2.2e-16"),
+    size = base_size_mm,
+    x = 0, y = 16,
+    vjust = "middle", hjust = "left",
+    parse = F
+  ) +
+  xlim(0, 16) +
+  ylim(0, 16) +
+  labs(
+    x = "Iso Expr (Donor 370)\nlog2(TPM+1)",
+    y = "Iso Expr (Donor 371)\nlog2(TPM+1)"
+  )
+```
+
+```{r}
+ggsave("output/figures/supplement/FigS9_DonorCor_RPMno0_370_371.pdf", width = 5, height = 5)
+```
+
+#### Donor 370 + Donor 372
+
+```{r}
+cor = cor.test(na_if(donor_counts_logRPM$donor_370, 0), na_if(donor_counts_logRPM$donor_372, 0), method = "pearson")
+cor
+```
+
+```{r}
+ggplot(
+  donor_counts_logRPM %>% mutate(across(starts_with("donor_"), na_if, 0)),
+  aes(x = donor_370, y = donor_372)
+) +
+  geom_point(alpha = 0.1, color = "#08519c") +
+  geom_abline() +
+  annotate(
+    geom = "text",
+    label = str_c("r = ", round(cor$estimate[[1]], digits = 3), ", p\uadvalue < 2.2e-16"),
+    size = base_size_mm,
+    x = 0, y = 16,
+    vjust = "middle", hjust = "left",
+    parse = F
+  ) +
+  xlim(0, 16) +
+  ylim(0, 16) +
+  labs(
+    x = "Iso Expr (Donor 370)\nlog2(TPM+1)",
+    y = "Iso Expr (Donor 372)\nlog2(TPM+1)"
+  )
+```
+
+```{r}
+ggsave("output/figures/supplement/FigS9_DonorCor_RPMno0_370_372.pdf", width = 5, height = 5)
+```
+
+#### Donor 371 + Donor 372
+
+```{r}
+cor = cor.test(na_if(donor_counts_logRPM$donor_371, 0), na_if(donor_counts_logRPM$donor_372, 0), method = "pearson")
+cor
+```
+
+```{r}
+ggplot(
+  donor_counts_logRPM %>% mutate(across(starts_with("donor_"), na_if, 0)),
+  aes(x = donor_371, y = donor_372)
+) +
+  geom_point(alpha = 0.1, color = "#08519c") +
+  geom_abline() +
+  annotate(
+    geom = "text",
+    label = str_c("r = ", round(cor$estimate[[1]], digits = 3), ", p\uadvalue < 2.2e-16"),
+    size = base_size_mm,
+    x = 0, y = 16,
+    vjust = "middle", hjust = "left",
+    parse = F
+  ) +
+  xlim(0, 16) +
+  ylim(0, 16) +
+  labs(
+    x = "Iso Expr (Donor 371)\nlog2(TPM+1)",
+    y = "Iso Expr (Donor 372)\nlog2(TPM+1)"
+  )
+```
+
+```{r}
+ggsave("output/figures/supplement/FigS9_DonorCor_RPMno0_371_372.pdf", width = 5, height = 5)
+```

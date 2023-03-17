@@ -1,0 +1,111 @@
+---
+title: "Figure 5 - Marker Genes"
+author: "Ashok Patowary"
+execute:
+  cache: false
+  freeze: auto
+editor: source
+editor_options:
+  chunk_output_type: console
+---
+
+```{r}
+library(tidyverse)
+library(Seurat)
+```
+
+```{r}
+isoT4k_filter = readRDS("data/working/isoT4k_filter.rds")
+levels(isoT4k_filter$orig.ident) = gsub("\\.", "-", levels(isoT4k_filter$orig.ident)) # ExM.U becomes ExM-U
+isoT4k_filter
+```
+
+```{r}
+new.cluster.ids <- c("ExM", "ExN-ExM", "ExM-U", "ExN-1", "ExN-2", "In",
+                     "vRG-ExN", "oRG", "IP", "ExDp", "ExN-3", "vRG", "PgS", "PgG2M", "Mic/Per/End")
+names(new.cluster.ids) <- levels(isoT4k_filter)
+isoT4k_filter <- RenameIdents(isoT4k_filter, new.cluster.ids)
+isoT4k_filter@meta.data$isoCellType <- Idents(isoT4k_filter)
+Idents(isoT4k_filter) <- isoT4k_filter$isoCellType
+```
+
+## Markers for isoform-based clustering
+
+```{r}
+isoT4k_filter_1<- subset(isoT4k_filter, idents=c("ExM", "ExN-ExM", "ExM-U", "In",
+                                                 "oRG", "IP", "ExDp","vRG",
+                                                 "ExN-1", "ExN-2", "ExN-3"))
+merged.markers.CT <- FindAllMarkers(isoT4k_filter_1, only.pos = TRUE, min.pct = 0.25, logfc.threshold = 0.75)
+merged.markers.CT.padj<- merged.markers.CT[merged.markers.CT$p_val_adj < 0.05,]
+top.merged.markers.CT.padj<- merged.markers.CT.padj%>% group_by(cluster) %>% top_n(n = 3, wt = avg_log2FC)
+```
+
+```{r}
+new_order<- c("vRG", "oRG", "IP", "vRG-ExN", "ExN-1", "ExN-2", "ExN-3", "ExN-ExM", "ExM", "ExM-U","ExDp", "In")
+top.merged.markers.CT.padj$cluster<- factor( as.character(top.merged.markers.CT.padj$cluster), levels= new_order)
+top.merged.markers.CT.padj<- top.merged.markers.CT.padj[order(top.merged.markers.CT.padj$cluster),]
+isoT4k_filter_1$isoCellType<- factor(isoT4k_filter_1$isoCellType, levels = c("vRG", "oRG", "IP", "vRG-ExN", "ExN-1", "ExN-2", "ExN-3", "ExN-ExM", "ExM", "ExM-U", "ExDp", "In"))
+Idents(isoT4k_filter_1)<- isoT4k_filter_1$isoCellType
+
+mapal <- colorRampPalette(RColorBrewer::brewer.pal(9,"Blues"))(256)
+
+DoHeatmap(subset(isoT4k_filter_1, downsample = 113), group.by = 'isoCellType', features = top.merged.markers.CT.padj$gene, angle = 90, size = 3, disp.max = 7, disp.min=1.5) + 
+          scale_fill_gradientn(colours = mapal) + theme(plot.margin = unit(c(0.75,0.25,0.25,0.25), "cm")) +theme(axis.text=element_text(size=10), legend.title = element_text(size = 8), legend.text = element_text(size = 6))
+```
+
+```{r}
+#ggsave("output/figures/Fig_4G.pdf", device ="pdf", dpi=600, width =754, height = 704, scale = 1/100)
+ggsave("output/figures/Fig5/Fig5_Markers_NewCellTypes.pdf", width = 7, height = 7)
+```
+
+## Markers for gene-based clustering
+
+```{r}
+Idents(isoT4k_filter)<- isoT4k_filter$orig.ident
+head(Idents(isoT4k_filter))
+isoT4k_filter_2<- subset(isoT4k_filter, idents=c("vRG", "oRG", "IP", "ExN", "ExM", "ExM-U", "ExDp1", "ExDp2", "InCGE", "InMGE"))
+isoT4k_filter_2
+```
+
+```{r}
+merged.markers.CT <- FindAllMarkers(isoT4k_filter_2, only.pos = TRUE, min.pct = 0.15, logfc.threshold = 0.25)
+merged.markers.CT.padj<- merged.markers.CT[merged.markers.CT$p_val_adj < 0.05,]
+top.merged.markers.CT.padj<- merged.markers.CT.padj%>% group_by(cluster) %>% top_n(n = 5, wt = avg_log2FC)
+min(table(Idents(isoT4k_filter_2)))
+```
+
+```{r}
+DoHeatmap(isoT4k_filter_2, features = top.merged.markers.CT.padj$gene, angle = 90, size = 3, disp.max = 7, disp.min=0.5) + scale_fill_gradientn(colours = mapal) + theme(plot.margin = unit(c(0.75,0.25,0.25,0.25), "cm")) +theme(axis.text=element_text(size=10), legend.title = element_text(size = 8), legend.text = element_text(size = 6))
+```
+
+```{r}
+#ggsave("Marker_oldCT_v3.pdf", width = 7.54, height = 7.04)
+```
+
+```{r}
+isoT4k_filter_2$orig.ident<- factor(isoT4k_filter_2$orig.ident, levels = c("vRG", "oRG", "IP", "ExN", "ExM", "ExM-U", "ExDp1", "ExDp2", "InCGE", "InMGE"))
+new_order<- c("vRG", "oRG", "IP", "ExN", "ExM", "ExM-U", "ExDp1", "ExDp2", "InCGE", "InMGE")
+top.merged.markers.CT.padj$cluster<- factor( as.character(top.merged.markers.CT.padj$cluster), levels= new_order)
+top.merged.markers.CT.padj<- top.merged.markers.CT.padj[order(top.merged.markers.CT.padj$cluster),]
+```
+
+```{r}
+DoHeatmap(subset(isoT4k_filter_2, downsample = 200), features = top.merged.markers.CT.padj$gene, angle = 90, size = 3, disp.max = 7.5, disp.min=1.5) + scale_fill_gradientn(colours = mapal) + theme(plot.margin = unit(c(0.75,0.25,0.25,0.25), "cm")) +theme(axis.text=element_text(size=10), legend.title = element_text(size = 8), legend.text = element_text(size = 6))
+```
+
+```{r}
+#ggsave("Marker_oldCT_v3.pdf", width = 7.54, height = 9.5)
+```
+
+```{r}
+Idents(isoT4k_filter_2)<- isoT4k_filter_2$orig.ident
+```
+
+```{r}
+DoHeatmap(subset(isoT4k_filter_2, downsample = 200), features = top.merged.markers.CT.padj$gene, angle = 90, size = 3, disp.max = 7.5, disp.min=1.5) + scale_fill_gradientn(colours = mapal) + theme(plot.margin = unit(c(0.75,0.25,0.25,0.25), "cm")) +theme(axis.text=element_text(size=10), legend.title = element_text(size = 8), legend.text = element_text(size = 6))
+```
+
+```{r}
+#ggsave("Marker_oldCT_v3.pdf", device ="pdf", dpi=600, width =794, height = 970, scale = 1/100)
+ggsave("output/figures/Fig5/Fig5_Markers_oldCellTypes.pdf", width = 7.94, height = 9.70)
+```

@@ -1,0 +1,137 @@
+*********************************************************************
+* LD Score Regression (LDSC)
+* Version 1.0.1
+* (C) 2014-2019 Brendan Bulik-Sullivan and Hilary Finucane
+* Broad Institute of MIT and Harvard / MIT Department of Mathematics
+* GNU General Public License v3
+*********************************************************************
+Call: 
+./ldsc.py \
+--h2-cts /u/project/gandalm/jops/ucdavis_cpvz_isoseq/LDSC_novel_exons/snakemake2/input/gwas/ASD_Grove_2019.hm3_filter.sumstats.gz \
+--ref-ld-chr /u/project/gandalm/margolis/alexandria/pipelines/ldsc_snake/resources/1000G_phase3/baseline_v1.2/baseline. \
+--out networks/isoExpr_cts_result/ASD_Grove_2019 \
+--ref-ld-chr-cts networks/isoExpr.ldcts \
+--w-ld-chr /u/project/gandalm/margolis/alexandria/pipelines/ldsc_snake/resources/1000G_phase3/weights/weights.hm3_noMHC. 
+
+Beginning analysis at Mon Jan 23 11:43:51 2023
+Reading summary statistics from /u/project/gandalm/jops/ucdavis_cpvz_isoseq/LDSC_novel_exons/snakemake2/input/gwas/ASD_Grove_2019.hm3_filter.sumstats.gz ...
+Read summary statistics for 1050225 SNPs.
+Reading reference panel LD Score from /u/project/gandalm/margolis/alexandria/pipelines/ldsc_snake/resources/1000G_phase3/baseline_v1.2/baseline.[1-22] ... (ldscore_fromlist)
+Read reference panel LD Scores for 1190321 SNPs.
+Removing partitioned LD Scores with zero variance.
+Reading regression weight LD Score from /u/project/gandalm/margolis/alexandria/pipelines/ldsc_snake/resources/1000G_phase3/weights/weights.hm3_noMHC.[1-22] ... (ldscore_fromlist)
+Read regression weight LD Scores for 1187349 SNPs.
+After merging with reference panel LD, 1044888 SNPs remain.
+After merging with regression SNP LD, 1042162 SNPs remain.
+Removed 0 SNPs with chi^2 > 80 (1042162 SNPs remain)
+Reading cts reference panel LD Score from networks/isoExpr_ldscores/isoExpr.M0_grey.,networks/isoExpr_ldscores/isoExpr.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/isoExpr_ldscores/isoExpr.M3_brown.,networks/isoExpr_ldscores/isoExpr.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/isoExpr_ldscores/isoExpr.M12_tan.,networks/isoExpr_ldscores/isoExpr.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/isoExpr_ldscores/isoExpr.M1_turquoise.,networks/isoExpr_ldscores/isoExpr.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/isoExpr_ldscores/isoExpr.M8_pink.,networks/isoExpr_ldscores/isoExpr.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/isoExpr_ldscores/isoExpr.M24_darkgrey.,networks/isoExpr_ldscores/isoExpr.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/isoExpr_ldscores/isoExpr.M2_blue.,networks/isoExpr_ldscores/isoExpr.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/isoExpr_ldscores/isoExpr.M5_green.,networks/isoExpr_ldscores/isoExpr.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/isoExpr_ldscores/isoExpr.M14_cyan.,networks/isoExpr_ldscores/isoExpr.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/isoExpr_ldscores/isoExpr.M6_red.,networks/isoExpr_ldscores/isoExpr.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/isoExpr_ldscores/isoExpr.M4_yellow.,networks/isoExpr_ldscores/isoExpr.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/isoExpr_ldscores/isoExpr.M23_darkturquoise.,networks/isoExpr_ldscores/isoExpr.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/isoExpr_ldscores/isoExpr.M7_black.,networks/isoExpr_ldscores/isoExpr.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/isoExpr_ldscores/isoExpr.M16_lightcyan.,networks/isoExpr_ldscores/isoExpr.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/isoExpr_ldscores/isoExpr.M13_salmon.,networks/isoExpr_ldscores/isoExpr.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/isoExpr_ldscores/isoExpr.M26_darkorange.,networks/isoExpr_ldscores/isoExpr.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/isoExpr_ldscores/isoExpr.M36_yellowgreen.,networks/isoExpr_ldscores/isoExpr.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/isoExpr_ldscores/isoExpr.M15_midnightblue.,networks/isoExpr_ldscores/isoExpr.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/isoExpr_ldscores/isoExpr.M33_darkolivegreen.,networks/isoExpr_ldscores/isoExpr.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/isoExpr_ldscores/isoExpr.M17_grey60.,networks/isoExpr_ldscores/isoExpr.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/isoExpr_ldscores/isoExpr.M45_darkorange2.,networks/isoExpr_ldscores/isoExpr.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/isoExpr_ldscores/isoExpr.M46_brown4.,networks/isoExpr_ldscores/isoExpr.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/isoExpr_ldscores/isoExpr.M21_darkred.,networks/isoExpr_ldscores/isoExpr.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/isoExpr_ldscores/isoExpr.M18_lightgreen.,networks/isoExpr_ldscores/isoExpr.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/isoExpr_ldscores/isoExpr.M41_lightsteelblue1.,networks/isoExpr_ldscores/isoExpr.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/isoExpr_ldscores/isoExpr.M43_ivory.,networks/isoExpr_ldscores/isoExpr.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/isoExpr_ldscores/isoExpr.M22_darkgreen.,networks/isoExpr_ldscores/isoExpr.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/isoExpr_ldscores/isoExpr.M27_white.,networks/isoExpr_ldscores/isoExpr.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/isoExpr_ldscores/isoExpr.M10_purple.,networks/isoExpr_ldscores/isoExpr.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/isoExpr_ldscores/isoExpr.M52_salmon4.,networks/isoExpr_ldscores/isoExpr.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/isoExpr_ldscores/isoExpr.M9_magenta.,networks/isoExpr_ldscores/isoExpr.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/isoExpr_ldscores/isoExpr.M20_royalblue.,networks/isoExpr_ldscores/isoExpr.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/isoExpr_ldscores/isoExpr.M47_bisque4.,networks/isoExpr_ldscores/isoExpr.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/isoExpr_ldscores/isoExpr.M32_violet.,networks/isoExpr_ldscores/isoExpr.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/isoExpr_ldscores/isoExpr.M39_orangered4.,networks/isoExpr_ldscores/isoExpr.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/isoExpr_ldscores/isoExpr.M25_orange.,networks/isoExpr_ldscores/isoExpr.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/isoExpr_ldscores/isoExpr.M35_sienna3.,networks/isoExpr_ldscores/isoExpr.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/isoExpr_ldscores/isoExpr.M51_thistle1.,networks/isoExpr_ldscores/isoExpr.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/isoExpr_ldscores/isoExpr.M28_skyblue.,networks/isoExpr_ldscores/isoExpr.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/isoExpr_ldscores/isoExpr.M34_darkmagenta.,networks/isoExpr_ldscores/isoExpr.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/isoExpr_ldscores/isoExpr.M40_mediumpurple3.,networks/isoExpr_ldscores/isoExpr.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/isoExpr_ldscores/isoExpr.M19_lightyellow.,networks/isoExpr_ldscores/isoExpr.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/isoExpr_ldscores/isoExpr.M44_floralwhite.,networks/isoExpr_ldscores/isoExpr.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/isoExpr_ldscores/isoExpr.M38_plum1.,networks/isoExpr_ldscores/isoExpr.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/isoExpr_ldscores/isoExpr.M48_darkslateblue.,networks/isoExpr_ldscores/isoExpr.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/isoExpr_ldscores/isoExpr.M31_paleturquoise.,networks/isoExpr_ldscores/isoExpr.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/isoExpr_ldscores/isoExpr.M50_thistle2.,networks/isoExpr_ldscores/isoExpr.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/isoExpr_ldscores/isoExpr.M29_saddlebrown.,networks/isoExpr_ldscores/isoExpr.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/isoExpr_ldscores/isoExpr.M49_plum2.,networks/isoExpr_ldscores/isoExpr.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/isoExpr_ldscores/isoExpr.M42_lightcyan1.,networks/isoExpr_ldscores/isoExpr.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/isoExpr_ldscores/isoExpr.M11_greenyellow.,networks/isoExpr_ldscores/isoExpr.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/isoExpr_ldscores/isoExpr.M30_steelblue.,networks/isoExpr_ldscores/isoExpr.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/isoExpr_ldscores/isoExpr.M53_palevioletred3.,networks/isoExpr_ldscores/isoExpr.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/isoExpr_ldscores/isoExpr.M37_skyblue3.,networks/isoExpr_ldscores/isoExpr.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Results printed to networks/isoExpr_cts_result/ASD_Grove_2019.cell_type_results.txt
+Analysis finished at Mon Jan 23 12:05:51 2023
+Total time elapsed: 22.0m:0.48s

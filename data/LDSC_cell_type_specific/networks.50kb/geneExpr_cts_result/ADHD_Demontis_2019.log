@@ -1,0 +1,77 @@
+*********************************************************************
+* LD Score Regression (LDSC)
+* Version 1.0.1
+* (C) 2014-2019 Brendan Bulik-Sullivan and Hilary Finucane
+* Broad Institute of MIT and Harvard / MIT Department of Mathematics
+* GNU General Public License v3
+*********************************************************************
+Call: 
+./ldsc.py \
+--h2-cts /u/project/gandalm/jops/ucdavis_cpvz_isoseq/LDSC_novel_exons/snakemake2/input/gwas/ADHD_Demontis_2019.hm3_filter.sumstats.gz \
+--ref-ld-chr /u/project/gandalm/margolis/alexandria/pipelines/ldsc_snake/resources/1000G_phase3/baseline_v1.2/baseline. \
+--out networks/geneExpr_cts_result/ADHD_Demontis_2019 \
+--ref-ld-chr-cts networks/geneExpr.ldcts \
+--w-ld-chr /u/project/gandalm/margolis/alexandria/pipelines/ldsc_snake/resources/1000G_phase3/weights/weights.hm3_noMHC. 
+
+Beginning analysis at Sat Jan 21 15:30:54 2023
+Reading summary statistics from /u/project/gandalm/jops/ucdavis_cpvz_isoseq/LDSC_novel_exons/snakemake2/input/gwas/ADHD_Demontis_2019.hm3_filter.sumstats.gz ...
+Read summary statistics for 1067415 SNPs.
+Reading reference panel LD Score from /u/project/gandalm/margolis/alexandria/pipelines/ldsc_snake/resources/1000G_phase3/baseline_v1.2/baseline.[1-22] ... (ldscore_fromlist)
+Read reference panel LD Scores for 1190321 SNPs.
+Removing partitioned LD Scores with zero variance.
+Reading regression weight LD Score from /u/project/gandalm/margolis/alexandria/pipelines/ldsc_snake/resources/1000G_phase3/weights/weights.hm3_noMHC.[1-22] ... (ldscore_fromlist)
+Read regression weight LD Scores for 1187349 SNPs.
+After merging with reference panel LD, 1062053 SNPs remain.
+After merging with regression SNP LD, 1059324 SNPs remain.
+Removed 0 SNPs with chi^2 > 80 (1059324 SNPs remain)
+Reading cts reference panel LD Score from networks/geneExpr_ldscores/geneExpr.M2_blue.,networks/geneExpr_ldscores/geneExpr.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/geneExpr_ldscores/geneExpr.M1_turquoise.,networks/geneExpr_ldscores/geneExpr.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/geneExpr_ldscores/geneExpr.M0_grey.,networks/geneExpr_ldscores/geneExpr.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/geneExpr_ldscores/geneExpr.M9_magenta.,networks/geneExpr_ldscores/geneExpr.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/geneExpr_ldscores/geneExpr.M7_black.,networks/geneExpr_ldscores/geneExpr.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/geneExpr_ldscores/geneExpr.M17_grey60.,networks/geneExpr_ldscores/geneExpr.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/geneExpr_ldscores/geneExpr.M3_brown.,networks/geneExpr_ldscores/geneExpr.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/geneExpr_ldscores/geneExpr.M5_green.,networks/geneExpr_ldscores/geneExpr.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/geneExpr_ldscores/geneExpr.M4_yellow.,networks/geneExpr_ldscores/geneExpr.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/geneExpr_ldscores/geneExpr.M10_purple.,networks/geneExpr_ldscores/geneExpr.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/geneExpr_ldscores/geneExpr.M22_darkgreen.,networks/geneExpr_ldscores/geneExpr.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/geneExpr_ldscores/geneExpr.M6_red.,networks/geneExpr_ldscores/geneExpr.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/geneExpr_ldscores/geneExpr.M19_lightyellow.,networks/geneExpr_ldscores/geneExpr.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/geneExpr_ldscores/geneExpr.M14_cyan.,networks/geneExpr_ldscores/geneExpr.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/geneExpr_ldscores/geneExpr.M21_darkred.,networks/geneExpr_ldscores/geneExpr.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/geneExpr_ldscores/geneExpr.M12_tan.,networks/geneExpr_ldscores/geneExpr.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/geneExpr_ldscores/geneExpr.M13_salmon.,networks/geneExpr_ldscores/geneExpr.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/geneExpr_ldscores/geneExpr.M18_lightgreen.,networks/geneExpr_ldscores/geneExpr.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/geneExpr_ldscores/geneExpr.M20_royalblue.,networks/geneExpr_ldscores/geneExpr.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/geneExpr_ldscores/geneExpr.M8_pink.,networks/geneExpr_ldscores/geneExpr.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/geneExpr_ldscores/geneExpr.M15_midnightblue.,networks/geneExpr_ldscores/geneExpr.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/geneExpr_ldscores/geneExpr.M23_darkturquoise.,networks/geneExpr_ldscores/geneExpr.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/geneExpr_ldscores/geneExpr.M16_lightcyan.,networks/geneExpr_ldscores/geneExpr.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Reading cts reference panel LD Score from networks/geneExpr_ldscores/geneExpr.M11_greenyellow.,networks/geneExpr_ldscores/geneExpr.background.[1-22] ... (ldscore_fromlist)
+Performing regression.
+Results printed to networks/geneExpr_cts_result/ADHD_Demontis_2019.cell_type_results.txt
+Analysis finished at Sat Jan 21 15:34:54 2023
+Total time elapsed: 3.0m:59.4s

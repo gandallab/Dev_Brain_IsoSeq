@@ -1,0 +1,58 @@
+---
+title: "Figure 5 - Pseudotime Analysis"
+author: "Ashok Patowary"
+execute:
+  cache: true
+  eval: false # requires interactive input
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r}
+library(monocle3) # requires Bioconductor version 3.14 https://cole-trapnell-lab.github.io/monocle3/docs/installation/
+library(Seurat)
+#library(SeuratData)
+library(SeuratWrappers) # remotes::install_github('satijalab/seurat-wrappers@9652bdd') (for Seurat >= 3.0.1; use latest release for Seurat >= 4.2.0)
+library(ggplot2)
+library(patchwork)
+library(magrittr)
+```
+
+```{r}
+isoT4k_filter = readRDS("data/working/isoT4k_filter.rds")
+levels(isoT4k_filter$orig.ident) = gsub("\\.", "-", levels(isoT4k_filter$orig.ident)) # ExM.U becomes ExM-U
+isoT4k_filter
+```
+
+```{r}
+cds <- as.cell_data_set(isoT4k_filter)
+cds <- cluster_cells(cds,reduction_method = "UMAP")
+cds <- learn_graph(cds, use_partition = FALSE)
+```
+
+```{r}
+##  Order cells
+cds <- order_cells(cds, reduction_method = "UMAP")
+```
+
+```{r}
+cds.sub <- subset(as.Seurat(cds, assay = NULL), monocle3_partitions == 1)
+cds.sub <- as.cell_data_set(cds.sub)
+cds.sub <- learn_graph(cds.sub)
+#vRG = row.names(isoT4k_filter@meta.data %>% filter(isoT4k_filter@meta.data$isoCellType == "vRG"))
+#cds <- order_cells(cds, reduction_method = "UMAP", root_cells = vRG)
+```
+
+```{r}
+cds.sub <- order_cells(cds.sub, reduction_method = "UMAP")
+```
+
+```{r}
+plot_cells(cds.sub, color_cells_by = "pseudotime", label_cell_groups = FALSE, label_leaves = FALSE, 
+           label_branch_points = FALSE, group_cells_by = "cluster")
+```
+
+```{r}
+#ggsave("~/Desktop/Plots_N/upload/pseudotime.ExN", device ="pdf", dpi=600, width = 6, height = 5, units = "in")
+ggsave("output/figures/Fig5/Fig5_pseudotime.pdf", width = 4, height = 10/3)
+```

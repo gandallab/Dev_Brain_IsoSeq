@@ -224,7 +224,7 @@ if(FALSE) {
 # see: https://doi.org/10.1016/j.neuron.2019.06.011
 celltypemarkers <- openxlsx::read.xlsx('https://www.cell.com/cms/10.1016/j.neuron.2019.06.011/attachment/508ae008-b926-487a-b871-844a12acc1f8/mmc5', sheet='Cluster enriched genes') %>% as_tibble()
 celltypemarkers.tableS5 = openxlsx::read.xlsx('https://www.cell.com/cms/10.1016/j.neuron.2019.06.011/attachment/ec1863fa-0dfc-405c-928c-c5ca96115667/mmc6', sheet='Sub-cluster enriched genes') %>% as_tibble()
-celltypemarkers.bg = read.csv("/Users/mgandal/GandalLab Dropbox/Michael Gandal/datasets/fetal_hub/data/polioudakis_neuron2020/single_cell_background_MJG221228.csv")
+celltypemarkers.bg = read.csv("ref/polioudakis_neuron2020/single_cell_background_MJG221228.csv")
 celltypemarkers.bg = unique(celltypemarkers.bg$ensembl_gene_id)
 
 DTU <- tableS3.gene %>% filter(DTU==T) %>% arrange(DTU_qval_min) %>% dplyr::select(gene_id) %>% pull() %>% substr(0,15)

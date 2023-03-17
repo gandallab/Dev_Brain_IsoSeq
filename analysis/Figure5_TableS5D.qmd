@@ -1,0 +1,84 @@
+---
+title: "Figure 5 - Table S5D"
+author: "Ashok Patowary"
+execute:
+  cache: false
+  freeze: auto
+editor: source
+editor_options:
+  chunk_output_type: console
+---
+
+```{r}
+isoT4k_filter = readRDS("data/working/isoT4k_filter.rds")
+levels(isoT4k_filter$orig.ident) = gsub("\\.", "-", levels(isoT4k_filter$orig.ident)) # ExM.U becomes ExM-U
+isoT4k_filter
+```
+
+```{r, results='hold'}
+################Identifying gene with different isoforms significantly expressed in different cell types
+#####Code is adapted from https://doi.org/10.1038/s41467-020-17800-6
+
+
+clusters <- c("End", "ExDp1", "ExDp2", "ExM", "ExM.U", "ExN", "InCGE", "InMGE", "IP", "Mic", "OPC", "oRG", "Per", "PgG2M", "PgS", "vRG")
+Idents(isoT4k_filter) <- isoT4k_filter$CellType
+
+total <- data.frame()
+totaladj <- data.frame()
+for (i in (1:15)){
+  k <- i+1
+  for (j in (k:16)){
+    if(i != j){
+      print(paste(i, " ", j, " ",clusters[i], " vs ", clusters[j], sep=""))
+      
+      markers <- FindMarkers(object = isoT4k_filter , ident.1=clusters[i], ident.2=clusters[j])
+      markers$cluster <- clusters[j]
+      markers$contrast <- paste(clusters[i], "vs", clusters[j], sep=" ")
+      markers[which(markers$avg_log2FC>0),]$cluster <- clusters[i]
+      markers$geneId <- sapply(strsplit(rownames(markers), "-ENS|-TAL"), `[`, 1)
+      markers$transcriptId <- sapply(strsplit(rownames(markers), "-ENS|-TAL"), `[`, 2)
+      markers <- markers[markers$p_val < 0.05,]
+      all.genes <- unique(markers$geneId)
+      for (k in (1:length(all.genes))){
+        sub <- markers[which(markers$geneId == all.genes[k]),]
+        nb.clusters <- unique(sub$cluster)
+        nb.transcripts <- unique(sub$transcriptId)
+        
+        if(length(nb.clusters) > 1 & length(nb.transcripts) > 1){
+          total <- rbind(total, sub)
+        }
+      }
+      
+      markers <- markers[markers$p_val_adj < 0.05,]
+      all.genes <- unique(markers$geneId)
+      for (k in (1:length(all.genes))){
+        sub <- markers[which(markers$geneId == all.genes[k]),]
+        nb.clusters <- unique(sub$cluster)
+        nb.transcripts <- unique(sub$transcriptId)
+        
+        if(length(nb.clusters) > 1 & length(nb.transcripts) > 1){
+          totaladj <- rbind(totaladj, sub)
+        }
+      }
+      print (dim(total))
+      print (length(unique(total$geneId)))
+    }
+  }
+}
+```
+
+```{r}
+# Top hits p_val_adj < 0.05
+
+length(unique(totaladj$geneId))
+print(unique(totaladj$geneId))
+write.table(totaladj, file="output/tables/TableS5D.txt", sep="\t", quote = F)
+```
+
+```{r}
+# Lower hits p_val < 0.05
+
+#length(unique(total$geneId))
+#print(unique(total$geneId))
+#write.table(total, file="isoswitch.v2.txt", sep="\t", quote = F)
+```

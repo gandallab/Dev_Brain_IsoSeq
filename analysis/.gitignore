@@ -1,2 +1,3 @@
 *.rmarkdown
 *_files
+*_cache/

@@ -1,0 +1,237 @@
+---
+title: "Figure 3 - RBP Enrichments"
+author: "Celine Vuong"
+execute:
+  cache: true
+editor: source
+editor_options:
+  chunk_output_type: console
+---
+
+```{r}
+suppressPackageStartupMessages({
+    library(tidyverse)
+    library(rtracklayer)
+    library(ggrepel)
+    library(biomaRt)
+    library(readxl)
+    library(cowplot)
+    library(paletteer)
+})
+
+source("code/fisher_overlap.R")
+```
+
+## Load Data
+
+```{r}
+tableS3.gene <- read_tsv("output/tables/TableS3_v3.tsv.gz")
+```
+
+## RBP Enrichments
+
+### Celine’s RBP Targets
+
+```{r}
+brainRBPs = read.csv("data/RBP_Data/CSVs/RBP_targets_v5.csv", header=TRUE);
+brainRBPs = dplyr::select(brainRBPs, -c(MGI.symbol, ENSMUSG))
+encodeRBPs = read.csv("data/RBP_Data/CSVs/RBP_targets_ENCODE.csv", header=TRUE);
+encodeRBPs = encodeRBPs %>% filter(cell.type=="HepG2") %>% rename("hgnc_symbol"="HGNC.symbol", "ensembl_gene_id"="ENSG")
+
+rbp_targets = rbind(brainRBPs,encodeRBPs)
+
+mart = useMart("ENSEMBL_MART_ENSEMBL","mmusculus_gene_ensembl")
+f = listFilters(mart); a = listAttributes(mart)
+featuresToGet = c("ensembl_gene_id", "external_gene_name", "hsapiens_homolog_ensembl_gene", "hsapiens_homolog_associated_gene_name","hsapiens_homolog_orthology_type")
+mouseHumanHomologs = getBM(attributes = featuresToGet,mart = mart)
+
+human_mouse_bg = mouseHumanHomologs %>% as_tibble() %>% filter(hsapiens_homolog_orthology_type == "ortholog_one2one") %>% dplyr::select("hsapiens_homolog_ensembl_gene") %>% pull()
+```
+
+```{r}
+genesets = list("DTU"= tableS3.gene %>% filter(DTU) %>% mutate(gene_id = substr(gene_id,1,15)) %>% dplyr::select(gene_id) %>% pull(),
+                "DTE" = tableS3.gene %>% filter(DTE) %>% mutate(gene_id = substr(gene_id,1,15)) %>% dplyr::select(gene_id) %>% pull(),
+                "DGE" = tableS3.gene %>% filter(DGE) %>% mutate(gene_id = substr(gene_id,1,15)) %>% dplyr::select(gene_id) %>% pull(),
+                "DTUnotDGE" = tableS3.gene %>% filter(DTU,DGE_pval>.05) %>% mutate(gene_id = substr(gene_id,1,15)) %>%
+                  dplyr::select(gene_id) %>% pull())
+
+DTU.bg = tableS3.gene %>% mutate(gene_id = substr(gene_id,1,15)) %>% dplyr::select(gene_id) %>% pull() %>% unique()
+
+df_fisher = data.frame()
+for(i in 1:length(genesets)) {
+  for(this_dataset in unique(na.omit(rbp_targets$dataset.id))) {
+    this_rbp = rbp_targets %>% filter(dataset.id == this_dataset) %>% mutate(target = paste0(RBP, "_", data.type, "_", cell.type)) %>% dplyr::select(target) %>% unique()  %>% pull()
+    target_genes = rbp_targets %>% filter(dataset.id == this_dataset) %>% dplyr::select(ENSG) %>% pull()
+    
+    if(grepl("Human",this_rbp)) {
+      this_or = ORA(genesets[[i]], target_genes, DTU.bg, DTU.bg)
+    } else {
+      this_or = ORA(genesets[[i]], target_genes, DTU.bg, human_mouse_bg)
+    }
+    df_fisher = rbind(df_fisher, data.frame(set = names(genesets)[[i]], dataset = this_dataset, target = this_rbp, t(this_or)))
+  }
+}
+
+df_fisher$OR = as.numeric(df_fisher$OR)
+df_fisher$Fisher.p[df_fisher$OR<1] = 1
+df_fisher$Fisher.p = p.adjust(as.numeric(df_fisher$Fisher.p),'fdr')
+
+order.brainRBPs = read_excel("data/RBP_Data/curatedRBPs_order.xlsx") %>% as_tibble()
+order.Encode.TarReg = read_excel("data/RBP_Data/ENCODE_vanNostrand_NatMeth2016_Fig2a_order.xlsx", sheet=2);
+order.Encode.TarReg = order.Encode.TarReg %>% filter(name %in% df_fisher$target)
+order = rbind(order.brainRBPs, order.Encode.TarReg)
+
+df_fisher$target = factor(df_fisher$target, levels=order$name)
+df_fisher$org = "Mouse"; df_fisher$org[grep("Human",df_fisher$target)] = "Human"
+df_fisher$data.type = rbp_targets$data.type[match(df_fisher$dataset, rbp_targets$dataset.id)]
+df_fisher$cell.type = rbp_targets$cell.type[match(df_fisher$dataset, rbp_targets$dataset.id)]
+df_fisher$target.region = order$target.region[match(df_fisher$target, order$name)]
+df_fisher$label = signif(df_fisher$OR,1)
+df_fisher$label[df_fisher$Fisher.p>.05] = ''
+```
+
+#### Figure 3H
+
+```{r, fig.width=8, fig.height=2}
+Fig3H.1=ggplot(df_fisher %>% filter(set=="DTU"),aes(x=target, y= -log10(Fisher.p), fill=OR)) +
+  geom_bar(stat='identity',position = position_dodge2()) + theme_bw() +
+  geom_hline(yintercept = 1,lty='dashed',size=0.5,color='red') + labs(y='Enrichment\n(-log10 q-value)',x='') + 
+  theme(axis.text.x = element_blank(), axis.ticks.x=element_blank(), axis.text.y=element_text(size=5), axis.title.y=element_text(size=7), 
+        legend.key.size=unit(0.3,'cm'), 
+        legend.text=element_text(size=4), 
+        legend.title=element_text(size=6), 
+        plot.margin=unit(c(5,5,0,5),"pt"), legend.position=c(0.95,0.75), 
+        panel.grid.major=element_blank(), panel.grid.minor=element_blank(), panel.border=element_blank(), axis.line=element_line(color="black", size=0.2))
+Fig3H.2=ggplot(df_fisher %>% filter(set=="DTU"),aes(x=target, label=target.region)) + 
+  geom_tile(aes(y=factor(1),fill=target.region)) + 
+  geom_point(aes(y=factor(1), shape=data.type),position=position_dodge2(width=1),size=0.5) + scale_shape_manual(values = c(1:9)) + 
+  scale_x_discrete(labels=sapply(strsplit(levels(df_fisher$target), "_"), "[[",1)) +
+  theme_bw() +
+  theme(axis.text.y = element_blank(), 
+        axis.ticks.y=element_blank(),
+        axis.text.x = element_text(angle=45,vjust=1, hjust=1, size=3), 
+        legend.key.size=unit(0.25,'cm'), legend.text=element_text(size=3), legend.title=element_text(size=5), 
+        plot.margin=unit(c(-20,5,5,5),"pt"), legend.position=c(0.5,-6.8), legend.box="horizontal", legend.direction="horizontal", 
+        panel.grid.major=element_blank(), panel.grid.minor=element_blank(), panel.border=element_blank(), axis.line=element_line(color="black", size=0.2)) + 
+  labs(x='', y='') + paletteer::scale_fill_paletteer_d("rcartocolor::Vivid") + guides(fill=guide_legend(order=1))
+
+plot_grid(Fig3H.1,Fig3H.2, align="v", ncol=1, axis="lr", rel_heights=c(5,1))
+```
+
+```{r}
+pdf(file="output/figures/Fig3/Fig3H.2_byTargetRegion.pdf",width = 10,height=2.5)
+plot_grid(Fig3H.1,Fig3H.2, align="v", ncol=1, axis="lr", rel_heights=c(4,1))
+dev.off()
+```
+
+#### Figure S4B
+
+```{r, fig.width=5, fig.height=10}
+FigS4B.1 = ggplot(df_fisher,aes(x=factor(target, levels=rev(levels(target))), y= -log10(Fisher.p), fill=OR)) +
+  # scale_x_discrete(labels=df_fisher$RBP) +
+  geom_bar(stat='identity',position = position_dodge2()) + coord_flip() + theme_bw() + facet_grid(~set) +
+  geom_hline(yintercept = 1,lty=2,color='red') + labs(y='Enrichment (-log10 q-value)',x='') + 
+  theme(axis.text.y = element_blank(), axis.ticks.y=element_blank(), axis.text.x=element_text(size=5), axis.title.x=element_text(size=7),
+        panel.grid.major=element_blank(), panel.grid.minor=element_blank(), axis.line=element_line(color="black", size=0.2),
+        plot.margin=unit(c(5,5,5,-18),"pt"), 
+        legend.text=element_text(size=5), legend.title=element_text(size=7), legend.key.size=unit(0.4,'cm'),
+        panel.spacing=unit(-0.1, "lines")) +
+  labs(x='', y='')
+
+FigS4B.2 = ggplot(df_fisher %>% filter(set=="DTU"),aes(x=factor(target, levels=rev(levels(target))), label=target.region)) + 
+  # geom_tile(aes(y=factor(1),fill=data.type)) + 
+  geom_tile(aes(y=factor(1),fill=target.region)) + 
+  # geom_point(aes(y=factor(1), shape=target.region),position=position_dodge2(width=1),size=0.5) + scale_shape_manual(values = c(1:9)) + 
+  geom_point(aes(y=factor(1), shape=data.type),position=position_dodge2(width=1),size=0.5) + scale_shape_manual(values = c(1:9)) + 
+  # scale_x_discrete(labels=df_fisher$RBP) +
+  scale_x_discrete(labels=sapply(strsplit(rev(levels(df_fisher$target)), "_"), "[[",1)) +
+  theme_bw() +
+  theme(axis.text.x = element_blank(), 
+        axis.ticks.x=element_blank(),
+        axis.text.y = element_text(angle=0,vjust=1, hjust=1, size=4),
+        legend.position="none",
+        plot.margin=unit(c(5,0,5,5),"pt"), 
+        panel.grid.major=element_blank(), panel.grid.minor=element_blank(), panel.border=element_blank(), axis.line=element_line(color="black", size=0.2)) + 
+  labs(x='', y='') + paletteer::scale_fill_paletteer_d("rcartocolor::Vivid") + guides(fill=guide_legend(order=1)) +
+  coord_flip()
+legend = get_legend(FigS4B.2 + theme(legend.position=c(2.7,0.8), legend.box="horizontal", legend.direction="horizontal", 
+                                         legend.text=element_text(size=4), legend.title=element_text(size=5), legend.key.size=unit(0.25,'cm')))
+
+plot_grid(FigS4B.2,FigS4B.1, legend, align="h", nrow=2, axis="bt", rel_widths=c(1,4.5), rel_heights=c(10,1))
+```
+
+```{r}
+pdf("output/figures/supplement/FigS4B_wEncode_byTargetRegion.pdf", height=10, width=5)
+plot_grid(FigS4B.2,FigS4B.1, legend, align="h", nrow=2, axis="bt", rel_widths=c(1,4.5), rel_heights=c(10,1))
+dev.off()
+```
+
+#### FigureS4C
+
+```{r}
+genesets = list("DTU.up"= tableS3.gene %>% filter(DTU&DTU_dIF>0) %>% mutate(gene_id = substr(gene_id,1,15)) %>% dplyr::select(gene_id) %>% pull(),
+                "DTU.down"= tableS3.gene %>% filter(DTU&DTU_dIF<0) %>% mutate(gene_id = substr(gene_id,1,15)) %>% dplyr::select(gene_id) %>% pull(),
+                "DTE.up" = tableS3.gene %>% filter(DTE&DTE_log2FC>0) %>% mutate(gene_id = substr(gene_id,1,15)) %>% dplyr::select(gene_id) %>% pull(),
+                "DTE.down" = tableS3.gene %>% filter(DTE&DTE_log2FC<0) %>% mutate(gene_id = substr(gene_id,1,15)) %>% dplyr::select(gene_id) %>% pull(),
+                "DGE.up" = tableS3.gene %>% filter(DGE&DGE_log2FC>0) %>% mutate(gene_id = substr(gene_id,1,15)) %>% dplyr::select(gene_id) %>% pull(),
+                "DGE.down" = tableS3.gene %>% filter(DGE&DGE_log2FC<0) %>% mutate(gene_id = substr(gene_id,1,15)) %>% dplyr::select(gene_id) %>% pull()
+                )
+
+DTU.bg = tableS3.gene %>% mutate(gene_id = substr(gene_id,1,15)) %>% dplyr::select(gene_id) %>% pull() %>% unique()
+
+df_fisher = data.frame()
+for(i in 1:length(genesets)) {
+  for(this_dataset in unique(na.omit(rbp_targets$dataset.id))) {
+    this_rbp = rbp_targets %>% filter(dataset.id == this_dataset) %>% mutate(target = paste0(RBP, "_", data.type, "_", cell.type)) %>% dplyr::select(target) %>% unique()  %>% pull()
+    target_genes = rbp_targets %>% filter(dataset.id == this_dataset) %>% dplyr::select(ENSG) %>% pull()
+    
+    if(grepl("Human",this_rbp)) {
+      this_or = ORA(genesets[[i]], target_genes, DTU.bg, DTU.bg)
+    } else {
+      this_or = ORA(genesets[[i]], target_genes, DTU.bg, human_mouse_bg)
+    }
+    df_fisher = rbind(df_fisher, data.frame(set = names(genesets)[[i]], dataset = this_dataset, target = this_rbp, t(this_or)))
+  }
+}
+
+df_fisher$OR = as.numeric(df_fisher$OR)
+df_fisher$Fisher.p[df_fisher$OR<1] = 1
+df_fisher$Fisher.p = p.adjust(as.numeric(df_fisher$Fisher.p),'fdr')
+
+order.brainRBPs = read_excel("data/RBP_Data/curatedRBPs_order.xlsx") %>% as_tibble()
+order.Encode.TarReg = read_excel("data/RBP_Data/ENCODE_vanNostrand_NatMeth2016_Fig2a_order.xlsx", sheet=2)
+order.Encode.TarReg = order.Encode.TarReg %>% filter(name %in% df_fisher$target)
+order = rbind(order.brainRBPs, order.Encode.TarReg)
+
+df_fisher$target = factor(df_fisher$target, levels=order$name)
+df_fisher$org = "Mouse"; df_fisher$org[grep("Human",df_fisher$target)] = "Human"
+df_fisher$data.type = rbp_targets$data.type[match(df_fisher$dataset, rbp_targets$dataset.id)]
+df_fisher$cell.type = rbp_targets$cell.type[match(df_fisher$dataset, rbp_targets$dataset.id)]
+df_fisher$target.region = order$target.region[match(df_fisher$target, order$name)]
+df_fisher$label = signif(df_fisher$OR,1)
+df_fisher$label[df_fisher$Fisher.p>.05] = ''
+```
+
+```{r, fig.width=8, fig.height=4}
+FigS4C = ggplot(df_fisher %>% filter(target %in% order.brainRBPs$name),aes(x=factor(target, levels=rev(levels(target))), y= -log10(Fisher.p), fill=OR)) +
+  geom_bar(stat='identity',position = position_dodge2()) + coord_flip() + theme_bw() + facet_grid(~set) +
+  geom_hline(yintercept = 1,lty=2,color='red') + labs(y='Enrichment (-log10 q-value)',x='') + 
+  theme(axis.text.y=element_text(size=5), axis.text.x=element_text(size=5), axis.title.x=element_text(size=7),
+        axis.line=element_line(color="black", size=0.2),
+        plot.margin=unit(c(5,5,5,-18),"pt"), 
+        legend.text=element_text(size=5), legend.title=element_text(size=7), legend.key.size=unit(0.4,'cm'),
+        panel.spacing=unit(-0.1, "lines")) +
+  labs(x='', y='')
+
+FigS4C
+```
+
+```{r}
+pdf("output/figures/supplement/FigS4C_brainRBPs_splitUpDown.pdf", height=4, width=8)
+FigS4C
+dev.off()
+```
+
+```{r}
+sessionInfo()
+```
