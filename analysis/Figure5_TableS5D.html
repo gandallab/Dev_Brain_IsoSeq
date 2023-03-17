@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.269">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Ashok Patowary">
+
+<title>Dev Brain Iso-Seq - Figure 5 - Table S5D</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-sidebar floating">
+
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">Figure 5 - Table S5D</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Dev Brain Iso-Seq</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/gandallab/Dev_Brain_IsoSeq" title="" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
+</div>
+    </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure1_BulkTxomeAnalysis.html" class="sidebar-item-text sidebar-link">Figure 1 - BulkTxomeAnalysis</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure1_TableS1.html" class="sidebar-item-text sidebar-link">Figure 1 - Table S1</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../code/Fig1_MetaCoverage.html" class="sidebar-item-text sidebar-link">Figure 1 - MetaCoverage</a>
+  </div>
+</li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure2_isoFraction.html" class="sidebar-item-text sidebar-link">Figure 2 - Isoform Fraction analysis</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure2_plotNovelGenes.html" class="sidebar-item-text sidebar-link">Figure 2 - Plot Novel Genes</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure2_PlotGene.html" class="sidebar-item-text sidebar-link">Figure 2 - Plot One Gene</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure2_novel_exons.html" class="sidebar-item-text sidebar-link">Figure 2 - Novel Exons</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure2_NF1Locus.html" class="sidebar-item-text sidebar-link">Figure 2 - NF1 Locus</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure2_PeptideSupport.html" class="sidebar-item-text sidebar-link">Figure 2 - Peptide Support</a>
+  </div>
+</li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure3_IsoformSwitchAnalyzeR.html" class="sidebar-item-text sidebar-link">Figure 3 - IsoformSwitchAnalyzeR</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure3_DTU_enrichments.html" class="sidebar-item-text sidebar-link">Figure 3 - DTU enrichments</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure3_RBPEnrichments.html" class="sidebar-item-text sidebar-link">Figure 3 - RBP Enrichments</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure3_APA.html" class="sidebar-item-text sidebar-link">Figure 3 - APA</a>
+  </div>
+</li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure4_combinedNetworks.html" class="sidebar-item-text sidebar-link">Figure 4 - Combined Networks</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure4_Networks_Enrichments.html" class="sidebar-item-text sidebar-link">Figure 4 - Networks Enrichments</a>
+  </div>
+</li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure5_SeuratClustering.html" class="sidebar-item-text sidebar-link">Figure 5 - Seurat Clustering</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure5_MarkerGenesFigs.html" class="sidebar-item-text sidebar-link">Figure 5 - Marker Genes</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure5_TableS5D.html" class="sidebar-item-text sidebar-link active">Figure 5 - Table S5D</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure5_PseudotimeAnalysis.html" class="sidebar-item-text sidebar-link">Figure 5 - Pseudotime Analysis</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure5_Sankey.html" class="sidebar-item-text sidebar-link">Figure 5 - Sankey</a>
+  </div>
+</li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure6_rareVariant.html" class="sidebar-item-text sidebar-link">Figure 6 - Rare Variant</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure6_VEPConsequences.html" class="sidebar-item-text sidebar-link">Figure 6 - VEP Consequences</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure6_TrackPlots.html" class="sidebar-item-text sidebar-link">Figure 6 - Track Plots</a>
+  </div>
+</li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/FigureS9_cor_plots.html" class="sidebar-item-text sidebar-link">Figure S9 - Correlation plots</a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">Figure 5 - Table S5D</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Ashok Patowary </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>isoT4k_filter <span class="ot">=</span> <span class="fu">readRDS</span>(<span class="st">"data/working/isoT4k_filter.rds"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(isoT4k_filter<span class="sc">$</span>orig.ident) <span class="ot">=</span> <span class="fu">gsub</span>(<span class="st">"</span><span class="sc">\\</span><span class="st">."</span>, <span class="st">"-"</span>, <span class="fu">levels</span>(isoT4k_filter<span class="sc">$</span>orig.ident)) <span class="co"># ExM.U becomes ExM-U</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: SeuratObject</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Attaching sp</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: Seurat</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>isoT4k_filter</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>An object of class Seurat 
+141112 features across 4167 samples within 2 assays 
+Active assay: RNA (87162 features, 0 variable features)
+ 1 other assay present: SCT
+ 2 dimensional reductions calculated: pca, umap</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="do">################Identifying gene with different isoforms significantly expressed in different cell types</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="do">#####Code is adapted from https://doi.org/10.1038/s41467-020-17800-6</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>clusters <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"End"</span>, <span class="st">"ExDp1"</span>, <span class="st">"ExDp2"</span>, <span class="st">"ExM"</span>, <span class="st">"ExM.U"</span>, <span class="st">"ExN"</span>, <span class="st">"InCGE"</span>, <span class="st">"InMGE"</span>, <span class="st">"IP"</span>, <span class="st">"Mic"</span>, <span class="st">"OPC"</span>, <span class="st">"oRG"</span>, <span class="st">"Per"</span>, <span class="st">"PgG2M"</span>, <span class="st">"PgS"</span>, <span class="st">"vRG"</span>)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="fu">Idents</span>(isoT4k_filter) <span class="ot">&lt;-</span> isoT4k_filter<span class="sc">$</span>CellType</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>total <span class="ot">&lt;-</span> <span class="fu">data.frame</span>()</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>totaladj <span class="ot">&lt;-</span> <span class="fu">data.frame</span>()</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> (<span class="dv">1</span><span class="sc">:</span><span class="dv">15</span>)){</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>  k <span class="ot">&lt;-</span> i<span class="sc">+</span><span class="dv">1</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (j <span class="cf">in</span> (k<span class="sc">:</span><span class="dv">16</span>)){</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(i <span class="sc">!=</span> j){</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>      <span class="fu">print</span>(<span class="fu">paste</span>(i, <span class="st">" "</span>, j, <span class="st">" "</span>,clusters[i], <span class="st">" vs "</span>, clusters[j], <span class="at">sep=</span><span class="st">""</span>))</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>      markers <span class="ot">&lt;-</span> <span class="fu">FindMarkers</span>(<span class="at">object =</span> isoT4k_filter , <span class="at">ident.1=</span>clusters[i], <span class="at">ident.2=</span>clusters[j])</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>      markers<span class="sc">$</span>cluster <span class="ot">&lt;-</span> clusters[j]</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>      markers<span class="sc">$</span>contrast <span class="ot">&lt;-</span> <span class="fu">paste</span>(clusters[i], <span class="st">"vs"</span>, clusters[j], <span class="at">sep=</span><span class="st">" "</span>)</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>      markers[<span class="fu">which</span>(markers<span class="sc">$</span>avg_log2FC<span class="sc">&gt;</span><span class="dv">0</span>),]<span class="sc">$</span>cluster <span class="ot">&lt;-</span> clusters[i]</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>      markers<span class="sc">$</span>geneId <span class="ot">&lt;-</span> <span class="fu">sapply</span>(<span class="fu">strsplit</span>(<span class="fu">rownames</span>(markers), <span class="st">"-ENS|-TAL"</span>), <span class="st">`</span><span class="at">[</span><span class="st">`</span>, <span class="dv">1</span>)</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>      markers<span class="sc">$</span>transcriptId <span class="ot">&lt;-</span> <span class="fu">sapply</span>(<span class="fu">strsplit</span>(<span class="fu">rownames</span>(markers), <span class="st">"-ENS|-TAL"</span>), <span class="st">`</span><span class="at">[</span><span class="st">`</span>, <span class="dv">2</span>)</span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>      markers <span class="ot">&lt;-</span> markers[markers<span class="sc">$</span>p_val <span class="sc">&lt;</span> <span class="fl">0.05</span>,]</span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>      all.genes <span class="ot">&lt;-</span> <span class="fu">unique</span>(markers<span class="sc">$</span>geneId)</span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>      <span class="cf">for</span> (k <span class="cf">in</span> (<span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(all.genes))){</span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>        sub <span class="ot">&lt;-</span> markers[<span class="fu">which</span>(markers<span class="sc">$</span>geneId <span class="sc">==</span> all.genes[k]),]</span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>        nb.clusters <span class="ot">&lt;-</span> <span class="fu">unique</span>(sub<span class="sc">$</span>cluster)</span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>        nb.transcripts <span class="ot">&lt;-</span> <span class="fu">unique</span>(sub<span class="sc">$</span>transcriptId)</span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span>(<span class="fu">length</span>(nb.clusters) <span class="sc">&gt;</span> <span class="dv">1</span> <span class="sc">&amp;</span> <span class="fu">length</span>(nb.transcripts) <span class="sc">&gt;</span> <span class="dv">1</span>){</span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>          total <span class="ot">&lt;-</span> <span class="fu">rbind</span>(total, sub)</span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>      markers <span class="ot">&lt;-</span> markers[markers<span class="sc">$</span>p_val_adj <span class="sc">&lt;</span> <span class="fl">0.05</span>,]</span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a>      all.genes <span class="ot">&lt;-</span> <span class="fu">unique</span>(markers<span class="sc">$</span>geneId)</span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a>      <span class="cf">for</span> (k <span class="cf">in</span> (<span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(all.genes))){</span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a>        sub <span class="ot">&lt;-</span> markers[<span class="fu">which</span>(markers<span class="sc">$</span>geneId <span class="sc">==</span> all.genes[k]),]</span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a>        nb.clusters <span class="ot">&lt;-</span> <span class="fu">unique</span>(sub<span class="sc">$</span>cluster)</span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a>        nb.transcripts <span class="ot">&lt;-</span> <span class="fu">unique</span>(sub<span class="sc">$</span>transcriptId)</span>
+<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span>(<span class="fu">length</span>(nb.clusters) <span class="sc">&gt;</span> <span class="dv">1</span> <span class="sc">&amp;</span> <span class="fu">length</span>(nb.transcripts) <span class="sc">&gt;</span> <span class="dv">1</span>){</span>
+<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a>          totaladj <span class="ot">&lt;-</span> <span class="fu">rbind</span>(totaladj, sub)</span>
+<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb7-45"><a href="#cb7-45" aria-hidden="true" tabindex="-1"></a>      <span class="fu">print</span> (<span class="fu">dim</span>(total))</span>
+<span id="cb7-46"><a href="#cb7-46" aria-hidden="true" tabindex="-1"></a>      <span class="fu">print</span> (<span class="fu">length</span>(<span class="fu">unique</span>(total<span class="sc">$</span>geneId)))</span>
+<span id="cb7-47"><a href="#cb7-47" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb7-48"><a href="#cb7-48" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb7-49"><a href="#cb7-49" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "1 2 End vs ExDp1"
+[1] 10  9
+[1] 4
+[1] "1 3 End vs ExDp2"
+[1] 10  9
+[1] 4
+[1] "1 4 End vs ExM"
+[1] 25  9
+[1] 7
+[1] "1 5 End vs ExM.U"
+[1] 44  9
+[1] 10
+[1] "1 6 End vs ExN"
+[1] 56  9
+[1] 10
+[1] "1 7 End vs InCGE"
+[1] 66  9
+[1] 10
+[1] "1 8 End vs InMGE"
+[1] 75  9
+[1] 10
+[1] "1 9 End vs IP"
+[1] 92  9
+[1] 10
+[1] "1 10 End vs Mic"
+[1] 92  9
+[1] 10
+[1] "1 11 End vs OPC"
+[1] 94  9
+[1] 10
+[1] "1 12 End vs oRG"
+[1] 110   9
+[1] 11
+[1] "1 13 End vs Per"
+[1] 110   9
+[1] 11
+[1] "1 14 End vs PgG2M"
+[1] 135   9
+[1] 13
+[1] "1 15 End vs PgS"
+[1] 155   9
+[1] 14
+[1] "1 16 End vs vRG"
+[1] 172   9
+[1] 15
+[1] "2 3 ExDp1 vs ExDp2"
+[1] 172   9
+[1] 15
+[1] "2 4 ExDp1 vs ExM"
+[1] 178   9
+[1] 18
+[1] "2 5 ExDp1 vs ExM.U"
+[1] 180   9
+[1] 19
+[1] "2 6 ExDp1 vs ExN"
+[1] 184   9
+[1] 20
+[1] "2 7 ExDp1 vs InCGE"
+[1] 188   9
+[1] 22
+[1] "2 8 ExDp1 vs InMGE"
+[1] 192   9
+[1] 24
+[1] "2 9 ExDp1 vs IP"
+[1] 200   9
+[1] 24
+[1] "2 10 ExDp1 vs Mic"
+[1] 221   9
+[1] 29
+[1] "2 11 ExDp1 vs OPC"
+[1] 221   9
+[1] 29
+[1] "2 12 ExDp1 vs oRG"
+[1] 246   9
+[1] 38
+[1] "2 13 ExDp1 vs Per"
+[1] 256   9
+[1] 40
+[1] "2 14 ExDp1 vs PgG2M"
+[1] 273   9
+[1] 41
+[1] "2 15 ExDp1 vs PgS"
+[1] 283   9
+[1] 41
+[1] "2 16 ExDp1 vs vRG"
+[1] 302   9
+[1] 41
+[1] "3 4 ExDp2 vs ExM"
+[1] 306   9
+[1] 43
+[1] "3 5 ExDp2 vs ExM.U"
+[1] 314   9
+[1] 45
+[1] "3 6 ExDp2 vs ExN"
+[1] 318   9
+[1] 45
+[1] "3 7 ExDp2 vs InCGE"
+[1] 320   9
+[1] 46
+[1] "3 8 ExDp2 vs InMGE"
+[1] 322   9
+[1] 47
+[1] "3 9 ExDp2 vs IP"
+[1] 330   9
+[1] 48
+[1] "3 10 ExDp2 vs Mic"
+[1] 332   9
+[1] 48
+[1] "3 11 ExDp2 vs OPC"
+[1] 334   9
+[1] 48
+[1] "3 12 ExDp2 vs oRG"
+[1] 346   9
+[1] 48
+[1] "3 13 ExDp2 vs Per"
+[1] 346   9
+[1] 48
+[1] "3 14 ExDp2 vs PgG2M"
+[1] 350   9
+[1] 49
+[1] "3 15 ExDp2 vs PgS"
+[1] 363   9
+[1] 50
+[1] "3 16 ExDp2 vs vRG"
+[1] 374   9
+[1] 50
+[1] "4 5 ExM vs ExM.U"
+[1] 376   9
+[1] 50
+[1] "4 6 ExM vs ExN"
+[1] 378   9
+[1] 51
+[1] "4 7 ExM vs InCGE"
+[1] 378   9
+[1] 51
+[1] "4 8 ExM vs InMGE"
+[1] 383   9
+[1] 52
+[1] "4 9 ExM vs IP"
+[1] 387   9
+[1] 53
+[1] "4 10 ExM vs Mic"
+[1] 405   9
+[1] 54
+[1] "4 11 ExM vs OPC"
+[1] 411   9
+[1] 56
+[1] "4 12 ExM vs oRG"
+[1] 434   9
+[1] 59
+[1] "4 13 ExM vs Per"
+[1] 447   9
+[1] 60
+[1] "4 14 ExM vs PgG2M"
+[1] 455   9
+[1] 60
+[1] "4 15 ExM vs PgS"
+[1] 460   9
+[1] 60
+[1] "4 16 ExM vs vRG"
+[1] 478   9
+[1] 61
+[1] "5 6 ExM.U vs ExN"
+[1] 495   9
+[1] 65
+[1] "5 7 ExM.U vs InCGE"
+[1] 506   9
+[1] 66
+[1] "5 8 ExM.U vs InMGE"
+[1] 519   9
+[1] 69
+[1] "5 9 ExM.U vs IP"
+[1] 537   9
+[1] 70
+[1] "5 10 ExM.U vs Mic"
+[1] 567   9
+[1] 72
+[1] "5 11 ExM.U vs OPC"
+[1] 569   9
+[1] 72
+[1] "5 12 ExM.U vs oRG"
+[1] 590   9
+[1] 72
+[1] "5 13 ExM.U vs Per"
+[1] 608   9
+[1] 74
+[1] "5 14 ExM.U vs PgG2M"
+[1] 626   9
+[1] 74
+[1] "5 15 ExM.U vs PgS"
+[1] 641   9
+[1] 74
+[1] "5 16 ExM.U vs vRG"
+[1] 661   9
+[1] 75
+[1] "6 7 ExN vs InCGE"
+[1] 665   9
+[1] 76
+[1] "6 8 ExN vs InMGE"
+[1] 665   9
+[1] 76
+[1] "6 9 ExN vs IP"
+[1] 667   9
+[1] 76
+[1] "6 10 ExN vs Mic"
+[1] 676   9
+[1] 76
+[1] "6 11 ExN vs OPC"
+[1] 676   9
+[1] 76
+[1] "6 12 ExN vs oRG"
+[1] 690   9
+[1] 77
+[1] "6 13 ExN vs Per"
+[1] 699   9
+[1] 78
+[1] "6 14 ExN vs PgG2M"
+[1] 718   9
+[1] 83
+[1] "6 15 ExN vs PgS"
+[1] 743   9
+[1] 88
+[1] "6 16 ExN vs vRG"
+[1] 767   9
+[1] 92
+[1] "7 8 InCGE vs InMGE"
+[1] 767   9
+[1] 92
+[1] "7 9 InCGE vs IP"
+[1] 769   9
+[1] 92
+[1] "7 10 InCGE vs Mic"
+[1] 773   9
+[1] 92
+[1] "7 11 InCGE vs OPC"
+[1] 775   9
+[1] 92
+[1] "7 12 InCGE vs oRG"
+[1] 795   9
+[1] 97
+[1] "7 13 InCGE vs Per"
+[1] 808   9
+[1] 100
+[1] "7 14 InCGE vs PgG2M"
+[1] 842   9
+[1] 103
+[1] "7 15 InCGE vs PgS"
+[1] 879   9
+[1] 104
+[1] "7 16 InCGE vs vRG"
+[1] 901   9
+[1] 106
+[1] "8 9 InMGE vs IP"
+[1] 903   9
+[1] 106
+[1] "8 10 InMGE vs Mic"
+[1] 907   9
+[1] 106
+[1] "8 11 InMGE vs OPC"
+[1] 911   9
+[1] 107
+[1] "8 12 InMGE vs oRG"
+[1] 947   9
+[1] 111
+[1] "8 13 InMGE vs Per"
+[1] 961   9
+[1] 114
+[1] "8 14 InMGE vs PgG2M"
+[1] 987   9
+[1] 115
+[1] "8 15 InMGE vs PgS"
+[1] 1022    9
+[1] 120
+[1] "8 16 InMGE vs vRG"
+[1] 1043    9
+[1] 121
+[1] "9 10 IP vs Mic"
+[1] 1060    9
+[1] 122
+[1] "9 11 IP vs OPC"
+[1] 1064    9
+[1] 122
+[1] "9 12 IP vs oRG"
+[1] 1070    9
+[1] 123
+[1] "9 13 IP vs Per"
+[1] 1081    9
+[1] 123
+[1] "9 14 IP vs PgG2M"
+[1] 1085    9
+[1] 124
+[1] "9 15 IP vs PgS"
+[1] 1094    9
+[1] 126
+[1] "9 16 IP vs vRG"
+[1] 1098    9
+[1] 126
+[1] "10 11 Mic vs OPC"
+[1] 1101    9
+[1] 126
+[1] "10 12 Mic vs oRG"
+[1] 1125    9
+[1] 127
+[1] "10 13 Mic vs Per"
+[1] 1125    9
+[1] 127
+[1] "10 14 Mic vs PgG2M"
+[1] 1157    9
+[1] 130
+[1] "10 15 Mic vs PgS"
+[1] 1198    9
+[1] 136
+[1] "10 16 Mic vs vRG"
+[1] 1239    9
+[1] 139
+[1] "11 12 OPC vs oRG"
+[1] 1243    9
+[1] 141
+[1] "11 13 OPC vs Per"
+[1] 1243    9
+[1] 141
+[1] "11 14 OPC vs PgG2M"
+[1] 1245    9
+[1] 141
+[1] "11 15 OPC vs PgS"
+[1] 1252    9
+[1] 141
+[1] "11 16 OPC vs vRG"
+[1] 1258    9
+[1] 141
+[1] "12 13 oRG vs Per"
+[1] 1266    9
+[1] 142
+[1] "12 14 oRG vs PgG2M"
+[1] 1268    9
+[1] 142
+[1] "12 15 oRG vs PgS"
+[1] 1270    9
+[1] 142
+[1] "12 16 oRG vs vRG"
+[1] 1270    9
+[1] 142
+[1] "13 14 Per vs PgG2M"
+[1] 1288    9
+[1] 145
+[1] "13 15 Per vs PgS"
+[1] 1305    9
+[1] 146
+[1] "13 16 Per vs vRG"
+[1] 1313    9
+[1] 146
+[1] "14 15 PgG2M vs PgS"
+[1] 1315    9
+[1] 146
+[1] "14 16 PgG2M vs vRG"
+[1] 1318    9
+[1] 146
+[1] "15 16 PgS vs vRG"
+[1] 1320    9
+[1] 147</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Top hits p_val_adj &lt; 0.05</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">unique</span>(totaladj<span class="sc">$</span>geneId))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 7</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">unique</span>(totaladj<span class="sc">$</span>geneId))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "CADM1" "GPM6A" "MAP1B" "APP"   "RTN4"  "DCTN2" "PFN2" </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write.table</span>(totaladj, <span class="at">file=</span><span class="st">"output/tables/TableS5D.txt"</span>, <span class="at">sep=</span><span class="st">"</span><span class="sc">\t</span><span class="st">"</span>, <span class="at">quote =</span> F)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lower hits p_val &lt; 0.05</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co">#length(unique(total$geneId))</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co">#print(unique(total$geneId))</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="co">#write.table(total, file="isoswitch.v2.txt", sep="\t", quote = F)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+
+
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

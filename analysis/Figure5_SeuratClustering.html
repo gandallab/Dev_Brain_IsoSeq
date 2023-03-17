@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.269">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Ashok Patowary">
+
+<title>Dev Brain Iso-Seq - Figure 5 - Seurat Clustering</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-sidebar floating">
+
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">Figure 5 - Seurat Clustering</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Dev Brain Iso-Seq</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/gandallab/Dev_Brain_IsoSeq" title="" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
+</div>
+    </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure1_BulkTxomeAnalysis.html" class="sidebar-item-text sidebar-link">Figure 1 - BulkTxomeAnalysis</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure1_TableS1.html" class="sidebar-item-text sidebar-link">Figure 1 - Table S1</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../code/Fig1_MetaCoverage.html" class="sidebar-item-text sidebar-link">Figure 1 - MetaCoverage</a>
+  </div>
+</li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure2_isoFraction.html" class="sidebar-item-text sidebar-link">Figure 2 - Isoform Fraction analysis</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure2_plotNovelGenes.html" class="sidebar-item-text sidebar-link">Figure 2 - Plot Novel Genes</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure2_PlotGene.html" class="sidebar-item-text sidebar-link">Figure 2 - Plot One Gene</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure2_novel_exons.html" class="sidebar-item-text sidebar-link">Figure 2 - Novel Exons</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure2_NF1Locus.html" class="sidebar-item-text sidebar-link">Figure 2 - NF1 Locus</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure2_PeptideSupport.html" class="sidebar-item-text sidebar-link">Figure 2 - Peptide Support</a>
+  </div>
+</li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure3_IsoformSwitchAnalyzeR.html" class="sidebar-item-text sidebar-link">Figure 3 - IsoformSwitchAnalyzeR</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure3_DTU_enrichments.html" class="sidebar-item-text sidebar-link">Figure 3 - DTU enrichments</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure3_RBPEnrichments.html" class="sidebar-item-text sidebar-link">Figure 3 - RBP Enrichments</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure3_APA.html" class="sidebar-item-text sidebar-link">Figure 3 - APA</a>
+  </div>
+</li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure4_combinedNetworks.html" class="sidebar-item-text sidebar-link">Figure 4 - Combined Networks</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure4_Networks_Enrichments.html" class="sidebar-item-text sidebar-link">Figure 4 - Networks Enrichments</a>
+  </div>
+</li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure5_SeuratClustering.html" class="sidebar-item-text sidebar-link active">Figure 5 - Seurat Clustering</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure5_MarkerGenesFigs.html" class="sidebar-item-text sidebar-link">Figure 5 - Marker Genes</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure5_TableS5D.html" class="sidebar-item-text sidebar-link">Figure 5 - Table S5D</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure5_PseudotimeAnalysis.html" class="sidebar-item-text sidebar-link">Figure 5 - Pseudotime Analysis</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure5_Sankey.html" class="sidebar-item-text sidebar-link">Figure 5 - Sankey</a>
+  </div>
+</li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure6_rareVariant.html" class="sidebar-item-text sidebar-link">Figure 6 - Rare Variant</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure6_VEPConsequences.html" class="sidebar-item-text sidebar-link">Figure 6 - VEP Consequences</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure6_TrackPlots.html" class="sidebar-item-text sidebar-link">Figure 6 - Track Plots</a>
+  </div>
+</li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/FigureS9_cor_plots.html" class="sidebar-item-text sidebar-link">Figure S9 - Correlation plots</a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">Figure 5 - Seurat Clustering</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Ashok Patowary </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Seurat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Attaching SeuratObject</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Attaching sp</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching packages
+───────────────────────────────────────
+tidyverse 1.3.2 ──</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>✔ ggplot2 3.3.6      ✔ purrr   0.3.4 
+✔ tibble  3.1.8      ✔ dplyr   1.0.10
+✔ tidyr   1.2.0      ✔ stringr 1.5.0 
+✔ readr   2.1.2      ✔ forcats 0.5.2 
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sctransform)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cowplot)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'cowplot'
+
+The following object is masked from 'package:patchwork':
+
+    align_plots</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(data.table)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'data.table'
+
+The following objects are masked from 'package:dplyr':
+
+    between, first, last
+
+The following object is masked from 'package:purrr':
+
+    transpose</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RColorBrewer)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co">#rm(list=ls())</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">#isoT_7k.data &lt;- data.frame(fread("zcat Isoform_counts_7189_allSingleCells_4seurat.tsv.gz", header=TRUE, sep="auto"), row.names = 1)</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co">#With new Id</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>isoT_7k.data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">fread</span>(<span class="st">"data/AllBarcode_newId_with_geneID.txt.gz"</span>, <span class="at">header=</span><span class="cn">TRUE</span>, <span class="at">sep=</span><span class="st">"auto"</span>), <span class="at">row.names =</span> <span class="dv">1</span>)</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(isoT_7k.data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 143490   7189</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>isoT7k<span class="ot">&lt;-</span> <span class="fu">CreateSeuratObject</span>(<span class="at">counts =</span> isoT_7k.data, <span class="at">project =</span> <span class="st">"7kTranscript"</span>, <span class="at">min.cells =</span> <span class="dv">3</span>, <span class="at">min.features =</span> <span class="dv">85</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Feature names cannot have underscores ('_'), replacing with dashes
+('-')</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>isoT7k</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>An object of class Seurat 
+90595 features across 4924 samples within 1 assay 
+Active assay: RNA (90595 features, 0 variable features)</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(isoT7k<span class="sc">@</span>meta.data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                 orig.ident nCount_RNA nFeature_RNA
+End_ACGGCATAGTAC        End        230          190
+End_ACTGACTGATCC        End        162          141
+End_ACTGGCACCGAG        End        150          120
+End_AGCTAGCCCATG        End        277          219
+End_AGTTTAGCGGTC        End       1207          871
+End_ATCCGACCATCA        End        132           98</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute percent mito and ribo ratio</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>isoT7k[[<span class="st">"percent.mt"</span>]] <span class="ot">&lt;-</span> <span class="fu">PercentageFeatureSet</span>(isoT7k, <span class="at">pattern =</span> <span class="st">"^MT-"</span>)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>isoT7k[[<span class="st">"percent.RP"</span>]] <span class="ot">&lt;-</span> <span class="fu">PercentageFeatureSet</span>(isoT7k, <span class="at">pattern =</span> <span class="st">"^RP"</span>)</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="do">####DropOut</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>dropouts <span class="ot">&lt;-</span> Matrix<span class="sc">::</span><span class="fu">colSums</span>(isoT7k<span class="sc">@</span>assays<span class="sc">$</span>RNA<span class="sc">@</span>data <span class="sc">==</span> <span class="dv">0</span>)<span class="sc">/</span><span class="fu">nrow</span>(isoT7k<span class="sc">@</span>assays<span class="sc">$</span>RNA)</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>isoT7k[[<span class="st">'dropouts'</span>]] <span class="ot">&lt;-</span> dropouts</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(isoT7k<span class="sc">@</span>meta.data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                 orig.ident nCount_RNA nFeature_RNA percent.mt percent.RP
+End_ACGGCATAGTAC        End        230          190  0.4347826   24.78261
+End_ACTGACTGATCC        End        162          141  1.2345679   29.62963
+End_ACTGGCACCGAG        End        150          120  0.6666667   13.33333
+End_AGCTAGCCCATG        End        277          219  6.4981949   22.38267
+End_AGTTTAGCGGTC        End       1207          871  3.0654515   13.42171
+End_ATCCGACCATCA        End        132           98  2.2727273   12.87879
+                  dropouts
+End_ACGGCATAGTAC 0.9979028
+End_ACTGACTGATCC 0.9984436
+End_ACTGGCACCGAG 0.9986754
+End_AGCTAGCCCATG 0.9975826
+End_AGTTTAGCGGTC 0.9903858
+End_ATCCGACCATCA 0.9989183</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Add number of genes per UMI for each cell to metadata</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>isoT7k<span class="sc">$</span>log10GenesPerUMI <span class="ot">&lt;-</span> <span class="fu">log10</span>(isoT7k<span class="sc">$</span>nFeature_RNA) <span class="sc">/</span> <span class="fu">log10</span>(isoT7k<span class="sc">$</span>nCount_RNA)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(isoT7k<span class="sc">@</span>meta.data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                 orig.ident nCount_RNA nFeature_RNA percent.mt percent.RP
+End_ACGGCATAGTAC        End        230          190  0.4347826   24.78261
+End_ACTGACTGATCC        End        162          141  1.2345679   29.62963
+End_ACTGGCACCGAG        End        150          120  0.6666667   13.33333
+End_AGCTAGCCCATG        End        277          219  6.4981949   22.38267
+End_AGTTTAGCGGTC        End       1207          871  3.0654515   13.42171
+End_ATCCGACCATCA        End        132           98  2.2727273   12.87879
+                  dropouts log10GenesPerUMI
+End_ACGGCATAGTAC 0.9979028        0.9648671
+End_ACTGACTGATCC 0.9984436        0.9727108
+End_ACTGGCACCGAG 0.9986754        0.9554660
+End_AGCTAGCCCATG 0.9975826        0.9582246
+End_AGTTTAGCGGTC 0.9903858        0.9540225
+End_ATCCGACCATCA 0.9989183        0.9390034</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create metadata dataframe</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>metadataisoT7k <span class="ot">&lt;-</span> isoT7k<span class="sc">@</span>meta.data</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Add cell IDs to metadata</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>metadataisoT7k<span class="sc">$</span>cells <span class="ot">&lt;-</span> <span class="fu">str_split</span>(<span class="fu">rownames</span>(metadataisoT7k), <span class="at">pattern =</span> <span class="st">"_"</span>, <span class="at">simplify =</span> T)[,<span class="dv">2</span>]</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Rename columns</span></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>metadataisoT7k <span class="ot">&lt;-</span> metadataisoT7k <span class="sc">%&gt;%</span></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="at">CellType =</span> orig.ident,</span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>                <span class="at">nUMI =</span> nCount_RNA,</span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>                <span class="at">nGene =</span> nFeature_RNA)</span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a><span class="do">##Create method column</span></span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>metadataisoT7k<span class="sc">$</span>method <span class="ot">&lt;-</span> <span class="st">"LongRead"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Donor Innformation</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>donor<span class="ot">&lt;-</span><span class="fu">read.table</span>(<span class="st">"ref/polioudakis_neuron2020/TableS3_Cell_metadata.csv"</span>, <span class="at">header=</span><span class="cn">TRUE</span>, <span class="at">row.names=</span><span class="dv">1</span>)</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>df<span class="ot">&lt;-</span> <span class="fu">as.data.frame.matrix</span>(donor)</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Add additional innfo into the metadata</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="co">#metadataisoT7k$DonorID=df$DonorID[match(metadataisoT7k$cells,rownames(df))]</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>metadataisoT7k<span class="sc">$</span>Layer<span class="ot">=</span>df<span class="sc">$</span>Layer[<span class="fu">match</span>(metadataisoT7k<span class="sc">$</span>cells,<span class="fu">rownames</span>(df))]</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>metadataisoT7k<span class="sc">$</span>Donor<span class="ot">=</span>df<span class="sc">$</span>Donor[<span class="fu">match</span>(metadataisoT7k<span class="sc">$</span>cells,<span class="fu">rownames</span>(df))]</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>metadataisoT7k<span class="sc">$</span>Gestation_week<span class="ot">=</span>df<span class="sc">$</span>Gestation_week[<span class="fu">match</span>(metadataisoT7k<span class="sc">$</span>cells,<span class="fu">rownames</span>(df))]</span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Add metadata back to Seurat object</span></span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>isoT7k<span class="sc">@</span>meta.data<span class="ot">&lt;-</span> metadataisoT7k</span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(isoT7k<span class="sc">@</span>meta.data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                 CellType nUMI nGene percent.mt percent.RP  dropouts
+End_ACGGCATAGTAC      End  230   190  0.4347826   24.78261 0.9979028
+End_ACTGACTGATCC      End  162   141  1.2345679   29.62963 0.9984436
+End_ACTGGCACCGAG      End  150   120  0.6666667   13.33333 0.9986754
+End_AGCTAGCCCATG      End  277   219  6.4981949   22.38267 0.9975826
+End_AGTTTAGCGGTC      End 1207   871  3.0654515   13.42171 0.9903858
+End_ATCCGACCATCA      End  132    98  2.2727273   12.87879 0.9989183
+                 log10GenesPerUMI        cells   method Layer Donor
+End_ACGGCATAGTAC        0.9648671 ACGGCATAGTAC LongRead    CP   370
+End_ACTGACTGATCC        0.9727108 ACTGACTGATCC LongRead    CP   370
+End_ACTGGCACCGAG        0.9554660 ACTGGCACCGAG LongRead    GZ   372
+End_AGCTAGCCCATG        0.9582246 AGCTAGCCCATG LongRead    CP   371
+End_AGTTTAGCGGTC        0.9540225 AGTTTAGCGGTC LongRead    CP   371
+End_ATCCGACCATCA        0.9390034 ATCCGACCATCA LongRead    CP   370
+                 Gestation_week
+End_ACGGCATAGTAC             18
+End_ACTGACTGATCC             18
+End_ACTGGCACCGAG             18
+End_AGCTAGCCCATG             17
+End_AGTTTAGCGGTC             17
+End_ATCCGACCATCA             18</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="do">####Some Quality Check</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="co">#VlnPlot(isoT7k, features = c("nGene", "nUMI", "percent.mt", "percent.RP", "dropouts"), ncol = 5, group.by="method", pt.size=0.25)</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="fu">VlnPlot</span>(isoT7k, <span class="at">features =</span> <span class="fu">c</span>(<span class="st">"nGene"</span>, <span class="st">"nUMI"</span>, <span class="st">"percent.mt"</span>), <span class="at">ncol =</span> <span class="dv">3</span>, <span class="at">group.by=</span><span class="st">"method"</span>, <span class="at">pt.size=</span><span class="fl">0.25</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Figure5_SeuratClustering_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">FeatureScatter</span>(isoT7k, <span class="at">feature1 =</span> <span class="st">"nUMI"</span>, <span class="at">feature2 =</span> <span class="st">"percent.mt"</span>, <span class="at">group.by=</span><span class="st">"method"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Figure5_SeuratClustering_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">FeatureScatter</span>(isoT7k, <span class="at">feature1 =</span> <span class="st">"nUMI"</span>, <span class="at">feature2 =</span> <span class="st">"nGene"</span>, <span class="at">group.by=</span><span class="st">"method"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Figure5_SeuratClustering_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>isoT7k_filter <span class="ot">&lt;-</span> <span class="fu">subset</span>(<span class="at">x =</span> isoT7k, </span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>                        <span class="at">subset=</span> (nGene <span class="sc">&gt;=</span> <span class="dv">85</span>) <span class="sc">&amp;</span> </span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>                          (nGene <span class="sc">&lt;</span> <span class="dv">2000</span>)  <span class="sc">&amp;</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>                          (percent.mt <span class="sc">&lt;</span> <span class="dv">7</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="do">####Some Quality Check after Filtering</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">VlnPlot</span>(isoT7k_filter, <span class="at">features =</span> <span class="fu">c</span>(<span class="st">"nGene"</span>, <span class="st">"nUMI"</span>, <span class="st">"percent.mt"</span>, <span class="st">"percent.RP"</span>, <span class="st">"dropouts"</span>), <span class="at">ncol =</span> <span class="dv">5</span>, <span class="at">group.by=</span><span class="st">"method"</span>, <span class="at">pt.size=</span><span class="fl">0.25</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Figure5_SeuratClustering_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Output a logical vector for every gene on whether the more than zero counts per cell</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract counts</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>counts <span class="ot">&lt;-</span> <span class="fu">GetAssayData</span>(<span class="at">object =</span> isoT7k_filter, <span class="at">slot =</span> <span class="st">"counts"</span>)</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Output a logical vector for every gene on whether the more than zero counts per cell</span></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>nonzero <span class="ot">&lt;-</span> counts <span class="sc">&gt;</span> <span class="dv">0</span></span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter Isoforms</span></span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>keep_genes <span class="ot">&lt;-</span> Matrix<span class="sc">::</span><span class="fu">rowSums</span>(nonzero) <span class="sc">&gt;=</span> <span class="dv">3</span></span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Only keeping those filtered isoforms </span></span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a>filtered_counts <span class="ot">&lt;-</span> counts[keep_genes, ]</span>
+<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Reassign to filtered Seurat object</span></span>
+<span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a>isoT7k_filter <span class="ot">&lt;-</span> <span class="fu">CreateSeuratObject</span>(filtered_counts, <span class="at">meta.data =</span> isoT7k_filter<span class="sc">@</span>meta.data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="do">######Filter Known Cells</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>isoT4k_sub <span class="ot">&lt;-</span> <span class="fu">subset</span>(<span class="at">x =</span> isoT7k_filter,</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>                        <span class="at">subset=</span> CellType <span class="sc">!=</span> <span class="st">"Unknown"</span> ) </span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Output a logical vector for every gene on whether the more than zero counts per cell</span></span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract counts</span></span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>counts <span class="ot">&lt;-</span> <span class="fu">GetAssayData</span>(<span class="at">object =</span> isoT4k_sub, <span class="at">slot =</span> <span class="st">"counts"</span>)</span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Output a logical vector for every gene on whether the more than zero counts per cell</span></span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>nonzero <span class="ot">&lt;-</span> counts <span class="sc">&gt;</span> <span class="dv">0</span></span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter non expresses isoforms</span></span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a>keep_genes <span class="ot">&lt;-</span> Matrix<span class="sc">::</span><span class="fu">rowSums</span>(nonzero) <span class="sc">&gt;=</span> <span class="dv">0</span></span>
+<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Only keeping filtered isoforms</span></span>
+<span id="cb33-16"><a href="#cb33-16" aria-hidden="true" tabindex="-1"></a>filtered_counts <span class="ot">&lt;-</span> counts[keep_genes, ]</span>
+<span id="cb33-17"><a href="#cb33-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-18"><a href="#cb33-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Reassign to filtered Seurat object and Running seurat</span></span>
+<span id="cb33-19"><a href="#cb33-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-20"><a href="#cb33-20" aria-hidden="true" tabindex="-1"></a>isoT4k_filter <span class="ot">&lt;-</span> <span class="fu">CreateSeuratObject</span>(filtered_counts, <span class="at">meta.data =</span> isoT4k_sub<span class="sc">@</span>meta.data) <span class="sc">%&gt;%</span></span>
+<span id="cb33-21"><a href="#cb33-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">SCTransform</span>(</span>
+<span id="cb33-22"><a href="#cb33-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">verbose =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb33-23"><a href="#cb33-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">assay =</span> <span class="st">'RNA'</span>,</span>
+<span id="cb33-24"><a href="#cb33-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">variable.features.n =</span> <span class="dv">10000</span>,</span>
+<span id="cb33-25"><a href="#cb33-25" aria-hidden="true" tabindex="-1"></a>    <span class="co">#return.only.var.genes = FALSE,</span></span>
+<span id="cb33-26"><a href="#cb33-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">new.assay.name =</span> <span class="st">'SCT'</span>, </span>
+<span id="cb33-27"><a href="#cb33-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">vars.to.regress =</span> <span class="st">"percent.mt"</span> <span class="co">#,</span></span>
+<span id="cb33-28"><a href="#cb33-28" aria-hidden="true" tabindex="-1"></a>    <span class="co">#n_genes=10000</span></span>
+<span id="cb33-29"><a href="#cb33-29" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb33-30"><a href="#cb33-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">RunPCA</span>( )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>PC_ 1 
+Positive:  STMN2-ENST00000220876, MAP1B-TALONT000671508, TUBB3-ENST00000315491, NEUROD6-ENST00000297142, NEUROD2-ENST00000302584, RTN1-ENST00000342503, NSG2-ENST00000303177, GAP43-ENST00000305124, GPM6A-ENST00000393658, TUBB-ENST00000327892 
+       NEFM-ENST00000221166, SOX11-ENST00000322002, SOX4-ENST00000244745, SLA-ENST00000338087, INA-ENST00000369849, SYT4-ENST00000255224, TUBB2A-ENST00000333628, NEFL-TALONT000583190, CALM1-ENST00000356978, ENC1-ENST00000302351 
+       CRYM-TALONT000431241, AC004158.1-ENST00000564508, PFN2-ENST00000239940, ANKRD18CP-TALONT000751502, MLLT3-TALONT000705935, LMO3-ENST00000354662, DLX6-AS1-TALONT000801216, ATP1B1-ENST00000367815, LMO3-ENST00000441439, BASP1-ENST00000322611 
+Negative:  VIM-ENST00000224237, FOS-ENST00000303562, PTN-ENST00000348225, JUN-ENST00000371222, EGR1-ENST00000239938, HES1-ENST00000232424, ID4-ENST00000378700, SOX2-ENST00000325404, CCN1-ENST00000451137, PEA15-ENST00000360472 
+       FOS-ENST00000554617, FABP5-ENST00000297258, PTN-TALONT000822332, HSPA1B-ENST00000375650, SFRP1-ENST00000220772, HSPA1A-ENST00000375651, SOX9-ENST00000245479, GPM6B-ENST00000454189, PTN-TALONT000822343, SFRP1-TALONT000603415 
+       IER2-ENST00000588173, SPARC-ENST00000231061, FABP7-ENST00000368444, TUBA1B-ENST00000336023, HMGB2-ENST00000296503, H4C3-ENST00000377803, HMGN2-ENST00000361427, TTYH1-ENST00000376530, FGFBP3-ENST00000311575, JUNB-ENST00000302754 
+PC_ 2 
+Positive:  H4C3-ENST00000377803, HMGB2-ENST00000296503, TUBA1B-ENST00000336023, HMGN2-ENST00000361427, UBE2C-ENST00000356455, H1-3-ENST00000244534, PPP1R17-ENST00000342032, SOX4-ENST00000244745, HES6-ENST00000272937, KIFC1-ENST00000428849 
+       KPNA2-ENST00000330459, PENK-ENST00000451791, CCND2-ENST00000261254, EOMES-ENST00000449599, ARL6IP1-ENST00000304414, ENC1-ENST00000302351, CCNB1-ENST00000256442, HES6-ENST00000409160, PLK1-ENST00000300093, GADD45G-ENST00000252506 
+       NNAT-ENST00000649451, SSTR2-ENST00000357585, IGFBPL1-ENST00000377694, ENC1-ENST00000618628, CDKN2C-ENST00000396148, ANKRD18CP-TALONT000751502, CADM1-ENST00000616271, SMOC1-ENST00000361956, NHLH1-ENST00000302101, POU3F2-ENST00000328345 
+Negative:  FABP7-ENST00000368444, STMN2-ENST00000220876, TUBB2A-ENST00000333628, MAP1B-TALONT000671508, PTN-ENST00000348225, VIM-ENST00000224237, NEFM-ENST00000221166, FOS-ENST00000303562, TUBB2B-ENST00000259818, RTN1-ENST00000342503 
+       CALM1-ENST00000356978, TUBB3-ENST00000315491, NEFL-TALONT000583190, GAP43-ENST00000305124, JUN-ENST00000371222, HSPA1A-ENST00000375651, HSPA1B-ENST00000375650, PEA15-ENST00000360472, INA-ENST00000369849, FGFBP3-ENST00000311575 
+       SYT4-ENST00000255224, PTN-TALONT000822332, TTYH1-ENST00000376530, HOPX-ENST00000337881, NEUROD2-ENST00000302584, LMO4-ENST00000370542, NEUROD6-ENST00000297142, PTN-TALONT000822343, FOS-ENST00000554617, GPM6B-ENST00000454189 
+PC_ 3 
+Positive:  SOX4-ENST00000244745, DLX6-AS1-TALONT000801216, FOS-ENST00000303562, ENC1-ENST00000302351, EGR1-ENST00000239938, DLX2-ENST00000234198, BTG1-ENST00000256015, SST-ENST00000287641, JUN-ENST00000371222, ANKRD18CP-TALONT000751502 
+       DLX5-ENST00000648378, FOS-ENST00000554617, CITED2-ENST00000367651, IER2-ENST00000588173, CCN1-ENST00000451137, SOX2-OT-ENST00000596250, DLX6-AS1-ENST00000458352, CADM1-ENST00000616271, PLS3-ENST00000355899, SCGN-ENST00000377961 
+       GAD2-ENST00000428517, HES1-ENST00000232424, DLX1-ENST00000361725, RASD1-ENST00000225688, RBP1-ENST00000232219, SOX2-OT-ENST00000600801, MAF-ENST00000393350, ENC1-ENST00000618628, JUNB-ENST00000302754, MAFB-ENST00000373313 
+Negative:  H4C3-ENST00000377803, FABP7-ENST00000368444, TUBA1B-ENST00000336023, HMGB2-ENST00000296503, NEFM-ENST00000221166, MAP1B-TALONT000671508, NEFL-TALONT000583190, TUBB-ENST00000327892, TUBB2A-ENST00000333628, UBE2C-ENST00000356455 
+       STMN2-ENST00000220876, CALM1-ENST00000356978, PTN-ENST00000348225, GAP43-ENST00000305124, H1-3-ENST00000244534, HMGN2-ENST00000361427, TUBB2B-ENST00000259818, KPNA2-ENST00000330459, VIM-ENST00000224237, ARL6IP1-ENST00000304414 
+       LMO4-ENST00000370542, TUBB3-ENST00000315491, CCNB1-ENST00000256442, SYT4-ENST00000255224, KIFC1-ENST00000428849, NPY-ENST00000242152, NEUROD6-ENST00000297142, PEA15-ENST00000360472, PTN-TALONT000822332, INA-ENST00000369849 
+PC_ 4 
+Positive:  DLX6-AS1-TALONT000801216, DLX2-ENST00000234198, SST-ENST00000287641, DLX5-ENST00000648378, H4C3-ENST00000377803, SOX2-OT-ENST00000596250, DLX6-AS1-ENST00000458352, NSG2-ENST00000303177, CXCR4-ENST00000241393, SCGN-ENST00000377961 
+       GAD2-ENST00000428517, PFN2-ENST00000239940, CRYM-TALONT000431241, PDE4DIP-TALONT000551834, DLX1-ENST00000361725, SOX2-OT-ENST00000600801, PLS3-ENST00000355899, LMO3-ENST00000354662, RBP1-ENST00000232219, MAF-ENST00000393350 
+       CALB2-TALONT000509228, LMO3-ENST00000441439, SOX2-ENST00000325404, C11orf96-ENST00000617612, ATP1B1-ENST00000367815, MEG3-ENST00000451743, CALB2-ENST00000302628, PCDH9-ENST00000377861, MEG3-ENST00000522771, AC004158.1-ENST00000564508 
+Negative:  ENC1-ENST00000302351, ANKRD18CP-TALONT000751502, NEUROD6-ENST00000297142, NEUROD2-ENST00000302584, RASD1-ENST00000225688, POU3F2-ENST00000328345, EEF1A1-ENST00000309268, SLA-ENST00000338087, HS3ST1-ENST00000002596, SOX11-ENST00000322002 
+       JUN-ENST00000371222, SDCBP-ENST00000260130, HES6-ENST00000409160, ENC1-ENST00000618628, HES6-ENST00000272937, GPM6A-ENST00000393658, SLC17A6-ENST00000263160, IGFBPL1-ENST00000377694, PPP1R17-ENST00000342032, EPHB6-TALONT000824230 
+       CCND2-ENST00000261254, NRN1-ENST00000244766, NHLH1-ENST00000302101, SOX4-ENST00000244745, FOS-ENST00000303562, MLLT3-TALONT000705935, PENK-ENST00000451791, SSTR2-ENST00000357585, EGR1-ENST00000239938, GADD45G-ENST00000252506 
+PC_ 5 
+Positive:  EGR1-ENST00000239938, FOS-ENST00000303562, CCN1-ENST00000451137, IER2-ENST00000588173, FOS-ENST00000554617, H4C3-ENST00000377803, HES1-ENST00000232424, CCN2-ENST00000367976, CRYM-TALONT000431241, JUN-ENST00000371222 
+       LMO3-ENST00000354662, NR4A1-ENST00000394825, LMO3-ENST00000441439, CRYAB-ENST00000650687, MAP1B-TALONT000671508, CALM1-ENST00000356978, GAP43-ENST00000305124, NEFM-ENST00000221166, JUNB-ENST00000302754, SPARC-ENST00000231061 
+       STMN2-ENST00000220876, H1-3-ENST00000244534, NEFL-TALONT000583190, ATP1B1-ENST00000367815, ZFP36-ENST00000597629, NSG2-ENST00000303177, BCYRN1-ENST00000418539, LMO3-TALONT000528879, BTG2-ENST00000290551, PCDH9-ENST00000377861 
+Negative:  PTN-ENST00000348225, FABP7-ENST00000368444, PEA15-ENST00000360472, PTN-TALONT000822332, HOPX-ENST00000337881, HSPA1B-ENST00000375650, ENC1-ENST00000302351, PTN-TALONT000822343, SOX4-ENST00000244745, HSPA1A-ENST00000375651 
+       FABP5-ENST00000297258, GPM6B-ENST00000454189, DLX6-AS1-TALONT000801216, SFRP1-ENST00000220772, SFRP1-TALONT000603415, TUBB2B-ENST00000259818, ANKRD18CP-TALONT000751502, CXCR4-ENST00000241393, TTYH1-ENST00000376530, VIM-ENST00000224237 
+       FGFBP3-ENST00000311575, PPP1R17-ENST00000342032, DLX2-ENST00000234198, CADM1-ENST00000616271, CRH-ENST00000276571, SDCBP-ENST00000260130, RASD1-ENST00000225688, DLX5-ENST00000648378, SST-ENST00000287641, CCND2-ENST00000261254 </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="do">####Some Quality Check after Filtering</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">VlnPlot</span>(isoT4k_filter, <span class="at">features =</span> <span class="fu">c</span>(<span class="st">"nGene"</span>, <span class="st">"nUMI"</span>, <span class="st">"percent.mt"</span>, <span class="st">"percent.RP"</span>, <span class="st">"dropouts"</span>), <span class="at">ncol =</span> <span class="dv">5</span>, <span class="at">group.by=</span><span class="st">"method"</span>, <span class="at">pt.size=</span><span class="fl">0.25</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Figure5_SeuratClustering_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot PCA</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="fu">PCAPlot</span>(isoT4k_filter ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Figure5_SeuratClustering_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co">#FeaturePlot(isoT4k_filter,  reduction='pca', features=c("nGene", "nUMI",  "percent.mt", "percent.RP"), ncol = 2)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="do">####Elbow Plot</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ElbowPlot</span>(isoT4k_filter, <span class="at">ndims =</span> <span class="dv">50</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Figure5_SeuratClustering_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run UMAP</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>isoT4k_filter<span class="ot">&lt;-</span> <span class="fu">RunUMAP</span>(isoT4k_filter,</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>                        <span class="at">n.neighbors =</span> <span class="dv">15</span>,</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>                        <span class="at">min.dist =</span> <span class="fl">0.15</span>,</span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>                        <span class="at">dims =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">26</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: The default method for RunUMAP has changed from calling Python UMAP via reticulate to the R-native UWOT using the cosine metric
+To use Python UMAP via reticulate, set umap.method to 'umap-learn' and metric to 'correlation'
+This message will be shown once per session</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>16:09:21 UMAP embedding parameters a = 1.414 b = 0.9488</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>16:09:21 Read 4167 rows and found 26 numeric columns</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>16:09:21 Using Annoy for neighbor search, n_neighbors = 15</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>16:09:21 Building Annoy index with metric = cosine, n_trees = 50</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>0%   10   20   30   40   50   60   70   80   90   100%</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>[----|----|----|----|----|----|----|----|----|----|</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>**************************************************|
+16:09:21 Writing NN index file to temp file /var/folders/qr/3swxhlmx2xgb5qkpdbhqkkd80000gp/T//RtmpPj1I38/file14997514f7fc2
+16:09:22 Searching Annoy index using 1 thread, search_k = 1500
+16:09:22 Annoy recall = 100%
+16:09:24 Commencing smooth kNN distance calibration using 1 thread with target n_neighbors = 15
+16:09:24 Initializing from normalized Laplacian + noise (using irlba)
+16:09:24 Commencing optimization for 500 epochs, with 87210 positive edges
+16:09:29 Optimization finished</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Determine the K-nearest neighbor graph</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>isoT4k_filter <span class="ot">&lt;-</span> <span class="fu">FindNeighbors</span>(<span class="at">object =</span> isoT4k_filter, </span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>                               <span class="at">reduction =</span> <span class="st">"pca"</span>,</span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>                               <span class="at">features =</span> <span class="fu">VariableFeatures</span>(<span class="at">object =</span> isoT4k_filter),</span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>                               <span class="at">dims =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">26</span>,</span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a>                               <span class="at">nn.method =</span> <span class="st">"annoy"</span>) <span class="co"># annoy or rann</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Computing nearest neighbor graph</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Computing SNN</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>isoT4k_filter <span class="ot">&lt;-</span> <span class="fu">FindClusters</span>(isoT4k_filter, <span class="at">verbose =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>                              <span class="at">resolution =</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="fl">0.1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Idents</span>(isoT4k_filter) <span class="ot">&lt;-</span> <span class="st">"SCT_snn_res.1.6"</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="fu">Idents</span>(isoT4k_filter) <span class="ot">&lt;-</span> isoT4k_filter<span class="sc">$</span>SCT_snn_res.<span class="fl">1.6</span></span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>new.cluster.ids <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"ExM"</span>, <span class="st">"ExN-ExM"</span>, <span class="st">"ExM-U"</span>, <span class="st">"ExN-1"</span>, <span class="st">"ExN-2"</span>, <span class="st">"In"</span>,</span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>                     <span class="st">"vRG-ExN"</span>, <span class="st">"oRG"</span>, <span class="st">"IP"</span>, <span class="st">"ExDp"</span>, <span class="st">"ExN-3"</span>, <span class="st">"vRG"</span>, <span class="st">"PgS"</span>, <span class="st">"PgG2M"</span>, <span class="st">"Mic/Per/End"</span>)</span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(new.cluster.ids) <span class="ot">&lt;-</span> <span class="fu">levels</span>(isoT4k_filter)</span>
+<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a>isoT4k_filter <span class="ot">&lt;-</span> <span class="fu">RenameIdents</span>(isoT4k_filter, new.cluster.ids)</span>
+<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a>isoT4k_filter<span class="sc">@</span>meta.data<span class="sc">$</span>isoCellType <span class="ot">&lt;-</span> <span class="fu">Idents</span>(isoT4k_filter)</span>
+<span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a><span class="fu">Idents</span>(isoT4k_filter) <span class="ot">&lt;-</span> isoT4k_filter<span class="sc">$</span>isoCellType</span>
+<span id="cb52-9"><a href="#cb52-9" aria-hidden="true" tabindex="-1"></a><span class="fu">write.table</span>(isoT4k_filter<span class="sc">@</span>meta.data, <span class="at">file=</span><span class="st">'output/tables/TableS5A.txt'</span>, <span class="at">quote=</span><span class="cn">FALSE</span>, <span class="at">sep=</span><span class="st">'</span><span class="sc">\t</span><span class="st">'</span>, <span class="at">col.names =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb52-10"><a href="#cb52-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-11"><a href="#cb52-11" aria-hidden="true" tabindex="-1"></a><span class="do">##used the old metadata file</span></span>
+<span id="cb52-12"><a href="#cb52-12" aria-hidden="true" tabindex="-1"></a><span class="co">#ap4&lt;-read.table("meta_2212022_v3.txt", header=T)</span></span>
+<span id="cb52-13"><a href="#cb52-13" aria-hidden="true" tabindex="-1"></a><span class="co">#df4&lt;- as.data.frame.matrix(ap4)</span></span>
+<span id="cb52-14"><a href="#cb52-14" aria-hidden="true" tabindex="-1"></a><span class="co">#isoT4k_filter@meta.data&lt;- df4</span></span>
+<span id="cb52-15"><a href="#cb52-15" aria-hidden="true" tabindex="-1"></a><span class="co">#Idents(isoT4k_filter) &lt;- isoT4k_filter$isoCellType</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>p1<span class="ot">&lt;-</span> <span class="fu">DimPlot</span>(isoT4k_filter, <span class="at">reduction =</span> <span class="st">"umap"</span>,<span class="at">label =</span> <span class="cn">TRUE</span>, <span class="at">pt.size =</span> <span class="fl">0.5</span>, <span class="at">label.size =</span> <span class="fl">3.5</span>,<span class="at">repel=</span><span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>            <span class="fu">NoLegend</span>() <span class="sc">+</span> </span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>            <span class="fu">ggtitle</span>(<span class="st">'Cells Clustered by Isoform Expression'</span>) <span class="sc">+</span></span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>            <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>, <span class="at">face =</span> <span class="st">"bold"</span>)) <span class="sc">+</span></span>
+<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a>            ggeasy<span class="sc">::</span><span class="fu">easy_center_title</span>() <span class="sc">&amp;</span></span>
+<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a>            <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(), <span class="co">#face = "bold"</span></span>
+<span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">axis.text=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">6</span>), <span class="co">#angle=45, hjust=1,</span></span>
+<span id="cb53-8"><a href="#cb53-8" aria-hidden="true" tabindex="-1"></a>            <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">8</span> ),   <span class="co">#face="bold"),</span></span>
+<span id="cb53-9"><a href="#cb53-9" aria-hidden="true" tabindex="-1"></a>            <span class="at">axis.title.y.right =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">2</span>),</span>
+<span id="cb53-10"><a href="#cb53-10" aria-hidden="true" tabindex="-1"></a>            <span class="at">legend.text=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">8</span>),</span>
+<span id="cb53-11"><a href="#cb53-11" aria-hidden="true" tabindex="-1"></a>            <span class="at">legend.title=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">8</span>),</span>
+<span id="cb53-12"><a href="#cb53-12" aria-hidden="true" tabindex="-1"></a>            <span class="at">axis.line =</span> <span class="fu">element_line</span>(<span class="at">size=</span><span class="fl">0.5</span>))</span>
+<span id="cb53-13"><a href="#cb53-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-14"><a href="#cb53-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-15"><a href="#cb53-15" aria-hidden="true" tabindex="-1"></a>p2<span class="ot">&lt;-</span> <span class="fu">DimPlot</span>(isoT4k_filter, <span class="at">reduction =</span> <span class="st">"umap"</span>,<span class="at">label =</span> <span class="cn">TRUE</span>, <span class="at">group.by =</span> <span class="st">"CellType"</span>, <span class="at">pt.size =</span> <span class="fl">0.5</span>, <span class="at">label.size =</span> <span class="fl">3.5</span>, <span class="at">repel=</span><span class="cn">TRUE</span>) <span class="sc">+</span> </span>
+<span id="cb53-16"><a href="#cb53-16" aria-hidden="true" tabindex="-1"></a>            <span class="fu">NoLegend</span>() <span class="sc">+</span> </span>
+<span id="cb53-17"><a href="#cb53-17" aria-hidden="true" tabindex="-1"></a>            <span class="fu">ggtitle</span>(<span class="st">'Cells Clustered by Gene Expression'</span>) <span class="sc">+</span></span>
+<span id="cb53-18"><a href="#cb53-18" aria-hidden="true" tabindex="-1"></a>            <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>, <span class="at">face =</span> <span class="st">"bold"</span>)) <span class="sc">+</span></span>
+<span id="cb53-19"><a href="#cb53-19" aria-hidden="true" tabindex="-1"></a>            ggeasy<span class="sc">::</span><span class="fu">easy_center_title</span>() <span class="sc">&amp;</span></span>
+<span id="cb53-20"><a href="#cb53-20" aria-hidden="true" tabindex="-1"></a>            <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(), <span class="co">#face = "bold"</span></span>
+<span id="cb53-21"><a href="#cb53-21" aria-hidden="true" tabindex="-1"></a>            <span class="at">axis.text=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">6</span>), <span class="co">#angle=45, hjust=1,</span></span>
+<span id="cb53-22"><a href="#cb53-22" aria-hidden="true" tabindex="-1"></a>            <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">8</span> ),   <span class="co">#face="bold"),</span></span>
+<span id="cb53-23"><a href="#cb53-23" aria-hidden="true" tabindex="-1"></a>            <span class="at">axis.title.y.right =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">2</span>),</span>
+<span id="cb53-24"><a href="#cb53-24" aria-hidden="true" tabindex="-1"></a>            <span class="at">legend.text=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">8</span>),</span>
+<span id="cb53-25"><a href="#cb53-25" aria-hidden="true" tabindex="-1"></a>            <span class="at">legend.title=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">8</span>),</span>
+<span id="cb53-26"><a href="#cb53-26" aria-hidden="true" tabindex="-1"></a>            <span class="at">axis.line =</span> <span class="fu">element_line</span>(<span class="at">size=</span><span class="fl">0.5</span>))</span>
+<span id="cb53-27"><a href="#cb53-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-28"><a href="#cb53-28" aria-hidden="true" tabindex="-1"></a>p1 <span class="sc">+</span> p2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Figure5_SeuratClustering_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">"output/figures/Fig5/Fig5_UMAP.pdf"</span>, <span class="at">width =</span> <span class="dv">8</span>, <span class="at">height =</span> <span class="dv">10</span><span class="sc">/</span><span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select the RNA counts slot to be the default assay</span></span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="fu">Idents</span>(isoT4k_filter) <span class="ot">&lt;-</span> isoT4k_filter<span class="sc">$</span>isoCellType</span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a><span class="fu">DefaultAssay</span>(isoT4k_filter) <span class="ot">&lt;-</span> <span class="st">"RNA"</span></span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Normalize RNA data for visualization purposes</span></span>
+<span id="cb55-6"><a href="#cb55-6" aria-hidden="true" tabindex="-1"></a>isoT4k_filter <span class="ot">&lt;-</span> <span class="fu">NormalizeData</span>(isoT4k_filter, <span class="at">normalization.method =</span> <span class="st">"LogNormalize"</span>, <span class="at">scale.factor =</span> <span class="dv">100000</span>, <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb55-7"><a href="#cb55-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-8"><a href="#cb55-8" aria-hidden="true" tabindex="-1"></a><span class="co">#Scal Data</span></span>
+<span id="cb55-9"><a href="#cb55-9" aria-hidden="true" tabindex="-1"></a>all.genes <span class="ot">&lt;-</span> <span class="fu">rownames</span>(isoT4k_filter)</span>
+<span id="cb55-10"><a href="#cb55-10" aria-hidden="true" tabindex="-1"></a>isoT4k_filter <span class="ot">&lt;-</span> <span class="fu">ScaleData</span>(isoT4k_filter, <span class="at">features =</span> all.genes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Centering and scaling data matrix</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">file.exists</span>(<span class="st">"data/working/isoT4k_filter.rds"</span>)) {</span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">saveRDS</span>(isoT4k_filter, <span class="st">"data/working/isoT4k_filter.rds"</span>)</span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+
+
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

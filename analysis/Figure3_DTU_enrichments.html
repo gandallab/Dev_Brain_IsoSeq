@@ -2,21 +2,26 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.0.38">
+<meta name="generator" content="quarto-1.2.269">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Michael Gandal">
 <meta name="dcterms.date" content="2023-01-19">
 
-<title>Dev Brain scIso-Seq CP/VZ - Figure 3 - DTU enrichments</title>
+<title>Dev Brain Iso-Seq - Figure 3 - DTU enrichments</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-span.underline{text-decoration: underline;}
-div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -55,7 +60,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -68,7 +73,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -143,16 +148,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="../">Dev Brain scIso-Seq CP/VZ</a> 
+      <a href="../">Dev Brain Iso-Seq</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/gandallab/Dev_Brain_IsoSeq" title="" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
+</div>
     </div>
       </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../analysis/index.html" class="sidebar-item-text sidebar-link">Index</a>
-  </div>
-</li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../analysis/Figure1_BulkTxomeAnalysis.html" class="sidebar-item-text sidebar-link">Figure 1 - BulkTxomeAnalysis</a>
@@ -160,9 +163,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../analysis/Figure1_TableS1.html" class="sidebar-item-text sidebar-link">Figure 1 - generate Table S1</a>
+  <a href="../analysis/Figure1_TableS1.html" class="sidebar-item-text sidebar-link">Figure 1 - Table S1</a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../code/Fig1_MetaCoverage.html" class="sidebar-item-text sidebar-link">Figure 1 - MetaCoverage</a>
+  </div>
+</li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../analysis/Figure2_isoFraction.html" class="sidebar-item-text sidebar-link">Figure 2 - Isoform Fraction analysis</a>
@@ -185,6 +194,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure2_NF1Locus.html" class="sidebar-item-text sidebar-link">Figure 2 - NF1 Locus</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure2_PeptideSupport.html" class="sidebar-item-text sidebar-link">Figure 2 - Peptide Support</a>
+  </div>
+</li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../analysis/Figure3_IsoformSwitchAnalyzeR.html" class="sidebar-item-text sidebar-link">Figure 3 - IsoformSwitchAnalyzeR</a>
   </div>
 </li>
@@ -195,7 +215,71 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure3_RBPEnrichments.html" class="sidebar-item-text sidebar-link">Figure 3 - RBP Enrichments</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../analysis/Figure3_APA.html" class="sidebar-item-text sidebar-link">Figure 3 - APA</a>
+  </div>
+</li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure4_combinedNetworks.html" class="sidebar-item-text sidebar-link">Figure 4 - Combined Networks</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure4_Networks_Enrichments.html" class="sidebar-item-text sidebar-link">Figure 4 - Networks Enrichments</a>
+  </div>
+</li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure5_SeuratClustering.html" class="sidebar-item-text sidebar-link">Figure 5 - Seurat Clustering</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure5_MarkerGenesFigs.html" class="sidebar-item-text sidebar-link">Figure 5 - Marker Genes</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure5_TableS5D.html" class="sidebar-item-text sidebar-link">Figure 5 - Table S5D</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure5_PseudotimeAnalysis.html" class="sidebar-item-text sidebar-link">Figure 5 - Pseudotime Analysis</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure5_Sankey.html" class="sidebar-item-text sidebar-link">Figure 5 - Sankey</a>
+  </div>
+</li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure6_rareVariant.html" class="sidebar-item-text sidebar-link">Figure 6 - Rare Variant</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure6_VEPConsequences.html" class="sidebar-item-text sidebar-link">Figure 6 - VEP Consequences</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure6_TrackPlots.html" class="sidebar-item-text sidebar-link">Figure 6 - Track Plots</a>
+  </div>
+</li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/FigureS9_cor_plots.html" class="sidebar-item-text sidebar-link">Figure S9 - Correlation plots</a>
   </div>
 </li>
     </ul>
@@ -203,7 +287,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </nav>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc">
+        <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
    
   <ul>
@@ -254,6 +338,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <p class="date">January 19, 2023</p>
     </div>
   </div>
+  
     
   </div>
   
@@ -320,7 +405,7 @@ cols(
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>datAnno <span class="ot">=</span> tableS3.isoform <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">ensg =</span> <span class="fu">substr</span>(gene_id,<span class="dv">1</span>,<span class="dv">15</span>))</span>
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>datAnno <span class="ot">&lt;-</span> datAnno <span class="sc">%&gt;%</span> <span class="fu">left_join</span>(cts <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="at">isoform_id =</span> annot_transcript_id, length))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Joining with `by = join_by(isoform_id)`</code></pre>
+<pre><code>Joining, by = "isoform_id"</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>geneSetsForLDSC <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">ensg =</span> <span class="fu">unique</span>(datAnno<span class="sc">$</span>ensg), <span class="at">set=</span> <span class="st">"background"</span>)</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>geneSetsForLDSC <span class="ot">=</span> <span class="fu">rbind</span>(geneSetsForLDSC, <span class="fu">data.frame</span>(<span class="at">set =</span> <span class="st">"DTU"</span>, </span>
@@ -518,12 +603,12 @@ cols(
 </section>
 <section id="cell-type-makers" class="level2">
 <h2 class="anchored" data-anchor-id="cell-type-makers">Cell-type makers</h2>
-<div class="cell" data-hash="Figure3_DTU_enrichments_cache/html/unnamed-chunk-7_9f64a19a25ace259bb4c1ccc582b53f0">
+<div class="cell" data-hash="Figure3_DTU_enrichments_cache/html/unnamed-chunk-7_c45c68720faf47444c69567a93508697">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load poliodakis et al markers (Table S4)</span></span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="co"># see: https://doi.org/10.1016/j.neuron.2019.06.011</span></span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>celltypemarkers <span class="ot">&lt;-</span> openxlsx<span class="sc">::</span><span class="fu">read.xlsx</span>(<span class="st">'https://www.cell.com/cms/10.1016/j.neuron.2019.06.011/attachment/508ae008-b926-487a-b871-844a12acc1f8/mmc5'</span>, <span class="at">sheet=</span><span class="st">'Cluster enriched genes'</span>) <span class="sc">%&gt;%</span> <span class="fu">as_tibble</span>()</span>
 <span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>celltypemarkers.tableS5 <span class="ot">=</span> openxlsx<span class="sc">::</span><span class="fu">read.xlsx</span>(<span class="st">'https://www.cell.com/cms/10.1016/j.neuron.2019.06.011/attachment/ec1863fa-0dfc-405c-928c-c5ca96115667/mmc6'</span>, <span class="at">sheet=</span><span class="st">'Sub-cluster enriched genes'</span>) <span class="sc">%&gt;%</span> <span class="fu">as_tibble</span>()</span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>celltypemarkers.bg <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="st">"/Users/mgandal/GandalLab Dropbox/Michael Gandal/datasets/fetal_hub/data/polioudakis_neuron2020/single_cell_background_MJG221228.csv"</span>)</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>celltypemarkers.bg <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="st">"ref/polioudakis_neuron2020/single_cell_background_MJG221228.csv"</span>)</span>
 <span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>celltypemarkers.bg <span class="ot">=</span> <span class="fu">unique</span>(celltypemarkers.bg<span class="sc">$</span>ensembl_gene_id)</span>
 <span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>DTU <span class="ot">&lt;-</span> tableS3.gene <span class="sc">%&gt;%</span> <span class="fu">filter</span>(DTU<span class="sc">==</span>T) <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(DTU_qval_min) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(gene_id) <span class="sc">%&gt;%</span> <span class="fu">pull</span>() <span class="sc">%&gt;%</span> <span class="fu">substr</span>(<span class="dv">0</span>,<span class="dv">15</span>)</span>
@@ -647,27 +732,18 @@ cols(
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>datAnno <span class="ot">=</span> tableS3.gene <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">ensg =</span> <span class="fu">substr</span>(gene_id,<span class="dv">1</span>,<span class="dv">15</span>))</span>
 <span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>datAnno <span class="ot">&lt;-</span> datAnno <span class="sc">%&gt;%</span> <span class="fu">left_join</span>(geneAnno <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(ensg, <span class="at">length=</span>width))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Joining with `by = join_by(ensg)`</code></pre>
+<pre><code>Joining, by = "ensg"</code></pre>
 </div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>fu<span class="ot">=</span>openxlsx<span class="sc">::</span><span class="fu">read.xlsx</span>((<span class="st">'https://static-content.springer.com/esm/art%3A10.1038%2Fs41588-022-01104-0/MediaObjects/41588_2022_1104_MOESM3_ESM.xlsx'</span>),<span class="st">'Supplementary Table 11'</span>)</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>fu<span class="sc">$</span>p_TADA_ASD[fu<span class="sc">$</span>p_TADA_ASD<span class="sc">==</span><span class="dv">0</span>] <span class="ot">=</span> <span class="fu">min</span>(fu<span class="sc">$</span>p_TADA_ASD[fu<span class="sc">$</span>p_TADA_ASD <span class="sc">&gt;</span><span class="dv">0</span>],<span class="at">na.rm=</span>T)</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>fu<span class="sc">$</span>p_TADA_NDD[fu<span class="sc">$</span>p_TADA_NDD<span class="sc">==</span><span class="dv">0</span>] <span class="ot">=</span> <span class="fu">min</span>(fu<span class="sc">$</span>p_TADA_NDD[fu<span class="sc">$</span>p_TADA_NDD <span class="sc">&gt;</span><span class="dv">0</span>],<span class="at">na.rm=</span>T)</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>datAnno.logit <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">ASD_fuTADA=</span> <span class="sc">-</span><span class="fu">log10</span>(fu<span class="sc">$</span>p_TADA_ASD)[<span class="fu">match</span>(datAnno<span class="sc">$</span>ensg, fu<span class="sc">$</span>gene_id)])</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>datAnno.logit<span class="sc">$</span>NDD_fuTADA <span class="ot">=</span> <span class="sc">-</span><span class="fu">log10</span>(fu<span class="sc">$</span>p_TADA_NDD)[<span class="fu">match</span>(datAnno<span class="sc">$</span>ensg, fu<span class="sc">$</span>gene_id)]</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>SCZ.schema <span class="ot">=</span> <span class="fu">read_tsv</span>(<span class="st">'ref/risk_genes/SCHEMA_gene_results.tsv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning in left_join(., geneAnno %&gt;% dplyr::select(ensg, length = width)): Each row in `x` is expected to match at most 1 row in `y`.
-ℹ Row 436 of `x` matches multiple rows.
-ℹ If multiple matches are expected, set `multiple = "all"` to silence this
-  warning.</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>fu<span class="ot">=</span>openxlsx<span class="sc">::</span><span class="fu">read.xlsx</span>((<span class="st">'https://static-content.springer.com/esm/art%3A10.1038%2Fs41588-022-01104-0/MediaObjects/41588_2022_1104_MOESM3_ESM.xlsx'</span>),<span class="st">'Supplementary Table 11'</span>)</span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>fu<span class="sc">$</span>p_TADA_ASD[fu<span class="sc">$</span>p_TADA_ASD<span class="sc">==</span><span class="dv">0</span>] <span class="ot">=</span> <span class="fu">min</span>(fu<span class="sc">$</span>p_TADA_ASD[fu<span class="sc">$</span>p_TADA_ASD <span class="sc">&gt;</span><span class="dv">0</span>],<span class="at">na.rm=</span>T)</span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>fu<span class="sc">$</span>p_TADA_NDD[fu<span class="sc">$</span>p_TADA_NDD<span class="sc">==</span><span class="dv">0</span>] <span class="ot">=</span> <span class="fu">min</span>(fu<span class="sc">$</span>p_TADA_NDD[fu<span class="sc">$</span>p_TADA_NDD <span class="sc">&gt;</span><span class="dv">0</span>],<span class="at">na.rm=</span>T)</span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>datAnno.logit <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">ASD_fuTADA=</span> <span class="sc">-</span><span class="fu">log10</span>(fu<span class="sc">$</span>p_TADA_ASD)[<span class="fu">match</span>(datAnno<span class="sc">$</span>ensg, fu<span class="sc">$</span>gene_id)])</span>
-<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>datAnno.logit<span class="sc">$</span>NDD_fuTADA <span class="ot">=</span> <span class="sc">-</span><span class="fu">log10</span>(fu<span class="sc">$</span>p_TADA_NDD)[<span class="fu">match</span>(datAnno<span class="sc">$</span>ensg, fu<span class="sc">$</span>gene_id)]</span>
-<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>SCZ.schema <span class="ot">=</span> <span class="fu">read_tsv</span>(<span class="st">'ref/risk_genes/SCHEMA_gene_results.tsv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: One or more parsing issues, call `problems()` on your data frame for details,
-e.g.:
-  dat &lt;- vroom(...)
-  problems(dat)</code></pre>
+<pre><code>Warning: One or more parsing issues, see `problems()` for details</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Rows: 18321 Columns: 26
@@ -680,9 +756,9 @@ lgl  (2): De novo mis3, De novo mis2
 ℹ Use `spec()` to retrieve the full column specification for this data.
 ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>datAnno.logit<span class="sc">$</span>SCZ_schema <span class="ot">=</span> <span class="sc">-</span><span class="fu">log10</span>(SCZ.schema<span class="sc">$</span><span class="st">`</span><span class="at">P meta</span><span class="st">`</span>[<span class="fu">match</span>(datAnno<span class="sc">$</span>ensg, SCZ.schema<span class="sc">$</span>gene_id)])</span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>BIP.bipex <span class="ot">=</span> <span class="fu">read_tsv</span>(<span class="st">'ref/risk_genes/BipEx_gene_results.tsv'</span>) <span class="sc">%&gt;%</span> <span class="fu">filter</span>(group<span class="sc">==</span><span class="st">"Bipolar Disorder"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>datAnno.logit<span class="sc">$</span>SCZ_schema <span class="ot">=</span> <span class="sc">-</span><span class="fu">log10</span>(SCZ.schema<span class="sc">$</span><span class="st">`</span><span class="at">P meta</span><span class="st">`</span>[<span class="fu">match</span>(datAnno<span class="sc">$</span>ensg, SCZ.schema<span class="sc">$</span>gene_id)])</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>BIP.bipex <span class="ot">=</span> <span class="fu">read_tsv</span>(<span class="st">'ref/risk_genes/BipEx_gene_results.tsv'</span>) <span class="sc">%&gt;%</span> <span class="fu">filter</span>(group<span class="sc">==</span><span class="st">"Bipolar Disorder"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Rows: 119958 Columns: 20
 ── Column specification ────────────────────────────────────────────────────────
@@ -693,9 +769,9 @@ dbl (16): n_cases, n_controls, damaging_missense_case_count, damaging_missen...
 ℹ Use `spec()` to retrieve the full column specification for this data.
 ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>datAnno.logit<span class="sc">$</span>BIP.bipex <span class="ot">=</span> <span class="sc">-</span><span class="fu">log10</span>(BIP.bipex<span class="sc">$</span>ptv_fisher_gnom_non_psych_pval[<span class="fu">match</span>(datAnno<span class="sc">$</span>ensg,BIP.bipex<span class="sc">$</span>gene_id)])</span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>EPI.epi25 <span class="ot">=</span> <span class="fu">read_tsv</span>(<span class="st">'ref/risk_genes/Epi25_gene_results.tsv'</span>)  <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(gene_id) <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">pval =</span> <span class="fu">min</span>(pval))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>datAnno.logit<span class="sc">$</span>BIP.bipex <span class="ot">=</span> <span class="sc">-</span><span class="fu">log10</span>(BIP.bipex<span class="sc">$</span>ptv_fisher_gnom_non_psych_pval[<span class="fu">match</span>(datAnno<span class="sc">$</span>ensg,BIP.bipex<span class="sc">$</span>gene_id)])</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>EPI.epi25 <span class="ot">=</span> <span class="fu">read_tsv</span>(<span class="st">'ref/risk_genes/Epi25_gene_results.tsv'</span>)  <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(gene_id) <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">pval =</span> <span class="fu">min</span>(pval))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Rows: 71456 Columns: 12
 ── Column specification ────────────────────────────────────────────────────────
@@ -707,57 +783,57 @@ lgl (1): pval_infrIndel
 ℹ Use `spec()` to retrieve the full column specification for this data.
 ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>datAnno.logit<span class="sc">$</span>EPI.epi25 <span class="ot">=</span> <span class="sc">-</span><span class="fu">log10</span>(EPI.epi25<span class="sc">$</span>pval[<span class="fu">match</span>(datAnno<span class="sc">$</span>ensg,EPI.epi25<span class="sc">$</span>gene_id)])</span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>df_logit<span class="ot">=</span> <span class="fu">data.frame</span>()</span>
-<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>binaryVec <span class="ot">=</span> <span class="fu">list</span>(<span class="st">"DTU"</span> <span class="ot">=</span> <span class="fu">as.numeric</span>(datAnno<span class="sc">$</span>DTU), <span class="st">"DTE"</span> <span class="ot">=</span> <span class="fu">as.numeric</span>(datAnno<span class="sc">$</span>DTE), <span class="st">"DGE"</span><span class="ot">=</span><span class="fu">as.numeric</span>(datAnno<span class="sc">$</span>DGE),</span>
-<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>                 <span class="st">"DTU-not-DGE"</span> <span class="ot">=</span> <span class="fu">as.numeric</span>(datAnno<span class="sc">$</span>DTU <span class="sc">&amp;</span> <span class="sc">!</span>datAnno<span class="sc">$</span>DGE), </span>
-<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>                 <span class="st">"DTU-not-DTE"</span> <span class="ot">=</span> <span class="fu">as.numeric</span>(datAnno<span class="sc">$</span>DTU <span class="sc">&amp;</span> <span class="sc">!</span>datAnno<span class="sc">$</span>DTE),</span>
-<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>                 <span class="st">"DTU.up"</span> <span class="ot">=</span> <span class="fu">as.numeric</span>(datAnno<span class="sc">$</span>ensg <span class="sc">%in%</span> (tableS3.isoform <span class="sc">%&gt;%</span> <span class="fu">filter</span>(DTU, DTU_dIF<span class="sc">&gt;</span><span class="dv">0</span>) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(ensg) <span class="sc">%&gt;%</span> <span class="fu">pull</span>())),</span>
-<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a>                 <span class="st">"DTU.down"</span> <span class="ot">=</span> <span class="fu">as.numeric</span>(datAnno<span class="sc">$</span>ensg <span class="sc">%in%</span> (tableS3.isoform <span class="sc">%&gt;%</span> <span class="fu">filter</span>(DTU, DTU_dIF<span class="sc">&lt;</span><span class="dv">0</span>) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(ensg) <span class="sc">%&gt;%</span> <span class="fu">pull</span>())),</span>
-<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a>                 <span class="st">"DTE.up"</span> <span class="ot">=</span> <span class="fu">as.numeric</span>(datAnno<span class="sc">$</span>ensg <span class="sc">%in%</span> (tableS3.isoform <span class="sc">%&gt;%</span> <span class="fu">filter</span>(DTE, DTE_log2FC<span class="sc">&gt;</span><span class="dv">0</span>) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(ensg) <span class="sc">%&gt;%</span> <span class="fu">pull</span>())),</span>
-<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a>                 <span class="st">"DTE.down"</span> <span class="ot">=</span> <span class="fu">as.numeric</span>(datAnno<span class="sc">$</span>ensg <span class="sc">%in%</span> (tableS3.isoform <span class="sc">%&gt;%</span> <span class="fu">filter</span>(DTE, DTE_log2FC<span class="sc">&lt;</span><span class="dv">0</span>) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(ensg) <span class="sc">%&gt;%</span> <span class="fu">pull</span>())),</span>
-<span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a>                 <span class="st">"DGE.up"</span> <span class="ot">=</span> <span class="fu">as.numeric</span>(datAnno<span class="sc">$</span>ensg <span class="sc">%in%</span> (tableS3.isoform <span class="sc">%&gt;%</span> <span class="fu">filter</span>(DGE, DGE_log2FC<span class="sc">&gt;</span><span class="dv">0</span>) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(ensg) <span class="sc">%&gt;%</span> <span class="fu">pull</span>())),</span>
-<span id="cb39-13"><a href="#cb39-13" aria-hidden="true" tabindex="-1"></a>                 <span class="st">"DGE.down"</span> <span class="ot">=</span> <span class="fu">as.numeric</span>(datAnno<span class="sc">$</span>ensg <span class="sc">%in%</span> (tableS3.isoform <span class="sc">%&gt;%</span> <span class="fu">filter</span>(DGE, DGE_log2FC<span class="sc">&lt;</span><span class="dv">0</span>) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(ensg) <span class="sc">%&gt;%</span> <span class="fu">pull</span>())))</span>
-<span id="cb39-14"><a href="#cb39-14" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb39-15"><a href="#cb39-15" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(binaryVec)) {</span>
-<span id="cb39-16"><a href="#cb39-16" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(this_rare_var <span class="cf">in</span> <span class="fu">colnames</span>(datAnno.logit)) {</span>
-<span id="cb39-17"><a href="#cb39-17" aria-hidden="true" tabindex="-1"></a>    this_glm <span class="ot">=</span> <span class="fu">summary</span>(<span class="fu">glm</span>(datAnno.logit[,this_rare_var] <span class="sc">~</span> binaryVec[[i]] <span class="sc">+</span> length <span class="sc">+</span> <span class="fu">log10</span>(length), <span class="at">data=</span>datAnno))</span>
-<span id="cb39-18"><a href="#cb39-18" aria-hidden="true" tabindex="-1"></a>    df_logit <span class="ot">=</span> <span class="fu">rbind</span>(df_logit, <span class="fu">data.frame</span>(<span class="at">feature =</span> <span class="fu">names</span>(binaryVec)[[i]], <span class="at">set =</span> this_rare_var, <span class="fu">t</span>(this_glm<span class="sc">$</span>coefficients[<span class="dv">2</span>,])))</span>
-<span id="cb39-19"><a href="#cb39-19" aria-hidden="true" tabindex="-1"></a>}}</span>
-<span id="cb39-20"><a href="#cb39-20" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb39-21"><a href="#cb39-21" aria-hidden="true" tabindex="-1"></a>df_logit<span class="sc">$</span>OR <span class="ot">=</span> <span class="fu">exp</span>(df_logit<span class="sc">$</span>Estimate)</span>
-<span id="cb39-22"><a href="#cb39-22" aria-hidden="true" tabindex="-1"></a>df_logit<span class="sc">$</span>P <span class="ot">=</span> df_logit<span class="sc">$</span>Pr...z..</span>
-<span id="cb39-23"><a href="#cb39-23" aria-hidden="true" tabindex="-1"></a>df_logit<span class="sc">$</span>Q <span class="ot">=</span> <span class="fu">p.adjust</span>(df_logit<span class="sc">$</span>P,<span class="st">'fdr'</span>)</span>
-<span id="cb39-24"><a href="#cb39-24" aria-hidden="true" tabindex="-1"></a>df_logit<span class="sc">$</span>class <span class="ot">=</span> <span class="st">"DGE"</span></span>
-<span id="cb39-25"><a href="#cb39-25" aria-hidden="true" tabindex="-1"></a>df_logit<span class="sc">$</span>class[<span class="fu">grepl</span>(<span class="st">"DTE"</span>, df_logit<span class="sc">$</span>feature)] <span class="ot">=</span> <span class="st">"DTE"</span></span>
-<span id="cb39-26"><a href="#cb39-26" aria-hidden="true" tabindex="-1"></a>df_logit<span class="sc">$</span>class[<span class="fu">grepl</span>(<span class="st">"DTU"</span>, df_logit<span class="sc">$</span>feature)] <span class="ot">=</span> <span class="st">"DTU"</span></span>
-<span id="cb39-27"><a href="#cb39-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-28"><a href="#cb39-28" aria-hidden="true" tabindex="-1"></a>Fig3H<span class="ot">=</span><span class="fu">ggplot</span>(df_logit <span class="sc">%&gt;%</span> <span class="fu">filter</span>(feature <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"DTE"</span>, <span class="st">"DGE"</span>, <span class="st">"DTU"</span>, <span class="st">"DTU-not-DGE"</span>)), <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">reorder</span>(set,<span class="sc">-</span>Q), <span class="at">y=</span><span class="sc">-</span><span class="fu">log10</span>(Q), <span class="at">color=</span>feature, <span class="at">alpha =</span> OR <span class="sc">&gt;</span> <span class="dv">1</span>,<span class="at">size=</span>OR)) <span class="sc">+</span></span>
-<span id="cb39-29"><a href="#cb39-29" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">coord_flip</span>() <span class="sc">+</span> <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="sc">-</span><span class="fu">log10</span>(.<span class="dv">05</span>), <span class="at">lty=</span><span class="dv">2</span>,<span class="at">col=</span><span class="st">'red'</span>) <span class="sc">+</span>  </span>
-<span id="cb39-30"><a href="#cb39-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_alpha_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(.<span class="dv">5</span>, <span class="dv">1</span>))<span class="sc">+</span></span>
-<span id="cb39-31"><a href="#cb39-31" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">y=</span><span class="st">"-log10(qvalue)"</span>,<span class="at">x=</span><span class="st">""</span>) <span class="sc">+</span> <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">'Gene level rare variant enrichment'</span>)</span>
-<span id="cb39-32"><a href="#cb39-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-33"><a href="#cb39-33" aria-hidden="true" tabindex="-1"></a>Fig3H</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>datAnno.logit<span class="sc">$</span>EPI.epi25 <span class="ot">=</span> <span class="sc">-</span><span class="fu">log10</span>(EPI.epi25<span class="sc">$</span>pval[<span class="fu">match</span>(datAnno<span class="sc">$</span>ensg,EPI.epi25<span class="sc">$</span>gene_id)])</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>df_logit<span class="ot">=</span> <span class="fu">data.frame</span>()</span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>binaryVec <span class="ot">=</span> <span class="fu">list</span>(<span class="st">"DTU"</span> <span class="ot">=</span> <span class="fu">as.numeric</span>(datAnno<span class="sc">$</span>DTU), <span class="st">"DTE"</span> <span class="ot">=</span> <span class="fu">as.numeric</span>(datAnno<span class="sc">$</span>DTE), <span class="st">"DGE"</span><span class="ot">=</span><span class="fu">as.numeric</span>(datAnno<span class="sc">$</span>DGE),</span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>                 <span class="st">"DTU-not-DGE"</span> <span class="ot">=</span> <span class="fu">as.numeric</span>(datAnno<span class="sc">$</span>DTU <span class="sc">&amp;</span> <span class="sc">!</span>datAnno<span class="sc">$</span>DGE), </span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>                 <span class="st">"DTU-not-DTE"</span> <span class="ot">=</span> <span class="fu">as.numeric</span>(datAnno<span class="sc">$</span>DTU <span class="sc">&amp;</span> <span class="sc">!</span>datAnno<span class="sc">$</span>DTE),</span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>                 <span class="st">"DTU.up"</span> <span class="ot">=</span> <span class="fu">as.numeric</span>(datAnno<span class="sc">$</span>ensg <span class="sc">%in%</span> (tableS3.isoform <span class="sc">%&gt;%</span> <span class="fu">filter</span>(DTU, DTU_dIF<span class="sc">&gt;</span><span class="dv">0</span>) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(ensg) <span class="sc">%&gt;%</span> <span class="fu">pull</span>())),</span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a>                 <span class="st">"DTU.down"</span> <span class="ot">=</span> <span class="fu">as.numeric</span>(datAnno<span class="sc">$</span>ensg <span class="sc">%in%</span> (tableS3.isoform <span class="sc">%&gt;%</span> <span class="fu">filter</span>(DTU, DTU_dIF<span class="sc">&lt;</span><span class="dv">0</span>) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(ensg) <span class="sc">%&gt;%</span> <span class="fu">pull</span>())),</span>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a>                 <span class="st">"DTE.up"</span> <span class="ot">=</span> <span class="fu">as.numeric</span>(datAnno<span class="sc">$</span>ensg <span class="sc">%in%</span> (tableS3.isoform <span class="sc">%&gt;%</span> <span class="fu">filter</span>(DTE, DTE_log2FC<span class="sc">&gt;</span><span class="dv">0</span>) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(ensg) <span class="sc">%&gt;%</span> <span class="fu">pull</span>())),</span>
+<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a>                 <span class="st">"DTE.down"</span> <span class="ot">=</span> <span class="fu">as.numeric</span>(datAnno<span class="sc">$</span>ensg <span class="sc">%in%</span> (tableS3.isoform <span class="sc">%&gt;%</span> <span class="fu">filter</span>(DTE, DTE_log2FC<span class="sc">&lt;</span><span class="dv">0</span>) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(ensg) <span class="sc">%&gt;%</span> <span class="fu">pull</span>())),</span>
+<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a>                 <span class="st">"DGE.up"</span> <span class="ot">=</span> <span class="fu">as.numeric</span>(datAnno<span class="sc">$</span>ensg <span class="sc">%in%</span> (tableS3.isoform <span class="sc">%&gt;%</span> <span class="fu">filter</span>(DGE, DGE_log2FC<span class="sc">&gt;</span><span class="dv">0</span>) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(ensg) <span class="sc">%&gt;%</span> <span class="fu">pull</span>())),</span>
+<span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a>                 <span class="st">"DGE.down"</span> <span class="ot">=</span> <span class="fu">as.numeric</span>(datAnno<span class="sc">$</span>ensg <span class="sc">%in%</span> (tableS3.isoform <span class="sc">%&gt;%</span> <span class="fu">filter</span>(DGE, DGE_log2FC<span class="sc">&lt;</span><span class="dv">0</span>) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(ensg) <span class="sc">%&gt;%</span> <span class="fu">pull</span>())))</span>
+<span id="cb38-14"><a href="#cb38-14" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb38-15"><a href="#cb38-15" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(binaryVec)) {</span>
+<span id="cb38-16"><a href="#cb38-16" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(this_rare_var <span class="cf">in</span> <span class="fu">colnames</span>(datAnno.logit)) {</span>
+<span id="cb38-17"><a href="#cb38-17" aria-hidden="true" tabindex="-1"></a>    this_glm <span class="ot">=</span> <span class="fu">summary</span>(<span class="fu">glm</span>(datAnno.logit[,this_rare_var] <span class="sc">~</span> binaryVec[[i]] <span class="sc">+</span> length <span class="sc">+</span> <span class="fu">log10</span>(length), <span class="at">data=</span>datAnno))</span>
+<span id="cb38-18"><a href="#cb38-18" aria-hidden="true" tabindex="-1"></a>    df_logit <span class="ot">=</span> <span class="fu">rbind</span>(df_logit, <span class="fu">data.frame</span>(<span class="at">feature =</span> <span class="fu">names</span>(binaryVec)[[i]], <span class="at">set =</span> this_rare_var, <span class="fu">t</span>(this_glm<span class="sc">$</span>coefficients[<span class="dv">2</span>,])))</span>
+<span id="cb38-19"><a href="#cb38-19" aria-hidden="true" tabindex="-1"></a>}}</span>
+<span id="cb38-20"><a href="#cb38-20" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb38-21"><a href="#cb38-21" aria-hidden="true" tabindex="-1"></a>df_logit<span class="sc">$</span>OR <span class="ot">=</span> <span class="fu">exp</span>(df_logit<span class="sc">$</span>Estimate)</span>
+<span id="cb38-22"><a href="#cb38-22" aria-hidden="true" tabindex="-1"></a>df_logit<span class="sc">$</span>P <span class="ot">=</span> df_logit<span class="sc">$</span>Pr...z..</span>
+<span id="cb38-23"><a href="#cb38-23" aria-hidden="true" tabindex="-1"></a>df_logit<span class="sc">$</span>Q <span class="ot">=</span> <span class="fu">p.adjust</span>(df_logit<span class="sc">$</span>P,<span class="st">'fdr'</span>)</span>
+<span id="cb38-24"><a href="#cb38-24" aria-hidden="true" tabindex="-1"></a>df_logit<span class="sc">$</span>class <span class="ot">=</span> <span class="st">"DGE"</span></span>
+<span id="cb38-25"><a href="#cb38-25" aria-hidden="true" tabindex="-1"></a>df_logit<span class="sc">$</span>class[<span class="fu">grepl</span>(<span class="st">"DTE"</span>, df_logit<span class="sc">$</span>feature)] <span class="ot">=</span> <span class="st">"DTE"</span></span>
+<span id="cb38-26"><a href="#cb38-26" aria-hidden="true" tabindex="-1"></a>df_logit<span class="sc">$</span>class[<span class="fu">grepl</span>(<span class="st">"DTU"</span>, df_logit<span class="sc">$</span>feature)] <span class="ot">=</span> <span class="st">"DTU"</span></span>
+<span id="cb38-27"><a href="#cb38-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-28"><a href="#cb38-28" aria-hidden="true" tabindex="-1"></a>Fig3H<span class="ot">=</span><span class="fu">ggplot</span>(df_logit <span class="sc">%&gt;%</span> <span class="fu">filter</span>(feature <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"DTE"</span>, <span class="st">"DGE"</span>, <span class="st">"DTU"</span>, <span class="st">"DTU-not-DGE"</span>)), <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">reorder</span>(set,<span class="sc">-</span>Q), <span class="at">y=</span><span class="sc">-</span><span class="fu">log10</span>(Q), <span class="at">color=</span>feature, <span class="at">alpha =</span> OR <span class="sc">&gt;</span> <span class="dv">1</span>,<span class="at">size=</span>OR)) <span class="sc">+</span></span>
+<span id="cb38-29"><a href="#cb38-29" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">coord_flip</span>() <span class="sc">+</span> <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="sc">-</span><span class="fu">log10</span>(.<span class="dv">05</span>), <span class="at">lty=</span><span class="dv">2</span>,<span class="at">col=</span><span class="st">'red'</span>) <span class="sc">+</span>  </span>
+<span id="cb38-30"><a href="#cb38-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_alpha_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(.<span class="dv">5</span>, <span class="dv">1</span>))<span class="sc">+</span></span>
+<span id="cb38-31"><a href="#cb38-31" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">y=</span><span class="st">"-log10(qvalue)"</span>,<span class="at">x=</span><span class="st">""</span>) <span class="sc">+</span> <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">'Gene level rare variant enrichment'</span>)</span>
+<span id="cb38-32"><a href="#cb38-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-33"><a href="#cb38-33" aria-hidden="true" tabindex="-1"></a>Fig3H</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Figure3_DTU_enrichments_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
 </div>
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(Fig3H,<span class="at">file=</span><span class="st">'output/figures/Fig3/Fig3H.pdf'</span>,<span class="at">width=</span><span class="dv">5</span>,<span class="at">height=</span><span class="fl">2.5</span>)</span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>df_logit<span class="sc">$</span>class[<span class="fu">grepl</span>(<span class="st">"-not-"</span>, df_logit<span class="sc">$</span>feature)] <span class="ot">=</span> <span class="st">"DTU-not-DGE/DTE"</span></span>
-<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>df_logit<span class="sc">$</span>feature <span class="ot">=</span> <span class="fu">factor</span>(df_logit<span class="sc">$</span>feature, <span class="at">levels=</span><span class="fu">c</span>(<span class="st">"DGE"</span>, <span class="st">"DGE.down"</span>, <span class="st">"DGE.up"</span>,<span class="st">"DTE"</span>, <span class="st">"DTE.down"</span>, <span class="st">"DTE.up"</span>,<span class="st">"DTU"</span>, <span class="st">"DTU.down"</span>, <span class="st">"DTU.up"</span>,<span class="st">"DTU-not-DGE"</span>, <span class="st">"DTU-not-DTE"</span>))</span>
-<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>FigS4B<span class="ot">=</span><span class="fu">ggplot</span>(df_logit, <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">reorder</span>(set,<span class="sc">-</span>Q), <span class="at">y=</span><span class="sc">-</span><span class="fu">log10</span>(Q), <span class="at">color=</span>class, <span class="at">size=</span>OR, <span class="at">alpha=</span>OR<span class="sc">&gt;</span><span class="dv">1</span>)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
-<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span> <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="sc">-</span><span class="fu">log10</span>(.<span class="dv">05</span>), <span class="at">lty=</span><span class="dv">2</span>,<span class="at">col=</span><span class="st">'red'</span>) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">y=</span><span class="st">"-log10(qvalue)"</span>,<span class="at">x=</span><span class="st">""</span>) <span class="sc">+</span> <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="fu">facet_wrap</span>(feature<span class="sc">~</span>.,<span class="at">ncol =</span> <span class="dv">3</span>) <span class="sc">+</span> <span class="fu">scale_alpha_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(.<span class="dv">5</span>, <span class="dv">1</span>))</span>
-<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(FigS4B,<span class="at">file=</span><span class="st">'output/figures/supplement/FigS4B.pdf'</span>,<span class="at">width=</span><span class="dv">7</span>,<span class="at">height=</span><span class="dv">5</span>)</span>
-<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a>FigS4B</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(Fig3H,<span class="at">file=</span><span class="st">'output/figures/Fig3/Fig3H.pdf'</span>,<span class="at">width=</span><span class="dv">5</span>,<span class="at">height=</span><span class="fl">2.5</span>)</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>df_logit<span class="sc">$</span>class[<span class="fu">grepl</span>(<span class="st">"-not-"</span>, df_logit<span class="sc">$</span>feature)] <span class="ot">=</span> <span class="st">"DTU-not-DGE/DTE"</span></span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>df_logit<span class="sc">$</span>feature <span class="ot">=</span> <span class="fu">factor</span>(df_logit<span class="sc">$</span>feature, <span class="at">levels=</span><span class="fu">c</span>(<span class="st">"DGE"</span>, <span class="st">"DGE.down"</span>, <span class="st">"DGE.up"</span>,<span class="st">"DTE"</span>, <span class="st">"DTE.down"</span>, <span class="st">"DTE.up"</span>,<span class="st">"DTU"</span>, <span class="st">"DTU.down"</span>, <span class="st">"DTU.up"</span>,<span class="st">"DTU-not-DGE"</span>, <span class="st">"DTU-not-DTE"</span>))</span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>FigS4B<span class="ot">=</span><span class="fu">ggplot</span>(df_logit, <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">reorder</span>(set,<span class="sc">-</span>Q), <span class="at">y=</span><span class="sc">-</span><span class="fu">log10</span>(Q), <span class="at">color=</span>class, <span class="at">size=</span>OR, <span class="at">alpha=</span>OR<span class="sc">&gt;</span><span class="dv">1</span>)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span> <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="sc">-</span><span class="fu">log10</span>(.<span class="dv">05</span>), <span class="at">lty=</span><span class="dv">2</span>,<span class="at">col=</span><span class="st">'red'</span>) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">y=</span><span class="st">"-log10(qvalue)"</span>,<span class="at">x=</span><span class="st">""</span>) <span class="sc">+</span> <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="fu">facet_wrap</span>(feature<span class="sc">~</span>.,<span class="at">ncol =</span> <span class="dv">3</span>) <span class="sc">+</span> <span class="fu">scale_alpha_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(.<span class="dv">5</span>, <span class="dv">1</span>))</span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(FigS4B,<span class="at">file=</span><span class="st">'output/figures/supplement/FigS4B.pdf'</span>,<span class="at">width=</span><span class="dv">7</span>,<span class="at">height=</span><span class="dv">5</span>)</span>
+<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a>FigS4B</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Figure3_DTU_enrichments_files/figure-html/unnamed-chunk-9-2.png" class="img-fluid" width="672"></p>
 </div>
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ggplot(df_logit, aes(x=reorder(feature,-Q), y=-log10(Q), fill=OR)) + geom_bar(stat='identity') + </span></span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="co">#   coord_flip() + geom_hline(yintercept = -log10(.05), lty=2,col='red') + labs(y="-log10(qvalue)",x="") + theme_bw() +   facet_grid(set~.,scales = 'free')</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ggplot(df_logit, aes(x=reorder(feature,-Q), y=-log10(Q), fill=OR)) + geom_bar(stat='identity') + </span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="co">#   coord_flip() + geom_hline(yintercept = -log10(.05), lty=2,col='red') + labs(y="-log10(qvalue)",x="") + theme_bw() +   facet_grid(set~.,scales = 'free')</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
@@ -766,94 +842,94 @@ lgl (1): pval_infrIndel
 <section id="celines-rbp-targets" class="level3">
 <h3 class="anchored" data-anchor-id="celines-rbp-targets">Celine’s RBP Targets</h3>
 <div class="cell" data-hash="Figure3_DTU_enrichments_cache/html/unnamed-chunk-10_6a995719ff610c850f7f88fefa8f63ee">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>rbp_targets <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="st">"ref/RBPs/RBP_targets_v2.csv"</span>)</span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>rbp_targets<span class="sc">$</span>regulation[<span class="fu">is.na</span>(rbp_targets<span class="sc">$</span>regulation)]<span class="ot">=</span><span class="st">""</span></span>
-<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>mart <span class="ot">=</span> <span class="fu">useMart</span>(<span class="st">"ENSEMBL_MART_ENSEMBL"</span>,<span class="st">"mmusculus_gene_ensembl"</span>)</span>
-<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>f <span class="ot">=</span> <span class="fu">listFilters</span>(mart); a <span class="ot">=</span> <span class="fu">listAttributes</span>(mart)</span>
-<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>featuresToGet <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"ensembl_gene_id"</span>, <span class="st">"external_gene_name"</span>, <span class="st">"hsapiens_homolog_ensembl_gene"</span>, <span class="st">"hsapiens_homolog_associated_gene_name"</span>,<span class="st">"hsapiens_homolog_orthology_type"</span>)</span>
-<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a>mouseHumanHomologs <span class="ot">=</span> <span class="fu">getBM</span>(<span class="at">attributes =</span> featuresToGet,<span class="at">mart =</span> mart)</span>
-<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a>human_mouse_bg <span class="ot">=</span> mouseHumanHomologs <span class="sc">%&gt;%</span> <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span> <span class="fu">filter</span>(hsapiens_homolog_orthology_type <span class="sc">==</span> <span class="st">"ortholog_one2one"</span>) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="st">"hsapiens_homolog_ensembl_gene"</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>()</span>
-<span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-12"><a href="#cb42-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-13"><a href="#cb42-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-14"><a href="#cb42-14" aria-hidden="true" tabindex="-1"></a>genesets <span class="ot">=</span> <span class="fu">list</span>(<span class="st">"DTU"</span><span class="ot">=</span> tableS3.gene <span class="sc">%&gt;%</span> <span class="fu">filter</span>(DTU) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">gene_id =</span> <span class="fu">substr</span>(gene_id,<span class="dv">1</span>,<span class="dv">15</span>)) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(gene_id) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(),</span>
-<span id="cb42-15"><a href="#cb42-15" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"DTE"</span> <span class="ot">=</span> tableS3.gene <span class="sc">%&gt;%</span> <span class="fu">filter</span>(DTE) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">gene_id =</span> <span class="fu">substr</span>(gene_id,<span class="dv">1</span>,<span class="dv">15</span>)) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(gene_id) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(),</span>
-<span id="cb42-16"><a href="#cb42-16" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"DGE"</span> <span class="ot">=</span> tableS3.gene <span class="sc">%&gt;%</span> <span class="fu">filter</span>(DTE) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">gene_id =</span> <span class="fu">substr</span>(gene_id,<span class="dv">1</span>,<span class="dv">15</span>)) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(gene_id) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(),</span>
-<span id="cb42-17"><a href="#cb42-17" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"DTUnotDGE"</span> <span class="ot">=</span> tableS3.gene <span class="sc">%&gt;%</span> <span class="fu">filter</span>(DTU,DGE_pval<span class="sc">&gt;</span>.<span class="dv">05</span>) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">gene_id =</span> <span class="fu">substr</span>(gene_id,<span class="dv">1</span>,<span class="dv">15</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb42-18"><a href="#cb42-18" aria-hidden="true" tabindex="-1"></a>                    dplyr<span class="sc">::</span><span class="fu">select</span>(gene_id) <span class="sc">%&gt;%</span> <span class="fu">pull</span>())</span>
-<span id="cb42-19"><a href="#cb42-19" aria-hidden="true" tabindex="-1"></a>DTU.bg <span class="ot">=</span> tableS3.gene <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">gene_id =</span> <span class="fu">substr</span>(gene_id,<span class="dv">1</span>,<span class="dv">15</span>)) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(gene_id) <span class="sc">%&gt;%</span> <span class="fu">pull</span>() <span class="sc">%&gt;%</span> <span class="fu">unique</span>()</span>
-<span id="cb42-20"><a href="#cb42-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-21"><a href="#cb42-21" aria-hidden="true" tabindex="-1"></a>df_fisher <span class="ot">=</span> <span class="fu">data.frame</span>()</span>
-<span id="cb42-22"><a href="#cb42-22" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(genesets)) {</span>
-<span id="cb42-23"><a href="#cb42-23" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(this_dataset <span class="cf">in</span> <span class="fu">unique</span>(<span class="fu">na.omit</span>(rbp_targets<span class="sc">$</span>dataset))) {</span>
-<span id="cb42-24"><a href="#cb42-24" aria-hidden="true" tabindex="-1"></a>    this_rbp <span class="ot">=</span> rbp_targets <span class="sc">%&gt;%</span> <span class="fu">filter</span>(dataset <span class="sc">==</span> this_dataset) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">target =</span> <span class="fu">paste0</span>(RBP, <span class="st">"_"</span>, data.type, <span class="st">"_"</span>, msORhs)) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(target) <span class="sc">%&gt;%</span> <span class="fu">unique</span>()  <span class="sc">%&gt;%</span> <span class="fu">pull</span>()</span>
-<span id="cb42-25"><a href="#cb42-25" aria-hidden="true" tabindex="-1"></a>    target_genes <span class="ot">=</span> rbp_targets <span class="sc">%&gt;%</span> <span class="fu">filter</span>(dataset <span class="sc">==</span> this_dataset) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(ENSG) <span class="sc">%&gt;%</span> <span class="fu">pull</span>()</span>
-<span id="cb42-26"><a href="#cb42-26" aria-hidden="true" tabindex="-1"></a> </span>
-<span id="cb42-27"><a href="#cb42-27" aria-hidden="true" tabindex="-1"></a> <span class="cf">if</span>(<span class="fu">grepl</span>(<span class="st">"Human"</span>,this_rbp)) {</span>
-<span id="cb42-28"><a href="#cb42-28" aria-hidden="true" tabindex="-1"></a>   this_or <span class="ot">=</span> <span class="fu">ORA</span>(genesets[[i]], target_genes, DTU.bg, DTU.bg)</span>
-<span id="cb42-29"><a href="#cb42-29" aria-hidden="true" tabindex="-1"></a> } <span class="cf">else</span> {</span>
-<span id="cb42-30"><a href="#cb42-30" aria-hidden="true" tabindex="-1"></a>  this_or <span class="ot">=</span> <span class="fu">ORA</span>(genesets[[i]], target_genes, DTU.bg, human_mouse_bg)</span>
-<span id="cb42-31"><a href="#cb42-31" aria-hidden="true" tabindex="-1"></a> }</span>
-<span id="cb42-32"><a href="#cb42-32" aria-hidden="true" tabindex="-1"></a> df_fisher <span class="ot">=</span> <span class="fu">rbind</span>(df_fisher, <span class="fu">data.frame</span>(<span class="at">set =</span> <span class="fu">names</span>(genesets)[[i]], <span class="at">dataset =</span> this_dataset, <span class="at">target =</span> this_rbp, <span class="fu">t</span>(this_or)))</span>
-<span id="cb42-33"><a href="#cb42-33" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb42-34"><a href="#cb42-34" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb42-35"><a href="#cb42-35" aria-hidden="true" tabindex="-1"></a>  df_fisher<span class="sc">$</span>OR <span class="ot">=</span> <span class="fu">as.numeric</span>(df_fisher<span class="sc">$</span>OR)</span>
-<span id="cb42-36"><a href="#cb42-36" aria-hidden="true" tabindex="-1"></a>  df_fisher<span class="sc">$</span>Fisher.p[df_fisher<span class="sc">$</span>OR<span class="sc">&lt;</span><span class="dv">1</span>] <span class="ot">=</span> <span class="dv">1</span></span>
-<span id="cb42-37"><a href="#cb42-37" aria-hidden="true" tabindex="-1"></a>  df_fisher<span class="sc">$</span>Fisher.p <span class="ot">=</span> <span class="fu">p.adjust</span>(<span class="fu">as.numeric</span>(df_fisher<span class="sc">$</span>Fisher.p),<span class="st">'fdr'</span>)</span>
-<span id="cb42-38"><a href="#cb42-38" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb42-39"><a href="#cb42-39" aria-hidden="true" tabindex="-1"></a>  df_fisher<span class="sc">$</span>target <span class="ot">=</span> <span class="fu">factor</span>(df_fisher<span class="sc">$</span>target, <span class="at">levels=</span> df_fisher <span class="sc">%&gt;%</span> <span class="fu">filter</span>(set<span class="sc">==</span><span class="st">"DTU"</span>) <span class="sc">%&gt;%</span>  <span class="fu">group_by</span>(target) <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">pmin =</span> <span class="fu">min</span>(Fisher.p)) <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(pmin) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(target) <span class="sc">%&gt;%</span> <span class="fu">pull</span>())</span>
-<span id="cb42-40"><a href="#cb42-40" aria-hidden="true" tabindex="-1"></a>  df_fisher<span class="sc">$</span>org <span class="ot">=</span> <span class="st">"Mouse"</span>; df_fisher<span class="sc">$</span>org[<span class="fu">grep</span>(<span class="st">"Human"</span>,df_fisher<span class="sc">$</span>target)] <span class="ot">=</span> <span class="st">"Human"</span></span>
-<span id="cb42-41"><a href="#cb42-41" aria-hidden="true" tabindex="-1"></a>  df_fisher<span class="sc">$</span>data.type <span class="ot">=</span> rbp_targets<span class="sc">$</span>data.type[<span class="fu">match</span>(df_fisher<span class="sc">$</span>dataset, rbp_targets<span class="sc">$</span>dataset)]</span>
-<span id="cb42-42"><a href="#cb42-42" aria-hidden="true" tabindex="-1"></a>  df_fisher<span class="sc">$</span>cell.type <span class="ot">=</span> rbp_targets<span class="sc">$</span>cell.type[<span class="fu">match</span>(df_fisher<span class="sc">$</span>dataset, rbp_targets<span class="sc">$</span>dataset)]</span>
-<span id="cb42-43"><a href="#cb42-43" aria-hidden="true" tabindex="-1"></a>  df_fisher<span class="sc">$</span>label <span class="ot">=</span> <span class="fu">signif</span>(df_fisher<span class="sc">$</span>OR,<span class="dv">1</span>)</span>
-<span id="cb42-44"><a href="#cb42-44" aria-hidden="true" tabindex="-1"></a>  df_fisher<span class="sc">$</span>label[df_fisher<span class="sc">$</span>Fisher.p<span class="sc">&gt;</span>.<span class="dv">05</span>] <span class="ot">=</span> <span class="st">''</span></span>
-<span id="cb42-45"><a href="#cb42-45" aria-hidden="true" tabindex="-1"></a>  Fig3H<span class="fl">.1</span><span class="ot">=</span><span class="fu">ggplot</span>(df_fisher <span class="sc">%&gt;%</span> <span class="fu">filter</span>(set<span class="sc">==</span><span class="st">"DTU"</span>),<span class="fu">aes</span>(<span class="at">x=</span>target, <span class="at">y=</span> <span class="sc">-</span><span class="fu">log10</span>(Fisher.p), <span class="at">fill=</span>OR)) <span class="sc">+</span></span>
-<span id="cb42-46"><a href="#cb42-46" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">'identity'</span>,<span class="at">position =</span> <span class="fu">position_dodge2</span>()) <span class="sc">+</span> <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
-<span id="cb42-47"><a href="#cb42-47" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">1</span>,<span class="at">lty=</span><span class="dv">2</span>,<span class="at">color=</span><span class="st">'red'</span>) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">y=</span><span class="st">'Enrichment</span><span class="sc">\n</span><span class="st">(-log10 q-value)'</span>,<span class="at">x=</span><span class="st">''</span>) <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle=</span><span class="dv">90</span>,<span class="at">vjust =</span> .<span class="dv">5</span>, <span class="at">hjust=</span><span class="dv">1</span>))</span>
-<span id="cb42-48"><a href="#cb42-48" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb42-49"><a href="#cb42-49" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(df_fisher,<span class="fu">aes</span>(<span class="at">x=</span>target, <span class="at">y=</span> set, <span class="at">fill=</span><span class="sc">-</span><span class="fu">log10</span>(Fisher.p),<span class="at">label=</span>label)) <span class="sc">+</span> <span class="fu">geom_tile</span>(<span class="at">color=</span><span class="st">'grey60'</span>) <span class="sc">+</span> <span class="fu">geom_text</span>(<span class="at">size=</span><span class="dv">2</span>) <span class="sc">+</span> <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
-<span id="cb42-50"><a href="#cb42-50" aria-hidden="true" tabindex="-1"></a>     <span class="fu">labs</span>(<span class="at">y=</span><span class="st">''</span>,<span class="at">x=</span><span class="st">''</span>) <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle=</span><span class="dv">90</span>,<span class="at">vjust =</span> .<span class="dv">5</span>, <span class="at">hjust=</span><span class="dv">1</span>)) <span class="sc">+</span> </span>
-<span id="cb42-51"><a href="#cb42-51" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_fill_gradient</span>(<span class="at">low=</span><span class="st">'white'</span>, <span class="at">high=</span><span class="st">'red'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>rbp_targets <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="st">"ref/RBPs/RBP_targets_v2.csv"</span>)</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>rbp_targets<span class="sc">$</span>regulation[<span class="fu">is.na</span>(rbp_targets<span class="sc">$</span>regulation)]<span class="ot">=</span><span class="st">""</span></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>mart <span class="ot">=</span> <span class="fu">useMart</span>(<span class="st">"ENSEMBL_MART_ENSEMBL"</span>,<span class="st">"mmusculus_gene_ensembl"</span>)</span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>f <span class="ot">=</span> <span class="fu">listFilters</span>(mart); a <span class="ot">=</span> <span class="fu">listAttributes</span>(mart)</span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>featuresToGet <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"ensembl_gene_id"</span>, <span class="st">"external_gene_name"</span>, <span class="st">"hsapiens_homolog_ensembl_gene"</span>, <span class="st">"hsapiens_homolog_associated_gene_name"</span>,<span class="st">"hsapiens_homolog_orthology_type"</span>)</span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>mouseHumanHomologs <span class="ot">=</span> <span class="fu">getBM</span>(<span class="at">attributes =</span> featuresToGet,<span class="at">mart =</span> mart)</span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a>human_mouse_bg <span class="ot">=</span> mouseHumanHomologs <span class="sc">%&gt;%</span> <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span> <span class="fu">filter</span>(hsapiens_homolog_orthology_type <span class="sc">==</span> <span class="st">"ortholog_one2one"</span>) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="st">"hsapiens_homolog_ensembl_gene"</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>()</span>
+<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-13"><a href="#cb41-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-14"><a href="#cb41-14" aria-hidden="true" tabindex="-1"></a>genesets <span class="ot">=</span> <span class="fu">list</span>(<span class="st">"DTU"</span><span class="ot">=</span> tableS3.gene <span class="sc">%&gt;%</span> <span class="fu">filter</span>(DTU) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">gene_id =</span> <span class="fu">substr</span>(gene_id,<span class="dv">1</span>,<span class="dv">15</span>)) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(gene_id) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(),</span>
+<span id="cb41-15"><a href="#cb41-15" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"DTE"</span> <span class="ot">=</span> tableS3.gene <span class="sc">%&gt;%</span> <span class="fu">filter</span>(DTE) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">gene_id =</span> <span class="fu">substr</span>(gene_id,<span class="dv">1</span>,<span class="dv">15</span>)) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(gene_id) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(),</span>
+<span id="cb41-16"><a href="#cb41-16" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"DGE"</span> <span class="ot">=</span> tableS3.gene <span class="sc">%&gt;%</span> <span class="fu">filter</span>(DTE) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">gene_id =</span> <span class="fu">substr</span>(gene_id,<span class="dv">1</span>,<span class="dv">15</span>)) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(gene_id) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(),</span>
+<span id="cb41-17"><a href="#cb41-17" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"DTUnotDGE"</span> <span class="ot">=</span> tableS3.gene <span class="sc">%&gt;%</span> <span class="fu">filter</span>(DTU,DGE_pval<span class="sc">&gt;</span>.<span class="dv">05</span>) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">gene_id =</span> <span class="fu">substr</span>(gene_id,<span class="dv">1</span>,<span class="dv">15</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb41-18"><a href="#cb41-18" aria-hidden="true" tabindex="-1"></a>                    dplyr<span class="sc">::</span><span class="fu">select</span>(gene_id) <span class="sc">%&gt;%</span> <span class="fu">pull</span>())</span>
+<span id="cb41-19"><a href="#cb41-19" aria-hidden="true" tabindex="-1"></a>DTU.bg <span class="ot">=</span> tableS3.gene <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">gene_id =</span> <span class="fu">substr</span>(gene_id,<span class="dv">1</span>,<span class="dv">15</span>)) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(gene_id) <span class="sc">%&gt;%</span> <span class="fu">pull</span>() <span class="sc">%&gt;%</span> <span class="fu">unique</span>()</span>
+<span id="cb41-20"><a href="#cb41-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-21"><a href="#cb41-21" aria-hidden="true" tabindex="-1"></a>df_fisher <span class="ot">=</span> <span class="fu">data.frame</span>()</span>
+<span id="cb41-22"><a href="#cb41-22" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(genesets)) {</span>
+<span id="cb41-23"><a href="#cb41-23" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(this_dataset <span class="cf">in</span> <span class="fu">unique</span>(<span class="fu">na.omit</span>(rbp_targets<span class="sc">$</span>dataset))) {</span>
+<span id="cb41-24"><a href="#cb41-24" aria-hidden="true" tabindex="-1"></a>    this_rbp <span class="ot">=</span> rbp_targets <span class="sc">%&gt;%</span> <span class="fu">filter</span>(dataset <span class="sc">==</span> this_dataset) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">target =</span> <span class="fu">paste0</span>(RBP, <span class="st">"_"</span>, data.type, <span class="st">"_"</span>, msORhs)) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(target) <span class="sc">%&gt;%</span> <span class="fu">unique</span>()  <span class="sc">%&gt;%</span> <span class="fu">pull</span>()</span>
+<span id="cb41-25"><a href="#cb41-25" aria-hidden="true" tabindex="-1"></a>    target_genes <span class="ot">=</span> rbp_targets <span class="sc">%&gt;%</span> <span class="fu">filter</span>(dataset <span class="sc">==</span> this_dataset) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(ENSG) <span class="sc">%&gt;%</span> <span class="fu">pull</span>()</span>
+<span id="cb41-26"><a href="#cb41-26" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb41-27"><a href="#cb41-27" aria-hidden="true" tabindex="-1"></a> <span class="cf">if</span>(<span class="fu">grepl</span>(<span class="st">"Human"</span>,this_rbp)) {</span>
+<span id="cb41-28"><a href="#cb41-28" aria-hidden="true" tabindex="-1"></a>   this_or <span class="ot">=</span> <span class="fu">ORA</span>(genesets[[i]], target_genes, DTU.bg, DTU.bg)</span>
+<span id="cb41-29"><a href="#cb41-29" aria-hidden="true" tabindex="-1"></a> } <span class="cf">else</span> {</span>
+<span id="cb41-30"><a href="#cb41-30" aria-hidden="true" tabindex="-1"></a>  this_or <span class="ot">=</span> <span class="fu">ORA</span>(genesets[[i]], target_genes, DTU.bg, human_mouse_bg)</span>
+<span id="cb41-31"><a href="#cb41-31" aria-hidden="true" tabindex="-1"></a> }</span>
+<span id="cb41-32"><a href="#cb41-32" aria-hidden="true" tabindex="-1"></a> df_fisher <span class="ot">=</span> <span class="fu">rbind</span>(df_fisher, <span class="fu">data.frame</span>(<span class="at">set =</span> <span class="fu">names</span>(genesets)[[i]], <span class="at">dataset =</span> this_dataset, <span class="at">target =</span> this_rbp, <span class="fu">t</span>(this_or)))</span>
+<span id="cb41-33"><a href="#cb41-33" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb41-34"><a href="#cb41-34" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb41-35"><a href="#cb41-35" aria-hidden="true" tabindex="-1"></a>  df_fisher<span class="sc">$</span>OR <span class="ot">=</span> <span class="fu">as.numeric</span>(df_fisher<span class="sc">$</span>OR)</span>
+<span id="cb41-36"><a href="#cb41-36" aria-hidden="true" tabindex="-1"></a>  df_fisher<span class="sc">$</span>Fisher.p[df_fisher<span class="sc">$</span>OR<span class="sc">&lt;</span><span class="dv">1</span>] <span class="ot">=</span> <span class="dv">1</span></span>
+<span id="cb41-37"><a href="#cb41-37" aria-hidden="true" tabindex="-1"></a>  df_fisher<span class="sc">$</span>Fisher.p <span class="ot">=</span> <span class="fu">p.adjust</span>(<span class="fu">as.numeric</span>(df_fisher<span class="sc">$</span>Fisher.p),<span class="st">'fdr'</span>)</span>
+<span id="cb41-38"><a href="#cb41-38" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb41-39"><a href="#cb41-39" aria-hidden="true" tabindex="-1"></a>  df_fisher<span class="sc">$</span>target <span class="ot">=</span> <span class="fu">factor</span>(df_fisher<span class="sc">$</span>target, <span class="at">levels=</span> df_fisher <span class="sc">%&gt;%</span> <span class="fu">filter</span>(set<span class="sc">==</span><span class="st">"DTU"</span>) <span class="sc">%&gt;%</span>  <span class="fu">group_by</span>(target) <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">pmin =</span> <span class="fu">min</span>(Fisher.p)) <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(pmin) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(target) <span class="sc">%&gt;%</span> <span class="fu">pull</span>())</span>
+<span id="cb41-40"><a href="#cb41-40" aria-hidden="true" tabindex="-1"></a>  df_fisher<span class="sc">$</span>org <span class="ot">=</span> <span class="st">"Mouse"</span>; df_fisher<span class="sc">$</span>org[<span class="fu">grep</span>(<span class="st">"Human"</span>,df_fisher<span class="sc">$</span>target)] <span class="ot">=</span> <span class="st">"Human"</span></span>
+<span id="cb41-41"><a href="#cb41-41" aria-hidden="true" tabindex="-1"></a>  df_fisher<span class="sc">$</span>data.type <span class="ot">=</span> rbp_targets<span class="sc">$</span>data.type[<span class="fu">match</span>(df_fisher<span class="sc">$</span>dataset, rbp_targets<span class="sc">$</span>dataset)]</span>
+<span id="cb41-42"><a href="#cb41-42" aria-hidden="true" tabindex="-1"></a>  df_fisher<span class="sc">$</span>cell.type <span class="ot">=</span> rbp_targets<span class="sc">$</span>cell.type[<span class="fu">match</span>(df_fisher<span class="sc">$</span>dataset, rbp_targets<span class="sc">$</span>dataset)]</span>
+<span id="cb41-43"><a href="#cb41-43" aria-hidden="true" tabindex="-1"></a>  df_fisher<span class="sc">$</span>label <span class="ot">=</span> <span class="fu">signif</span>(df_fisher<span class="sc">$</span>OR,<span class="dv">1</span>)</span>
+<span id="cb41-44"><a href="#cb41-44" aria-hidden="true" tabindex="-1"></a>  df_fisher<span class="sc">$</span>label[df_fisher<span class="sc">$</span>Fisher.p<span class="sc">&gt;</span>.<span class="dv">05</span>] <span class="ot">=</span> <span class="st">''</span></span>
+<span id="cb41-45"><a href="#cb41-45" aria-hidden="true" tabindex="-1"></a>  Fig3H<span class="fl">.1</span><span class="ot">=</span><span class="fu">ggplot</span>(df_fisher <span class="sc">%&gt;%</span> <span class="fu">filter</span>(set<span class="sc">==</span><span class="st">"DTU"</span>),<span class="fu">aes</span>(<span class="at">x=</span>target, <span class="at">y=</span> <span class="sc">-</span><span class="fu">log10</span>(Fisher.p), <span class="at">fill=</span>OR)) <span class="sc">+</span></span>
+<span id="cb41-46"><a href="#cb41-46" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">'identity'</span>,<span class="at">position =</span> <span class="fu">position_dodge2</span>()) <span class="sc">+</span> <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb41-47"><a href="#cb41-47" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">1</span>,<span class="at">lty=</span><span class="dv">2</span>,<span class="at">color=</span><span class="st">'red'</span>) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">y=</span><span class="st">'Enrichment</span><span class="sc">\n</span><span class="st">(-log10 q-value)'</span>,<span class="at">x=</span><span class="st">''</span>) <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle=</span><span class="dv">90</span>,<span class="at">vjust =</span> .<span class="dv">5</span>, <span class="at">hjust=</span><span class="dv">1</span>))</span>
+<span id="cb41-48"><a href="#cb41-48" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb41-49"><a href="#cb41-49" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(df_fisher,<span class="fu">aes</span>(<span class="at">x=</span>target, <span class="at">y=</span> set, <span class="at">fill=</span><span class="sc">-</span><span class="fu">log10</span>(Fisher.p),<span class="at">label=</span>label)) <span class="sc">+</span> <span class="fu">geom_tile</span>(<span class="at">color=</span><span class="st">'grey60'</span>) <span class="sc">+</span> <span class="fu">geom_text</span>(<span class="at">size=</span><span class="dv">2</span>) <span class="sc">+</span> <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb41-50"><a href="#cb41-50" aria-hidden="true" tabindex="-1"></a>     <span class="fu">labs</span>(<span class="at">y=</span><span class="st">''</span>,<span class="at">x=</span><span class="st">''</span>) <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle=</span><span class="dv">90</span>,<span class="at">vjust =</span> .<span class="dv">5</span>, <span class="at">hjust=</span><span class="dv">1</span>)) <span class="sc">+</span> </span>
+<span id="cb41-51"><a href="#cb41-51" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_fill_gradient</span>(<span class="at">low=</span><span class="st">'white'</span>, <span class="at">high=</span><span class="st">'red'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Figure3_DTU_enrichments_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
 </div>
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>    Fig3H<span class="fl">.2</span><span class="ot">=</span><span class="fu">ggplot</span>(df_fisher <span class="sc">%&gt;%</span> <span class="fu">filter</span>(set<span class="sc">==</span><span class="st">"DTU"</span>),<span class="fu">aes</span>(<span class="at">x=</span>target, <span class="at">label=</span>cell.type)) <span class="sc">+</span> <span class="fu">geom_tile</span>(<span class="fu">aes</span>(<span class="at">y=</span><span class="fu">factor</span>(<span class="dv">1</span>),<span class="at">fill=</span>data.type)) <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">y=</span><span class="fu">factor</span>(<span class="dv">1</span>), <span class="at">shape=</span>cell.type),<span class="at">position=</span><span class="fu">position_dodge2</span>()) <span class="sc">+</span> <span class="fu">scale_shape_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>)) <span class="sc">+</span> <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x=</span><span class="st">""</span>, <span class="at">y=</span><span class="st">""</span>)</span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pdf</span>(<span class="at">file=</span><span class="st">"output/figures/Fig3/Fig3H.pdf"</span>,<span class="at">width =</span> <span class="dv">8</span>,<span class="at">height=</span><span class="dv">5</span>)</span>
-<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>    gridExtra<span class="sc">::</span><span class="fu">grid.arrange</span>(<span class="at">grobs=</span><span class="fu">list</span>(Fig3H<span class="fl">.1</span>,Fig3H<span class="fl">.2</span>),<span class="at">layout_matrix=</span><span class="fu">cbind</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>    Fig3H<span class="fl">.2</span><span class="ot">=</span><span class="fu">ggplot</span>(df_fisher <span class="sc">%&gt;%</span> <span class="fu">filter</span>(set<span class="sc">==</span><span class="st">"DTU"</span>),<span class="fu">aes</span>(<span class="at">x=</span>target, <span class="at">label=</span>cell.type)) <span class="sc">+</span> <span class="fu">geom_tile</span>(<span class="fu">aes</span>(<span class="at">y=</span><span class="fu">factor</span>(<span class="dv">1</span>),<span class="at">fill=</span>data.type)) <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">y=</span><span class="fu">factor</span>(<span class="dv">1</span>), <span class="at">shape=</span>cell.type),<span class="at">position=</span><span class="fu">position_dodge2</span>()) <span class="sc">+</span> <span class="fu">scale_shape_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>)) <span class="sc">+</span> <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x=</span><span class="st">""</span>, <span class="at">y=</span><span class="st">""</span>)</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pdf</span>(<span class="at">file=</span><span class="st">"output/figures/Fig3/Fig3H.pdf"</span>,<span class="at">width =</span> <span class="dv">8</span>,<span class="at">height=</span><span class="dv">5</span>)</span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>    gridExtra<span class="sc">::</span><span class="fu">grid.arrange</span>(<span class="at">grobs=</span><span class="fu">list</span>(Fig3H<span class="fl">.1</span>,Fig3H<span class="fl">.2</span>),<span class="at">layout_matrix=</span><span class="fu">cbind</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: Width not defined. Set with `position_dodge2(width = ...)`</code></pre>
+<pre><code>Warning: Width not defined. Set with `position_dodge2(width = ?)`</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dev.off</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dev.off</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>quartz_off_screen 
                 2 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>  Fig3H_supplement<span class="ot">=</span><span class="fu">ggplot</span>(df_fisher,<span class="fu">aes</span>(<span class="at">x=</span><span class="fu">reorder</span>(target, <span class="sc">-</span>Fisher.p), <span class="at">y=</span> <span class="sc">-</span><span class="fu">log10</span>(Fisher.p), <span class="at">fill=</span>OR)) <span class="sc">+</span></span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">'identity'</span>,<span class="at">position =</span> <span class="fu">position_dodge2</span>()) <span class="sc">+</span> <span class="fu">coord_flip</span>() <span class="sc">+</span> <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="fu">facet_grid</span>(<span class="sc">~</span>set) <span class="sc">+</span></span>
-<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">1</span>,<span class="at">lty=</span><span class="dv">2</span>,<span class="at">color=</span><span class="st">'red'</span>) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">y=</span><span class="st">'Enrichment (-log10 q-value)'</span>,<span class="at">x=</span><span class="st">''</span>)</span>
-<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>Fig3H_supplement</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>  Fig3H_supplement<span class="ot">=</span><span class="fu">ggplot</span>(df_fisher,<span class="fu">aes</span>(<span class="at">x=</span><span class="fu">reorder</span>(target, <span class="sc">-</span>Fisher.p), <span class="at">y=</span> <span class="sc">-</span><span class="fu">log10</span>(Fisher.p), <span class="at">fill=</span>OR)) <span class="sc">+</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">'identity'</span>,<span class="at">position =</span> <span class="fu">position_dodge2</span>()) <span class="sc">+</span> <span class="fu">coord_flip</span>() <span class="sc">+</span> <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="fu">facet_grid</span>(<span class="sc">~</span>set) <span class="sc">+</span></span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">1</span>,<span class="at">lty=</span><span class="dv">2</span>,<span class="at">color=</span><span class="st">'red'</span>) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">y=</span><span class="st">'Enrichment (-log10 q-value)'</span>,<span class="at">x=</span><span class="st">''</span>)</span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>Fig3H_supplement</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Figure3_DTU_enrichments_files/figure-html/unnamed-chunk-10-2.png" class="img-fluid" width="672"></p>
 </div>
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(Fig3H_supplement, <span class="at">file=</span><span class="st">"output/figures/supplement/Fig3H_supp.pdf"</span>,<span class="at">width =</span> <span class="dv">8</span>,<span class="at">height=</span><span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(Fig3H_supplement, <span class="at">file=</span><span class="st">"output/figures/supplement/Fig3H_supp.pdf"</span>,<span class="at">width =</span> <span class="dv">8</span>,<span class="at">height=</span><span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="rbp-motif" class="level3">
 <h3 class="anchored" data-anchor-id="rbp-motif">RBP motif:</h3>
 <div class="cell" data-hash="Figure3_DTU_enrichments_cache/html/unnamed-chunk-11_d9575ca946ad267f832f0506a456ad32">
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co"># library(transite)</span></span>
-<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a><span class="co"># library(biomaRt)</span></span>
-<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a><span class="co"># mart = useMart('ENSEMBL_MART_ENSEMBL', 'hsapiens_gene_ensembl',host = 'https://grch37.ensembl.org')</span></span>
-<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a><span class="co"># a=listAttributes(mart)</span></span>
-<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a><span class="co"># ensembl = getBM(attributes=c("ensembl_gene_id", "hgnc_symbol",'refseq_mrna'),mart=mart)</span></span>
-<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb49-9"><a href="#cb49-9" aria-hidden="true" tabindex="-1"></a><span class="co"># out = run_kmer_tsma(foreground_sets = tableS3.gene$gene_name[tableS3.gene$DTU], background_set = tableS3.gene$gene_name)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># library(transite)</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a><span class="co"># library(biomaRt)</span></span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a><span class="co"># mart = useMart('ENSEMBL_MART_ENSEMBL', 'hsapiens_gene_ensembl',host = 'https://grch37.ensembl.org')</span></span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a><span class="co"># a=listAttributes(mart)</span></span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a><span class="co"># ensembl = getBM(attributes=c("ensembl_gene_id", "hgnc_symbol",'refseq_mrna'),mart=mart)</span></span>
+<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb48-9"><a href="#cb48-9" aria-hidden="true" tabindex="-1"></a><span class="co"># out = run_kmer_tsma(foreground_sets = tableS3.gene$gene_name[tableS3.gene$DTU], background_set = tableS3.gene$gene_name)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 
@@ -902,7 +978,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     button.classList.add('code-copy-button-checked');
     var currentTitle = button.getAttribute("title");
     button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
     setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
       button.setAttribute("title", currentTitle);
       button.classList.remove('code-copy-button-checked');
     }, 1000);
@@ -930,31 +1023,50 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   for (var i=0; i<noterefs.length; i++) {
     const ref = noterefs[i];
     tippyHover(ref, function() {
-      let href = ref.getAttribute('href');
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
     });
   }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
   var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
   for (var i=0; i<bibliorefs.length; i++) {
     const ref = bibliorefs[i];
-    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
-    tippyHover(ref, function() {
-      var popup = window.document.createElement('div');
-      cites.forEach(function(cite) {
-        var citeDiv = window.document.createElement('div');
-        citeDiv.classList.add('hanging-indent');
-        citeDiv.classList.add('csl-entry');
-        var biblioDiv = window.document.getElementById('ref-' + cite);
-        if (biblioDiv) {
-          citeDiv.innerHTML = biblioDiv.innerHTML;
-        }
-        popup.appendChild(citeDiv);
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
       });
-      return popup.innerHTML;
-    });
+    }
   }
 });
 </script>

@@ -2,21 +2,26 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.0.38">
+<meta name="generator" content="quarto-1.2.269">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Natalie Gong">
 <meta name="dcterms.date" content="2023-02-03">
 
-<title>Dev Brain scIso-Seq CP/VZ - Figure 3 - APA</title>
+<title>Dev Brain Iso-Seq - Figure 3 - APA</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-span.underline{text-decoration: underline;}
-div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -55,7 +60,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -68,7 +73,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -118,14 +123,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     "search-submit-button-title": "Submit"
   }
 }</script>
-<script src="../site_libs/htmlwidgets-1.6.1/htmlwidgets.js"></script>
-<script src="../site_libs/plotly-binding-4.10.1/plotly.js"></script>
+<script src="../site_libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<script src="../site_libs/plotly-binding-4.10.0/plotly.js"></script>
 <script src="../site_libs/typedarray-0.1/typedarray.min.js"></script>
 <script src="../site_libs/jquery-3.5.1/jquery.min.js"></script>
 <link href="../site_libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
 <script src="../site_libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
-<link href="../site_libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet">
-<script src="../site_libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
+<link href="../site_libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet">
+<script src="../site_libs/plotly-main-2.5.1/plotly-latest.min.js"></script>
 
 
 <link rel="stylesheet" href="../styles.css">
@@ -151,16 +156,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="../">Dev Brain scIso-Seq CP/VZ</a> 
+      <a href="../">Dev Brain Iso-Seq</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/gandallab/Dev_Brain_IsoSeq" title="" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
+</div>
     </div>
       </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../analysis/index.html" class="sidebar-item-text sidebar-link">Index</a>
-  </div>
-</li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../analysis/Figure1_BulkTxomeAnalysis.html" class="sidebar-item-text sidebar-link">Figure 1 - BulkTxomeAnalysis</a>
@@ -168,9 +171,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../analysis/Figure1_TableS1.html" class="sidebar-item-text sidebar-link">Figure 1 - generate Table S1</a>
+  <a href="../analysis/Figure1_TableS1.html" class="sidebar-item-text sidebar-link">Figure 1 - Table S1</a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../code/Fig1_MetaCoverage.html" class="sidebar-item-text sidebar-link">Figure 1 - MetaCoverage</a>
+  </div>
+</li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../analysis/Figure2_isoFraction.html" class="sidebar-item-text sidebar-link">Figure 2 - Isoform Fraction analysis</a>
@@ -193,6 +202,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure2_NF1Locus.html" class="sidebar-item-text sidebar-link">Figure 2 - NF1 Locus</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure2_PeptideSupport.html" class="sidebar-item-text sidebar-link">Figure 2 - Peptide Support</a>
+  </div>
+</li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../analysis/Figure3_IsoformSwitchAnalyzeR.html" class="sidebar-item-text sidebar-link">Figure 3 - IsoformSwitchAnalyzeR</a>
   </div>
 </li>
@@ -203,7 +223,71 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure3_RBPEnrichments.html" class="sidebar-item-text sidebar-link">Figure 3 - RBP Enrichments</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../analysis/Figure3_APA.html" class="sidebar-item-text sidebar-link active">Figure 3 - APA</a>
+  </div>
+</li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure4_combinedNetworks.html" class="sidebar-item-text sidebar-link">Figure 4 - Combined Networks</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure4_Networks_Enrichments.html" class="sidebar-item-text sidebar-link">Figure 4 - Networks Enrichments</a>
+  </div>
+</li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure5_SeuratClustering.html" class="sidebar-item-text sidebar-link">Figure 5 - Seurat Clustering</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure5_MarkerGenesFigs.html" class="sidebar-item-text sidebar-link">Figure 5 - Marker Genes</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure5_TableS5D.html" class="sidebar-item-text sidebar-link">Figure 5 - Table S5D</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure5_PseudotimeAnalysis.html" class="sidebar-item-text sidebar-link">Figure 5 - Pseudotime Analysis</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure5_Sankey.html" class="sidebar-item-text sidebar-link">Figure 5 - Sankey</a>
+  </div>
+</li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure6_rareVariant.html" class="sidebar-item-text sidebar-link">Figure 6 - Rare Variant</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure6_VEPConsequences.html" class="sidebar-item-text sidebar-link">Figure 6 - VEP Consequences</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure6_TrackPlots.html" class="sidebar-item-text sidebar-link">Figure 6 - Track Plots</a>
+  </div>
+</li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/FigureS9_cor_plots.html" class="sidebar-item-text sidebar-link">Figure S9 - Correlation plots</a>
   </div>
 </li>
     </ul>
@@ -238,6 +322,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <p class="date">February 3, 2023</p>
     </div>
   </div>
+  
     
   </div>
   
@@ -248,16 +333,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell" data-hash="Figure3_APA_cache/html/unnamed-chunk-1_0444dc2866d2a58a0ecfc9994848dc55">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-✔ dplyr     1.1.0     ✔ readr     2.1.4
-✔ forcats   1.0.0     ✔ stringr   1.5.0
-✔ ggplot2   3.4.1     ✔ tibble    3.1.8
-✔ lubridate 1.9.2     ✔ tidyr     1.3.0
-✔ purrr     1.0.1     
+<pre><code>── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──
+✔ ggplot2 3.3.6      ✔ purrr   0.3.4 
+✔ tibble  3.1.8      ✔ dplyr   1.0.10
+✔ tidyr   1.2.0      ✔ stringr 1.5.0 
+✔ readr   2.1.2      ✔ forcats 0.5.2 
 ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
-✖ dplyr::lag()    masks stats::lag()
-ℹ Use the ]8;;http://conflicted.r-lib.org/conflicted package]8;; to force all conflicts to become errors</code></pre>
+✖ dplyr::lag()    masks stats::lag()</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
@@ -284,12 +367,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 data:  PDUIS.averaged.stats$CP.PDUI and PDUIS.averaged.stats$VZ.PDUI
 t = 23.028, df = 9895, p-value &lt; 2.2e-16
-alternative hypothesis: true mean difference is not equal to 0
+alternative hypothesis: true difference in means is not equal to 0
 95 percent confidence interval:
  0.01068873 0.01267778
 sample estimates:
-mean difference 
-     0.01168326 </code></pre>
+mean of the differences 
+             0.01168326 </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Density plot of PDUI distribution in CP vs VZ</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> PDUIS.averaged.stats) <span class="sc">+</span></span>
@@ -391,8 +474,8 @@ Please make sure that the organism is correct or set significant = FALSE</code><
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="co">#Working with all significant genes:</span></span>
 <span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="fu">gostplot</span>(gostres_all, <span class="at">capped =</span> <span class="cn">FALSE</span>, <span class="at">interactive =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div class="plotly html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-42fcab0757cadd0d48cb" style="width:100%;height:464px;"></div>
-<script type="application/json" data-for="htmlwidget-42fcab0757cadd0d48cb">{"x":{"data":[{"x":[51.3629190306162,57.5661820019915,57.5818864652102,51.6416732527477,55.4382272358615,54.9906500341294,51.0802386926801,51.1391304297502,52.8587691521947,54.9670933393014,57.5858125810149,59.6116883362235,50.9231940604934,51.7241216846457,63.7066271204922,57.5701081177962,57.5583297703822,51.5474464734356,61.2645830899887,56.6160619772619,52.9961832053581,52.9490698157021,57.5622558861869,51.1077215033128,56.9301512416353,63.31794165583,51.6063382105056],"y":[5.63110206798432,5.44941864055381,5.44941864055381,4.36203737908991,3.61794389661714,3.61794389661714,3.17521216683235,3.17521216683235,3.17521216683235,3.05827127820471,3.05827127820471,3.05827127820471,2.86978023940708,2.69825933107748,2.43402569524111,2.03480553240157,2.01777468702177,1.80689105036062,1.67471196915148,1.67471196915148,1.67471196915148,1.67471196915148,1.62242349803667,1.55769829494629,1.54012204631387,1.49959391746873,1.49959391746873],"text":["GO:0005737 (5445) <br> cytoplasm <br> 2.338e-06","GO:0043228 (2462) <br> non-membrane-bounded organelle <br> 3.553e-06","GO:0043232 (2462) <br> intracellular non-membrane-bounded organelle <br> 3.553e-06","GO:0005829 (2832) <br> cytosol <br> 4.345e-05","GO:0032991 (2775) <br> protein-containing complex <br> 2.410e-04","GO:0031981 (2522) <br> nuclear lumen <br> 2.410e-04","GO:0005622 (6749) <br> intracellular anatomical structure <br> 6.680e-04","GO:0005654 (2329) <br> nucleoplasm <br> 6.680e-04","GO:0010494 (59) <br> cytoplasmic stress granule <br> 6.680e-04","GO:0031974 (2998) <br> membrane-enclosed lumen <br> 8.744e-04","GO:0043233 (2998) <br> organelle lumen <br> 8.744e-04","GO:0070013 (2998) <br> intracellular organelle lumen <br> 8.744e-04","GO:0005575 (7318) <br> cellular_component <br> 1.350e-03","GO:0005856 (1117) <br> cytoskeleton <br> 2.003e-03","GO:0110165 (7279) <br> cellular anatomical entity <br> 3.681e-03","GO:0043229 (6188) <br> intracellular organelle <br> 9.230e-03","GO:0043226 (6375) <br> organelle <br> 9.599e-03","GO:0005791 (37) <br> rough endoplasmic reticulum <br> 1.560e-02","GO:0072686 (110) <br> mitotic spindle <br> 2.115e-02","GO:0035770 (163) <br> ribonucleoprotein granule <br> 2.115e-02","GO:0016020 (3705) <br> membrane <br> 2.115e-02","GO:0015630 (745) <br> microtubule cytoskeleton <br> 2.115e-02","GO:0043227 (6106) <br> membrane-bounded organelle <br> 2.385e-02","GO:0005635 (297) <br> nuclear envelope <br> 2.769e-02","GO:0036464 (147) <br> cytoplasmic ribonucleoprotein granule <br> 2.883e-02","GO:0099080 (613) <br> supramolecular complex <br> 3.165e-02","GO:0005819 (263) <br> spindle <br> 3.165e-02"],"key":["GO:0005737","GO:0043228","GO:0043232","GO:0005829","GO:0032991","GO:0031981","GO:0005622","GO:0005654","GO:0010494","GO:0031974","GO:0043233","GO:0070013","GO:0005575","GO:0005856","GO:0110165","GO:0043229","GO:0043226","GO:0005791","GO:0072686","GO:0035770","GO:0016020","GO:0015630","GO:0043227","GO:0005635","GO:0036464","GO:0099080","GO:0005819"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(16,150,24,1)","opacity":0.8,"size":[22.1390886051465,20.6162165209491,20.6162165209491,20.8946897244236,20.8545311297684,20.664434225708,22.5297737539738,20.504475048076,9.39293653067572,21.0066973549485,21.0066973549485,21.0066973549485,22.67496920757,18.9487085544417,22.665418287416,22.372843587874,22.4268299286443,3.77952755905512,12.3572362359859,13.7862359702187,21.416812769067,18.0186852315677,22.3486029590289,15.6391399607571,13.4313292490971,17.5484835811177,15.2878009205223],"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(16,150,24,1)"}},"hoveron":"points","set":"SharedData053aa3e7","name":"GO:CC","legendgroup":"GO:CC","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","_isNestedKey":false,"frame":null},{"x":[3.26008328197026,3.35429511613626,3.37392258158751,7.8293572390213,7.8764631561043],"y":[3.57982667809613,3.57982667809613,3.57982667809613,3.57982667809613,3.57982667809613],"text":["GO:0003674 (7327) <br> molecular_function <br> 2.631e-04","GO:0003723 (1041) <br> RNA binding <br> 2.631e-04","GO:0003729 (214) <br> mRNA binding <br> 2.631e-04","GO:0005488 (6995) <br> binding <br> 2.631e-04","GO:0005515 (6385) <br> protein binding <br> 2.631e-04"],"key":["GO:0003674","GO:0003723","GO:0003729","GO:0005488","GO:0005515"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(220,57,18,1)","opacity":0.8,"size":[22.6771653543307,18.7910443972854,14.6660952478438,22.5941324334498,22.429667787632],"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(220,57,18,1)"}},"hoveron":"points","set":"SharedData053aa3e7","name":"GO:MF","legendgroup":"GO:MF","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","_isNestedKey":false,"frame":null},{"x":[184.438253927896,184.634860375806,184.650588891639,184.658453149555],"y":[1.82929681370501,1.82929681370501,1.82929681370501,1.68941960318213],"text":["KEGG:03013 (85) <br> Nucleocytoplasmic transport <br> 1.482e-02","KEGG:04110 (78) <br> Cell cycle <br> 1.482e-02","KEGG:04114 (65) <br> Oocyte meiosis <br> 1.482e-02","KEGG:04120 (106) <br> Ubiquitin mediated proteolysis <br> 2.044e-02"],"key":["KEGG:03013","KEGG:04110","KEGG:04114","KEGG:04120"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(221,68,119,1)","opacity":0.8,"size":[11.2739347219342,10.8761838524988,9.94803906900612,12.2101696058184],"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(221,68,119,1)"}},"hoveron":"points","set":"SharedData053aa3e7","name":"KEGG","legendgroup":"KEGG","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","_isNestedKey":false,"frame":null},{"x":[190.968706711984,194.769702558522,190.96085341478,190.964780063382,197.777515387497,195.264460282348,195.272313579552,197.76180879309,194.11002559342,195.244827039339,195.256606985144,200.003925144715,197.922801385763,194.333844563722],"y":[1.84300152722848,1.84300152722848,1.84300152722848,1.84300152722848,1.84300152722848,1.69143527174297,1.69143527174297,1.69143527174297,1.69143527174297,1.69143527174297,1.69143527174297,1.69143527174297,1.69143527174297,1.59455558536007],"text":["REAC:R-HSA-69278 (307) <br> Cell Cycle, Mitotic <br> 1.435e-02","REAC:R-HSA-68886 (232) <br> M Phase <br> 1.435e-02","REAC:R-HSA-1640170 (383) <br> Cell Cycle <br> 1.435e-02","REAC:R-HSA-69620 (158) <br> Cell Cycle Checkpoints <br> 1.435e-02","REAC:R-HSA-2990846 (107) <br> SUMOylation <br> 1.435e-02","REAC:R-HSA-68877 (121) <br> Mitotic Prometaphase <br> 2.035e-02","REAC:R-HSA-69618 (62) <br> Mitotic Spindle Checkpoint <br> 2.035e-02","REAC:R-HSA-3108232 (103) <br> SUMO E3 ligases SUMOylate target proteins <br> 2.035e-02","REAC:R-HSA-168256 (814) <br> Immune System <br> 2.035e-02","REAC:R-HSA-68882 (141) <br> Mitotic Anaphase <br> 2.035e-02","REAC:R-HSA-2555396 (142) <br> Mitotic Metaphase and Anaphase <br> 2.035e-02","REAC:0000000 (4581) <br> REACTOME root term <br> 2.035e-02","REAC:R-HSA-2467813 (107) <br> Separation of Sister Chromatids <br> 2.035e-02","REAC:R-HSA-913531 (81) <br> Interferon Signaling <br> 2.544e-02"],"key":["REAC:R-HSA-69278","REAC:R-HSA-68886","REAC:R-HSA-1640170","REAC:R-HSA-69620","REAC:R-HSA-2990846","REAC:R-HSA-68877","REAC:R-HSA-69618","REAC:R-HSA-3108232","REAC:R-HSA-168256","REAC:R-HSA-68882","REAC:R-HSA-2555396","REAC:0000000","REAC:R-HSA-2467813","REAC:R-HSA-913531"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(51,102,204,1)","opacity":0.8,"size":[15.7330488381925,14.9137581754292,16.3422991054837,13.6805545379246,12.2476917814284,12.7245423333248,9.68372887499156,12.0943913563726,18.2271942144507,13.2844294238566,13.3095012392761,21.8185349509786,12.2476917814284,11.0535290686014],"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(51,102,204,1)"}},"hoveron":"points","set":"SharedData053aa3e7","name":"REAC","legendgroup":"REAC","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","_isNestedKey":false,"frame":null},{"x":[2,46.2285306478471],"y":[-1,-1],"text":"","type":"scatter","mode":"lines","line":{"width":11.3385826771654,"color":"rgba(220,57,18,1)","dash":"solid"},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[50.1536753627785,66.0230354452462],"y":[-1,-1],"text":"","type":"scatter","mode":"lines","line":{"width":11.3385826771654,"color":"rgba(16,150,24,1)","dash":"solid"},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[69.9481801601776,179.69522638966],"y":[-1,-1],"text":"","type":"scatter","mode":"lines","line":{"width":11.3385826771654,"color":"rgba(255,153,0,1)","dash":"solid"},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[183.620371104591,185.830227579098],"y":[-1,-1],"text":"","type":"scatter","mode":"lines","line":{"width":11.3385826771654,"color":"rgba(221,68,119,1)","dash":"solid"},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[189.755372294029,200.003925144715],"y":[-1,-1],"text":"","type":"scatter","mode":"lines","line":{"width":11.3385826771654,"color":"rgba(51,102,204,1)","dash":"solid"},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":29.2835201328352,"r":6.6417600664176,"b":55.8781661388202,"l":66.8825238688253},"plot_bgcolor":"rgba(255,255,255,1)","paper_bgcolor":"rgba(255,255,255,1)","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[0,210],"tickmode":"array","ticktext":["GO:MF","GO:CC","GO:BP","KEGG","REAC"],"tickvals":[24.1142653239236,58.0883554040124,124.821703274919,184.725299341844,194.879648719372],"categoryorder":"array","categoryarray":["GO:MF","GO:CC","GO:BP","KEGG","REAC"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.65296803652968,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":10.6268161062682},"tickangle":-45,"showline":true,"linecolor":"rgba(190,190,190,1)","linewidth":0.132835201328352,"showgrid":false,"gridcolor":null,"gridwidth":0,"zeroline":false,"anchor":"y","title":"","hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-1,11],"tickmode":"array","ticktext":["0.0","2.5","5.0","7.5","10.0"],"tickvals":[0,2.5,5,7.5,10],"categoryorder":"array","categoryarray":["0.0","2.5","5.0","7.5","10.0"],"nticks":null,"ticks":"outside","tickcolor":"rgba(190,190,190,1)","ticklen":3.65296803652968,"tickwidth":0.66417600664176,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.689497716895},"tickangle":-0,"showline":true,"linecolor":"rgba(190,190,190,1)","linewidth":0.66417600664176,"showgrid":false,"gridcolor":null,"gridwidth":0,"zeroline":false,"anchor":"x","title":"","hoverformat":".2f"},"annotations":[{"text":"-log10(p-adj)","x":0,"y":0.5,"showarrow":false,"ax":0,"ay":0,"font":{"color":"rgba(0,0,0,1)","family":"","size":13.2835201328352},"xref":"paper","yref":"paper","textangle":-90,"xanchor":"right","yanchor":"center","annotationType":"axis","xshift":-43.2378580323786},{"text":"query_1","x":0.5,"y":1,"showarrow":false,"ax":0,"ay":0,"font":{"color":"rgba(169,169,169,1)","family":"","size":13.2835201328352},"xref":"paper","yref":"paper","textangle":-0,"xanchor":"center","yanchor":"bottom"}],"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1},{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":24.9730178497302,"yanchor":1,"ysizemode":"pixel"}],"showlegend":false,"legend":{"bgcolor":"rgba(255,255,255,1)","bordercolor":"transparent","borderwidth":1.88976377952756,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.689497716895}},"hovermode":"closest","barmode":"relative","dragmode":"zoom"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"526fa07f7b4":{"x":{},"y":{},"text":{},"colour":{},"size":{},"alpha":{},"type":"scatter"},"526f11174f91":{"x":{},"xend":{},"y":{},"yend":{}},"526f1168c15b":{"x":{},"xend":{},"y":{},"yend":{}},"526f746e464a":{"x":{},"xend":{},"y":{},"yend":{}},"526f73c8dffd":{"x":{},"xend":{},"y":{},"yend":{}},"526f8e9966e":{"x":{},"xend":{},"y":{},"yend":{}}},"cur_data":"526fa07f7b4","visdat":{"526fa07f7b4":["function (y) ","x"],"526f11174f91":["function (y) ","x"],"526f1168c15b":["function (y) ","x"],"526f746e464a":["function (y) ","x"],"526f73c8dffd":["function (y) ","x"],"526f8e9966e":["function (y) ","x"]},"highlight":{"on":"plotly_click","off":"plotly_doubleclick","persistent":false,"dynamic":false,"color":null,"selectize":false,"defaultValues":null,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0,"ctGroups":["SharedData053aa3e7"]},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-161b40b248ef659fe1ca" style="width:100%;height:464px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-161b40b248ef659fe1ca">{"x":{"data":[{"x":[51.3629190306162,57.5661820019915,57.5818864652102,51.6416732527477,55.4382272358615,54.9906500341294,51.0802386926801,51.1391304297502,52.8587691521947,54.9670933393014,57.5858125810149,59.6116883362235,50.9231940604934,51.7241216846457,63.7066271204922,57.5701081177962,57.5583297703822,51.5474464734356,61.2645830899887,56.6160619772619,52.9961832053581,52.9490698157021,57.5622558861869,51.1077215033128,56.9301512416353,63.31794165583,51.6063382105056],"y":[5.63110206798432,5.44941864055381,5.44941864055381,4.36203737908991,3.61794389661714,3.61794389661714,3.17521216683235,3.17521216683235,3.17521216683235,3.05827127820471,3.05827127820471,3.05827127820471,2.86978023940708,2.69825933107748,2.43402569524111,2.03480553240157,2.01777468702177,1.80689105036062,1.67471196915148,1.67471196915148,1.67471196915148,1.67471196915148,1.62242349803667,1.55769829494629,1.54012204631387,1.49959391746873,1.49959391746873],"text":["GO:0005737 (5445) <br> cytoplasm <br> 2.338e-06","GO:0043228 (2462) <br> non-membrane-bounded organelle <br> 3.553e-06","GO:0043232 (2462) <br> intracellular non-membrane-bounded organelle <br> 3.553e-06","GO:0005829 (2832) <br> cytosol <br> 4.345e-05","GO:0032991 (2775) <br> protein-containing complex <br> 2.410e-04","GO:0031981 (2522) <br> nuclear lumen <br> 2.410e-04","GO:0005622 (6749) <br> intracellular anatomical structure <br> 6.680e-04","GO:0005654 (2329) <br> nucleoplasm <br> 6.680e-04","GO:0010494 (59) <br> cytoplasmic stress granule <br> 6.680e-04","GO:0031974 (2998) <br> membrane-enclosed lumen <br> 8.744e-04","GO:0043233 (2998) <br> organelle lumen <br> 8.744e-04","GO:0070013 (2998) <br> intracellular organelle lumen <br> 8.744e-04","GO:0005575 (7318) <br> cellular_component <br> 1.350e-03","GO:0005856 (1117) <br> cytoskeleton <br> 2.003e-03","GO:0110165 (7279) <br> cellular anatomical entity <br> 3.681e-03","GO:0043229 (6188) <br> intracellular organelle <br> 9.230e-03","GO:0043226 (6375) <br> organelle <br> 9.599e-03","GO:0005791 (37) <br> rough endoplasmic reticulum <br> 1.560e-02","GO:0072686 (110) <br> mitotic spindle <br> 2.115e-02","GO:0035770 (163) <br> ribonucleoprotein granule <br> 2.115e-02","GO:0016020 (3705) <br> membrane <br> 2.115e-02","GO:0015630 (745) <br> microtubule cytoskeleton <br> 2.115e-02","GO:0043227 (6106) <br> membrane-bounded organelle <br> 2.385e-02","GO:0005635 (297) <br> nuclear envelope <br> 2.769e-02","GO:0036464 (147) <br> cytoplasmic ribonucleoprotein granule <br> 2.883e-02","GO:0099080 (613) <br> supramolecular complex <br> 3.165e-02","GO:0005819 (263) <br> spindle <br> 3.165e-02"],"key":["GO:0005737","GO:0043228","GO:0043232","GO:0005829","GO:0032991","GO:0031981","GO:0005622","GO:0005654","GO:0010494","GO:0031974","GO:0043233","GO:0070013","GO:0005575","GO:0005856","GO:0110165","GO:0043229","GO:0043226","GO:0005791","GO:0072686","GO:0035770","GO:0016020","GO:0015630","GO:0043227","GO:0005635","GO:0036464","GO:0099080","GO:0005819"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(16,150,24,1)","opacity":0.8,"size":[22.1390886051465,20.6162165209491,20.6162165209491,20.8946897244236,20.8545311297684,20.664434225708,22.5297737539738,20.504475048076,9.39293653067572,21.0066973549485,21.0066973549485,21.0066973549485,22.67496920757,18.9487085544417,22.665418287416,22.372843587874,22.4268299286443,3.77952755905512,12.3572362359859,13.7862359702187,21.416812769067,18.0186852315677,22.3486029590289,15.6391399607571,13.4313292490971,17.5484835811177,15.2878009205223],"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(16,150,24,1)"}},"hoveron":"points","set":"SharedDataae79b36e","name":"GO:CC","legendgroup":"GO:CC","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","_isNestedKey":false,"frame":null},{"x":[3.26008328197026,3.35429511613626,3.37392258158751,7.8293572390213,7.8764631561043],"y":[3.57982667809613,3.57982667809613,3.57982667809613,3.57982667809613,3.57982667809613],"text":["GO:0003674 (7327) <br> molecular_function <br> 2.631e-04","GO:0003723 (1041) <br> RNA binding <br> 2.631e-04","GO:0003729 (214) <br> mRNA binding <br> 2.631e-04","GO:0005488 (6995) <br> binding <br> 2.631e-04","GO:0005515 (6385) <br> protein binding <br> 2.631e-04"],"key":["GO:0003674","GO:0003723","GO:0003729","GO:0005488","GO:0005515"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(220,57,18,1)","opacity":0.8,"size":[22.6771653543307,18.7910443972854,14.6660952478438,22.5941324334498,22.429667787632],"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(220,57,18,1)"}},"hoveron":"points","set":"SharedDataae79b36e","name":"GO:MF","legendgroup":"GO:MF","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","_isNestedKey":false,"frame":null},{"x":[184.438253927896,184.634860375806,184.650588891639,184.658453149555],"y":[1.82929681370501,1.82929681370501,1.82929681370501,1.68941960318213],"text":["KEGG:03013 (85) <br> Nucleocytoplasmic transport <br> 1.482e-02","KEGG:04110 (78) <br> Cell cycle <br> 1.482e-02","KEGG:04114 (65) <br> Oocyte meiosis <br> 1.482e-02","KEGG:04120 (106) <br> Ubiquitin mediated proteolysis <br> 2.044e-02"],"key":["KEGG:03013","KEGG:04110","KEGG:04114","KEGG:04120"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(221,68,119,1)","opacity":0.8,"size":[11.2739347219342,10.8761838524988,9.94803906900612,12.2101696058184],"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(221,68,119,1)"}},"hoveron":"points","set":"SharedDataae79b36e","name":"KEGG","legendgroup":"KEGG","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","_isNestedKey":false,"frame":null},{"x":[190.968706711984,194.769702558522,190.96085341478,190.964780063382,197.777515387497,195.264460282348,195.272313579552,197.76180879309,194.11002559342,195.244827039339,195.256606985144,200.003925144715,197.922801385763,194.333844563722],"y":[1.84300152722848,1.84300152722848,1.84300152722848,1.84300152722848,1.84300152722848,1.69143527174297,1.69143527174297,1.69143527174297,1.69143527174297,1.69143527174297,1.69143527174297,1.69143527174297,1.69143527174297,1.59455558536007],"text":["REAC:R-HSA-69278 (307) <br> Cell Cycle, Mitotic <br> 1.435e-02","REAC:R-HSA-68886 (232) <br> M Phase <br> 1.435e-02","REAC:R-HSA-1640170 (383) <br> Cell Cycle <br> 1.435e-02","REAC:R-HSA-69620 (158) <br> Cell Cycle Checkpoints <br> 1.435e-02","REAC:R-HSA-2990846 (107) <br> SUMOylation <br> 1.435e-02","REAC:R-HSA-68877 (121) <br> Mitotic Prometaphase <br> 2.035e-02","REAC:R-HSA-69618 (62) <br> Mitotic Spindle Checkpoint <br> 2.035e-02","REAC:R-HSA-3108232 (103) <br> SUMO E3 ligases SUMOylate target proteins <br> 2.035e-02","REAC:R-HSA-168256 (814) <br> Immune System <br> 2.035e-02","REAC:R-HSA-68882 (141) <br> Mitotic Anaphase <br> 2.035e-02","REAC:R-HSA-2555396 (142) <br> Mitotic Metaphase and Anaphase <br> 2.035e-02","REAC:0000000 (4581) <br> REACTOME root term <br> 2.035e-02","REAC:R-HSA-2467813 (107) <br> Separation of Sister Chromatids <br> 2.035e-02","REAC:R-HSA-913531 (81) <br> Interferon Signaling <br> 2.544e-02"],"key":["REAC:R-HSA-69278","REAC:R-HSA-68886","REAC:R-HSA-1640170","REAC:R-HSA-69620","REAC:R-HSA-2990846","REAC:R-HSA-68877","REAC:R-HSA-69618","REAC:R-HSA-3108232","REAC:R-HSA-168256","REAC:R-HSA-68882","REAC:R-HSA-2555396","REAC:0000000","REAC:R-HSA-2467813","REAC:R-HSA-913531"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(51,102,204,1)","opacity":0.8,"size":[15.7330488381925,14.9137581754292,16.3422991054837,13.6805545379246,12.2476917814284,12.7245423333248,9.68372887499156,12.0943913563726,18.2271942144507,13.2844294238566,13.3095012392761,21.8185349509786,12.2476917814284,11.0535290686014],"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(51,102,204,1)"}},"hoveron":"points","set":"SharedDataae79b36e","name":"REAC","legendgroup":"REAC","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","_isNestedKey":false,"frame":null},{"x":[2,46.2285306478471],"y":[-1,-1],"text":"","type":"scatter","mode":"lines","line":{"width":11.3385826771654,"color":"rgba(220,57,18,1)","dash":"solid"},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[50.1536753627785,66.0230354452462],"y":[-1,-1],"text":"","type":"scatter","mode":"lines","line":{"width":11.3385826771654,"color":"rgba(16,150,24,1)","dash":"solid"},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[69.9481801601776,179.69522638966],"y":[-1,-1],"text":"","type":"scatter","mode":"lines","line":{"width":11.3385826771654,"color":"rgba(255,153,0,1)","dash":"solid"},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[183.620371104591,185.830227579098],"y":[-1,-1],"text":"","type":"scatter","mode":"lines","line":{"width":11.3385826771654,"color":"rgba(221,68,119,1)","dash":"solid"},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[189.755372294029,200.003925144715],"y":[-1,-1],"text":"","type":"scatter","mode":"lines","line":{"width":11.3385826771654,"color":"rgba(51,102,204,1)","dash":"solid"},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":29.2835201328352,"r":6.6417600664176,"b":55.8781661388202,"l":66.8825238688253},"plot_bgcolor":"rgba(255,255,255,1)","paper_bgcolor":"rgba(255,255,255,1)","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[0,210],"tickmode":"array","ticktext":["GO:MF","GO:CC","GO:BP","KEGG","REAC"],"tickvals":[24.1142653239236,58.0883554040124,124.821703274919,184.725299341844,194.879648719372],"categoryorder":"array","categoryarray":["GO:MF","GO:CC","GO:BP","KEGG","REAC"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.65296803652968,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":10.6268161062682},"tickangle":-45,"showline":true,"linecolor":"rgba(190,190,190,1)","linewidth":0.132835201328352,"showgrid":false,"gridcolor":null,"gridwidth":0,"zeroline":false,"anchor":"y","title":"","hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-1,11],"tickmode":"array","ticktext":["0.0","2.5","5.0","7.5","10.0"],"tickvals":[0,2.5,5,7.5,10],"categoryorder":"array","categoryarray":["0.0","2.5","5.0","7.5","10.0"],"nticks":null,"ticks":"outside","tickcolor":"rgba(190,190,190,1)","ticklen":3.65296803652968,"tickwidth":0.66417600664176,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.689497716895},"tickangle":-0,"showline":true,"linecolor":"rgba(190,190,190,1)","linewidth":0.66417600664176,"showgrid":false,"gridcolor":null,"gridwidth":0,"zeroline":false,"anchor":"x","title":"","hoverformat":".2f"},"annotations":[{"text":"-log10(p-adj)","x":0,"y":0.5,"showarrow":false,"ax":0,"ay":0,"font":{"color":"rgba(0,0,0,1)","family":"","size":13.2835201328352},"xref":"paper","yref":"paper","textangle":-90,"xanchor":"right","yanchor":"center","annotationType":"axis","xshift":-43.2378580323786},{"text":"query_1","x":0.5,"y":1,"showarrow":false,"ax":0,"ay":0,"font":{"color":"rgba(169,169,169,1)","family":"","size":13.2835201328352},"xref":"paper","yref":"paper","textangle":-0,"xanchor":"center","yanchor":"bottom"}],"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1},{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":24.9730178497302,"yanchor":1,"ysizemode":"pixel"}],"showlegend":false,"legend":{"bgcolor":"rgba(255,255,255,1)","bordercolor":"transparent","borderwidth":1.88976377952756,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.689497716895}},"hovermode":"closest","barmode":"relative","dragmode":"zoom"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"e5622f3f1828":{"x":{},"y":{},"text":{},"colour":{},"size":{},"alpha":{},"type":"scatter"},"e562574b0253":{"x":{},"xend":{},"y":{},"yend":{}},"e5627d85c3ea":{"x":{},"xend":{},"y":{},"yend":{}},"e56259017807":{"x":{},"xend":{},"y":{},"yend":{}},"e5626f6f4137":{"x":{},"xend":{},"y":{},"yend":{}},"e5627122bb08":{"x":{},"xend":{},"y":{},"yend":{}}},"cur_data":"e5622f3f1828","visdat":{"e5622f3f1828":["function (y) ","x"],"e562574b0253":["function (y) ","x"],"e5627d85c3ea":["function (y) ","x"],"e56259017807":["function (y) ","x"],"e5626f6f4137":["function (y) ","x"],"e5627122bb08":["function (y) ","x"]},"highlight":{"on":"plotly_click","off":"plotly_doubleclick","persistent":false,"dynamic":false,"color":null,"selectize":false,"defaultValues":null,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0,"ctGroups":["SharedDataae79b36e"]},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
 </div>
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>gostres_out <span class="ot">&lt;-</span> <span class="fu">subset</span>(gostres_all<span class="sc">$</span>result, <span class="at">select =</span> <span class="fu">c</span>(<span class="st">"significant"</span>, <span class="st">"p_value"</span>, <span class="st">"term_size"</span>, <span class="st">"query_size"</span>, <span class="st">"intersection_size"</span>, <span class="st">"precision"</span>, <span class="st">"recall"</span>, <span class="st">"term_id"</span>, <span class="st">"source"</span>, <span class="st">"term_name"</span>, <span class="st">"effective_domain_size"</span>, <span class="st">"source_order"</span>))</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">write.table</span>(gostres_out, <span class="st">"output/tables/TableS3_APA_GO_results.txt"</span>)</span>
@@ -492,7 +575,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     button.classList.add('code-copy-button-checked');
     var currentTitle = button.getAttribute("title");
     button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
     setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
       button.setAttribute("title", currentTitle);
       button.classList.remove('code-copy-button-checked');
     }, 1000);
@@ -520,31 +620,50 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   for (var i=0; i<noterefs.length; i++) {
     const ref = noterefs[i];
     tippyHover(ref, function() {
-      let href = ref.getAttribute('href');
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
     });
   }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
   var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
   for (var i=0; i<bibliorefs.length; i++) {
     const ref = bibliorefs[i];
-    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
-    tippyHover(ref, function() {
-      var popup = window.document.createElement('div');
-      cites.forEach(function(cite) {
-        var citeDiv = window.document.createElement('div');
-        citeDiv.classList.add('hanging-indent');
-        citeDiv.classList.add('csl-entry');
-        var biblioDiv = window.document.getElementById('ref-' + cite);
-        if (biblioDiv) {
-          citeDiv.innerHTML = biblioDiv.innerHTML;
-        }
-        popup.appendChild(citeDiv);
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
       });
-      return popup.innerHTML;
-    });
+    }
   }
 });
 </script>

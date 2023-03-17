@@ -1,43 +1,103 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://gandallab.github.io/devBrainIsoSeq/analysis/index.html</loc>
-    <lastmod>2023-03-14T23:02:34.882Z</lastmod>
+    <loc>https://gandallab.github.io/Dev_Brain_IsoSeq/analysis/index.html</loc>
+    <lastmod>2023-03-17T23:02:35.665Z</lastmod>
   </url>
   <url>
-    <loc>https://gandallab.github.io/devBrainIsoSeq/analysis/Figure1_BulkTxomeAnalysis.html</loc>
-    <lastmod>2023-03-14T23:02:36.520Z</lastmod>
+    <loc>https://gandallab.github.io/Dev_Brain_IsoSeq/analysis/Figure1_BulkTxomeAnalysis.html</loc>
+    <lastmod>2023-03-17T23:02:37.627Z</lastmod>
   </url>
   <url>
-    <loc>https://gandallab.github.io/devBrainIsoSeq/analysis/Figure1_TableS1.html</loc>
-    <lastmod>2023-03-14T23:02:37.826Z</lastmod>
+    <loc>https://gandallab.github.io/Dev_Brain_IsoSeq/analysis/Figure1_TableS1.html</loc>
+    <lastmod>2023-03-17T23:02:39.297Z</lastmod>
   </url>
   <url>
-    <loc>https://gandallab.github.io/devBrainIsoSeq/analysis/Figure2_isoFraction.html</loc>
-    <lastmod>2023-03-14T23:02:58.817Z</lastmod>
+    <loc>https://gandallab.github.io/Dev_Brain_IsoSeq/code/Fig1_MetaCoverage.html</loc>
+    <lastmod>2023-03-17T23:02:40.093Z</lastmod>
   </url>
   <url>
-    <loc>https://gandallab.github.io/devBrainIsoSeq/analysis/Figure2_novel_exons.html</loc>
-    <lastmod>2023-03-14T23:07:20.307Z</lastmod>
+    <loc>https://gandallab.github.io/Dev_Brain_IsoSeq/analysis/Figure2_isoFraction.html</loc>
+    <lastmod>2023-03-17T23:02:41.767Z</lastmod>
   </url>
   <url>
-    <loc>https://gandallab.github.io/devBrainIsoSeq/analysis/Figure2_PlotGene.html</loc>
-    <lastmod>2023-03-14T23:07:21.510Z</lastmod>
+    <loc>https://gandallab.github.io/Dev_Brain_IsoSeq/analysis/Figure2_novel_exons.html</loc>
+    <lastmod>2023-03-17T23:02:43.240Z</lastmod>
   </url>
   <url>
-    <loc>https://gandallab.github.io/devBrainIsoSeq/analysis/Figure2_plotNovelGenes.html</loc>
-    <lastmod>2023-03-14T23:07:23.089Z</lastmod>
+    <loc>https://gandallab.github.io/Dev_Brain_IsoSeq/analysis/Figure2_PlotGene.html</loc>
+    <lastmod>2023-03-17T23:02:44.695Z</lastmod>
   </url>
   <url>
-    <loc>https://gandallab.github.io/devBrainIsoSeq/analysis/Figure3_IsoformSwitchAnalyzeR.html</loc>
-    <lastmod>2023-03-14T23:08:05.778Z</lastmod>
+    <loc>https://gandallab.github.io/Dev_Brain_IsoSeq/analysis/Figure2_plotNovelGenes.html</loc>
+    <lastmod>2023-03-17T23:02:46.250Z</lastmod>
   </url>
   <url>
-    <loc>https://gandallab.github.io/devBrainIsoSeq/analysis/Figure3_DTU_enrichments.html</loc>
-    <lastmod>2023-03-14T23:09:26.317Z</lastmod>
+    <loc>https://gandallab.github.io/Dev_Brain_IsoSeq/analysis/Figure2_NF1Locus.html</loc>
+    <lastmod>2023-03-17T23:02:47.722Z</lastmod>
   </url>
   <url>
-    <loc>https://gandallab.github.io/devBrainIsoSeq/analysis/Figure3_APA.html</loc>
-    <lastmod>2023-03-14T23:09:27.492Z</lastmod>
+    <loc>https://gandallab.github.io/Dev_Brain_IsoSeq/analysis/Figure2_PeptideSupport.html</loc>
+    <lastmod>2023-03-17T23:02:49.079Z</lastmod>
+  </url>
+  <url>
+    <loc>https://gandallab.github.io/Dev_Brain_IsoSeq/analysis/Figure3_IsoformSwitchAnalyzeR.html</loc>
+    <lastmod>2023-03-17T23:02:51.323Z</lastmod>
+  </url>
+  <url>
+    <loc>https://gandallab.github.io/Dev_Brain_IsoSeq/analysis/Figure3_DTU_enrichments.html</loc>
+    <lastmod>2023-03-17T23:02:53.070Z</lastmod>
+  </url>
+  <url>
+    <loc>https://gandallab.github.io/Dev_Brain_IsoSeq/analysis/Figure3_RBPEnrichments.html</loc>
+    <lastmod>2023-03-17T23:02:54.765Z</lastmod>
+  </url>
+  <url>
+    <loc>https://gandallab.github.io/Dev_Brain_IsoSeq/analysis/Figure3_APA.html</loc>
+    <lastmod>2023-03-17T23:02:56.330Z</lastmod>
+  </url>
+  <url>
+    <loc>https://gandallab.github.io/Dev_Brain_IsoSeq/analysis/Figure4_combinedNetworks.html</loc>
+    <lastmod>2023-03-17T23:02:58.576Z</lastmod>
+  </url>
+  <url>
+    <loc>https://gandallab.github.io/Dev_Brain_IsoSeq/analysis/Figure4_Networks_Enrichments.html</loc>
+    <lastmod>2023-03-17T23:03:01.131Z</lastmod>
+  </url>
+  <url>
+    <loc>https://gandallab.github.io/Dev_Brain_IsoSeq/analysis/Figure5_SeuratClustering.html</loc>
+    <lastmod>2023-03-17T23:03:01.822Z</lastmod>
+  </url>
+  <url>
+    <loc>https://gandallab.github.io/Dev_Brain_IsoSeq/analysis/Figure5_MarkerGenesFigs.html</loc>
+    <lastmod>2023-03-17T23:03:02.486Z</lastmod>
+  </url>
+  <url>
+    <loc>https://gandallab.github.io/Dev_Brain_IsoSeq/analysis/Figure5_TableS5D.html</loc>
+    <lastmod>2023-03-17T23:03:03.120Z</lastmod>
+  </url>
+  <url>
+    <loc>https://gandallab.github.io/Dev_Brain_IsoSeq/analysis/Figure5_PseudotimeAnalysis.html</loc>
+    <lastmod>2023-03-17T23:03:04.491Z</lastmod>
+  </url>
+  <url>
+    <loc>https://gandallab.github.io/Dev_Brain_IsoSeq/analysis/Figure5_Sankey.html</loc>
+    <lastmod>2023-03-17T23:03:05.829Z</lastmod>
+  </url>
+  <url>
+    <loc>https://gandallab.github.io/Dev_Brain_IsoSeq/analysis/Figure6_rareVariant.html</loc>
+    <lastmod>2023-03-17T23:03:07.664Z</lastmod>
+  </url>
+  <url>
+    <loc>https://gandallab.github.io/Dev_Brain_IsoSeq/analysis/Figure6_VEPConsequences.html</loc>
+    <lastmod>2023-03-17T23:03:09.170Z</lastmod>
+  </url>
+  <url>
+    <loc>https://gandallab.github.io/Dev_Brain_IsoSeq/analysis/Figure6_TrackPlots.html</loc>
+    <lastmod>2023-03-17T23:03:10.768Z</lastmod>
+  </url>
+  <url>
+    <loc>https://gandallab.github.io/Dev_Brain_IsoSeq/analysis/FigureS9_cor_plots.html</loc>
+    <lastmod>2023-03-17T23:03:11.638Z</lastmod>
   </url>
 </urlset>

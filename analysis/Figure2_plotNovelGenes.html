@@ -2,20 +2,25 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.0.38">
+<meta name="generator" content="quarto-1.2.269">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Michael Gandal">
 
-<title>Dev Brain scIso-Seq CP/VZ - Figure 2 - Plot Novel Genes</title>
+<title>Dev Brain Iso-Seq - Figure 2 - Plot Novel Genes</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-span.underline{text-decoration: underline;}
-div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -54,7 +59,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -67,7 +72,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -142,16 +147,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="../">Dev Brain scIso-Seq CP/VZ</a> 
+      <a href="../">Dev Brain Iso-Seq</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/gandallab/Dev_Brain_IsoSeq" title="" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
+</div>
     </div>
       </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../analysis/index.html" class="sidebar-item-text sidebar-link">Index</a>
-  </div>
-</li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../analysis/Figure1_BulkTxomeAnalysis.html" class="sidebar-item-text sidebar-link">Figure 1 - BulkTxomeAnalysis</a>
@@ -159,9 +162,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../analysis/Figure1_TableS1.html" class="sidebar-item-text sidebar-link">Figure 1 - generate Table S1</a>
+  <a href="../analysis/Figure1_TableS1.html" class="sidebar-item-text sidebar-link">Figure 1 - Table S1</a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../code/Fig1_MetaCoverage.html" class="sidebar-item-text sidebar-link">Figure 1 - MetaCoverage</a>
+  </div>
+</li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../analysis/Figure2_isoFraction.html" class="sidebar-item-text sidebar-link">Figure 2 - Isoform Fraction analysis</a>
@@ -184,6 +193,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure2_NF1Locus.html" class="sidebar-item-text sidebar-link">Figure 2 - NF1 Locus</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure2_PeptideSupport.html" class="sidebar-item-text sidebar-link">Figure 2 - Peptide Support</a>
+  </div>
+</li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../analysis/Figure3_IsoformSwitchAnalyzeR.html" class="sidebar-item-text sidebar-link">Figure 3 - IsoformSwitchAnalyzeR</a>
   </div>
 </li>
@@ -194,7 +214,71 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure3_RBPEnrichments.html" class="sidebar-item-text sidebar-link">Figure 3 - RBP Enrichments</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../analysis/Figure3_APA.html" class="sidebar-item-text sidebar-link">Figure 3 - APA</a>
+  </div>
+</li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure4_combinedNetworks.html" class="sidebar-item-text sidebar-link">Figure 4 - Combined Networks</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure4_Networks_Enrichments.html" class="sidebar-item-text sidebar-link">Figure 4 - Networks Enrichments</a>
+  </div>
+</li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure5_SeuratClustering.html" class="sidebar-item-text sidebar-link">Figure 5 - Seurat Clustering</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure5_MarkerGenesFigs.html" class="sidebar-item-text sidebar-link">Figure 5 - Marker Genes</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure5_TableS5D.html" class="sidebar-item-text sidebar-link">Figure 5 - Table S5D</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure5_PseudotimeAnalysis.html" class="sidebar-item-text sidebar-link">Figure 5 - Pseudotime Analysis</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure5_Sankey.html" class="sidebar-item-text sidebar-link">Figure 5 - Sankey</a>
+  </div>
+</li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure6_rareVariant.html" class="sidebar-item-text sidebar-link">Figure 6 - Rare Variant</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure6_VEPConsequences.html" class="sidebar-item-text sidebar-link">Figure 6 - VEP Consequences</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure6_TrackPlots.html" class="sidebar-item-text sidebar-link">Figure 6 - Track Plots</a>
+  </div>
+</li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/FigureS9_cor_plots.html" class="sidebar-item-text sidebar-link">Figure S9 - Correlation plots</a>
   </div>
 </li>
     </ul>
@@ -202,7 +286,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </nav>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc">
+        <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
    
   <ul>
@@ -235,6 +319,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
   </div>
     
+  
     
   </div>
   
@@ -334,1637 +419,177 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
 <span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a>  <span class="fu">load</span>(<span class="st">'data/working/locusPlot_workingData.RData'</span>)</span>
 <span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Import genomic features from the file as a GRanges object ... OK
-Prepare the 'metadata' data frame ... OK
-Make the TxDb object ... </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in .get_cds_IDX(mcols0$type, mcols0$phase): The "phase" metadata column contains non-NA values for features of type
-  stop_codon. This information was ignored.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in .reject_transcripts(bad_tx, because): The following transcripts were dropped because they have incompatible
-  CDS and stop codons: ENST00000422803.2_2, ENST00000618549.1_2,
-  ENST00000619291.4_2, ENST00000621077.1_2, ENST00000621229.1_2,
-  ENST00000631326.2_2</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>OK
-Import genomic features from the file as a GRanges object ... OK
-Prepare the 'metadata' data frame ... OK
-Make the TxDb object ... </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in .get_cds_IDX(mcols0$type, mcols0$phase): some CDS phases are missing
-or not between 0 and 2</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>OK
-
-── Column specification ────────────────────────────────────────────────────────
-cols(
-  .default = col_double(),
-  annot_gene_id = col_character(),
-  annot_transcript_id = col_character(),
-  annot_gene_name = col_character(),
-  annot_transcript_name = col_character(),
-  gene_novelty = col_character(),
-  transcript_novelty = col_character(),
-  ISM_subtype = col_character()
-)
-ℹ Use `spec()` for the full column specifications.</code></pre>
-</div>
 </div>
 </section>
 <section id="find-novel-intergenic-genes" class="level2">
 <h2 class="anchored" data-anchor-id="find-novel-intergenic-genes">Find Novel Intergenic Genes</h2>
-<div class="cell" data-hash="Figure2_plotNovelGenes_cache/html/unnamed-chunk-3_b8a89fd954e5bf12cadc776a021cf35a">
-<div class="cell-output cell-output-stdout">
-<pre><code>.
- Antisense Intergenic      Known 
-       413        310     213793 </code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[[1]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[2]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[3]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[4]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[5]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[6]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[7]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[8]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[9]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[10]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[11]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[12]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[13]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[14]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[15]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[16]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[17]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[18]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[19]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[20]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[21]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[22]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[23]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[24]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[25]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[26]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[27]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[28]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[29]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[30]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[31]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[32]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[33]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[34]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[35]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[36]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[37]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[38]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[39]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[40]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[41]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[42]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[43]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[44]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[45]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[46]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[47]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[48]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[49]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[50]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[51]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[52]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[53]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[54]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[55]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[56]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[57]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[58]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[59]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[60]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[61]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[62]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>quartz_off_screen 
-                2 </code></pre>
-</div>
+<div class="cell" data-hash="Figure2_plotNovelGenes_cache/html/unnamed-chunk-3_2532025239e023c91adc5848c29dc324">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>gr.isoseq <span class="sc">%&gt;%</span> <span class="fu">filter</span>(type <span class="sc">==</span> <span class="st">"transcript"</span>) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(gene_novelty) <span class="sc">%&gt;%</span> <span class="fu">pull</span>() <span class="sc">%&gt;%</span> <span class="fu">table</span>()</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>intergenic <span class="ot">&lt;-</span>  gr.isoseq <span class="sc">%&gt;%</span> <span class="fu">filter</span>(type <span class="sc">==</span> <span class="st">"transcript"</span>,gene_novelty<span class="sc">==</span><span class="st">"Intergenic"</span>, transcript_novelty <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Genomic"</span>, <span class="st">"Intergenic"</span>), <span class="sc">!</span><span class="fu">grepl</span>(<span class="st">"^GL"</span>, seqnames)) <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(<span class="sc">-</span>counts)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">#table(intergenic$transcript_novelty)</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">#intergenic %&gt;% dplyr::select(seqnames, start, end, annot_gene_id, transcript_id, gene_id, gene_name, counts, gene_novelty, novelty2) %&gt;% arrange(-counts)</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>g <span class="ot">=</span> <span class="fu">list</span>()</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(this_gene <span class="cf">in</span> <span class="fu">unique</span>(intergenic<span class="sc">$</span>annot_gene_name)) {</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>these_exons <span class="ot">&lt;-</span> gr.isoseq <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(annot_gene_name <span class="sc">==</span> this_gene <span class="sc">&amp;</span> type <span class="sc">==</span> <span class="st">"exon"</span>)</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>this_cds <span class="ot">&lt;-</span> gr.isoseq <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(annot_gene_name <span class="sc">==</span> this_gene <span class="sc">&amp;</span> type <span class="sc">==</span> <span class="st">"CDS"</span>)</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>this.start <span class="ot">=</span> <span class="fu">min</span>(<span class="fu">c</span>(these_exons<span class="sc">$</span>start, these_exons<span class="sc">$</span>end)<span class="sc">-</span><span class="fl">5e4</span>)</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>this.end <span class="ot">=</span> <span class="fu">max</span>(<span class="fu">c</span>(these_exons<span class="sc">$</span>start, these_exons<span class="sc">$</span>end)<span class="sc">+</span><span class="fl">5e4</span>)</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>gencode_exons <span class="ot">=</span>gr.gencode <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(type<span class="sc">==</span><span class="st">"exon"</span>, seqnames<span class="sc">==</span><span class="fu">as.character</span>(these_exons<span class="sc">$</span>seqnames[<span class="dv">1</span>]),start <span class="sc">&gt;</span> this.start, end <span class="sc">&lt;</span> this.end)</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>g[[<span class="fu">length</span>(g) <span class="sc">+</span> <span class="dv">1</span>]] <span class="ot">=</span> <span class="fu">ggplot</span>(these_exons, <span class="fu">aes</span>(<span class="at">xstart =</span> start,<span class="at">xend =</span> end, <span class="at">y =</span> annot_transcript_name)) <span class="sc">+</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_range</span>(<span class="fu">aes</span>(<span class="at">fill =</span> counts, <span class="at">group=</span>novelty2), <span class="at">height=</span>.<span class="dv">25</span>) <span class="sc">+</span> </span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_range</span>(<span class="at">data=</span>this_cds, <span class="fu">aes</span>(<span class="at">fill =</span> counts, <span class="at">group=</span>novelty2)) <span class="sc">+</span> </span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_intron</span>(</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> <span class="fu">to_intron</span>(these_exons, <span class="st">"annot_transcript_name"</span>),</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>        <span class="fu">aes</span>(<span class="at">strand =</span> strand),<span class="at">arrow.min.intron.length =</span> <span class="dv">5000</span>,</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>        <span class="at">arrow =</span> grid<span class="sc">::</span><span class="fu">arrow</span>(<span class="at">ends =</span> <span class="st">"last"</span>, <span class="at">length =</span> grid<span class="sc">::</span><span class="fu">unit</span>(<span class="fl">0.1</span>, <span class="st">"inches"</span>)),</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>        <span class="at">color=</span><span class="st">'grey60'</span>,</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlim</span>(this.start, this.end) <span class="sc">+</span> </span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_range</span>(<span class="at">data=</span>gencode_exons, <span class="at">fill=</span><span class="st">'darkgrey'</span>, <span class="fu">aes</span>(<span class="at">xstart =</span> start,<span class="at">xend =</span> end, <span class="at">y=</span>gene_name)) <span class="sc">+</span></span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_intron</span>(</span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> <span class="fu">to_intron</span>(gencode_exons, <span class="st">"transcript_name"</span>),</span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>        <span class="fu">aes</span>(<span class="at">strand =</span> strand,<span class="at">y=</span>gene_name),<span class="at">arrow.min.intron.length =</span> <span class="dv">5000</span>,</span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>        <span class="at">arrow =</span> grid<span class="sc">::</span><span class="fu">arrow</span>(<span class="at">ends =</span> <span class="st">"last"</span>, <span class="at">length =</span> grid<span class="sc">::</span><span class="fu">unit</span>(<span class="fl">0.1</span>, <span class="st">"inches"</span>)),</span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>        <span class="at">color=</span><span class="st">'grey60'</span>,</span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span></span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(source<span class="sc">~</span>.,<span class="at">scales =</span> <span class="st">'free'</span>, <span class="at">space =</span> <span class="st">'free'</span>) <span class="sc">+</span> <span class="fu">ggtitle</span>(this_gene, <span class="at">subtitle =</span> <span class="fu">paste0</span>(these_exons<span class="sc">$</span>seqnames[<span class="dv">1</span>], <span class="st">":"</span>, this.start<span class="fl">+5e4</span>,<span class="st">"-"</span>, this.end<span class="fl">-5e4</span>)) <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">'none'</span>) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x=</span>these_exons<span class="sc">$</span>seqnames[<span class="dv">1</span>], <span class="at">y=</span><span class="st">""</span>)  <span class="sc">+</span><span class="fu">theme_bw</span>()</span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a><span class="fu">pdf</span>(<span class="at">file=</span><span class="st">"output/figures/supplement/Fig2_supplement_novelGenes.pdf"</span>,<span class="at">width=</span><span class="dv">10</span>,<span class="at">height=</span><span class="dv">8</span>)</span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>g</span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="plot-antisense-genes" class="level2">
 <h2 class="anchored" data-anchor-id="plot-antisense-genes">Plot antisense genes</h2>
-<div class="cell" data-hash="Figure2_plotNovelGenes_cache/html/unnamed-chunk-4_3c6aa5ff81d32ca010640f27acfcfe42">
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0
-[1] 1
-[1] 2
-[1] 3
-[1] 4
-[1] 5
-[1] 6
-[1] 7
-[1] 8
-[1] 9
-[1] 10
-[1] 11
-[1] 12
-[1] 13
-[1] 14
-[1] 15
-[1] 16
-[1] 17
-[1] 18
-[1] 19
-[1] 20
-[1] 21
-[1] 22
-[1] 23
-[1] 24
-[1] 25
-[1] 26
-[1] 27
-[1] 28
-[1] 29
-[1] 30
-[1] 31
-[1] 32
-[1] 33
-[1] 34
-[1] 35
-[1] 36
-[1] 37
-[1] 38
-[1] 39
-[1] 40
-[1] 41
-[1] 42
-[1] 43
-[1] 44
-[1] 45
-[1] 46
-[1] 47
-[1] 48
-[1] 49
-[1] 50
-[1] 51
-[1] 52
-[1] 53
-[1] 54
-[1] 55
-[1] 56
-[1] 57
-[1] 58
-[1] 59
-[1] 60
-[1] 61
-[1] 62
-[1] 63
-[1] 64
-[1] 65
-[1] 66
-[1] 67
-[1] 68
-[1] 69
-[1] 70
-[1] 71
-[1] 72
-[1] 73
-[1] 74
-[1] 75
-[1] 76
-[1] 77
-[1] 78
-[1] 79
-[1] 80
-[1] 81
-[1] 82
-[1] 83
-[1] 84
-[1] 85
-[1] 86
-[1] 87
-[1] 88
-[1] 89
-[1] 90
-[1] 91
-[1] 92
-[1] 93
-[1] 94
-[1] 95
-[1] 96
-[1] 97
-[1] 98
-[1] 99
-[1] 100
-[1] 101
-[1] 102
-[1] 103
-[1] 104
-[1] 105
-[1] 106
-[1] 107
-[1] 108
-[1] 109
-[1] 110
-[1] 111
-[1] 112
-[1] 113
-[1] 114
-[1] 115
-[1] 116
-[1] 117
-[1] 118
-[1] 119
-[1] 120
-[1] 121
-[1] 122
-[1] 123
-[1] 124
-[1] 125
-[1] 126
-[1] 127
-[1] 128
-[1] 129
-[1] 130
-[1] 131
-[1] 132
-[1] 133
-[1] 134
-[1] 135
-[1] 136
-[1] 137
-[1] 138
-[1] 139
-[1] 140
-[1] 141
-[1] 142
-[1] 143
-[1] 144
-[1] 145
-[1] 146
-[1] 147
-[1] 148
-[1] 149
-[1] 150
-[1] 151
-[1] 152
-[1] 153
-[1] 154
-[1] 155
-[1] 156
-[1] 157
-[1] 158
-[1] 159
-[1] 160
-[1] 161
-[1] 162
-[1] 163
-[1] 164
-[1] 165
-[1] 166
-[1] 167
-[1] 168
-[1] 169
-[1] 170
-[1] 171
-[1] 172
-[1] 173
-[1] 174
-[1] 175
-[1] 176
-[1] 177
-[1] 178
-[1] 179
-[1] 180
-[1] 181
-[1] 182
-[1] 183
-[1] 184
-[1] 185
-[1] 186
-[1] 187
-[1] 188
-[1] 189
-[1] 190
-[1] 191
-[1] 192
-[1] 193
-[1] 194
-[1] 195
-[1] 196
-[1] 197
-[1] 198
-[1] 199
-[1] 200
-[1] 201
-[1] 202
-[1] 203
-[1] 204
-[1] 205
-[1] 206
-[1] 207
-[1] 208
-[1] 209
-[1] 210
-[1] 211
-[1] 212
-[1] 213
-[1] 214
-[1] 215
-[1] 216
-[1] 217
-[1] 218
-[1] 219
-[1] 220
-[1] 221
-[1] 222
-[1] 223
-[1] 224
-[1] 225
-[1] 226
-[1] 227
-[1] 228
-[1] 229
-[1] 230
-[1] 231
-[1] 232
-[1] 233
-[1] 234
-[1] 235
-[1] 236
-[1] 237
-[1] 238
-[1] 239
-[1] 240
-[1] 241
-[1] 242
-[1] 243
-[1] 244
-[1] 245
-[1] 246
-[1] 247</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[[1]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[2]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[3]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[4]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[5]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[6]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[7]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[8]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[9]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[10]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[11]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[12]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[13]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[14]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[15]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[16]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[17]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[18]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[19]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[20]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[21]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[22]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[23]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[24]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[25]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[26]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[27]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[28]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[29]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[30]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[31]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[32]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[33]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[34]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[35]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[36]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[37]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[38]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[39]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[40]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[41]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[42]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[43]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[44]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[45]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[46]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[47]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[48]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[49]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[50]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[51]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[52]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[53]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[54]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[55]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[56]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[57]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[58]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[59]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[60]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[61]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[62]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[63]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[64]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[65]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[66]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[67]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[68]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[69]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[70]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[71]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[72]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[73]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[74]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[75]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[76]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[77]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[78]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[79]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[80]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[81]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[82]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[83]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[84]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[85]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[86]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[87]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[88]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[89]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[90]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[91]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[92]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[93]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[94]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[95]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[96]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[97]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[98]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[99]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[100]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[101]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[102]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[103]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[104]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[105]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[106]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[107]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[108]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[109]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[110]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[111]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[112]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[113]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[114]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[115]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[116]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[117]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[118]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[119]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[120]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[121]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[122]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[123]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[124]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[125]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[126]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[127]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[128]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[129]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[130]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[131]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[132]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[133]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[134]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[135]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[136]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[137]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[138]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[139]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[140]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[141]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[142]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[143]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[144]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[145]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[146]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[147]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[148]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[149]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[150]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[151]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[152]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[153]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[154]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[155]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[156]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[157]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[158]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[159]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[160]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[161]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[162]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[163]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[164]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[165]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[166]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[167]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[168]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[169]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[170]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[171]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[172]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[173]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[174]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[175]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[176]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[177]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[178]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[179]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[180]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[181]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[182]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[183]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[184]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[185]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[186]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[187]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[188]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[189]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[190]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[191]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[192]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[193]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[194]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[195]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[196]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[197]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[198]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[199]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[200]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[201]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[202]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[203]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[204]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[205]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[206]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[207]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[208]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[209]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[210]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[211]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[212]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[213]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[214]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[215]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[216]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[217]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[218]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[219]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[220]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[221]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[222]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[223]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[224]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[225]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[226]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[227]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[228]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[229]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[230]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[231]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[232]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[233]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[234]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[235]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[236]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[237]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[238]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[239]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[240]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[241]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[242]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[243]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[244]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[245]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[246]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[247]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-[[248]]</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>quartz_off_screen 
-                2 </code></pre>
-</div>
+<div class="cell" data-hash="Figure2_plotNovelGenes_cache/html/unnamed-chunk-4_4a07da6ac10891345f4a79d41b615264">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>antisense <span class="ot">=</span> gr.isoseq <span class="sc">%&gt;%</span> <span class="fu">filter</span>(type <span class="sc">==</span> <span class="st">"transcript"</span>,gene_novelty<span class="sc">==</span><span class="st">"Antisense"</span>, <span class="sc">!</span><span class="fu">grepl</span>(<span class="st">"^GL"</span>, seqnames)) <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(<span class="sc">-</span>counts)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>g.antisense <span class="ot">=</span> <span class="fu">list</span>()</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(this_gene <span class="cf">in</span> <span class="fu">unique</span>(antisense<span class="sc">$</span>annot_gene_name)) {</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">length</span>(g.antisense))</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>these_exons <span class="ot">&lt;-</span> gr.isoseq <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(annot_gene_name <span class="sc">==</span> this_gene <span class="sc">&amp;</span> type <span class="sc">==</span> <span class="st">"exon"</span>)</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>this_cds <span class="ot">&lt;-</span> gr.isoseq <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(annot_gene_name <span class="sc">==</span> this_gene <span class="sc">&amp;</span> type <span class="sc">==</span> <span class="st">"CDS"</span>)</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>this.start <span class="ot">=</span> <span class="fu">min</span>(<span class="fu">c</span>(these_exons<span class="sc">$</span>start, these_exons<span class="sc">$</span>end)<span class="sc">-</span><span class="fl">5e4</span>)</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>this.end <span class="ot">=</span> <span class="fu">max</span>(<span class="fu">c</span>(these_exons<span class="sc">$</span>start, these_exons<span class="sc">$</span>end)<span class="sc">+</span><span class="fl">5e4</span>)</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>gencode_exons <span class="ot">=</span>gr.gencode <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(type<span class="sc">==</span><span class="st">"exon"</span>, seqnames<span class="sc">==</span><span class="fu">as.character</span>(these_exons<span class="sc">$</span>seqnames[<span class="dv">1</span>]),start <span class="sc">&gt;</span> this.start, end <span class="sc">&lt;</span> this.end)</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>g.antisense[[<span class="fu">length</span>(g.antisense) <span class="sc">+</span> <span class="dv">1</span>]] <span class="ot">=</span> <span class="fu">ggplot</span>(these_exons, <span class="fu">aes</span>(<span class="at">xstart =</span> start,<span class="at">xend =</span> end, <span class="at">y =</span> annot_transcript_name)) <span class="sc">+</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_range</span>(<span class="fu">aes</span>(<span class="at">fill =</span> counts, <span class="at">group=</span>novelty2), <span class="at">height=</span>.<span class="dv">25</span>) <span class="sc">+</span> </span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_range</span>(<span class="at">data=</span>this_cds, <span class="fu">aes</span>(<span class="at">fill =</span> counts, <span class="at">group=</span>novelty2)) <span class="sc">+</span> </span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_intron</span>(</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> <span class="fu">to_intron</span>(these_exons, <span class="st">"annot_transcript_name"</span>),</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>        <span class="fu">aes</span>(<span class="at">strand =</span> strand),<span class="at">arrow.min.intron.length =</span> <span class="dv">5000</span>,</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>        <span class="at">arrow =</span> grid<span class="sc">::</span><span class="fu">arrow</span>(<span class="at">ends =</span> <span class="st">"last"</span>, <span class="at">length =</span> grid<span class="sc">::</span><span class="fu">unit</span>(<span class="fl">0.1</span>, <span class="st">"inches"</span>)),</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>        <span class="at">color=</span><span class="st">'grey60'</span>,</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlim</span>(this.start, this.end) <span class="sc">+</span> </span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_range</span>(<span class="at">data=</span>gencode_exons, <span class="at">fill=</span><span class="st">'darkgrey'</span>, <span class="fu">aes</span>(<span class="at">xstart =</span> start,<span class="at">xend =</span> end, <span class="at">y=</span>gene_name)) <span class="sc">+</span></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_intron</span>(</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> <span class="fu">to_intron</span>(gencode_exons, <span class="st">"transcript_name"</span>),</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>        <span class="fu">aes</span>(<span class="at">strand =</span> strand,<span class="at">y=</span>gene_name),<span class="at">arrow.min.intron.length =</span> <span class="dv">5000</span>,</span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>        <span class="at">arrow =</span> grid<span class="sc">::</span><span class="fu">arrow</span>(<span class="at">ends =</span> <span class="st">"last"</span>, <span class="at">length =</span> grid<span class="sc">::</span><span class="fu">unit</span>(<span class="fl">0.1</span>, <span class="st">"inches"</span>)),</span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>        <span class="at">color=</span><span class="st">'grey60'</span>,</span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span></span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(source<span class="sc">~</span>.,<span class="at">scales =</span> <span class="st">'free'</span>, <span class="at">space =</span> <span class="st">'free'</span>) <span class="sc">+</span> <span class="fu">ggtitle</span>(this_gene, <span class="at">subtitle =</span> <span class="fu">paste0</span>(these_exons<span class="sc">$</span>seqnames[<span class="dv">1</span>], <span class="st">":"</span>, this.start<span class="fl">+5e4</span>,<span class="st">"-"</span>, this.end<span class="fl">-5e4</span>)) <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">'none'</span>) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x=</span>these_exons<span class="sc">$</span>seqnames[<span class="dv">1</span>], <span class="at">y=</span><span class="st">""</span>)  <span class="sc">+</span><span class="fu">theme_bw</span>()</span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a><span class="fu">pdf</span>(<span class="at">file=</span><span class="st">"output/figures/supplement/Fig2_supplement_antisenseGenes.pdf"</span>,<span class="at">width=</span><span class="dv">10</span>,<span class="at">height=</span><span class="dv">8</span>)</span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>g.antisense</span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="plot-top-expressed-ism-nic-nnc" class="level1">
 <h1>Plot top expressed ISM, NIC, NNC</h1>
 <div class="cell" data-hash="Figure2_plotNovelGenes_cache/html/unnamed-chunk-5_77b1d7b7e01ad1a530299b987384490c">
-<div class="sourceCode cell-code" id="cb323"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb323-1"><a href="#cb323-1" aria-hidden="true" tabindex="-1"></a>g <span class="ot">=</span> <span class="fu">list</span>()</span>
-<span id="cb323-2"><a href="#cb323-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb323-3"><a href="#cb323-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(this_gene <span class="cf">in</span> <span class="fu">c</span>(<span class="st">"NEFL"</span>, <span class="st">"WASF1"</span>, <span class="st">"CYFIP2"</span>, <span class="st">"MAP1B"</span>, <span class="st">"SMARCA4"</span>)) {</span>
-<span id="cb323-4"><a href="#cb323-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb323-5"><a href="#cb323-5" aria-hidden="true" tabindex="-1"></a>these_exons <span class="ot">&lt;-</span> gr.isoseq <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(annot_gene_name <span class="sc">%in%</span> this_gene <span class="sc">&amp;</span> type <span class="sc">==</span> <span class="st">"exon"</span> <span class="sc">&amp;</span> (counts <span class="sc">&gt;</span> <span class="dv">1000</span> <span class="sc">|</span> novelty2<span class="sc">==</span><span class="st">"Known"</span>))</span>
-<span id="cb323-6"><a href="#cb323-6" aria-hidden="true" tabindex="-1"></a>this_cds <span class="ot">&lt;-</span> gr.isoseq <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(annot_gene_name <span class="sc">%in%</span> this_gene <span class="sc">&amp;</span> type <span class="sc">==</span> <span class="st">"CDS"</span> <span class="sc">&amp;</span> (counts <span class="sc">&gt;</span> <span class="dv">1000</span> <span class="sc">|</span> novelty2<span class="sc">==</span><span class="st">"Known"</span>))</span>
-<span id="cb323-7"><a href="#cb323-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb323-8"><a href="#cb323-8" aria-hidden="true" tabindex="-1"></a>g[[<span class="fu">length</span>(g)<span class="sc">+</span><span class="dv">1</span>]] <span class="ot">=</span> these_exons <span class="sc">%&gt;%</span> </span>
-<span id="cb323-9"><a href="#cb323-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(</span>
-<span id="cb323-10"><a href="#cb323-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">xstart =</span> start,</span>
-<span id="cb323-11"><a href="#cb323-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">xend =</span> end,</span>
-<span id="cb323-12"><a href="#cb323-12" aria-hidden="true" tabindex="-1"></a>        <span class="at">y =</span> <span class="fu">reorder</span>(annot_transcript_name, counts)</span>
-<span id="cb323-13"><a href="#cb323-13" aria-hidden="true" tabindex="-1"></a>    )) <span class="sc">+</span></span>
-<span id="cb323-14"><a href="#cb323-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_range</span>(</span>
-<span id="cb323-15"><a href="#cb323-15" aria-hidden="true" tabindex="-1"></a>        <span class="fu">aes</span>(<span class="at">fill =</span> <span class="fu">log2</span>(<span class="dv">1</span><span class="sc">+</span>cpm), <span class="at">group=</span>novelty2), <span class="at">height=</span>.<span class="dv">25</span>) <span class="sc">+</span> </span>
-<span id="cb323-16"><a href="#cb323-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_range</span>(<span class="at">data=</span>this_cds, <span class="fu">aes</span>(<span class="at">fill =</span> <span class="fu">log2</span>(<span class="dv">1</span><span class="sc">+</span>cpm), <span class="at">group=</span>novelty2)) <span class="sc">+</span> </span>
-<span id="cb323-17"><a href="#cb323-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_intron</span>(</span>
-<span id="cb323-18"><a href="#cb323-18" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> <span class="fu">to_intron</span>(these_exons, <span class="st">"annot_transcript_name"</span>),</span>
-<span id="cb323-19"><a href="#cb323-19" aria-hidden="true" tabindex="-1"></a>        <span class="fu">aes</span>(<span class="at">strand =</span> strand), <span class="at">arrow.min.intron.length =</span> <span class="dv">1000</span>,</span>
-<span id="cb323-20"><a href="#cb323-20" aria-hidden="true" tabindex="-1"></a>        <span class="at">arrow =</span> grid<span class="sc">::</span><span class="fu">arrow</span>(<span class="at">ends =</span> <span class="st">"last"</span>, <span class="at">length =</span> grid<span class="sc">::</span><span class="fu">unit</span>(<span class="fl">0.05</span>, <span class="st">"inches"</span>)),</span>
-<span id="cb323-21"><a href="#cb323-21" aria-hidden="true" tabindex="-1"></a>        <span class="at">color=</span><span class="st">'grey60'</span>,</span>
-<span id="cb323-22"><a href="#cb323-22" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span> <span class="fu">facet_grid</span>(novelty2<span class="sc">~</span>.,<span class="at">scale=</span><span class="st">'free'</span>,<span class="at">space=</span><span class="st">'free'</span>) <span class="sc">+</span> <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">y=</span><span class="st">""</span>) <span class="sc">+</span> </span>
-<span id="cb323-23"><a href="#cb323-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(this_gene) <span class="sc">+</span> <span class="fu">scale_fill_gradient</span>(<span class="at">low =</span> <span class="st">'darkgrey'</span>, <span class="at">high=</span><span class="st">'red'</span>, <span class="at">limits=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">12</span>)) <span class="sc">+</span> </span>
-<span id="cb323-24"><a href="#cb323-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span> <span class="fu">unique</span>(these_exons<span class="sc">$</span>seqnames)) <span class="sc">+</span> </span>
-<span id="cb323-25"><a href="#cb323-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust=</span>.<span class="dv">5</span>), <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">hjust=</span>.<span class="dv">5</span>))</span>
-<span id="cb323-26"><a href="#cb323-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb323-27"><a href="#cb323-27" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="fu">length</span>(g) <span class="sc">&gt;</span> <span class="dv">1</span>) g[[<span class="fu">length</span>(g)]] <span class="ot">=</span> g[[<span class="fu">length</span>(g)]] <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span>
-<span id="cb323-28"><a href="#cb323-28" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb323-29"><a href="#cb323-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb323-30"><a href="#cb323-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb323-31"><a href="#cb323-31" aria-hidden="true" tabindex="-1"></a><span class="fu">pdf</span>(<span class="at">file=</span><span class="st">'output/figures/supplement/FigS3A-E.pdf'</span>, <span class="at">height=</span><span class="dv">5</span>, <span class="at">width=</span><span class="dv">14</span>)</span>
-<span id="cb323-32"><a href="#cb323-32" aria-hidden="true" tabindex="-1"></a>gridExtra<span class="sc">::</span><span class="fu">grid.arrange</span>(<span class="at">grobs=</span>g, <span class="at">layout_matrix =</span> <span class="fu">rbind</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">5</span>),<span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">5</span>)))</span>
-<span id="cb323-33"><a href="#cb323-33" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>g <span class="ot">=</span> <span class="fu">list</span>()</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(this_gene <span class="cf">in</span> <span class="fu">c</span>(<span class="st">"NEFL"</span>, <span class="st">"WASF1"</span>, <span class="st">"CYFIP2"</span>, <span class="st">"MAP1B"</span>, <span class="st">"SMARCA4"</span>)) {</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>these_exons <span class="ot">&lt;-</span> gr.isoseq <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(annot_gene_name <span class="sc">%in%</span> this_gene <span class="sc">&amp;</span> type <span class="sc">==</span> <span class="st">"exon"</span> <span class="sc">&amp;</span> (counts <span class="sc">&gt;</span> <span class="dv">1000</span> <span class="sc">|</span> novelty2<span class="sc">==</span><span class="st">"Known"</span>))</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>this_cds <span class="ot">&lt;-</span> gr.isoseq <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(annot_gene_name <span class="sc">%in%</span> this_gene <span class="sc">&amp;</span> type <span class="sc">==</span> <span class="st">"CDS"</span> <span class="sc">&amp;</span> (counts <span class="sc">&gt;</span> <span class="dv">1000</span> <span class="sc">|</span> novelty2<span class="sc">==</span><span class="st">"Known"</span>))</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>g[[<span class="fu">length</span>(g)<span class="sc">+</span><span class="dv">1</span>]] <span class="ot">=</span> these_exons <span class="sc">%&gt;%</span> </span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">xstart =</span> start,</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">xend =</span> end,</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>        <span class="at">y =</span> <span class="fu">reorder</span>(annot_transcript_name, counts)</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    )) <span class="sc">+</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_range</span>(</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>        <span class="fu">aes</span>(<span class="at">fill =</span> <span class="fu">log2</span>(<span class="dv">1</span><span class="sc">+</span>cpm), <span class="at">group=</span>novelty2), <span class="at">height=</span>.<span class="dv">25</span>) <span class="sc">+</span> </span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_range</span>(<span class="at">data=</span>this_cds, <span class="fu">aes</span>(<span class="at">fill =</span> <span class="fu">log2</span>(<span class="dv">1</span><span class="sc">+</span>cpm), <span class="at">group=</span>novelty2)) <span class="sc">+</span> </span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_intron</span>(</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> <span class="fu">to_intron</span>(these_exons, <span class="st">"annot_transcript_name"</span>),</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>        <span class="fu">aes</span>(<span class="at">strand =</span> strand), <span class="at">arrow.min.intron.length =</span> <span class="dv">1000</span>,</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>        <span class="at">arrow =</span> grid<span class="sc">::</span><span class="fu">arrow</span>(<span class="at">ends =</span> <span class="st">"last"</span>, <span class="at">length =</span> grid<span class="sc">::</span><span class="fu">unit</span>(<span class="fl">0.05</span>, <span class="st">"inches"</span>)),</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>        <span class="at">color=</span><span class="st">'grey60'</span>,</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span> <span class="fu">facet_grid</span>(novelty2<span class="sc">~</span>.,<span class="at">scale=</span><span class="st">'free'</span>,<span class="at">space=</span><span class="st">'free'</span>) <span class="sc">+</span> <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">y=</span><span class="st">""</span>) <span class="sc">+</span> </span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(this_gene) <span class="sc">+</span> <span class="fu">scale_fill_gradient</span>(<span class="at">low =</span> <span class="st">'darkgrey'</span>, <span class="at">high=</span><span class="st">'red'</span>, <span class="at">limits=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">12</span>)) <span class="sc">+</span> </span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span> <span class="fu">unique</span>(these_exons<span class="sc">$</span>seqnames)) <span class="sc">+</span> </span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust=</span>.<span class="dv">5</span>), <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">hjust=</span>.<span class="dv">5</span>))</span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="fu">length</span>(g) <span class="sc">&gt;</span> <span class="dv">1</span>) g[[<span class="fu">length</span>(g)]] <span class="ot">=</span> g[[<span class="fu">length</span>(g)]] <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a><span class="fu">pdf</span>(<span class="at">file=</span><span class="st">'output/figures/supplement/FigS3A-E.pdf'</span>, <span class="at">height=</span><span class="dv">5</span>, <span class="at">width=</span><span class="dv">14</span>)</span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>gridExtra<span class="sc">::</span><span class="fu">grid.arrange</span>(<span class="at">grobs=</span>g, <span class="at">layout_matrix =</span> <span class="fu">rbind</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">5</span>),<span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">5</span>)))</span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>quartz_off_screen 
                 2 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb325"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb325-1"><a href="#cb325-1" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb325-2"><a href="#cb325-2" aria-hidden="true" tabindex="-1"></a><span class="co"># cowplot::plot_grid(plotlist=g[1], labels=c("A"),ncol=1)</span></span>
-<span id="cb325-3"><a href="#cb325-3" aria-hidden="true" tabindex="-1"></a><span class="co"># cowplot::plot_grid(plotlist=g[2:4], labels=c("B", "C", "D"),ncol=1,rel_heights = c(2.5,2.5,1))</span></span>
-<span id="cb325-4"><a href="#cb325-4" aria-hidden="true" tabindex="-1"></a><span class="co"># cowplot::plot_grid(plotlist=g[5], labels=c("E"),ncol=1)</span></span>
-<span id="cb325-5"><a href="#cb325-5" aria-hidden="true" tabindex="-1"></a><span class="co"># dev.off()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co"># cowplot::plot_grid(plotlist=g[1], labels=c("A"),ncol=1)</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># cowplot::plot_grid(plotlist=g[2:4], labels=c("B", "C", "D"),ncol=1,rel_heights = c(2.5,2.5,1))</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># cowplot::plot_grid(plotlist=g[5], labels=c("E"),ncol=1)</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co"># dev.off()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="novel-gene-talong000088362" class="level2">
 <h2 class="anchored" data-anchor-id="novel-gene-talong000088362">Novel gene: TALONG000088362</h2>
 <div class="cell" data-hash="Figure2_plotNovelGenes_cache/html/unnamed-chunk-6_becef43500909a79107d95bfb2830d50">
-<div class="sourceCode cell-code" id="cb326"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb326-1"><a href="#cb326-1" aria-hidden="true" tabindex="-1"></a>this_gene <span class="ot">=</span> <span class="st">"TALONG000088362"</span>   </span>
-<span id="cb326-2"><a href="#cb326-2" aria-hidden="true" tabindex="-1"></a>these_exons <span class="ot">&lt;-</span> gr.isoseq <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(annot_gene_name <span class="sc">==</span> this_gene <span class="sc">&amp;</span> type <span class="sc">==</span> <span class="st">"exon"</span>)</span>
-<span id="cb326-3"><a href="#cb326-3" aria-hidden="true" tabindex="-1"></a>this_cds <span class="ot">&lt;-</span> gr.isoseq <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(annot_gene_name <span class="sc">==</span> this_gene <span class="sc">&amp;</span> type <span class="sc">==</span> <span class="st">"CDS"</span>)</span>
-<span id="cb326-4"><a href="#cb326-4" aria-hidden="true" tabindex="-1"></a>this.start <span class="ot">=</span> <span class="fu">min</span>(<span class="fu">c</span>(these_exons<span class="sc">$</span>start, these_exons<span class="sc">$</span>end)<span class="sc">-</span><span class="fl">5e4</span>)</span>
-<span id="cb326-5"><a href="#cb326-5" aria-hidden="true" tabindex="-1"></a>this.end <span class="ot">=</span> <span class="fu">max</span>(<span class="fu">c</span>(these_exons<span class="sc">$</span>start, these_exons<span class="sc">$</span>end)<span class="sc">+</span><span class="fl">5e4</span>)</span>
-<span id="cb326-6"><a href="#cb326-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb326-7"><a href="#cb326-7" aria-hidden="true" tabindex="-1"></a>gencode_exons <span class="ot">=</span>gr.gencode <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(type<span class="sc">==</span><span class="st">"exon"</span>, seqnames<span class="sc">==</span><span class="fu">as.character</span>(these_exons<span class="sc">$</span>seqnames[<span class="dv">1</span>]),start <span class="sc">&gt;</span> this.start, end <span class="sc">&lt;</span> this.end)</span>
-<span id="cb326-8"><a href="#cb326-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb326-9"><a href="#cb326-9" aria-hidden="true" tabindex="-1"></a>FigS3F <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(these_exons, <span class="fu">aes</span>(<span class="at">xstart =</span> start,<span class="at">xend =</span> end, <span class="at">y =</span> annot_transcript_name)) <span class="sc">+</span></span>
-<span id="cb326-10"><a href="#cb326-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_range</span>(<span class="fu">aes</span>(<span class="at">fill =</span> <span class="fu">log2</span>(<span class="dv">1</span><span class="sc">+</span>cpm), <span class="at">group=</span>novelty2), <span class="at">height=</span>.<span class="dv">25</span>) <span class="sc">+</span> </span>
-<span id="cb326-11"><a href="#cb326-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_range</span>(<span class="at">data=</span>this_cds, <span class="fu">aes</span>(<span class="at">fill =</span> <span class="fu">log2</span>(<span class="dv">1</span><span class="sc">+</span>cpm), <span class="at">group=</span>novelty2)) <span class="sc">+</span> </span>
-<span id="cb326-12"><a href="#cb326-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_intron</span>(</span>
-<span id="cb326-13"><a href="#cb326-13" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> <span class="fu">to_intron</span>(these_exons, <span class="st">"annot_transcript_name"</span>),</span>
-<span id="cb326-14"><a href="#cb326-14" aria-hidden="true" tabindex="-1"></a>        <span class="fu">aes</span>(<span class="at">strand =</span> strand),<span class="at">arrow.min.intron.length =</span> <span class="dv">5000</span>,</span>
-<span id="cb326-15"><a href="#cb326-15" aria-hidden="true" tabindex="-1"></a>        <span class="at">arrow =</span> grid<span class="sc">::</span><span class="fu">arrow</span>(<span class="at">ends =</span> <span class="st">"last"</span>, <span class="at">length =</span> grid<span class="sc">::</span><span class="fu">unit</span>(<span class="fl">0.1</span>, <span class="st">"inches"</span>)),</span>
-<span id="cb326-16"><a href="#cb326-16" aria-hidden="true" tabindex="-1"></a>        <span class="at">color=</span><span class="st">'grey60'</span>,</span>
-<span id="cb326-17"><a href="#cb326-17" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span></span>
-<span id="cb326-18"><a href="#cb326-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlim</span>(this.start, this.end) <span class="sc">+</span> </span>
-<span id="cb326-19"><a href="#cb326-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_range</span>(<span class="at">data=</span>gencode_exons, <span class="at">fill=</span><span class="st">'darkgrey'</span>, <span class="fu">aes</span>(<span class="at">xstart =</span> start,<span class="at">xend =</span> end, <span class="at">y=</span>gene_name)) <span class="sc">+</span></span>
-<span id="cb326-20"><a href="#cb326-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_intron</span>(</span>
-<span id="cb326-21"><a href="#cb326-21" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> <span class="fu">to_intron</span>(gencode_exons, <span class="st">"transcript_name"</span>),</span>
-<span id="cb326-22"><a href="#cb326-22" aria-hidden="true" tabindex="-1"></a>        <span class="fu">aes</span>(<span class="at">strand =</span> strand,<span class="at">y=</span>gene_name),<span class="at">arrow.min.intron.length =</span> <span class="dv">5000</span>,</span>
-<span id="cb326-23"><a href="#cb326-23" aria-hidden="true" tabindex="-1"></a>        <span class="at">arrow =</span> grid<span class="sc">::</span><span class="fu">arrow</span>(<span class="at">ends =</span> <span class="st">"last"</span>, <span class="at">length =</span> grid<span class="sc">::</span><span class="fu">unit</span>(<span class="fl">0.1</span>, <span class="st">"inches"</span>)),</span>
-<span id="cb326-24"><a href="#cb326-24" aria-hidden="true" tabindex="-1"></a>        <span class="at">color=</span><span class="st">'grey60'</span>,</span>
-<span id="cb326-25"><a href="#cb326-25" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span></span>
-<span id="cb326-26"><a href="#cb326-26" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb326-27"><a href="#cb326-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(source<span class="sc">~</span>.,<span class="at">scales =</span> <span class="st">'free'</span>, <span class="at">space =</span> <span class="st">'free'</span>) <span class="sc">+</span> <span class="fu">ggtitle</span>(this_gene, <span class="at">subtitle =</span> <span class="fu">paste0</span>(these_exons<span class="sc">$</span>seqnames[<span class="dv">1</span>], <span class="st">":"</span>, this.start<span class="fl">+5e4</span>,<span class="st">"-"</span>, this.end<span class="fl">-5e4</span>)) <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">'none'</span>) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x=</span>these_exons<span class="sc">$</span>seqnames[<span class="dv">1</span>], <span class="at">y=</span><span class="st">""</span>)  <span class="sc">+</span><span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="fu">scale_fill_gradient</span>(<span class="at">low =</span> <span class="st">'darkgrey'</span>, <span class="at">high=</span><span class="st">'red'</span>, <span class="at">limits=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">12</span>)) <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">'none'</span>)</span>
-<span id="cb326-28"><a href="#cb326-28" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(FigS3F, <span class="at">file=</span><span class="st">'output/figures/supplement/FigS3F.pdf'</span>, <span class="at">height=</span><span class="dv">4</span>, <span class="at">width=</span><span class="dv">6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>this_gene <span class="ot">=</span> <span class="st">"TALONG000088362"</span>   </span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>these_exons <span class="ot">&lt;-</span> gr.isoseq <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(annot_gene_name <span class="sc">==</span> this_gene <span class="sc">&amp;</span> type <span class="sc">==</span> <span class="st">"exon"</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>this_cds <span class="ot">&lt;-</span> gr.isoseq <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(annot_gene_name <span class="sc">==</span> this_gene <span class="sc">&amp;</span> type <span class="sc">==</span> <span class="st">"CDS"</span>)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>this.start <span class="ot">=</span> <span class="fu">min</span>(<span class="fu">c</span>(these_exons<span class="sc">$</span>start, these_exons<span class="sc">$</span>end)<span class="sc">-</span><span class="fl">5e4</span>)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>this.end <span class="ot">=</span> <span class="fu">max</span>(<span class="fu">c</span>(these_exons<span class="sc">$</span>start, these_exons<span class="sc">$</span>end)<span class="sc">+</span><span class="fl">5e4</span>)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>gencode_exons <span class="ot">=</span>gr.gencode <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(type<span class="sc">==</span><span class="st">"exon"</span>, seqnames<span class="sc">==</span><span class="fu">as.character</span>(these_exons<span class="sc">$</span>seqnames[<span class="dv">1</span>]),start <span class="sc">&gt;</span> this.start, end <span class="sc">&lt;</span> this.end)</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>FigS3F <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(these_exons, <span class="fu">aes</span>(<span class="at">xstart =</span> start,<span class="at">xend =</span> end, <span class="at">y =</span> annot_transcript_name)) <span class="sc">+</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_range</span>(<span class="fu">aes</span>(<span class="at">fill =</span> <span class="fu">log2</span>(<span class="dv">1</span><span class="sc">+</span>cpm), <span class="at">group=</span>novelty2), <span class="at">height=</span>.<span class="dv">25</span>) <span class="sc">+</span> </span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_range</span>(<span class="at">data=</span>this_cds, <span class="fu">aes</span>(<span class="at">fill =</span> <span class="fu">log2</span>(<span class="dv">1</span><span class="sc">+</span>cpm), <span class="at">group=</span>novelty2)) <span class="sc">+</span> </span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_intron</span>(</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> <span class="fu">to_intron</span>(these_exons, <span class="st">"annot_transcript_name"</span>),</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>        <span class="fu">aes</span>(<span class="at">strand =</span> strand),<span class="at">arrow.min.intron.length =</span> <span class="dv">5000</span>,</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>        <span class="at">arrow =</span> grid<span class="sc">::</span><span class="fu">arrow</span>(<span class="at">ends =</span> <span class="st">"last"</span>, <span class="at">length =</span> grid<span class="sc">::</span><span class="fu">unit</span>(<span class="fl">0.1</span>, <span class="st">"inches"</span>)),</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>        <span class="at">color=</span><span class="st">'grey60'</span>,</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlim</span>(this.start, this.end) <span class="sc">+</span> </span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_range</span>(<span class="at">data=</span>gencode_exons, <span class="at">fill=</span><span class="st">'darkgrey'</span>, <span class="fu">aes</span>(<span class="at">xstart =</span> start,<span class="at">xend =</span> end, <span class="at">y=</span>gene_name)) <span class="sc">+</span></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_intron</span>(</span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> <span class="fu">to_intron</span>(gencode_exons, <span class="st">"transcript_name"</span>),</span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>        <span class="fu">aes</span>(<span class="at">strand =</span> strand,<span class="at">y=</span>gene_name),<span class="at">arrow.min.intron.length =</span> <span class="dv">5000</span>,</span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>        <span class="at">arrow =</span> grid<span class="sc">::</span><span class="fu">arrow</span>(<span class="at">ends =</span> <span class="st">"last"</span>, <span class="at">length =</span> grid<span class="sc">::</span><span class="fu">unit</span>(<span class="fl">0.1</span>, <span class="st">"inches"</span>)),</span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>        <span class="at">color=</span><span class="st">'grey60'</span>,</span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span></span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(source<span class="sc">~</span>.,<span class="at">scales =</span> <span class="st">'free'</span>, <span class="at">space =</span> <span class="st">'free'</span>) <span class="sc">+</span> <span class="fu">ggtitle</span>(this_gene, <span class="at">subtitle =</span> <span class="fu">paste0</span>(these_exons<span class="sc">$</span>seqnames[<span class="dv">1</span>], <span class="st">":"</span>, this.start<span class="fl">+5e4</span>,<span class="st">"-"</span>, this.end<span class="fl">-5e4</span>)) <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">'none'</span>) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x=</span>these_exons<span class="sc">$</span>seqnames[<span class="dv">1</span>], <span class="at">y=</span><span class="st">""</span>)  <span class="sc">+</span><span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="fu">scale_fill_gradient</span>(<span class="at">low =</span> <span class="st">'darkgrey'</span>, <span class="at">high=</span><span class="st">'red'</span>, <span class="at">limits=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">12</span>)) <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">'none'</span>)</span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(FigS3F, <span class="at">file=</span><span class="st">'output/figures/supplement/FigS3F.pdf'</span>, <span class="at">height=</span><span class="dv">4</span>, <span class="at">width=</span><span class="dv">6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 
@@ -2013,7 +638,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     button.classList.add('code-copy-button-checked');
     var currentTitle = button.getAttribute("title");
     button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
     setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
       button.setAttribute("title", currentTitle);
       button.classList.remove('code-copy-button-checked');
     }, 1000);
@@ -2041,31 +683,50 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   for (var i=0; i<noterefs.length; i++) {
     const ref = noterefs[i];
     tippyHover(ref, function() {
-      let href = ref.getAttribute('href');
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
     });
   }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
   var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
   for (var i=0; i<bibliorefs.length; i++) {
     const ref = bibliorefs[i];
-    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
-    tippyHover(ref, function() {
-      var popup = window.document.createElement('div');
-      cites.forEach(function(cite) {
-        var citeDiv = window.document.createElement('div');
-        citeDiv.classList.add('hanging-indent');
-        citeDiv.classList.add('csl-entry');
-        var biblioDiv = window.document.getElementById('ref-' + cite);
-        if (biblioDiv) {
-          citeDiv.innerHTML = biblioDiv.innerHTML;
-        }
-        popup.appendChild(citeDiv);
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
       });
-      return popup.innerHTML;
-    });
+    }
   }
 });
 </script>

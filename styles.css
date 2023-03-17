@@ -8,3 +8,8 @@
     max-height: 56rem;
     overflow-y: auto;
 }
+
+.cell-output-stdout>pre {
+    max-height: 56rem;
+    overflow-y: auto;
+}

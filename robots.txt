@@ -1,1 +1,1 @@
-Sitemap: https://gandallab.github.io/devBrainIsoSeq/sitemap.xml
+Sitemap: https://gandallab.github.io/Dev_Brain_IsoSeq/sitemap.xml
