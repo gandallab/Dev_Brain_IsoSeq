@@ -1276,7 +1276,7 @@ Joining, by = "gene_id"</code></pre>
 </section>
 <section id="fig3c-venn-diagrams" class="level3">
 <h3 class="anchored" data-anchor-id="fig3c-venn-diagrams">Fig3c: Venn Diagrams</h3>
-<div class="cell" data-hash="Figure3_IsoformSwitchAnalyzeR_cache/html/unnamed-chunk-27_f82dc879745c0a1623c7f89256f8701d">
+<div class="cell" data-hash="Figure3_IsoformSwitchAnalyzeR_cache/html/unnamed-chunk-27_90710b6c3670ee9a016919f67da8b83b">
 <div class="sourceCode cell-code" id="cb106"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb106-1"><a href="#cb106-1" aria-hidden="true" tabindex="-1"></a>gene_overlaps <span class="ot">=</span> tableS3 <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(gene_id) <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">DTE =</span> <span class="fu">any</span>(DTE), <span class="at">DGE=</span><span class="fu">any</span>(DGE), <span class="at">DTU=</span><span class="fu">any</span>(DTU)) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>gene_id)</span>
 <span id="cb106-2"><a href="#cb106-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb106-3"><a href="#cb106-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Sanity check: 2,679 of 10809 genes with DTU (iso_q_value&lt; .05)</span></span>
@@ -1312,15 +1312,20 @@ FALSE  TRUE
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1411</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb114"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb114-1"><a href="#cb114-1" aria-hidden="true" tabindex="-1"></a>Fig3c <span class="ot">=</span> <span class="fu">ggVennDiagram</span>(<span class="fu">list</span>(<span class="at">DTU =</span> <span class="fu">which</span>(gene_overlaps<span class="sc">$</span>DTU), </span>
-<span id="cb114-2"><a href="#cb114-2" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">DGE =</span> <span class="fu">which</span>(gene_overlaps<span class="sc">$</span>DGE),</span>
-<span id="cb114-3"><a href="#cb114-3" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">DTE =</span> <span class="fu">which</span>(gene_overlaps<span class="sc">$</span>DTE))) <span class="sc">+</span> </span>
-<span id="cb114-4"><a href="#cb114-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradient</span>(<span class="at">low=</span><span class="st">"grey"</span>,<span class="at">high =</span> <span class="st">"red"</span>)</span>
-<span id="cb114-5"><a href="#cb114-5" aria-hidden="true" tabindex="-1"></a>Fig3c</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb114"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb114-1"><a href="#cb114-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1669 isoform-switching genes without significant evidence of DGE (using adjusted p-values)</span></span>
+<span id="cb114-2"><a href="#cb114-2" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">intersect</span>(tableS3<span class="sc">$</span>gene_id[tableS3<span class="sc">$</span>DTU_qval<span class="sc">&lt;</span>.<span class="dv">05</span>], DGE_results<span class="sc">$</span>gene_id[DGE_results<span class="sc">$</span>padj<span class="sc">&gt;</span>.<span class="dv">05</span>]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1669</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb116"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb116-1"><a href="#cb116-1" aria-hidden="true" tabindex="-1"></a>Fig3c <span class="ot">=</span> <span class="fu">ggVennDiagram</span>(<span class="fu">list</span>(<span class="at">DTU =</span> <span class="fu">which</span>(gene_overlaps<span class="sc">$</span>DTU), </span>
+<span id="cb116-2"><a href="#cb116-2" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">DGE =</span> <span class="fu">which</span>(gene_overlaps<span class="sc">$</span>DGE),</span>
+<span id="cb116-3"><a href="#cb116-3" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">DTE =</span> <span class="fu">which</span>(gene_overlaps<span class="sc">$</span>DTE))) <span class="sc">+</span> </span>
+<span id="cb116-4"><a href="#cb116-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradient</span>(<span class="at">low=</span><span class="st">"grey"</span>,<span class="at">high =</span> <span class="st">"red"</span>)</span>
+<span id="cb116-5"><a href="#cb116-5" aria-hidden="true" tabindex="-1"></a>Fig3c</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Figure3_IsoformSwitchAnalyzeR_files/figure-html/unnamed-chunk-27-1.png" class="img-fluid" width="672"></p>
 </div>
-<div class="sourceCode cell-code" id="cb115"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb115-1"><a href="#cb115-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(Fig3c, <span class="at">file=</span><span class="st">"output/figures/Fig3/Fig3c.pdf"</span>,<span class="at">width=</span><span class="dv">8</span>,<span class="at">height=</span><span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb117"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb117-1"><a href="#cb117-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(Fig3c, <span class="at">file=</span><span class="st">"output/figures/Fig3/Fig3c.pdf"</span>,<span class="at">width=</span><span class="dv">8</span>,<span class="at">height=</span><span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
@@ -1329,68 +1334,68 @@ FALSE  TRUE
 <p>IUPred and SignalP are difficult to run. Non-webserver IUPred2A/3 only takes a single sequence at a time, so requires a wrapper. Although “V5 is supported” for SignalP (I guess through the webserver?) v5.0 and v6.0 no longer seem to produce the expected output (<code>-f summary</code>) of v4.1.</p>
 <p>Currently, trying to import from the <code>webtools_v3</code> crashes R.</p>
 <div class="cell" data-hash="Figure3_IsoformSwitchAnalyzeR_cache/html/unnamed-chunk-28_37145ca628ebaa26aaf0d64579e987d8">
-<div class="sourceCode cell-code" id="cb116"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb116-1"><a href="#cb116-1" aria-hidden="true" tabindex="-1"></a>rdata_path  <span class="ot">=</span> <span class="st">"data/working/talonSwitchList_part2.rds"</span></span>
-<span id="cb116-2"><a href="#cb116-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">file.exists</span>(rdata_path)) {</span>
-<span id="cb116-3"><a href="#cb116-3" aria-hidden="true" tabindex="-1"></a>  talonSwitchList_part2 <span class="ot">&lt;-</span> <span class="fu">isoformSwitchAnalysisPart2</span>(</span>
-<span id="cb116-4"><a href="#cb116-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">switchAnalyzeRlist        =</span> talonSwitchList_part1, </span>
-<span id="cb116-5"><a href="#cb116-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">n                         =</span> <span class="dv">10</span>, <span class="co"># number of PDF plots to generate</span></span>
-<span id="cb116-6"><a href="#cb116-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">removeNoncodinORFs        =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb116-7"><a href="#cb116-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">pathToCPC2resultFile      =</span> <span class="st">"data/working/IsoformSwitchAnalyzeR_webtools_v4/result_cpc2.txt"</span>,</span>
-<span id="cb116-8"><a href="#cb116-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">pathToPFAMresultFile      =</span> <span class="st">"data/working/IsoformSwitchAnalyzeR_webtools_v4/result_pfam_scan.txt"</span>,</span>
-<span id="cb116-9"><a href="#cb116-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># might want to disable smoothing through `analyzeIUPred2A` since IUPred3 now</span></span>
-<span id="cb116-10"><a href="#cb116-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># performs smoothing:</span></span>
-<span id="cb116-11"><a href="#cb116-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">pathToIUPred2AresultFile  =</span> <span class="st">"data/working/IsoformSwitchAnalyzeR_webtools_v4/result_iupred3.txt.gz"</span>,</span>
-<span id="cb116-12"><a href="#cb116-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">pathToSignalPresultFile   =</span> <span class="st">"data/working/IsoformSwitchAnalyzeR_webtools_v4/result_signalP.txt"</span>,</span>
-<span id="cb116-13"><a href="#cb116-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">pathToOutput              =</span> <span class="st">"output/IsoformSwitchAnalyzeR/"</span>,</span>
-<span id="cb116-14"><a href="#cb116-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">outputPlots               =</span> T</span>
-<span id="cb116-15"><a href="#cb116-15" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb116-16"><a href="#cb116-16" aria-hidden="true" tabindex="-1"></a>  <span class="co"># todo - split this into individual functions because `analyzeSwitchConsequences`</span></span>
-<span id="cb116-17"><a href="#cb116-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># is still filtering on dIF in addition to qval</span></span>
-<span id="cb116-18"><a href="#cb116-18" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb116-19"><a href="#cb116-19" aria-hidden="true" tabindex="-1"></a>  talonSwitchList_part2 <span class="ot">&lt;-</span> <span class="fu">analyzeSwitchConsequences</span>(talonSwitchList_part2, <span class="at">onlySigIsoforms =</span> T, <span class="at">dIFcutoff =</span> <span class="dv">0</span>, <span class="at">consequencesToAnalyze =</span> <span class="fu">c</span>(<span class="st">'tss'</span>,<span class="st">'tts'</span>,<span class="st">'last_exon'</span>,<span class="st">'isoform_length'</span>,<span class="st">'exon_number'</span>,<span class="st">'intron_structure'</span>,<span class="st">'ORF_length'</span>, <span class="st">'5_utr_seq_similarity'</span>, <span class="st">'5_utr_length'</span>, <span class="st">'3_utr_seq_similarity'</span>, <span class="st">'3_utr_length'</span>,<span class="st">'coding_potential'</span>,<span class="st">'ORF_seq_similarity'</span>,<span class="st">'NMD_status'</span>,<span class="st">'domains_identified'</span>,<span class="st">'signal_peptide_identified'</span>))</span>
-<span id="cb116-20"><a href="#cb116-20" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb116-21"><a href="#cb116-21" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb116-22"><a href="#cb116-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">saveRDS</span>(talonSwitchList_part2, <span class="at">file=</span>rdata_path)</span>
-<span id="cb116-23"><a href="#cb116-23" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
-<span id="cb116-24"><a href="#cb116-24" aria-hidden="true" tabindex="-1"></a>  talonSwitchList_part2 <span class="ot">=</span> <span class="fu">readRDS</span>(rdata_path)</span>
-<span id="cb116-25"><a href="#cb116-25" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb118"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb118-1"><a href="#cb118-1" aria-hidden="true" tabindex="-1"></a>rdata_path  <span class="ot">=</span> <span class="st">"data/working/talonSwitchList_part2.rds"</span></span>
+<span id="cb118-2"><a href="#cb118-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">file.exists</span>(rdata_path)) {</span>
+<span id="cb118-3"><a href="#cb118-3" aria-hidden="true" tabindex="-1"></a>  talonSwitchList_part2 <span class="ot">&lt;-</span> <span class="fu">isoformSwitchAnalysisPart2</span>(</span>
+<span id="cb118-4"><a href="#cb118-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">switchAnalyzeRlist        =</span> talonSwitchList_part1, </span>
+<span id="cb118-5"><a href="#cb118-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">n                         =</span> <span class="dv">10</span>, <span class="co"># number of PDF plots to generate</span></span>
+<span id="cb118-6"><a href="#cb118-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">removeNoncodinORFs        =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb118-7"><a href="#cb118-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">pathToCPC2resultFile      =</span> <span class="st">"data/working/IsoformSwitchAnalyzeR_webtools_v4/result_cpc2.txt"</span>,</span>
+<span id="cb118-8"><a href="#cb118-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">pathToPFAMresultFile      =</span> <span class="st">"data/working/IsoformSwitchAnalyzeR_webtools_v4/result_pfam_scan.txt"</span>,</span>
+<span id="cb118-9"><a href="#cb118-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># might want to disable smoothing through `analyzeIUPred2A` since IUPred3 now</span></span>
+<span id="cb118-10"><a href="#cb118-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># performs smoothing:</span></span>
+<span id="cb118-11"><a href="#cb118-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">pathToIUPred2AresultFile  =</span> <span class="st">"data/working/IsoformSwitchAnalyzeR_webtools_v4/result_iupred3.txt.gz"</span>,</span>
+<span id="cb118-12"><a href="#cb118-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">pathToSignalPresultFile   =</span> <span class="st">"data/working/IsoformSwitchAnalyzeR_webtools_v4/result_signalP.txt"</span>,</span>
+<span id="cb118-13"><a href="#cb118-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">pathToOutput              =</span> <span class="st">"output/IsoformSwitchAnalyzeR/"</span>,</span>
+<span id="cb118-14"><a href="#cb118-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">outputPlots               =</span> T</span>
+<span id="cb118-15"><a href="#cb118-15" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb118-16"><a href="#cb118-16" aria-hidden="true" tabindex="-1"></a>  <span class="co"># todo - split this into individual functions because `analyzeSwitchConsequences`</span></span>
+<span id="cb118-17"><a href="#cb118-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># is still filtering on dIF in addition to qval</span></span>
+<span id="cb118-18"><a href="#cb118-18" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb118-19"><a href="#cb118-19" aria-hidden="true" tabindex="-1"></a>  talonSwitchList_part2 <span class="ot">&lt;-</span> <span class="fu">analyzeSwitchConsequences</span>(talonSwitchList_part2, <span class="at">onlySigIsoforms =</span> T, <span class="at">dIFcutoff =</span> <span class="dv">0</span>, <span class="at">consequencesToAnalyze =</span> <span class="fu">c</span>(<span class="st">'tss'</span>,<span class="st">'tts'</span>,<span class="st">'last_exon'</span>,<span class="st">'isoform_length'</span>,<span class="st">'exon_number'</span>,<span class="st">'intron_structure'</span>,<span class="st">'ORF_length'</span>, <span class="st">'5_utr_seq_similarity'</span>, <span class="st">'5_utr_length'</span>, <span class="st">'3_utr_seq_similarity'</span>, <span class="st">'3_utr_length'</span>,<span class="st">'coding_potential'</span>,<span class="st">'ORF_seq_similarity'</span>,<span class="st">'NMD_status'</span>,<span class="st">'domains_identified'</span>,<span class="st">'signal_peptide_identified'</span>))</span>
+<span id="cb118-20"><a href="#cb118-20" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb118-21"><a href="#cb118-21" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb118-22"><a href="#cb118-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">saveRDS</span>(talonSwitchList_part2, <span class="at">file=</span>rdata_path)</span>
+<span id="cb118-23"><a href="#cb118-23" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb118-24"><a href="#cb118-24" aria-hidden="true" tabindex="-1"></a>  talonSwitchList_part2 <span class="ot">=</span> <span class="fu">readRDS</span>(rdata_path)</span>
+<span id="cb118-25"><a href="#cb118-25" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Plot a gene:</p>
 <div class="cell" data-hash="Figure3_IsoformSwitchAnalyzeR_cache/html/unnamed-chunk-29_b076ce67247edc2566956064326904db">
-<div class="sourceCode cell-code" id="cb117"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb117-1"><a href="#cb117-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pdf</span>(<span class="at">file=</span><span class="st">"output/figures/Fig3/Fig3_SMARCC2.pdf"</span>, <span class="at">height=</span><span class="dv">4</span>, <span class="at">width=</span><span class="dv">8</span>)</span>
-<span id="cb117-2"><a href="#cb117-2" aria-hidden="true" tabindex="-1"></a><span class="fu">switchPlot</span>(</span>
-<span id="cb117-3"><a href="#cb117-3" aria-hidden="true" tabindex="-1"></a>  talonSwitchList_part2,<span class="at">dIFcutoff =</span> .<span class="dv">1</span>,<span class="at">logYaxis =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb117-4"><a href="#cb117-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">gene=</span><span class="st">'SMARCC2'</span></span>
-<span id="cb117-5"><a href="#cb117-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb119"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb119-1"><a href="#cb119-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pdf</span>(<span class="at">file=</span><span class="st">"output/figures/Fig3/Fig3_SMARCC2.pdf"</span>, <span class="at">height=</span><span class="dv">4</span>, <span class="at">width=</span><span class="dv">8</span>)</span>
+<span id="cb119-2"><a href="#cb119-2" aria-hidden="true" tabindex="-1"></a><span class="fu">switchPlot</span>(</span>
+<span id="cb119-3"><a href="#cb119-3" aria-hidden="true" tabindex="-1"></a>  talonSwitchList_part2,<span class="at">dIFcutoff =</span> .<span class="dv">1</span>,<span class="at">logYaxis =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb119-4"><a href="#cb119-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">gene=</span><span class="st">'SMARCC2'</span></span>
+<span id="cb119-5"><a href="#cb119-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: `guides(&lt;scale&gt; = FALSE)` is deprecated. Please use `guides(&lt;scale&gt; = "none")` instead.
 `guides(&lt;scale&gt; = FALSE)` is deprecated. Please use `guides(&lt;scale&gt; = "none")` instead.
 `guides(&lt;scale&gt; = FALSE)` is deprecated. Please use `guides(&lt;scale&gt; = "none")` instead.</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb119"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb119-1"><a href="#cb119-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb121"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb121-1"><a href="#cb121-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>quartz_off_screen 
                 2 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb121"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb121-1"><a href="#cb121-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pdf</span>(<span class="at">file=</span><span class="st">"output/figures/Fig4/FigS4_NF1.pdf"</span>, <span class="at">height=</span><span class="dv">4</span>, <span class="at">width=</span><span class="dv">6</span>)</span>
-<span id="cb121-2"><a href="#cb121-2" aria-hidden="true" tabindex="-1"></a><span class="fu">switchPlot</span>(</span>
-<span id="cb121-3"><a href="#cb121-3" aria-hidden="true" tabindex="-1"></a>  talonSwitchList_part2,<span class="at">dIFcutoff =</span> .<span class="dv">1</span>,<span class="at">logYaxis =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb121-4"><a href="#cb121-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">gene=</span><span class="st">'NF1'</span></span>
-<span id="cb121-5"><a href="#cb121-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb123"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb123-1"><a href="#cb123-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pdf</span>(<span class="at">file=</span><span class="st">"output/figures/Fig4/FigS4_NF1.pdf"</span>, <span class="at">height=</span><span class="dv">4</span>, <span class="at">width=</span><span class="dv">6</span>)</span>
+<span id="cb123-2"><a href="#cb123-2" aria-hidden="true" tabindex="-1"></a><span class="fu">switchPlot</span>(</span>
+<span id="cb123-3"><a href="#cb123-3" aria-hidden="true" tabindex="-1"></a>  talonSwitchList_part2,<span class="at">dIFcutoff =</span> .<span class="dv">1</span>,<span class="at">logYaxis =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb123-4"><a href="#cb123-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">gene=</span><span class="st">'NF1'</span></span>
+<span id="cb123-5"><a href="#cb123-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: `guides(&lt;scale&gt; = FALSE)` is deprecated. Please use `guides(&lt;scale&gt; = "none")` instead.
 `guides(&lt;scale&gt; = FALSE)` is deprecated. Please use `guides(&lt;scale&gt; = "none")` instead.
 `guides(&lt;scale&gt; = FALSE)` is deprecated. Please use `guides(&lt;scale&gt; = "none")` instead.</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb123"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb123-1"><a href="#cb123-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb125"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb125-1"><a href="#cb125-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>quartz_off_screen 
                 2 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb125"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb125-1"><a href="#cb125-1" aria-hidden="true" tabindex="-1"></a><span class="fu">switchPlot</span>(</span>
-<span id="cb125-2"><a href="#cb125-2" aria-hidden="true" tabindex="-1"></a>  talonSwitchList_part2,</span>
-<span id="cb125-3"><a href="#cb125-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">gene=</span><span class="st">'TALONG000088362'</span></span>
-<span id="cb125-4"><a href="#cb125-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb127"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb127-1"><a href="#cb127-1" aria-hidden="true" tabindex="-1"></a><span class="fu">switchPlot</span>(</span>
+<span id="cb127-2"><a href="#cb127-2" aria-hidden="true" tabindex="-1"></a>  talonSwitchList_part2,</span>
+<span id="cb127-3"><a href="#cb127-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">gene=</span><span class="st">'TALONG000088362'</span></span>
+<span id="cb127-4"><a href="#cb127-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: `guides(&lt;scale&gt; = FALSE)` is deprecated. Please use `guides(&lt;scale&gt; = "none")` instead.
 `guides(&lt;scale&gt; = FALSE)` is deprecated. Please use `guides(&lt;scale&gt; = "none")` instead.
@@ -1404,30 +1409,30 @@ FALSE  TRUE
 <section id="functional-analysis-of-isoform-switches" class="level2">
 <h2 class="anchored" data-anchor-id="functional-analysis-of-isoform-switches">Functional Analysis of Isoform Switches:</h2>
 <div class="cell" data-hash="Figure3_IsoformSwitchAnalyzeR_cache/html/unnamed-chunk-30_c41e991853593394f2860b2e254c05e0">
-<div class="sourceCode cell-code" id="cb127"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb127-1"><a href="#cb127-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pdf</span>(<span class="at">file=</span><span class="st">'output/figures/Fig3/Fig3e.pdf'</span>, <span class="at">width=</span><span class="dv">7</span>,<span class="at">height=</span><span class="dv">5</span>)</span>
-<span id="cb127-2"><a href="#cb127-2" aria-hidden="true" tabindex="-1"></a>switch_consequences <span class="ot">&lt;-</span> <span class="fu">extractConsequenceEnrichment</span>(</span>
-<span id="cb127-3"><a href="#cb127-3" aria-hidden="true" tabindex="-1"></a>    talonSwitchList_part2,<span class="at">dIFcutoff =</span> <span class="dv">0</span>,<span class="at">countGenes =</span> F,</span>
-<span id="cb127-4"><a href="#cb127-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">returnResult =</span> T <span class="co"># if TRUE returns a data.frame with the summary statistics</span></span>
-<span id="cb127-5"><a href="#cb127-5" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb127-6"><a href="#cb127-6" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb129"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb129-1"><a href="#cb129-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pdf</span>(<span class="at">file=</span><span class="st">'output/figures/Fig3/Fig3e.pdf'</span>, <span class="at">width=</span><span class="dv">7</span>,<span class="at">height=</span><span class="dv">5</span>)</span>
+<span id="cb129-2"><a href="#cb129-2" aria-hidden="true" tabindex="-1"></a>switch_consequences <span class="ot">&lt;-</span> <span class="fu">extractConsequenceEnrichment</span>(</span>
+<span id="cb129-3"><a href="#cb129-3" aria-hidden="true" tabindex="-1"></a>    talonSwitchList_part2,<span class="at">dIFcutoff =</span> <span class="dv">0</span>,<span class="at">countGenes =</span> F,</span>
+<span id="cb129-4"><a href="#cb129-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">returnResult =</span> T <span class="co"># if TRUE returns a data.frame with the summary statistics</span></span>
+<span id="cb129-5"><a href="#cb129-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb129-6"><a href="#cb129-6" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>quartz_off_screen 
                 2 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb129"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb129-1"><a href="#cb129-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_tsv</span>(switch_consequences, <span class="at">file=</span><span class="st">"output/tables/TableS3_switchConsequences_summary_v2.tsv"</span>)</span>
-<span id="cb129-2"><a href="#cb129-2" aria-hidden="true" tabindex="-1"></a><span class="fu">write_tsv</span>(talonSwitchList_part2<span class="sc">$</span>switchConsequence, <span class="at">file=</span><span class="st">"output/tables/TableS3_switchConsequences_data.tsv"</span>)</span>
-<span id="cb129-3"><a href="#cb129-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb129-4"><a href="#cb129-4" aria-hidden="true" tabindex="-1"></a>consequence <span class="ot">=</span> <span class="fu">extractConsequenceSummary</span>(</span>
-<span id="cb129-5"><a href="#cb129-5" aria-hidden="true" tabindex="-1"></a>    talonSwitchList_part2, <span class="at">includeCombined =</span> T,</span>
-<span id="cb129-6"><a href="#cb129-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">dIFcutoff=</span><span class="dv">0</span>, <span class="at">returnResult =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb131"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb131-1"><a href="#cb131-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_tsv</span>(switch_consequences, <span class="at">file=</span><span class="st">"output/tables/TableS3_switchConsequences_summary_v2.tsv"</span>)</span>
+<span id="cb131-2"><a href="#cb131-2" aria-hidden="true" tabindex="-1"></a><span class="fu">write_tsv</span>(talonSwitchList_part2<span class="sc">$</span>switchConsequence, <span class="at">file=</span><span class="st">"output/tables/TableS3_switchConsequences_data.tsv"</span>)</span>
+<span id="cb131-3"><a href="#cb131-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb131-4"><a href="#cb131-4" aria-hidden="true" tabindex="-1"></a>consequence <span class="ot">=</span> <span class="fu">extractConsequenceSummary</span>(</span>
+<span id="cb131-5"><a href="#cb131-5" aria-hidden="true" tabindex="-1"></a>    talonSwitchList_part2, <span class="at">includeCombined =</span> T,</span>
+<span id="cb131-6"><a href="#cb131-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">dIFcutoff=</span><span class="dv">0</span>, <span class="at">returnResult =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Figure3_IsoformSwitchAnalyzeR_files/figure-html/unnamed-chunk-30-1.png" class="img-fluid" width="672"></p>
 </div>
-<div class="sourceCode cell-code" id="cb130"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb130-1"><a href="#cb130-1" aria-hidden="true" tabindex="-1"></a><span class="fu">extractSplicingEnrichment</span>(</span>
-<span id="cb130-2"><a href="#cb130-2" aria-hidden="true" tabindex="-1"></a>    talonSwitchList_part2,<span class="at">dIFcutoff =</span> <span class="dv">0</span>,<span class="at">onlySigIsoforms =</span> T,</span>
-<span id="cb130-3"><a href="#cb130-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">countGenes =</span> F,</span>
-<span id="cb130-4"><a href="#cb130-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">returnResult =</span> <span class="cn">TRUE</span> <span class="co"># if TRUE returns a data.frame with the summary statistics</span></span>
-<span id="cb130-5"><a href="#cb130-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb132"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb132-1"><a href="#cb132-1" aria-hidden="true" tabindex="-1"></a><span class="fu">extractSplicingEnrichment</span>(</span>
+<span id="cb132-2"><a href="#cb132-2" aria-hidden="true" tabindex="-1"></a>    talonSwitchList_part2,<span class="at">dIFcutoff =</span> <span class="dv">0</span>,<span class="at">onlySigIsoforms =</span> T,</span>
+<span id="cb132-3"><a href="#cb132-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">countGenes =</span> F,</span>
+<span id="cb132-4"><a href="#cb132-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">returnResult =</span> <span class="cn">TRUE</span> <span class="co"># if TRUE returns a data.frame with the summary statistics</span></span>
+<span id="cb132-5"><a href="#cb132-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Figure3_IsoformSwitchAnalyzeR_files/figure-html/unnamed-chunk-30-2.png" class="img-fluid" width="672"></p>
 </div>
@@ -1451,9 +1456,9 @@ FALSE  TRUE
 7  0.1840516  0.9010117 1.000000e+00 1.000000e+00       FALSE VZ\nvs\nCP
 8  0.3517411  0.4144974 4.775090e-13 1.910036e-12        TRUE VZ\nvs\nCP</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb132"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb132-1"><a href="#cb132-1" aria-hidden="true" tabindex="-1"></a><span class="fu">extractSplicingSummary</span>(talonSwitchList_part2,</span>
-<span id="cb132-2"><a href="#cb132-2" aria-hidden="true" tabindex="-1"></a>                       <span class="at">splicingToAnalyze =</span> <span class="st">'all'</span>,<span class="at">dIFcutoff =</span> <span class="dv">0</span>,</span>
-<span id="cb132-3"><a href="#cb132-3" aria-hidden="true" tabindex="-1"></a>                       <span class="at">onlySigIsoforms =</span> T,<span class="at">asFractionTotal =</span> F)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb134"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb134-1"><a href="#cb134-1" aria-hidden="true" tabindex="-1"></a><span class="fu">extractSplicingSummary</span>(talonSwitchList_part2,</span>
+<span id="cb134-2"><a href="#cb134-2" aria-hidden="true" tabindex="-1"></a>                       <span class="at">splicingToAnalyze =</span> <span class="st">'all'</span>,<span class="at">dIFcutoff =</span> <span class="dv">0</span>,</span>
+<span id="cb134-3"><a href="#cb134-3" aria-hidden="true" tabindex="-1"></a>                       <span class="at">onlySigIsoforms =</span> T,<span class="at">asFractionTotal =</span> F)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Figure3_IsoformSwitchAnalyzeR_files/figure-html/unnamed-chunk-30-3.png" class="img-fluid" width="672"></p>
 </div>
@@ -1461,15 +1466,15 @@ FALSE  TRUE
 <section id="alternative-tss-isoform-switches" class="level3">
 <h3 class="anchored" data-anchor-id="alternative-tss-isoform-switches">Alternative TSS isoform switches</h3>
 <div class="cell" data-hash="Figure3_IsoformSwitchAnalyzeR_cache/html/unnamed-chunk-31_fa5c2cc1069d3ea83366f608596e35d1">
-<div class="sourceCode cell-code" id="cb133"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb133-1"><a href="#cb133-1" aria-hidden="true" tabindex="-1"></a>TSS_switches <span class="ot">=</span>talonSwitchList_part2<span class="sc">$</span>switchConsequence <span class="sc">%&gt;%</span> <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb133-2"><a href="#cb133-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(featureCompared <span class="sc">==</span> <span class="st">'tss'</span>, isoformsDifferent<span class="sc">==</span><span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb133-3"><a href="#cb133-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(gene_name, isoformUpregulated, isoformDownregulated) <span class="sc">%&gt;%</span></span>
-<span id="cb133-4"><a href="#cb133-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(talonSwitchList_part2<span class="sc">$</span>isoformFeatures <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="at">isoformUpregulated=</span>isoform_id, dIF, isoform_switch_q_value)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb135"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb135-1"><a href="#cb135-1" aria-hidden="true" tabindex="-1"></a>TSS_switches <span class="ot">=</span>talonSwitchList_part2<span class="sc">$</span>switchConsequence <span class="sc">%&gt;%</span> <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb135-2"><a href="#cb135-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(featureCompared <span class="sc">==</span> <span class="st">'tss'</span>, isoformsDifferent<span class="sc">==</span><span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb135-3"><a href="#cb135-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(gene_name, isoformUpregulated, isoformDownregulated) <span class="sc">%&gt;%</span></span>
+<span id="cb135-4"><a href="#cb135-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(talonSwitchList_part2<span class="sc">$</span>isoformFeatures <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="at">isoformUpregulated=</span>isoform_id, dIF, isoform_switch_q_value)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Joining, by = "isoformUpregulated"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb135"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb135-1"><a href="#cb135-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Top 10 TSS switches by isoform fraction</span></span>
-<span id="cb135-2"><a href="#cb135-2" aria-hidden="true" tabindex="-1"></a>TSS_switches<span class="sc">%&gt;%</span> <span class="fu">arrange</span>(<span class="sc">-</span><span class="fu">abs</span>(dIF))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb137"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb137-1"><a href="#cb137-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Top 10 TSS switches by isoform fraction</span></span>
+<span id="cb137-2"><a href="#cb137-2" aria-hidden="true" tabindex="-1"></a>TSS_switches<span class="sc">%&gt;%</span> <span class="fu">arrange</span>(<span class="sc">-</span><span class="fu">abs</span>(dIF))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2,452 × 5
    gene_name isoformUpregulated   isoformDownregulated   dIF isoform_switch_q_…¹
@@ -1486,13 +1491,13 @@ FALSE  TRUE
 10 BIN1      ENST00000316724.10_4 ENST00000409400.1_4  0.624            1.51e- 5
 # … with 2,442 more rows, and abbreviated variable name ¹​isoform_switch_q_value</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb137"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb137-1"><a href="#cb137-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(top_genes <span class="cf">in</span> TSS_switches <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(<span class="sc">-</span><span class="fu">abs</span>(dIF)) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(gene_name) <span class="sc">%&gt;%</span> </span>
-<span id="cb137-2"><a href="#cb137-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">unique</span>() <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="dv">10</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>()) {</span>
-<span id="cb137-3"><a href="#cb137-3" aria-hidden="true" tabindex="-1"></a><span class="fu">switchPlot</span>(</span>
-<span id="cb137-4"><a href="#cb137-4" aria-hidden="true" tabindex="-1"></a>  talonSwitchList_part2,</span>
-<span id="cb137-5"><a href="#cb137-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">gene=</span>top_genes)</span>
-<span id="cb137-6"><a href="#cb137-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb137-7"><a href="#cb137-7" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb139"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb139-1"><a href="#cb139-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(top_genes <span class="cf">in</span> TSS_switches <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(<span class="sc">-</span><span class="fu">abs</span>(dIF)) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(gene_name) <span class="sc">%&gt;%</span> </span>
+<span id="cb139-2"><a href="#cb139-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">unique</span>() <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="dv">10</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>()) {</span>
+<span id="cb139-3"><a href="#cb139-3" aria-hidden="true" tabindex="-1"></a><span class="fu">switchPlot</span>(</span>
+<span id="cb139-4"><a href="#cb139-4" aria-hidden="true" tabindex="-1"></a>  talonSwitchList_part2,</span>
+<span id="cb139-5"><a href="#cb139-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">gene=</span>top_genes)</span>
+<span id="cb139-6"><a href="#cb139-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb139-7"><a href="#cb139-7" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: `guides(&lt;scale&gt; = FALSE)` is deprecated. Please use `guides(&lt;scale&gt; = "none")` instead.
 `guides(&lt;scale&gt; = FALSE)` is deprecated. Please use `guides(&lt;scale&gt; = "none")` instead.
@@ -1573,8 +1578,8 @@ FALSE  TRUE
 <div class="cell-output-display">
 <p><img src="Figure3_IsoformSwitchAnalyzeR_files/figure-html/unnamed-chunk-31-10.png" class="img-fluid" width="672"></p>
 </div>
-<div class="sourceCode cell-code" id="cb148"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb148-1"><a href="#cb148-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Top 10 TSS switches by q-value</span></span>
-<span id="cb148-2"><a href="#cb148-2" aria-hidden="true" tabindex="-1"></a>TSS_switches<span class="sc">%&gt;%</span> <span class="fu">arrange</span>(isoform_switch_q_value)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb150"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb150-1"><a href="#cb150-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Top 10 TSS switches by q-value</span></span>
+<span id="cb150-2"><a href="#cb150-2" aria-hidden="true" tabindex="-1"></a>TSS_switches<span class="sc">%&gt;%</span> <span class="fu">arrange</span>(isoform_switch_q_value)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2,452 × 5
    gene_name isoformUpregulated   isoformDownregulated   dIF isoform_switch_q_…¹
@@ -1591,12 +1596,12 @@ FALSE  TRUE
 10 ABAT      ENST00000396600.6_1  TALONT000412117      0.317            4.11e-51
 # … with 2,442 more rows, and abbreviated variable name ¹​isoform_switch_q_value</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb150"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb150-1"><a href="#cb150-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(top_genes <span class="cf">in</span> TSS_switches <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(isoform_switch_q_value) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(gene_name) <span class="sc">%&gt;%</span> </span>
-<span id="cb150-2"><a href="#cb150-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">unique</span>() <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="dv">10</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>()) {</span>
-<span id="cb150-3"><a href="#cb150-3" aria-hidden="true" tabindex="-1"></a><span class="fu">switchPlot</span>(</span>
-<span id="cb150-4"><a href="#cb150-4" aria-hidden="true" tabindex="-1"></a>  talonSwitchList_part2,</span>
-<span id="cb150-5"><a href="#cb150-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">gene=</span>top_genes)</span>
-<span id="cb150-6"><a href="#cb150-6" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb152"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb152-1"><a href="#cb152-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(top_genes <span class="cf">in</span> TSS_switches <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(isoform_switch_q_value) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(gene_name) <span class="sc">%&gt;%</span> </span>
+<span id="cb152-2"><a href="#cb152-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">unique</span>() <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="dv">10</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>()) {</span>
+<span id="cb152-3"><a href="#cb152-3" aria-hidden="true" tabindex="-1"></a><span class="fu">switchPlot</span>(</span>
+<span id="cb152-4"><a href="#cb152-4" aria-hidden="true" tabindex="-1"></a>  talonSwitchList_part2,</span>
+<span id="cb152-5"><a href="#cb152-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">gene=</span>top_genes)</span>
+<span id="cb152-6"><a href="#cb152-6" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: `guides(&lt;scale&gt; = FALSE)` is deprecated. Please use `guides(&lt;scale&gt; = "none")` instead.
 `guides(&lt;scale&gt; = FALSE)` is deprecated. Please use `guides(&lt;scale&gt; = "none")` instead.
@@ -1677,88 +1682,88 @@ FALSE  TRUE
 <div class="cell-output-display">
 <p><img src="Figure3_IsoformSwitchAnalyzeR_files/figure-html/unnamed-chunk-31-20.png" class="img-fluid" width="672"></p>
 </div>
-<div class="sourceCode cell-code" id="cb161"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb161-1"><a href="#cb161-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_tsv</span>(TSS_switches, <span class="at">file=</span><span class="st">"output/tables/TableS3_tss_switches.tsv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb163"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb163-1"><a href="#cb163-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_tsv</span>(TSS_switches, <span class="at">file=</span><span class="st">"output/tables/TableS3_tss_switches.tsv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
 <section id="plot-interesting-disease-genes" class="level2">
 <h2 class="anchored" data-anchor-id="plot-interesting-disease-genes">Plot interesting disease genes</h2>
 <div class="cell" data-hash="Figure3_IsoformSwitchAnalyzeR_cache/html/unnamed-chunk-32_4488435d2bb122f620be0aa04d417cd8">
-<div class="sourceCode cell-code" id="cb162"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb162-1"><a href="#cb162-1" aria-hidden="true" tabindex="-1"></a>pdf_path <span class="ot">=</span> <span class="st">"output/figures/switch_plots/switch_plots_diseaseGenes.pdf"</span></span>
-<span id="cb162-2"><a href="#cb162-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">file.exists</span>(pdf_path)) {</span>
-<span id="cb162-3"><a href="#cb162-3" aria-hidden="true" tabindex="-1"></a>  disease_genes <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="st">'ref/ASD+SCZ+DDD_2022.csv'</span>)</span>
-<span id="cb162-4"><a href="#cb162-4" aria-hidden="true" tabindex="-1"></a>  interesting_genes <span class="ot">=</span> <span class="fu">extractTopSwitches</span>(talonSwitchList_part2, <span class="at">filterForConsequences =</span> T, <span class="at">n =</span> <span class="cn">Inf</span>)</span>
-<span id="cb162-5"><a href="#cb162-5" aria-hidden="true" tabindex="-1"></a>  interesting_genes <span class="ot">=</span> interesting_genes<span class="sc">$</span>gene_name</span>
-<span id="cb162-6"><a href="#cb162-6" aria-hidden="true" tabindex="-1"></a>  interesting_genes <span class="ot">=</span> interesting_genes[interesting_genes <span class="sc">%in%</span> disease_genes<span class="sc">$</span>Gene]</span>
-<span id="cb162-7"><a href="#cb162-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb162-8"><a href="#cb162-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pdf</span>(<span class="at">file=</span>pdf_path)</span>
-<span id="cb162-9"><a href="#cb162-9" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(this_gene <span class="cf">in</span> interesting_genes) {</span>
-<span id="cb162-10"><a href="#cb162-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">switchPlot</span>(</span>
-<span id="cb162-11"><a href="#cb162-11" aria-hidden="true" tabindex="-1"></a>    talonSwitchList_part2,</span>
-<span id="cb162-12"><a href="#cb162-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">gene=</span>this_gene</span>
-<span id="cb162-13"><a href="#cb162-13" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb162-14"><a href="#cb162-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(this_gene)</span>
-<span id="cb162-15"><a href="#cb162-15" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb162-16"><a href="#cb162-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dev.off</span>()</span>
-<span id="cb162-17"><a href="#cb162-17" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb164"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb164-1"><a href="#cb164-1" aria-hidden="true" tabindex="-1"></a>pdf_path <span class="ot">=</span> <span class="st">"output/figures/switch_plots/switch_plots_diseaseGenes.pdf"</span></span>
+<span id="cb164-2"><a href="#cb164-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">file.exists</span>(pdf_path)) {</span>
+<span id="cb164-3"><a href="#cb164-3" aria-hidden="true" tabindex="-1"></a>  disease_genes <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="st">'ref/ASD+SCZ+DDD_2022.csv'</span>)</span>
+<span id="cb164-4"><a href="#cb164-4" aria-hidden="true" tabindex="-1"></a>  interesting_genes <span class="ot">=</span> <span class="fu">extractTopSwitches</span>(talonSwitchList_part2, <span class="at">filterForConsequences =</span> T, <span class="at">n =</span> <span class="cn">Inf</span>)</span>
+<span id="cb164-5"><a href="#cb164-5" aria-hidden="true" tabindex="-1"></a>  interesting_genes <span class="ot">=</span> interesting_genes<span class="sc">$</span>gene_name</span>
+<span id="cb164-6"><a href="#cb164-6" aria-hidden="true" tabindex="-1"></a>  interesting_genes <span class="ot">=</span> interesting_genes[interesting_genes <span class="sc">%in%</span> disease_genes<span class="sc">$</span>Gene]</span>
+<span id="cb164-7"><a href="#cb164-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb164-8"><a href="#cb164-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pdf</span>(<span class="at">file=</span>pdf_path)</span>
+<span id="cb164-9"><a href="#cb164-9" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(this_gene <span class="cf">in</span> interesting_genes) {</span>
+<span id="cb164-10"><a href="#cb164-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">switchPlot</span>(</span>
+<span id="cb164-11"><a href="#cb164-11" aria-hidden="true" tabindex="-1"></a>    talonSwitchList_part2,</span>
+<span id="cb164-12"><a href="#cb164-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">gene=</span>this_gene</span>
+<span id="cb164-13"><a href="#cb164-13" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb164-14"><a href="#cb164-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(this_gene)</span>
+<span id="cb164-15"><a href="#cb164-15" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb164-16"><a href="#cb164-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dev.off</span>()</span>
+<span id="cb164-17"><a href="#cb164-17" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="plot-genes-with-top-switching-novel-isoforms" class="level2">
 <h2 class="anchored" data-anchor-id="plot-genes-with-top-switching-novel-isoforms">Plot genes with top switching novel isoforms</h2>
 <div class="cell" data-hash="Figure3_IsoformSwitchAnalyzeR_cache/html/unnamed-chunk-33_4c6f445e9268d002e90b70d2914a11f1">
-<div class="sourceCode cell-code" id="cb163"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb163-1"><a href="#cb163-1" aria-hidden="true" tabindex="-1"></a>pdf_path <span class="ot">=</span> <span class="st">"output/figures/switch_plots/Fig3_switch_plots_novelIsoforms.pdf"</span></span>
-<span id="cb163-2"><a href="#cb163-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">file.exists</span>(pdf_path)) {</span>
-<span id="cb163-3"><a href="#cb163-3" aria-hidden="true" tabindex="-1"></a>  disease_genes <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="st">'ref/ASD+SCZ+DDD_2022.csv'</span>)</span>
-<span id="cb163-4"><a href="#cb163-4" aria-hidden="true" tabindex="-1"></a>  switches <span class="ot">=</span> talonSwitchList_part2<span class="sc">$</span>isoformFeatures <span class="sc">%&gt;%</span> <span class="fu">left_join</span>(cts <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="at">isoform_id=</span>transcript_id, <span class="at">novelty=</span>novelty2))</span>
-<span id="cb163-5"><a href="#cb163-5" aria-hidden="true" tabindex="-1"></a>  interesting_genes <span class="ot">&lt;-</span> switches <span class="sc">%&gt;%</span> <span class="fu">filter</span>(novelty<span class="sc">!=</span><span class="st">"Known"</span> <span class="sc">&amp;</span> isoform_switch_q_value <span class="sc">&lt;</span> <span class="fl">10e-15</span> ) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">arrange</span>(isoform_switch_q_value) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(gene_name) <span class="sc">%&gt;%</span> <span class="fu">pull</span>() <span class="sc">%&gt;%</span> <span class="fu">unique</span>()</span>
-<span id="cb163-6"><a href="#cb163-6" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb163-7"><a href="#cb163-7" aria-hidden="true" tabindex="-1"></a>  interesting_genes <span class="ot">=</span> <span class="fu">unique</span>(<span class="fu">c</span>(interesting_genes[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>], interesting_genes[interesting_genes<span class="sc">%in%</span> disease_genes<span class="sc">$</span>Gene]))</span>
-<span id="cb163-8"><a href="#cb163-8" aria-hidden="true" tabindex="-1"></a>  interesting_genes</span>
-<span id="cb163-9"><a href="#cb163-9" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb163-10"><a href="#cb163-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pdf</span>(<span class="at">file =</span> pdf_path)</span>
-<span id="cb163-11"><a href="#cb163-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span>(this_gene <span class="cf">in</span> interesting_genes) {</span>
-<span id="cb163-12"><a href="#cb163-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">switchPlot</span>(</span>
-<span id="cb163-13"><a href="#cb163-13" aria-hidden="true" tabindex="-1"></a>      talonSwitchList_part2,</span>
-<span id="cb163-14"><a href="#cb163-14" aria-hidden="true" tabindex="-1"></a>      <span class="at">gene=</span>this_gene</span>
-<span id="cb163-15"><a href="#cb163-15" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb163-16"><a href="#cb163-16" aria-hidden="true" tabindex="-1"></a>      <span class="fu">print</span>(this_gene)</span>
-<span id="cb163-17"><a href="#cb163-17" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb163-18"><a href="#cb163-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dev.off</span>()</span>
-<span id="cb163-19"><a href="#cb163-19" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb165"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb165-1"><a href="#cb165-1" aria-hidden="true" tabindex="-1"></a>pdf_path <span class="ot">=</span> <span class="st">"output/figures/switch_plots/Fig3_switch_plots_novelIsoforms.pdf"</span></span>
+<span id="cb165-2"><a href="#cb165-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">file.exists</span>(pdf_path)) {</span>
+<span id="cb165-3"><a href="#cb165-3" aria-hidden="true" tabindex="-1"></a>  disease_genes <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="st">'ref/ASD+SCZ+DDD_2022.csv'</span>)</span>
+<span id="cb165-4"><a href="#cb165-4" aria-hidden="true" tabindex="-1"></a>  switches <span class="ot">=</span> talonSwitchList_part2<span class="sc">$</span>isoformFeatures <span class="sc">%&gt;%</span> <span class="fu">left_join</span>(cts <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="at">isoform_id=</span>transcript_id, <span class="at">novelty=</span>novelty2))</span>
+<span id="cb165-5"><a href="#cb165-5" aria-hidden="true" tabindex="-1"></a>  interesting_genes <span class="ot">&lt;-</span> switches <span class="sc">%&gt;%</span> <span class="fu">filter</span>(novelty<span class="sc">!=</span><span class="st">"Known"</span> <span class="sc">&amp;</span> isoform_switch_q_value <span class="sc">&lt;</span> <span class="fl">10e-15</span> ) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">arrange</span>(isoform_switch_q_value) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(gene_name) <span class="sc">%&gt;%</span> <span class="fu">pull</span>() <span class="sc">%&gt;%</span> <span class="fu">unique</span>()</span>
+<span id="cb165-6"><a href="#cb165-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb165-7"><a href="#cb165-7" aria-hidden="true" tabindex="-1"></a>  interesting_genes <span class="ot">=</span> <span class="fu">unique</span>(<span class="fu">c</span>(interesting_genes[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>], interesting_genes[interesting_genes<span class="sc">%in%</span> disease_genes<span class="sc">$</span>Gene]))</span>
+<span id="cb165-8"><a href="#cb165-8" aria-hidden="true" tabindex="-1"></a>  interesting_genes</span>
+<span id="cb165-9"><a href="#cb165-9" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb165-10"><a href="#cb165-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pdf</span>(<span class="at">file =</span> pdf_path)</span>
+<span id="cb165-11"><a href="#cb165-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span>(this_gene <span class="cf">in</span> interesting_genes) {</span>
+<span id="cb165-12"><a href="#cb165-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">switchPlot</span>(</span>
+<span id="cb165-13"><a href="#cb165-13" aria-hidden="true" tabindex="-1"></a>      talonSwitchList_part2,</span>
+<span id="cb165-14"><a href="#cb165-14" aria-hidden="true" tabindex="-1"></a>      <span class="at">gene=</span>this_gene</span>
+<span id="cb165-15"><a href="#cb165-15" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb165-16"><a href="#cb165-16" aria-hidden="true" tabindex="-1"></a>      <span class="fu">print</span>(this_gene)</span>
+<span id="cb165-17"><a href="#cb165-17" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb165-18"><a href="#cb165-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dev.off</span>()</span>
+<span id="cb165-19"><a href="#cb165-19" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>this is a disgusting hack</p>
 <div class="cell" data-hash="Figure3_IsoformSwitchAnalyzeR_cache/html/unnamed-chunk-34_14ac7f47104ce67ac6ad48775a1dcbd9">
-<div class="sourceCode cell-code" id="cb164"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb164-1"><a href="#cb164-1" aria-hidden="true" tabindex="-1"></a>strp <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">str_extract</span>(x, <span class="st">"^[^</span><span class="sc">\\</span><span class="st">.]*"</span>)</span>
-<span id="cb164-2"><a href="#cb164-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb164-3"><a href="#cb164-3" aria-hidden="true" tabindex="-1"></a>strippedSwitchList <span class="ot">=</span> <span class="cf">function</span>(switchList) {</span>
-<span id="cb164-4"><a href="#cb164-4" aria-hidden="true" tabindex="-1"></a>  switchList<span class="sc">$</span>isoformFeatures<span class="sc">$</span>isoform_id <span class="ot">&lt;-</span> <span class="fu">strp</span>(switchList<span class="sc">$</span>isoformFeatures<span class="sc">$</span>isoform_id)</span>
-<span id="cb164-5"><a href="#cb164-5" aria-hidden="true" tabindex="-1"></a>  switchList[[<span class="st">"exons"</span>]]<span class="sc">@</span>elementMetadata<span class="sc">@</span>listData[[<span class="st">"isoform_id"</span>]] <span class="ot">&lt;-</span> <span class="fu">strp</span>(switchList[[<span class="st">"exons"</span>]]<span class="sc">@</span>elementMetadata<span class="sc">@</span>listData[[<span class="st">"isoform_id"</span>]])</span>
-<span id="cb164-6"><a href="#cb164-6" aria-hidden="true" tabindex="-1"></a>  switchList<span class="sc">$</span>isoformCountMatrix<span class="sc">$</span>isoform_id <span class="ot">&lt;-</span> <span class="fu">strp</span>(switchList<span class="sc">$</span>isoformCountMatrix<span class="sc">$</span>isoform_id)</span>
-<span id="cb164-7"><a href="#cb164-7" aria-hidden="true" tabindex="-1"></a>  switchList<span class="sc">$</span>isoformRepExpression<span class="sc">$</span>isoform_id <span class="ot">&lt;-</span> <span class="fu">strp</span>(switchList<span class="sc">$</span>isoformRepExpression<span class="sc">$</span>isoform_id)</span>
-<span id="cb164-8"><a href="#cb164-8" aria-hidden="true" tabindex="-1"></a>  switchList<span class="sc">$</span>orfAnalysis<span class="sc">$</span>isoform_id <span class="ot">&lt;-</span> <span class="fu">strp</span>(switchList<span class="sc">$</span>orfAnalysis<span class="sc">$</span>isoform_id)</span>
-<span id="cb164-9"><a href="#cb164-9" aria-hidden="true" tabindex="-1"></a>  switchList<span class="sc">$</span>isoformSwitchAnalysis<span class="sc">$</span>isoform_id <span class="ot">&lt;-</span> <span class="fu">strp</span>(switchList<span class="sc">$</span>isoformSwitchAnalysis<span class="sc">$</span>isoform_id)</span>
-<span id="cb164-10"><a href="#cb164-10" aria-hidden="true" tabindex="-1"></a>  switchList<span class="sc">$</span>domainAnalysis<span class="sc">$</span>isoform_id <span class="ot">&lt;-</span> <span class="fu">strp</span>(switchList<span class="sc">$</span>domainAnalysis<span class="sc">$</span>isoform_id)</span>
-<span id="cb164-11"><a href="#cb164-11" aria-hidden="true" tabindex="-1"></a>  switchList<span class="sc">$</span>idrAnalysis<span class="sc">$</span>isoform_id <span class="ot">&lt;-</span> <span class="fu">strp</span>(switchList<span class="sc">$</span>idrAnalysis<span class="sc">$</span>isoform_id)</span>
-<span id="cb164-12"><a href="#cb164-12" aria-hidden="true" tabindex="-1"></a>  switchList<span class="sc">$</span>signalPeptideAnalysis<span class="sc">$</span>isoform_id <span class="ot">&lt;-</span> <span class="fu">strp</span>(switchList<span class="sc">$</span>signalPeptideAnalysis<span class="sc">$</span>isoform_id)</span>
-<span id="cb164-13"><a href="#cb164-13" aria-hidden="true" tabindex="-1"></a>  switchList<span class="sc">$</span>AlternativeSplicingAnalysis<span class="sc">$</span>isoform_id <span class="ot">&lt;-</span> <span class="fu">strp</span>(switchList<span class="sc">$</span>AlternativeSplicingAnalysis<span class="sc">$</span>isoform_id)</span>
-<span id="cb164-14"><a href="#cb164-14" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb164-15"><a href="#cb164-15" aria-hidden="true" tabindex="-1"></a>  switchList<span class="sc">$</span>switchConsequence<span class="sc">$</span>isoformUpregulated <span class="ot">&lt;-</span> <span class="fu">strp</span>(switchList<span class="sc">$</span>switchConsequence<span class="sc">$</span>isoformUpregulated)</span>
-<span id="cb164-16"><a href="#cb164-16" aria-hidden="true" tabindex="-1"></a>  switchList<span class="sc">$</span>switchConsequence<span class="sc">$</span>isoformDownregulated <span class="ot">&lt;-</span> <span class="fu">strp</span>(switchList<span class="sc">$</span>switchConsequence<span class="sc">$</span>isoformDownregulated)</span>
-<span id="cb164-17"><a href="#cb164-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(switchList)</span>
-<span id="cb164-18"><a href="#cb164-18" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb164-19"><a href="#cb164-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb164-20"><a href="#cb164-20" aria-hidden="true" tabindex="-1"></a>talonSwitchList_part2_strp <span class="ot">=</span> <span class="fu">strippedSwitchList</span>(talonSwitchList_part2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb166"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb166-1"><a href="#cb166-1" aria-hidden="true" tabindex="-1"></a>strp <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">str_extract</span>(x, <span class="st">"^[^</span><span class="sc">\\</span><span class="st">.]*"</span>)</span>
+<span id="cb166-2"><a href="#cb166-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb166-3"><a href="#cb166-3" aria-hidden="true" tabindex="-1"></a>strippedSwitchList <span class="ot">=</span> <span class="cf">function</span>(switchList) {</span>
+<span id="cb166-4"><a href="#cb166-4" aria-hidden="true" tabindex="-1"></a>  switchList<span class="sc">$</span>isoformFeatures<span class="sc">$</span>isoform_id <span class="ot">&lt;-</span> <span class="fu">strp</span>(switchList<span class="sc">$</span>isoformFeatures<span class="sc">$</span>isoform_id)</span>
+<span id="cb166-5"><a href="#cb166-5" aria-hidden="true" tabindex="-1"></a>  switchList[[<span class="st">"exons"</span>]]<span class="sc">@</span>elementMetadata<span class="sc">@</span>listData[[<span class="st">"isoform_id"</span>]] <span class="ot">&lt;-</span> <span class="fu">strp</span>(switchList[[<span class="st">"exons"</span>]]<span class="sc">@</span>elementMetadata<span class="sc">@</span>listData[[<span class="st">"isoform_id"</span>]])</span>
+<span id="cb166-6"><a href="#cb166-6" aria-hidden="true" tabindex="-1"></a>  switchList<span class="sc">$</span>isoformCountMatrix<span class="sc">$</span>isoform_id <span class="ot">&lt;-</span> <span class="fu">strp</span>(switchList<span class="sc">$</span>isoformCountMatrix<span class="sc">$</span>isoform_id)</span>
+<span id="cb166-7"><a href="#cb166-7" aria-hidden="true" tabindex="-1"></a>  switchList<span class="sc">$</span>isoformRepExpression<span class="sc">$</span>isoform_id <span class="ot">&lt;-</span> <span class="fu">strp</span>(switchList<span class="sc">$</span>isoformRepExpression<span class="sc">$</span>isoform_id)</span>
+<span id="cb166-8"><a href="#cb166-8" aria-hidden="true" tabindex="-1"></a>  switchList<span class="sc">$</span>orfAnalysis<span class="sc">$</span>isoform_id <span class="ot">&lt;-</span> <span class="fu">strp</span>(switchList<span class="sc">$</span>orfAnalysis<span class="sc">$</span>isoform_id)</span>
+<span id="cb166-9"><a href="#cb166-9" aria-hidden="true" tabindex="-1"></a>  switchList<span class="sc">$</span>isoformSwitchAnalysis<span class="sc">$</span>isoform_id <span class="ot">&lt;-</span> <span class="fu">strp</span>(switchList<span class="sc">$</span>isoformSwitchAnalysis<span class="sc">$</span>isoform_id)</span>
+<span id="cb166-10"><a href="#cb166-10" aria-hidden="true" tabindex="-1"></a>  switchList<span class="sc">$</span>domainAnalysis<span class="sc">$</span>isoform_id <span class="ot">&lt;-</span> <span class="fu">strp</span>(switchList<span class="sc">$</span>domainAnalysis<span class="sc">$</span>isoform_id)</span>
+<span id="cb166-11"><a href="#cb166-11" aria-hidden="true" tabindex="-1"></a>  switchList<span class="sc">$</span>idrAnalysis<span class="sc">$</span>isoform_id <span class="ot">&lt;-</span> <span class="fu">strp</span>(switchList<span class="sc">$</span>idrAnalysis<span class="sc">$</span>isoform_id)</span>
+<span id="cb166-12"><a href="#cb166-12" aria-hidden="true" tabindex="-1"></a>  switchList<span class="sc">$</span>signalPeptideAnalysis<span class="sc">$</span>isoform_id <span class="ot">&lt;-</span> <span class="fu">strp</span>(switchList<span class="sc">$</span>signalPeptideAnalysis<span class="sc">$</span>isoform_id)</span>
+<span id="cb166-13"><a href="#cb166-13" aria-hidden="true" tabindex="-1"></a>  switchList<span class="sc">$</span>AlternativeSplicingAnalysis<span class="sc">$</span>isoform_id <span class="ot">&lt;-</span> <span class="fu">strp</span>(switchList<span class="sc">$</span>AlternativeSplicingAnalysis<span class="sc">$</span>isoform_id)</span>
+<span id="cb166-14"><a href="#cb166-14" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb166-15"><a href="#cb166-15" aria-hidden="true" tabindex="-1"></a>  switchList<span class="sc">$</span>switchConsequence<span class="sc">$</span>isoformUpregulated <span class="ot">&lt;-</span> <span class="fu">strp</span>(switchList<span class="sc">$</span>switchConsequence<span class="sc">$</span>isoformUpregulated)</span>
+<span id="cb166-16"><a href="#cb166-16" aria-hidden="true" tabindex="-1"></a>  switchList<span class="sc">$</span>switchConsequence<span class="sc">$</span>isoformDownregulated <span class="ot">&lt;-</span> <span class="fu">strp</span>(switchList<span class="sc">$</span>switchConsequence<span class="sc">$</span>isoformDownregulated)</span>
+<span id="cb166-17"><a href="#cb166-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(switchList)</span>
+<span id="cb166-18"><a href="#cb166-18" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb166-19"><a href="#cb166-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb166-20"><a href="#cb166-20" aria-hidden="true" tabindex="-1"></a>talonSwitchList_part2_strp <span class="ot">=</span> <span class="fu">strippedSwitchList</span>(talonSwitchList_part2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell" data-hash="Figure3_IsoformSwitchAnalyzeR_cache/html/unnamed-chunk-35_5cca6ac12d5077dd9421c06e830bb2db">
-<div class="sourceCode cell-code" id="cb165"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb165-1"><a href="#cb165-1" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">theme_gray</span>(<span class="at">base_size =</span> <span class="dv">18</span>))</span>
-<span id="cb165-2"><a href="#cb165-2" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_update</span>(</span>
-<span id="cb165-3"><a href="#cb165-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">color=</span><span class="st">"black"</span>),</span>
-<span id="cb165-4"><a href="#cb165-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="fu">rel</span>(<span class="dv">1</span>), <span class="at">hjust =</span> <span class="fl">0.5</span>)</span>
-<span id="cb165-5"><a href="#cb165-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb167"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb167-1"><a href="#cb167-1" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">theme_gray</span>(<span class="at">base_size =</span> <span class="dv">18</span>))</span>
+<span id="cb167-2"><a href="#cb167-2" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_update</span>(</span>
+<span id="cb167-3"><a href="#cb167-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">color=</span><span class="st">"black"</span>),</span>
+<span id="cb167-4"><a href="#cb167-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="fu">rel</span>(<span class="dv">1</span>), <span class="at">hjust =</span> <span class="fl">0.5</span>)</span>
+<span id="cb167-5"><a href="#cb167-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>export at 8 x 6in</p>
 <div class="cell" data-hash="Figure3_IsoformSwitchAnalyzeR_cache/html/unnamed-chunk-36_b085d1aa57d870c010b71c31fdb70522">
-<div class="sourceCode cell-code" id="cb166"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb166-1"><a href="#cb166-1" aria-hidden="true" tabindex="-1"></a><span class="fu">switchPlot</span>(talonSwitchList_part2_strp, <span class="at">gene =</span> <span class="st">"KMT2E"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb168"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb168-1"><a href="#cb168-1" aria-hidden="true" tabindex="-1"></a><span class="fu">switchPlot</span>(talonSwitchList_part2_strp, <span class="at">gene =</span> <span class="st">"KMT2E"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: `guides(&lt;scale&gt; = FALSE)` is deprecated. Please use `guides(&lt;scale&gt; = "none")` instead.
 `guides(&lt;scale&gt; = FALSE)` is deprecated. Please use `guides(&lt;scale&gt; = "none")` instead.
@@ -1767,7 +1772,7 @@ FALSE  TRUE
 <div class="cell-output-display">
 <p><img src="Figure3_IsoformSwitchAnalyzeR_files/figure-html/unnamed-chunk-36-1.png" class="img-fluid" width="672"></p>
 </div>
-<div class="sourceCode cell-code" id="cb168"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb168-1"><a href="#cb168-1" aria-hidden="true" tabindex="-1"></a><span class="fu">switchPlot</span>(talonSwitchList_part2_strp, <span class="at">gene =</span> <span class="st">"UBE3A"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb170"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb170-1"><a href="#cb170-1" aria-hidden="true" tabindex="-1"></a><span class="fu">switchPlot</span>(talonSwitchList_part2_strp, <span class="at">gene =</span> <span class="st">"UBE3A"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: `guides(&lt;scale&gt; = FALSE)` is deprecated. Please use `guides(&lt;scale&gt; = "none")` instead.
 `guides(&lt;scale&gt; = FALSE)` is deprecated. Please use `guides(&lt;scale&gt; = "none")` instead.
