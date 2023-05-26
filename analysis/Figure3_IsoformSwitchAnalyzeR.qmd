@@ -546,6 +546,9 @@ ORA(tableS3$gene_id[tableS3$DTU_qval<.05],DGE_results$gene_id[DGE_results$padj<.
 # 1411 isoform-switching genes without even nominally significant evidence of DGE
 length(intersect(tableS3$gene_id[tableS3$DTU_qval<.05], DGE_results$gene_id[DGE_results$pvalue>.05]))
 
+# 1669 isoform-switching genes without significant evidence of DGE (using adjusted p-values)
+length(intersect(tableS3$gene_id[tableS3$DTU_qval<.05], DGE_results$gene_id[DGE_results$padj>.05]))
+
 Fig3c = ggVennDiagram(list(DTU = which(gene_overlaps$DTU), 
                                   DGE = which(gene_overlaps$DGE),
                                   DTE = which(gene_overlaps$DTE))) + 
