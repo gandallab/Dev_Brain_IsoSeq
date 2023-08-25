@@ -4,6 +4,7 @@ project:
   render:
     - analysis/index.qmd
     - analysis/Figure1_BulkTxomeAnalysis.qmd
+    - analysis/Figure1_BulkTxomeAnalysis_revision1.qmd
     - analysis/Figure1_TableS1.qmd
     - code/Fig1_MetaCoverage.ipynb
     - analysis/Figure2_isoFraction.qmd
@@ -24,9 +25,11 @@ project:
     - analysis/Figure5_PseudotimeAnalysis.qmd
     - analysis/Figure5_Sankey.qmd
     - analysis/Figure6_rareVariant.qmd
+    - analysis/Figure6_rareVariant_revision1.qmd
     - analysis/Figure6_VEPConsequences.qmd
     - analysis/Figure6_TrackPlots.qmd
     - analysis/FigureS9_cor_plots.qmd
+    - analysis/FigureS9H_revision1.qmd
 
 website:
   title: "Dev Brain Iso-Seq"
@@ -38,6 +41,7 @@ website:
     search: false
     contents:
       - analysis/Figure1_BulkTxomeAnalysis.qmd
+      - analysis/Figure1_BulkTxomeAnalysis_revision1.qmd
       - analysis/Figure1_TableS1.qmd
       - code/Fig1_MetaCoverage.ipynb
       - text: "---"
@@ -63,10 +67,12 @@ website:
       - analysis/Figure5_Sankey.qmd
       - text: "---"
       - analysis/Figure6_rareVariant.qmd
+      - analysis/Figure6_rareVariant_revision1.qmd
       - analysis/Figure6_VEPConsequences.qmd
       - analysis/Figure6_TrackPlots.qmd
       - text: "---"
       - analysis/FigureS9_cor_plots.qmd
+      - analysis/FigureS9H_revision1.qmd
 
 format:
   html:

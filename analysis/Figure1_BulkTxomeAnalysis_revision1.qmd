@@ -1,0 +1,270 @@
+---
+title: "Figure 1 - BulkTxomeAnalysis REVISION1"
+author: "Michael Gandal"
+format: html
+execute:
+  cache: true
+editor: source
+editor_options:
+  chunk_output_type: console
+  markdown: 
+    wrap: 72
+---
+
+```{r}
+suppressPackageStartupMessages({
+  library(IsoformSwitchAnalyzeR)
+  library(rtracklayer)
+  library(ggrepel)
+  library(scales)
+  library(GenomicFeatures)
+  library(DescTools)
+  library(tidyverse)
+  library(magrittr)
+})
+
+colorVector = c(
+  "Known" = "#009E73",
+  "ISM"   = "#0072B2",
+  "ISM_Prefix" = "#005996",
+  "ISM_Suffix" = "#378bcc",
+#  "ISM_Both"   = "#0072B2",
+  "NIC"   = "#D55E00",
+  "NNC"   = "#E69F00",
+  "Other" = "#000000"
+)
+colorVector_ismSplit = colorVector[-2]
+```
+
+## Load Data
+
+```{r}
+if(!file.exists("data/working/bulkTxome.Rdata")) {
+  talon_gtf = rtracklayer::import("data/cp_vz_0.75_min_7_recovery_talon.gtf.gz")
+  tx.isoseq =  talon_gtf %>% as_tibble() %>% filter(type == "transcript") 
+  
+  sqanti_gtf = rtracklayer::import("data/sqanti/cp_vz_0.75_min_7_recovery_talon_corrected.gtf.cds.gtf.gz")
+  tx.sqanti = sqanti_gtf %>% as_tibble() %>% filter(type == "transcript")
+  
+  gencode_gtf = rtracklayer::import("ref/gencode.v33lift37.annotation.gtf.gz") 
+  tx.gencode =  gencode_gtf %>% as_tibble() %>% filter(type == "transcript")
+  
+  txdb.gencode = makeTxDbFromGRanges(gencode_gtf)
+  gencodelengths= transcriptLengths(txdb.gencode)
+  
+  txdb.isoseq = makeTxDbFromGRanges(talon_gtf)
+  isoSeqLengths = transcriptLengths(txdb.isoseq)
+  samps = tribble( 
+    ~sample_id, ~condition,
+    "VZ_209", "VZ",
+    "VZ_334", "VZ",
+    "VZ_336", "VZ",
+    "CP_209", "CP",
+    "CP_334", "CP",
+    "CP_336", "CP"
+  ) %>%
+    dplyr::mutate(
+      dplyr::across(condition, as_factor)
+    )
+  
+  cts = read_table("data/cp_vz_0.75_min_7_recovery_talon_abundance_filtered.tsv.gz")
+  cts.collapse = cts %>%
+    mutate(
+      VZ_209 = rowSums(across(matches("209_.*_VZ"))),
+      VZ_334 = rowSums(across(matches("334_.*_VZ"))),
+      VZ_336 = rowSums(across(matches("336_.*_VZ"))),
+      CP_209 = rowSums(across(matches("209_.*_CP"))),
+      CP_334 = rowSums(across(matches("334_.*_CP"))),
+      CP_336 = rowSums(across(matches("336_.*_CP"))),
+      .keep = "unused"
+    ) %>%
+    dplyr::select(!c("gene_ID", "transcript_ID", "annot_transcript_name")) %>%
+    dplyr::rename(
+      gene_id = "annot_gene_id",
+      transcript_id = "annot_transcript_id",
+      gene_name = "annot_gene_name"
+    ) %>%
+    mutate(
+      gene_novelty = as.factor(gene_novelty),
+      transcript_novelty = as.factor(transcript_novelty),
+      ISM_subtype = ISM_subtype %>% na_if("None") %>% as.factor()
+    )
+  cts$counts = rowSums(as.matrix(cts.collapse[,9:14]))
+  
+  cts$novelty2 = as.character(cts$transcript_novelty)
+  cts$novelty2[which(cts$novelty2=="ISM" & cts$ISM_subtype=="Prefix")] = "ISM_Prefix"
+  cts$novelty2[which(cts$novelty2=="ISM" & cts$ISM_subtype=="Suffix")] = "ISM_Suffix"
+  cts$novelty2[cts$novelty2 %in% c("Antisense", "Genomic", "Intergenic", "ISM")] = "Other"
+  cts$novelty2 = factor(cts$novelty2,levels=c("Known", "ISM_Prefix", "ISM_Suffix", "NIC", "NNC", "Other"))
+  
+  
+  TableS1 = tx.isoseq %>% dplyr::select(gene_id, transcript_id, gene_name, transcript_name, seqnames, start, end, strand, transcript_length=width, source, gene_status, gene_type, transcript_status,transcript_type,  havana_transcript, ccdsid, protein_id)
+  TableS1 = TableS1 %>% left_join(cts %>% dplyr::select(transcript_id=annot_transcript_id, transcript_novelty, ISM_subtype, transcript_novelty2 = novelty2, n_exons, cds_length = length, expression_counts = counts))
+  TableS1$expression_TPM = TableS1$expression_counts / (sum(TableS1$expression_counts / 1000000))
+  write_tsv(TableS1, file="output/tables/TableS1_transcript_annotation.tsv")
+  save.image("data/working/bulkTxome.Rdata")
+} else {
+  load("data/working/bulkTxome.Rdata")
+}
+
+
+```
+
+## Analyses of transcripts per gene & disease
+
+### NDD risk genes \~ unique transcipts per gene
+
+```{r}
+source("code/risk_genes.R")
+```
+
+````{r}
+risk_genes = read.csv("ref/ASD+SCZ+DDD_2022.csv")
+pLI_scores = read.table('ref/pLI_scores.ensid.txt',header = T)
+asd_genes = risk_genes$Gene[risk_genes$Set=="ASD (SFARI score 1)"]
+ddd_genes = risk_genes$Gene[risk_genes$Set=="DDD (Kaplanis et al. 2019)"]
+
+geneCounts = cts %>% group_by(gene_id=substr(annot_gene_id,1,15)) %>% summarise(gene_count = sum(counts))
+geneCounts$gene_count = geneCounts$gene_count / (sum(geneCounts$gene_count) / 1000000)
+
+talon_exons = talon_gtf[talon_gtf$type == "exon"]
+#talon_exons_novel = talon_gtf[talon_gtf$type == "exon" & talon_gtf$transcript_status == "NOVEL"]
+talon_exons_by_gene = split(talon_exons, talon_exons$gene_id)
+#talon_exons_by_gene_novel = split(talon_exons_novel, talon_exons_novel$gene_id)
+geneLengths = enframe(
+  sum(width(GenomicRanges::reduce(ranges(talon_exons_by_gene)))),
+  name = "gene_id",
+  value = "coding_length"
+) %>%
+  left_join(
+    enframe(
+      max(end(talon_exons_by_gene)) - min(start(talon_exons_by_gene)) + 1,
+      name = "gene_id",
+      value = "talon_width" # due to novel/unexpressed transcripts, talon gene width can differ from gencode gene width
+    )
+  ) %>%
+#  left_join(
+#    enframe(
+#      sum(width(GenomicRanges::reduce(ranges(talon_exons_by_gene_novel)))),
+#      name = "gene_id",
+#      value = "coding_length_novel"
+#    )
+#  ) %>%
+  mutate(gene_id = substr(gene_id, 1, 15))
+
+
+df <- talon_gtf %>% as_tibble()  %>% 
+  mutate(gene_id = str_sub(gene_id, 1, 15)) %>%
+  group_by(gene_id) %>%
+  summarize(n_transcripts = n_distinct(na.omit(transcript_id)), n_exons = n_distinct(na.omit(exon_id))) %>%
+  ungroup() 
+
+df <- as_tibble(gencode_gtf) %>% dplyr::filter(type=="gene") %>% mutate(gene_id=substr(gene_id,0,15)) %>% right_join(df, by="gene_id")
+df <- df %>% left_join(geneCounts)
+df <- df %>% left_join(geneLengths)
+df <- pLI_scores %>% as_tibble() %>% dplyr::select(gene_id=gene, pLI) %>% right_join(df)
+
+df$gene_rank = rank(-df$n_transcripts, ties.method = 'first')
+
+df$DDD = FALSE
+df$DDD[df$gene_name %in% c(asd_genes, ddd_genes)] = TRUE
+
+df = rareVar.binary %>% as_tibble(rownames = "gene_id") %>% right_join(df)
+
+s=summary(glm(NDD.fuTADA ~ log10(n_transcripts)  + log10(width)  + log10(gene_count) + log10(coding_length), data=df %>% filter(gene_type == "protein_coding"), family='binomial'))
+print(s)
+exp(s$coefficients[,1])
+
+Fig1H = df %>% mutate(NDD.fuTADA = NDD.fuTADA %>% as.logical() %>% replace_na(F)) %>%
+  ggplot(aes(x = gene_rank, y = n_transcripts, color=NDD.fuTADA)) +
+  geom_point() + geom_line(color='blue') + 
+  geom_label_repel(data = . %>% filter(n_transcripts > 150 | (n_transcripts > 80 & NDD.fuTADA==TRUE)),aes(label = gene_name),force = 30, direction='both',nudge_y=-.1,nudge_x = .3, max.iter = 10000,max.overlaps = 50, size=2.5) + scale_color_manual(values=c("TRUE" = "red", "FALSE" = "black")) + scale_y_log10() + scale_x_log10() + theme_bw() + annotation_logticks() + theme(legend.position = 'none') + labs(x="Gene rank", y="# Transcripts") + ggtitle("NDD risk genes ~ unique transcripts per gene",subtitle=paste0("OR ",signif(exp(s$coefficients[2,1]),3),", P=", signif(s$coefficients[2,4],2)))
+Fig1H
+```
+
+```{r}
+ggsave(file="output/figures/revision1/Fig1K_codingLen_NDD.fuTADA.pdf",Fig1H, width = 8, height=3)
+  
+```
+
+**n_exons and n_transcripts are closely correlated:**
+
+```{r}
+summary(glm(
+  DDD ~ log10(width)  + log10(gene_count) + log10(coding_length) + log10(n_exons),
+  data=df %>% filter(gene_type == "protein_coding"),
+  family='binomial'
+))
+exp(1.33657)
+
+summary(glm(
+  DDD ~ log10(n_transcripts)  + log10(width)  + log10(gene_count) + log10(coding_length),
+  data=df %>% filter(gene_type == "protein_coding"),
+  family='binomial'
+))
+exp(0.6113)
+```
+
+```{r}
+mycor = df %>% transmute(
+  n_tx_log10 = log10(n_transcripts),
+  width_log10 = log10(talon_width),
+  gene_count_log10 = log10(gene_count),
+  coding_length_log10 = log10(coding_length), 
+  n_exons_log10 = log10(n_exons)
+) %>% cor(method = "spearman")
+mycor
+```
+
+```{r}
+myorder = colnames(mycor)
+mycor %>%
+  as_tibble(rownames = "var1") %>%
+  pivot_longer(cols = !var1, names_to = "var2", values_to = "spearman") %>%
+  mutate(across(c(var1, var2), factor, levels = myorder)) %>%
+  ggplot(aes(x=var1, y=var2, fill=spearman)) +
+  scale_fill_gradient(low = "white", high = "red") +
+  geom_tile() +
+  geom_text(aes(label = scales::number(spearman, accuracy = 0.01))) +
+  scale_x_discrete(guide = guide_axis(angle = 45)) +
+  scale_y_discrete(limits = rev)
+```
+
+```{r}
+ggsave(file="output/figures/revision1/Fig1K_correlations.pdf", width = 5, height=4)
+```
+
+
+### FigS3: NDD risk genes \~ unique NOVEL transcipts per gene
+
+```{r}
+df.novel <- talon_gtf %>% as_tibble()  %>% filter(type=="transcript", transcript_id %in% cts$annot_transcript_id[cts$novelty2!="Known"]) %>% 
+  mutate(gene_id = str_sub(gene_id, 1, 15)) %>%
+  group_by(gene_id) %>%
+  summarize(n_transcripts = n_distinct(na.omit(transcript_id)), n_exons = n_distinct(na.omit(exon_id))) %>%
+  ungroup() 
+
+df.novel <- as_tibble(gencode_gtf) %>% dplyr::filter(type=="gene") %>% mutate(gene_id=substr(gene_id,0,15)) %>% right_join(df.novel, by="gene_id")
+df.novel <- df.novel %>% left_join(geneCounts)
+df.novel <- df.novel %>% left_join(geneLengths)
+df.novel$gene_rank = rank(-df.novel$n_transcripts, ties.method = 'first')
+df.novel$DDD = FALSE
+df.novel$DDD[df.novel$gene_name %in% c(asd_genes, ddd_genes)] = TRUE
+
+df.novel = rareVar.binary %>% as_tibble(rownames = "gene_id") %>% right_join(df.novel)
+
+s=summary(glm(NDD.fuTADA ~ log10(n_transcripts)  + log10(width)  + log10(gene_count) + log10(coding_length), data=df.novel %>% filter(gene_type == "protein_coding"), family='binomial'))
+print(s)
+sort(exp(s$coefficients[,1]))
+
+FigS3 = df.novel %>% mutate(NDD.fuTADA = NDD.fuTADA %>% as.logical() %>% replace_na(F)) %>%
+  ggplot(aes(x = gene_rank, y = n_transcripts, color=NDD.fuTADA)) +
+  geom_point() + geom_line(color='blue') + 
+  geom_label_repel(data = . %>% filter(n_transcripts > 150 | (n_transcripts > 75 & NDD.fuTADA==TRUE)),aes(label = gene_name),force = 30, direction='both',nudge_y=-.1,nudge_x = .3, max.iter = 10000,max.overlaps = 50, size=2.5) + scale_color_manual(values=c("TRUE" = "red", "FALSE" = "black")) + scale_y_log10() + scale_x_log10() + theme_bw() + annotation_logticks() + theme(legend.position = 'none') + labs(x="Gene rank", y="# Transcripts") + ggtitle("NDD risk genes ~ unique novel transcripts per gene",subtitle=paste0("OR ",signif(exp(s$coefficients[2,1]),3),", P=", signif(s$coefficients[2,4],2)))
+FigS3
+
+```
+
+```{r}
+ggsave(file="output/figures/revision1/FigS3G_codingLen_NDD.fuTADA_6in.pdf",FigS3, width = 6, height=3)
+```
