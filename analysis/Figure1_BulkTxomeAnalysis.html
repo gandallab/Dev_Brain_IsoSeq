@@ -162,11 +162,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../analysis/Figure1_BulkTxomeAnalysis_revision1.html" class="sidebar-item-text sidebar-link">Figure 1 - BulkTxomeAnalysis REVISION1</a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../analysis/Figure1_TableS1.html" class="sidebar-item-text sidebar-link">Figure 1 - Table S1</a>
   </div>
 </li>
@@ -204,6 +199,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../analysis/Figure2_PeptideSupport.html" class="sidebar-item-text sidebar-link">Figure 2 - Peptide Support</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure2_externalSupport.html" class="sidebar-item-text sidebar-link">Figure 2 - External Support</a>
   </div>
 </li>
         <li class="px-0"><hr class="sidebar-divider hi "></li>
@@ -272,11 +272,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../analysis/Figure6_rareVariant_revision1.html" class="sidebar-item-text sidebar-link">Figure 6 - Rare Variant REVISION1</a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../analysis/Figure6_VEPConsequences.html" class="sidebar-item-text sidebar-link">Figure 6 - VEP Consequences</a>
   </div>
 </li>
@@ -293,7 +288,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../analysis/FigureS9H_revision1.html" class="sidebar-item-text sidebar-link">Fig S9H REVISION1</a>
+  <a href="../analysis/FigureS9_GH.html" class="sidebar-item-text sidebar-link">Figure S9 - G, H</a>
   </div>
 </li>
     </ul>
@@ -905,160 +900,250 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <h2 class="anchored" data-anchor-id="analyses-of-transcripts-per-gene-disease">Analyses of transcripts per gene &amp; disease</h2>
 <section id="ndd-risk-genes-unique-transcipts-per-gene" class="level3">
 <h3 class="anchored" data-anchor-id="ndd-risk-genes-unique-transcipts-per-gene">NDD risk genes ~ unique transcipts per gene</h3>
-<div class="cell" data-hash="Figure1_BulkTxomeAnalysis_cache/html/unnamed-chunk-8_589057e417299567f0b38278a784d513">
-<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a>risk_genes <span class="ot">=</span><span class="fu">read.csv</span>(<span class="st">"ref/ASD+SCZ+DDD_2022.csv"</span>)</span>
-<span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a>pLI_scores <span class="ot">=</span> <span class="fu">read.table</span>(<span class="st">'ref/pLI_scores.ensid.txt'</span>,<span class="at">header =</span> T)</span>
-<span id="cb79-3"><a href="#cb79-3" aria-hidden="true" tabindex="-1"></a>asd_genes <span class="ot">=</span> risk_genes<span class="sc">$</span>Gene[risk_genes<span class="sc">$</span>Set<span class="sc">==</span><span class="st">"ASD (SFARI score 1)"</span>]</span>
-<span id="cb79-4"><a href="#cb79-4" aria-hidden="true" tabindex="-1"></a>ddd_genes <span class="ot">=</span> risk_genes<span class="sc">$</span>Gene[risk_genes<span class="sc">$</span>Set<span class="sc">==</span><span class="st">"DDD (Kaplanis et al. 2019)"</span>]</span>
-<span id="cb79-5"><a href="#cb79-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-6"><a href="#cb79-6" aria-hidden="true" tabindex="-1"></a>geneCounts <span class="ot">=</span> cts <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(<span class="at">gene_id=</span><span class="fu">substr</span>(annot_gene_id,<span class="dv">1</span>,<span class="dv">15</span>)) <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">gene_counts =</span> <span class="fu">sum</span>(counts))</span>
-<span id="cb79-7"><a href="#cb79-7" aria-hidden="true" tabindex="-1"></a>geneCounts<span class="sc">$</span>gene_counts <span class="ot">=</span> geneCounts<span class="sc">$</span>gene_counts <span class="sc">/</span> (<span class="fu">sum</span>(geneCounts<span class="sc">$</span>gene_counts) <span class="sc">/</span> <span class="dv">1000000</span>)</span>
-<span id="cb79-8"><a href="#cb79-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-9"><a href="#cb79-9" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> talon_gtf <span class="sc">%&gt;%</span> <span class="fu">as_tibble</span>()  <span class="sc">%&gt;%</span> </span>
-<span id="cb79-10"><a href="#cb79-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">gene_id =</span> <span class="fu">str_sub</span>(gene_id, <span class="dv">1</span>, <span class="dv">15</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb79-11"><a href="#cb79-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(gene_id) <span class="sc">%&gt;%</span></span>
-<span id="cb79-12"><a href="#cb79-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">n_transcripts =</span> <span class="fu">n_distinct</span>(<span class="fu">na.omit</span>(transcript_id)), <span class="at">n_exons =</span> <span class="fu">n_distinct</span>(<span class="fu">na.omit</span>(exon_id))) <span class="sc">%&gt;%</span></span>
-<span id="cb79-13"><a href="#cb79-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() </span>
-<span id="cb79-14"><a href="#cb79-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-15"><a href="#cb79-15" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span><span class="fu">as_tibble</span>(gencode_gtf) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(type<span class="sc">==</span><span class="st">"gene"</span>) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">gene_id=</span><span class="fu">substr</span>(gene_id,<span class="dv">0</span>,<span class="dv">15</span>)) <span class="sc">%&gt;%</span> <span class="fu">right_join</span>(df, <span class="at">by=</span><span class="st">"gene_id"</span>)</span>
-<span id="cb79-16"><a href="#cb79-16" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">left_join</span>(geneCounts) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="Figure1_BulkTxomeAnalysis_cache/html/unnamed-chunk-8_e5ea459f4c809f2a78f2e51dceba61e9">
+<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"code/risk_genes.R"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: One or more parsing issues, see `problems()` for details</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 18321 Columns: 26
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: "\t"
+chr  (8): gene_id, group, OR (PTV), OR (Class I), OR (Class II), OR (PTV) up...
+dbl (16): Case PTV, Ctrl PTV, Case mis3, Ctrl mis3, Case mis2, Ctrl mis2, P ...
+lgl  (2): De novo mis3, De novo mis2
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+Rows: 119958 Columns: 20
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: "\t"
+chr  (4): gene_id, group, damaging_missense_fisher_gnom_non_psych_OR, ptv_fi...
+dbl (16): n_cases, n_controls, damaging_missense_case_count, damaging_missen...
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+Rows: 71456 Columns: 12
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: "\t"
+chr (2): gene_id, group
+dbl (9): xcase_lof, xctrl_lof, pval_lof, xcase_mpc, xctrl_mpc, pval_mpc, xca...
+lgl (1): pval_infrIndel
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+</div>
+<div class="cell" data-hash="Figure1_BulkTxomeAnalysis_cache/html/unnamed-chunk-9_14d557abf57db8526991e6ac2531d0c4">
+<div class="sourceCode cell-code" id="cb82"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a>risk_genes <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="st">"ref/ASD+SCZ+DDD_2022.csv"</span>)</span>
+<span id="cb82-2"><a href="#cb82-2" aria-hidden="true" tabindex="-1"></a>pLI_scores <span class="ot">=</span> <span class="fu">read.table</span>(<span class="st">'ref/pLI_scores.ensid.txt'</span>,<span class="at">header =</span> T)</span>
+<span id="cb82-3"><a href="#cb82-3" aria-hidden="true" tabindex="-1"></a>asd_genes <span class="ot">=</span> risk_genes<span class="sc">$</span>Gene[risk_genes<span class="sc">$</span>Set<span class="sc">==</span><span class="st">"ASD (SFARI score 1)"</span>]</span>
+<span id="cb82-4"><a href="#cb82-4" aria-hidden="true" tabindex="-1"></a>ddd_genes <span class="ot">=</span> risk_genes<span class="sc">$</span>Gene[risk_genes<span class="sc">$</span>Set<span class="sc">==</span><span class="st">"DDD (Kaplanis et al. 2019)"</span>]</span>
+<span id="cb82-5"><a href="#cb82-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-6"><a href="#cb82-6" aria-hidden="true" tabindex="-1"></a>geneCounts <span class="ot">=</span> cts <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(<span class="at">gene_id=</span><span class="fu">substr</span>(annot_gene_id,<span class="dv">1</span>,<span class="dv">15</span>)) <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">gene_count =</span> <span class="fu">sum</span>(counts))</span>
+<span id="cb82-7"><a href="#cb82-7" aria-hidden="true" tabindex="-1"></a>geneCounts<span class="sc">$</span>gene_count <span class="ot">=</span> geneCounts<span class="sc">$</span>gene_count <span class="sc">/</span> (<span class="fu">sum</span>(geneCounts<span class="sc">$</span>gene_count) <span class="sc">/</span> <span class="dv">1000000</span>)</span>
+<span id="cb82-8"><a href="#cb82-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-9"><a href="#cb82-9" aria-hidden="true" tabindex="-1"></a>talon_exons <span class="ot">=</span> talon_gtf[talon_gtf<span class="sc">$</span>type <span class="sc">==</span> <span class="st">"exon"</span>]</span>
+<span id="cb82-10"><a href="#cb82-10" aria-hidden="true" tabindex="-1"></a><span class="co">#talon_exons_novel = talon_gtf[talon_gtf$type == "exon" &amp; talon_gtf$transcript_status == "NOVEL"]</span></span>
+<span id="cb82-11"><a href="#cb82-11" aria-hidden="true" tabindex="-1"></a>talon_exons_by_gene <span class="ot">=</span> <span class="fu">split</span>(talon_exons, talon_exons<span class="sc">$</span>gene_id)</span>
+<span id="cb82-12"><a href="#cb82-12" aria-hidden="true" tabindex="-1"></a><span class="co">#talon_exons_by_gene_novel = split(talon_exons_novel, talon_exons_novel$gene_id)</span></span>
+<span id="cb82-13"><a href="#cb82-13" aria-hidden="true" tabindex="-1"></a>geneLengths <span class="ot">=</span> <span class="fu">enframe</span>(</span>
+<span id="cb82-14"><a href="#cb82-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sum</span>(<span class="fu">width</span>(GenomicRanges<span class="sc">::</span><span class="fu">reduce</span>(<span class="fu">ranges</span>(talon_exons_by_gene)))),</span>
+<span id="cb82-15"><a href="#cb82-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">name =</span> <span class="st">"gene_id"</span>,</span>
+<span id="cb82-16"><a href="#cb82-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">value =</span> <span class="st">"coding_length"</span></span>
+<span id="cb82-17"><a href="#cb82-17" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb82-18"><a href="#cb82-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(</span>
+<span id="cb82-19"><a href="#cb82-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">enframe</span>(</span>
+<span id="cb82-20"><a href="#cb82-20" aria-hidden="true" tabindex="-1"></a>      <span class="fu">max</span>(<span class="fu">end</span>(talon_exons_by_gene)) <span class="sc">-</span> <span class="fu">min</span>(<span class="fu">start</span>(talon_exons_by_gene)) <span class="sc">+</span> <span class="dv">1</span>,</span>
+<span id="cb82-21"><a href="#cb82-21" aria-hidden="true" tabindex="-1"></a>      <span class="at">name =</span> <span class="st">"gene_id"</span>,</span>
+<span id="cb82-22"><a href="#cb82-22" aria-hidden="true" tabindex="-1"></a>      <span class="at">value =</span> <span class="st">"talon_width"</span> <span class="co"># due to novel/unexpressed transcripts, talon gene width can differ from gencode gene width</span></span>
+<span id="cb82-23"><a href="#cb82-23" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb82-24"><a href="#cb82-24" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb82-25"><a href="#cb82-25" aria-hidden="true" tabindex="-1"></a><span class="co">#  left_join(</span></span>
+<span id="cb82-26"><a href="#cb82-26" aria-hidden="true" tabindex="-1"></a><span class="co">#    enframe(</span></span>
+<span id="cb82-27"><a href="#cb82-27" aria-hidden="true" tabindex="-1"></a><span class="co">#      sum(width(GenomicRanges::reduce(ranges(talon_exons_by_gene_novel)))),</span></span>
+<span id="cb82-28"><a href="#cb82-28" aria-hidden="true" tabindex="-1"></a><span class="co">#      name = "gene_id",</span></span>
+<span id="cb82-29"><a href="#cb82-29" aria-hidden="true" tabindex="-1"></a><span class="co">#      value = "coding_length_novel"</span></span>
+<span id="cb82-30"><a href="#cb82-30" aria-hidden="true" tabindex="-1"></a><span class="co">#    )</span></span>
+<span id="cb82-31"><a href="#cb82-31" aria-hidden="true" tabindex="-1"></a><span class="co">#  ) %&gt;%</span></span>
+<span id="cb82-32"><a href="#cb82-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">gene_id =</span> <span class="fu">substr</span>(gene_id, <span class="dv">1</span>, <span class="dv">15</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Joining, by = "gene_id"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> pLI_scores <span class="sc">%&gt;%</span> <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="at">gene_id=</span>gene, pLI) <span class="sc">%&gt;%</span> <span class="fu">right_join</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb84"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> talon_gtf <span class="sc">%&gt;%</span> <span class="fu">as_tibble</span>()  <span class="sc">%&gt;%</span> </span>
+<span id="cb84-2"><a href="#cb84-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">gene_id =</span> <span class="fu">str_sub</span>(gene_id, <span class="dv">1</span>, <span class="dv">15</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb84-3"><a href="#cb84-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(gene_id) <span class="sc">%&gt;%</span></span>
+<span id="cb84-4"><a href="#cb84-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">n_transcripts =</span> <span class="fu">n_distinct</span>(<span class="fu">na.omit</span>(transcript_id)), <span class="at">n_exons =</span> <span class="fu">n_distinct</span>(<span class="fu">na.omit</span>(exon_id))) <span class="sc">%&gt;%</span></span>
+<span id="cb84-5"><a href="#cb84-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() </span>
+<span id="cb84-6"><a href="#cb84-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-7"><a href="#cb84-7" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(gencode_gtf) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(type<span class="sc">==</span><span class="st">"gene"</span>) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">gene_id=</span><span class="fu">substr</span>(gene_id,<span class="dv">0</span>,<span class="dv">15</span>)) <span class="sc">%&gt;%</span> <span class="fu">right_join</span>(df, <span class="at">by=</span><span class="st">"gene_id"</span>)</span>
+<span id="cb84-8"><a href="#cb84-8" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">left_join</span>(geneCounts) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Joining, by = "gene_id"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb83"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>gene_rank <span class="ot">=</span> <span class="fu">rank</span>(<span class="sc">-</span>df<span class="sc">$</span>n_transcripts, <span class="at">ties.method =</span> <span class="st">'first'</span>)</span>
-<span id="cb83-2"><a href="#cb83-2" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>DDD <span class="ot">=</span> <span class="cn">FALSE</span></span>
-<span id="cb83-3"><a href="#cb83-3" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>DDD[df<span class="sc">$</span>gene_name <span class="sc">%in%</span> <span class="fu">c</span>(asd_genes, ddd_genes)] <span class="ot">=</span> <span class="cn">TRUE</span></span>
-<span id="cb83-4"><a href="#cb83-4" aria-hidden="true" tabindex="-1"></a>s<span class="ot">=</span><span class="fu">summary</span>(<span class="fu">glm</span>(DDD <span class="sc">~</span> <span class="fu">log10</span>(n_transcripts)  <span class="sc">+</span> <span class="fu">log10</span>(width)  <span class="sc">+</span> <span class="fu">log10</span>(gene_counts), <span class="at">data=</span>df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(gene_type <span class="sc">==</span> <span class="st">"protein_coding"</span>), <span class="at">family=</span><span class="st">'binomial'</span>))</span>
-<span id="cb83-5"><a href="#cb83-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(s)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb86"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">left_join</span>(geneLengths)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Joining, by = "gene_id"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb88"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> pLI_scores <span class="sc">%&gt;%</span> <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="at">gene_id=</span>gene, pLI) <span class="sc">%&gt;%</span> <span class="fu">right_join</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Joining, by = "gene_id"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb90"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>gene_rank <span class="ot">=</span> <span class="fu">rank</span>(<span class="sc">-</span>df<span class="sc">$</span>n_transcripts, <span class="at">ties.method =</span> <span class="st">'first'</span>)</span>
+<span id="cb90-2"><a href="#cb90-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb90-3"><a href="#cb90-3" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>DDD <span class="ot">=</span> <span class="cn">FALSE</span></span>
+<span id="cb90-4"><a href="#cb90-4" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>DDD[df<span class="sc">$</span>gene_name <span class="sc">%in%</span> <span class="fu">c</span>(asd_genes, ddd_genes)] <span class="ot">=</span> <span class="cn">TRUE</span></span>
+<span id="cb90-5"><a href="#cb90-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb90-6"><a href="#cb90-6" aria-hidden="true" tabindex="-1"></a>df <span class="ot">=</span> rareVar.binary <span class="sc">%&gt;%</span> <span class="fu">as_tibble</span>(<span class="at">rownames =</span> <span class="st">"gene_id"</span>) <span class="sc">%&gt;%</span> <span class="fu">right_join</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Joining, by = "gene_id"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb92"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a>s<span class="ot">=</span><span class="fu">summary</span>(<span class="fu">glm</span>(NDD.fuTADA <span class="sc">~</span> <span class="fu">log10</span>(n_transcripts)  <span class="sc">+</span> <span class="fu">log10</span>(width)  <span class="sc">+</span> <span class="fu">log10</span>(gene_count) <span class="sc">+</span> <span class="fu">log10</span>(coding_length), <span class="at">data=</span>df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(gene_type <span class="sc">==</span> <span class="st">"protein_coding"</span>), <span class="at">family=</span><span class="st">'binomial'</span>))</span>
+<span id="cb92-2"><a href="#cb92-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(s)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
-glm(formula = DDD ~ log10(n_transcripts) + log10(width) + log10(gene_counts), 
-    family = "binomial", data = df %&gt;% filter(gene_type == "protein_coding"))
+glm(formula = NDD.fuTADA ~ log10(n_transcripts) + log10(width) + 
+    log10(gene_count) + log10(coding_length), family = "binomial", 
+    data = df %&gt;% filter(gene_type == "protein_coding"))
 
 Deviance Residuals: 
     Min       1Q   Median       3Q      Max  
--0.8652  -0.2530  -0.1708  -0.1059   3.5222  
+-1.1142  -0.3808  -0.2840  -0.1897   3.5966  
 
 Coefficients:
-                     Estimate Std. Error z value Pr(&gt;|z|)    
-(Intercept)          -10.2296     0.5162 -19.819  &lt; 2e-16 ***
-log10(n_transcripts)   1.1084     0.2013   5.507 3.64e-08 ***
-log10(width)           1.0441     0.1057   9.882  &lt; 2e-16 ***
-log10(gene_counts)     0.3320     0.1161   2.859  0.00425 ** 
+                      Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)          -11.13478    0.61994 -17.961  &lt; 2e-16 ***
+log10(n_transcripts)   0.44281    0.15209   2.912  0.00360 ** 
+log10(width)           0.47907    0.08761   5.468 4.54e-08 ***
+log10(gene_count)      0.21934    0.07888   2.781  0.00542 ** 
+log10(coding_length)   1.39117    0.20486   6.791 1.11e-11 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 (Dispersion parameter for binomial family taken to be 1)
 
-    Null deviance: 3522.0  on 15146  degrees of freedom
-Residual deviance: 3145.4  on 15143  degrees of freedom
-AIC: 3153.4
+    Null deviance: 6026.3  on 13953  degrees of freedom
+Residual deviance: 5515.8  on 13949  degrees of freedom
+  (1193 observations deleted due to missingness)
+AIC: 5525.8
 
-Number of Fisher Scoring iterations: 7</code></pre>
+Number of Fisher Scoring iterations: 6</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb85"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(s<span class="sc">$</span>coefficients[,<span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb94"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(s<span class="sc">$</span>coefficients[,<span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>         (Intercept) log10(n_transcripts)         log10(width) 
-        3.608466e-05         3.029439e+00         2.840918e+00 
-  log10(gene_counts) 
-        1.393712e+00 </code></pre>
+        1.459579e-05         1.557078e+00         1.614573e+00 
+   log10(gene_count) log10(coding_length) 
+        1.245254e+00         4.019550e+00 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb87"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a>Fig1H<span class="ot">=</span><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> gene_rank, <span class="at">y =</span> n_transcripts,<span class="at">color=</span>DDD)) <span class="sc">+</span></span>
-<span id="cb87-2"><a href="#cb87-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">geom_line</span>(<span class="at">color=</span><span class="st">'blue'</span>) <span class="sc">+</span> </span>
-<span id="cb87-3"><a href="#cb87-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_label_repel</span>(<span class="at">data =</span> df <span class="sc">%&gt;%</span> <span class="fu">filter</span>(n_transcripts <span class="sc">&gt;</span> <span class="dv">150</span> <span class="sc">|</span> (n_transcripts <span class="sc">&gt;</span> <span class="dv">75</span> <span class="sc">&amp;</span> DDD<span class="sc">==</span><span class="cn">TRUE</span>)),<span class="fu">aes</span>(<span class="at">label =</span> gene_name),<span class="at">force =</span> <span class="dv">30</span>, <span class="at">direction=</span><span class="st">'both'</span>,<span class="at">nudge_y=</span><span class="sc">-</span>.<span class="dv">1</span>,<span class="at">nudge_x =</span> .<span class="dv">3</span>, <span class="at">max.iter =</span> <span class="dv">10000</span>,<span class="at">max.overlaps =</span> <span class="dv">50</span>, <span class="at">size=</span><span class="fl">2.5</span>) <span class="sc">+</span> <span class="fu">scale_color_manual</span>(<span class="at">values=</span><span class="fu">c</span>(<span class="st">"TRUE"</span> <span class="ot">=</span> <span class="st">"red"</span>, <span class="st">"FALSE"</span> <span class="ot">=</span> <span class="st">"black"</span>)) <span class="sc">+</span> <span class="fu">scale_y_log10</span>() <span class="sc">+</span> <span class="fu">scale_x_log10</span>() <span class="sc">+</span> <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="fu">annotation_logticks</span>() <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">'none'</span>) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Gene rank"</span>, <span class="at">y=</span><span class="st">"# Transcripts"</span>) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">"NDD risk genes ~ unique  transcipts per gene"</span>,<span class="at">subtitle=</span><span class="fu">paste0</span>(<span class="st">"OR "</span>,<span class="fu">signif</span>(<span class="fu">exp</span>(s<span class="sc">$</span>coefficients[<span class="dv">2</span>,<span class="dv">1</span>]),<span class="dv">3</span>),<span class="st">", P="</span>, <span class="fu">signif</span>(s<span class="sc">$</span>coefficients[<span class="dv">2</span>,<span class="dv">4</span>],<span class="dv">2</span>)))</span>
-<span id="cb87-4"><a href="#cb87-4" aria-hidden="true" tabindex="-1"></a>Fig1H</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb96"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb96-1"><a href="#cb96-1" aria-hidden="true" tabindex="-1"></a>Fig1H <span class="ot">=</span> df <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">NDD.fuTADA =</span> NDD.fuTADA <span class="sc">%&gt;%</span> <span class="fu">as.logical</span>() <span class="sc">%&gt;%</span> <span class="fu">replace_na</span>(F)) <span class="sc">%&gt;%</span></span>
+<span id="cb96-2"><a href="#cb96-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> gene_rank, <span class="at">y =</span> n_transcripts, <span class="at">color=</span>NDD.fuTADA)) <span class="sc">+</span></span>
+<span id="cb96-3"><a href="#cb96-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">geom_line</span>(<span class="at">color=</span><span class="st">'blue'</span>) <span class="sc">+</span> </span>
+<span id="cb96-4"><a href="#cb96-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_label_repel</span>(<span class="at">data =</span> . <span class="sc">%&gt;%</span> <span class="fu">filter</span>(n_transcripts <span class="sc">&gt;</span> <span class="dv">150</span> <span class="sc">|</span> (n_transcripts <span class="sc">&gt;</span> <span class="dv">80</span> <span class="sc">&amp;</span> NDD.fuTADA<span class="sc">==</span><span class="cn">TRUE</span>)),<span class="fu">aes</span>(<span class="at">label =</span> gene_name),<span class="at">force =</span> <span class="dv">30</span>, <span class="at">direction=</span><span class="st">'both'</span>,<span class="at">nudge_y=</span><span class="sc">-</span>.<span class="dv">1</span>,<span class="at">nudge_x =</span> .<span class="dv">3</span>, <span class="at">max.iter =</span> <span class="dv">10000</span>,<span class="at">max.overlaps =</span> <span class="dv">50</span>, <span class="at">size=</span><span class="fl">2.5</span>) <span class="sc">+</span> <span class="fu">scale_color_manual</span>(<span class="at">values=</span><span class="fu">c</span>(<span class="st">"TRUE"</span> <span class="ot">=</span> <span class="st">"red"</span>, <span class="st">"FALSE"</span> <span class="ot">=</span> <span class="st">"black"</span>)) <span class="sc">+</span> <span class="fu">scale_y_log10</span>() <span class="sc">+</span> <span class="fu">scale_x_log10</span>() <span class="sc">+</span> <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="fu">annotation_logticks</span>() <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">'none'</span>) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Gene rank"</span>, <span class="at">y=</span><span class="st">"# Transcripts"</span>) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">"NDD risk genes ~ unique transcripts per gene"</span>,<span class="at">subtitle=</span><span class="fu">paste0</span>(<span class="st">"OR "</span>,<span class="fu">signif</span>(<span class="fu">exp</span>(s<span class="sc">$</span>coefficients[<span class="dv">2</span>,<span class="dv">1</span>]),<span class="dv">3</span>),<span class="st">", P="</span>, <span class="fu">signif</span>(s<span class="sc">$</span>coefficients[<span class="dv">2</span>,<span class="dv">4</span>],<span class="dv">2</span>)))</span>
+<span id="cb96-5"><a href="#cb96-5" aria-hidden="true" tabindex="-1"></a>Fig1H</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="Figure1_BulkTxomeAnalysis_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
+<p><img src="Figure1_BulkTxomeAnalysis_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
 </div>
-<div class="sourceCode cell-code" id="cb88"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="at">file=</span><span class="st">"output/figures/Fig1/Fig1H.pdf"</span>,Fig1H, <span class="at">width =</span> <span class="dv">8</span>, <span class="at">height=</span><span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-hash="Figure1_BulkTxomeAnalysis_cache/html/unnamed-chunk-10_42be4b920b6735f4994c9928687a6cd1">
+<div class="sourceCode cell-code" id="cb97"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="at">file=</span><span class="st">"output/figures/revision1/Fig1K_codingLen_NDD.fuTADA.pdf"</span>,Fig1H, <span class="at">width =</span> <span class="dv">8</span>, <span class="at">height=</span><span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="figs3-ndd-risk-genes-unique-novel-transcipts-per-gene" class="level3">
 <h3 class="anchored" data-anchor-id="figs3-ndd-risk-genes-unique-novel-transcipts-per-gene">FigS3: NDD risk genes ~ unique NOVEL transcipts per gene</h3>
-<div class="cell" data-hash="Figure1_BulkTxomeAnalysis_cache/html/unnamed-chunk-9_f74b4d91a129d5723c9c94ec37e0796e">
-<div class="sourceCode cell-code" id="cb89"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a>df.novel <span class="ot">&lt;-</span> talon_gtf <span class="sc">%&gt;%</span> <span class="fu">as_tibble</span>()  <span class="sc">%&gt;%</span> <span class="fu">filter</span>(type<span class="sc">==</span><span class="st">"transcript"</span>, transcript_id <span class="sc">%in%</span> cts<span class="sc">$</span>annot_transcript_id[cts<span class="sc">$</span>novelty2<span class="sc">!=</span><span class="st">"Known"</span>]) <span class="sc">%&gt;%</span> </span>
-<span id="cb89-2"><a href="#cb89-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">gene_id =</span> <span class="fu">str_sub</span>(gene_id, <span class="dv">1</span>, <span class="dv">15</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb89-3"><a href="#cb89-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(gene_id) <span class="sc">%&gt;%</span></span>
-<span id="cb89-4"><a href="#cb89-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">n_transcripts =</span> <span class="fu">n_distinct</span>(<span class="fu">na.omit</span>(transcript_id)), <span class="at">n_exons =</span> <span class="fu">n_distinct</span>(<span class="fu">na.omit</span>(exon_id))) <span class="sc">%&gt;%</span></span>
-<span id="cb89-5"><a href="#cb89-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() </span>
-<span id="cb89-6"><a href="#cb89-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb89-7"><a href="#cb89-7" aria-hidden="true" tabindex="-1"></a>df.novel <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(gencode_gtf) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(type<span class="sc">==</span><span class="st">"gene"</span>) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">gene_id=</span><span class="fu">substr</span>(gene_id,<span class="dv">0</span>,<span class="dv">15</span>)) <span class="sc">%&gt;%</span> <span class="fu">right_join</span>(df.novel, <span class="at">by=</span><span class="st">"gene_id"</span>)</span>
-<span id="cb89-8"><a href="#cb89-8" aria-hidden="true" tabindex="-1"></a>df.novel <span class="ot">&lt;-</span> df.novel <span class="sc">%&gt;%</span> <span class="fu">left_join</span>(geneCounts) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="Figure1_BulkTxomeAnalysis_cache/html/unnamed-chunk-11_f1496aaa5d046b5ba7a00ac438504995">
+<div class="sourceCode cell-code" id="cb98"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb98-1"><a href="#cb98-1" aria-hidden="true" tabindex="-1"></a>df.novel <span class="ot">&lt;-</span> talon_gtf <span class="sc">%&gt;%</span> <span class="fu">as_tibble</span>()  <span class="sc">%&gt;%</span> <span class="fu">filter</span>(type<span class="sc">==</span><span class="st">"transcript"</span>, transcript_id <span class="sc">%in%</span> cts<span class="sc">$</span>annot_transcript_id[cts<span class="sc">$</span>novelty2<span class="sc">!=</span><span class="st">"Known"</span>]) <span class="sc">%&gt;%</span> </span>
+<span id="cb98-2"><a href="#cb98-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">gene_id =</span> <span class="fu">str_sub</span>(gene_id, <span class="dv">1</span>, <span class="dv">15</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb98-3"><a href="#cb98-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(gene_id) <span class="sc">%&gt;%</span></span>
+<span id="cb98-4"><a href="#cb98-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">n_transcripts =</span> <span class="fu">n_distinct</span>(<span class="fu">na.omit</span>(transcript_id)), <span class="at">n_exons =</span> <span class="fu">n_distinct</span>(<span class="fu">na.omit</span>(exon_id))) <span class="sc">%&gt;%</span></span>
+<span id="cb98-5"><a href="#cb98-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() </span>
+<span id="cb98-6"><a href="#cb98-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb98-7"><a href="#cb98-7" aria-hidden="true" tabindex="-1"></a>df.novel <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(gencode_gtf) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(type<span class="sc">==</span><span class="st">"gene"</span>) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">gene_id=</span><span class="fu">substr</span>(gene_id,<span class="dv">0</span>,<span class="dv">15</span>)) <span class="sc">%&gt;%</span> <span class="fu">right_join</span>(df.novel, <span class="at">by=</span><span class="st">"gene_id"</span>)</span>
+<span id="cb98-8"><a href="#cb98-8" aria-hidden="true" tabindex="-1"></a>df.novel <span class="ot">&lt;-</span> df.novel <span class="sc">%&gt;%</span> <span class="fu">left_join</span>(geneCounts) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Joining, by = "gene_id"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb91"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a>df.novel<span class="sc">$</span>gene_rank <span class="ot">=</span> <span class="fu">rank</span>(<span class="sc">-</span>df.novel<span class="sc">$</span>n_transcripts, <span class="at">ties.method =</span> <span class="st">'first'</span>)</span>
-<span id="cb91-2"><a href="#cb91-2" aria-hidden="true" tabindex="-1"></a>df.novel<span class="sc">$</span>DDD <span class="ot">=</span> <span class="cn">FALSE</span></span>
-<span id="cb91-3"><a href="#cb91-3" aria-hidden="true" tabindex="-1"></a>df.novel<span class="sc">$</span>DDD[df.novel<span class="sc">$</span>gene_name <span class="sc">%in%</span> <span class="fu">c</span>(asd_genes, ddd_genes)] <span class="ot">=</span> <span class="cn">TRUE</span></span>
-<span id="cb91-4"><a href="#cb91-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb91-5"><a href="#cb91-5" aria-hidden="true" tabindex="-1"></a>s<span class="ot">=</span><span class="fu">summary</span>(<span class="fu">glm</span>(DDD <span class="sc">~</span> <span class="fu">log10</span>(n_transcripts)  <span class="sc">+</span> <span class="fu">log10</span>(width)  <span class="sc">+</span> <span class="fu">log10</span>(gene_counts), <span class="at">data=</span>df.novel <span class="sc">%&gt;%</span> <span class="fu">filter</span>(gene_type <span class="sc">==</span> <span class="st">"protein_coding"</span>), <span class="at">family=</span><span class="st">'binomial'</span>))</span>
-<span id="cb91-6"><a href="#cb91-6" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(s)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb100"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb100-1"><a href="#cb100-1" aria-hidden="true" tabindex="-1"></a>df.novel <span class="ot">&lt;-</span> df.novel <span class="sc">%&gt;%</span> <span class="fu">left_join</span>(geneLengths)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Joining, by = "gene_id"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb102"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb102-1"><a href="#cb102-1" aria-hidden="true" tabindex="-1"></a>df.novel<span class="sc">$</span>gene_rank <span class="ot">=</span> <span class="fu">rank</span>(<span class="sc">-</span>df.novel<span class="sc">$</span>n_transcripts, <span class="at">ties.method =</span> <span class="st">'first'</span>)</span>
+<span id="cb102-2"><a href="#cb102-2" aria-hidden="true" tabindex="-1"></a>df.novel<span class="sc">$</span>DDD <span class="ot">=</span> <span class="cn">FALSE</span></span>
+<span id="cb102-3"><a href="#cb102-3" aria-hidden="true" tabindex="-1"></a>df.novel<span class="sc">$</span>DDD[df.novel<span class="sc">$</span>gene_name <span class="sc">%in%</span> <span class="fu">c</span>(asd_genes, ddd_genes)] <span class="ot">=</span> <span class="cn">TRUE</span></span>
+<span id="cb102-4"><a href="#cb102-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-5"><a href="#cb102-5" aria-hidden="true" tabindex="-1"></a>df.novel <span class="ot">=</span> rareVar.binary <span class="sc">%&gt;%</span> <span class="fu">as_tibble</span>(<span class="at">rownames =</span> <span class="st">"gene_id"</span>) <span class="sc">%&gt;%</span> <span class="fu">right_join</span>(df.novel)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Joining, by = "gene_id"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb104"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb104-1"><a href="#cb104-1" aria-hidden="true" tabindex="-1"></a>s<span class="ot">=</span><span class="fu">summary</span>(<span class="fu">glm</span>(NDD.fuTADA <span class="sc">~</span> <span class="fu">log10</span>(n_transcripts)  <span class="sc">+</span> <span class="fu">log10</span>(width)  <span class="sc">+</span> <span class="fu">log10</span>(gene_count) <span class="sc">+</span> <span class="fu">log10</span>(coding_length), <span class="at">data=</span>df.novel <span class="sc">%&gt;%</span> <span class="fu">filter</span>(gene_type <span class="sc">==</span> <span class="st">"protein_coding"</span>), <span class="at">family=</span><span class="st">'binomial'</span>))</span>
+<span id="cb104-2"><a href="#cb104-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(s)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
-glm(formula = DDD ~ log10(n_transcripts) + log10(width) + log10(gene_counts), 
-    family = "binomial", data = df.novel %&gt;% filter(gene_type == 
-        "protein_coding"))
+glm(formula = NDD.fuTADA ~ log10(n_transcripts) + log10(width) + 
+    log10(gene_count) + log10(coding_length), family = "binomial", 
+    data = df.novel %&gt;% filter(gene_type == "protein_coding"))
 
 Deviance Residuals: 
     Min       1Q   Median       3Q      Max  
--0.7978  -0.2842  -0.2103  -0.1501   3.4149  
+-1.1343  -0.4124  -0.3188  -0.2344   3.1335  
 
 Coefficients:
-                     Estimate Std. Error z value Pr(&gt;|z|)    
-(Intercept)           -9.9549     0.5723 -17.394  &lt; 2e-16 ***
-log10(n_transcripts)   0.5682     0.1645   3.453 0.000554 ***
-log10(width)           1.0640     0.1115   9.546  &lt; 2e-16 ***
-log10(gene_counts)     0.5614     0.1217   4.612 3.98e-06 ***
+                      Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)          -11.16258    0.70920 -15.740  &lt; 2e-16 ***
+log10(n_transcripts)   0.37199    0.12866   2.891 0.003837 ** 
+log10(width)           0.53523    0.09565   5.596 2.20e-08 ***
+log10(gene_count)      0.34925    0.08999   3.881 0.000104 ***
+log10(coding_length)   1.30727    0.22199   5.889 3.89e-09 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 (Dispersion parameter for binomial family taken to be 1)
 
-    Null deviance: 3142.7  on 11204  degrees of freedom
-Residual deviance: 2904.9  on 11201  degrees of freedom
-AIC: 2912.9
+    Null deviance: 5174.0  on 10453  degrees of freedom
+Residual deviance: 4808.2  on 10449  degrees of freedom
+  (751 observations deleted due to missingness)
+AIC: 4818.2
 
-Number of Fisher Scoring iterations: 7</code></pre>
+Number of Fisher Scoring iterations: 6</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb93"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span>(<span class="fu">exp</span>(s<span class="sc">$</span>coefficients[,<span class="dv">1</span>]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb106"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb106-1"><a href="#cb106-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span>(<span class="fu">exp</span>(s<span class="sc">$</span>coefficients[,<span class="dv">1</span>]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>         (Intercept)   log10(gene_counts) log10(n_transcripts) 
-        0.0000474938         1.7531245449         1.7651452731 
-        log10(width) 
-        2.8979142259 </code></pre>
+<pre><code>         (Intercept)    log10(gene_count) log10(n_transcripts) 
+        1.419559e-05         1.418007e+00         1.450619e+00 
+        log10(width) log10(coding_length) 
+        1.707839e+00         3.696057e+00 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb95"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb95-1"><a href="#cb95-1" aria-hidden="true" tabindex="-1"></a>FigS3<span class="ot">=</span><span class="fu">ggplot</span>(df.novel, <span class="fu">aes</span>(<span class="at">x =</span> gene_rank, <span class="at">y =</span> n_transcripts,<span class="at">color=</span>DDD)) <span class="sc">+</span></span>
-<span id="cb95-2"><a href="#cb95-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">geom_line</span>(<span class="at">color=</span><span class="st">'blue'</span>) <span class="sc">+</span> </span>
-<span id="cb95-3"><a href="#cb95-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_label_repel</span>(<span class="at">data =</span> df.novel <span class="sc">%&gt;%</span> <span class="fu">filter</span>(n_transcripts <span class="sc">&gt;</span> <span class="dv">150</span> <span class="sc">|</span> (n_transcripts <span class="sc">&gt;</span> <span class="dv">75</span> <span class="sc">&amp;</span> DDD<span class="sc">==</span><span class="cn">TRUE</span>)),<span class="fu">aes</span>(<span class="at">label =</span> gene_name),<span class="at">force =</span> <span class="dv">30</span>, <span class="at">direction=</span><span class="st">'both'</span>,<span class="at">nudge_y=</span><span class="sc">-</span>.<span class="dv">1</span>,<span class="at">nudge_x =</span> .<span class="dv">3</span>, <span class="at">max.iter =</span> <span class="dv">10000</span>,<span class="at">max.overlaps =</span> <span class="dv">50</span>, <span class="at">size=</span><span class="fl">2.5</span>) <span class="sc">+</span> <span class="fu">scale_color_manual</span>(<span class="at">values=</span><span class="fu">c</span>(<span class="st">"TRUE"</span> <span class="ot">=</span> <span class="st">"red"</span>, <span class="st">"FALSE"</span> <span class="ot">=</span> <span class="st">"black"</span>)) <span class="sc">+</span> <span class="fu">scale_y_log10</span>() <span class="sc">+</span> <span class="fu">scale_x_log10</span>() <span class="sc">+</span> <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="fu">annotation_logticks</span>() <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">'none'</span>) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Gene rank"</span>, <span class="at">y=</span><span class="st">"# Transcripts"</span>) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">"NDD risk genes ~ unique novel transcipts per gene"</span>,<span class="at">subtitle=</span><span class="fu">paste0</span>(<span class="st">"OR "</span>,<span class="fu">signif</span>(<span class="fu">exp</span>(s<span class="sc">$</span>coefficients[<span class="dv">2</span>,<span class="dv">1</span>]),<span class="dv">2</span>),<span class="st">", P="</span>, <span class="fu">signif</span>(s<span class="sc">$</span>coefficients[<span class="dv">2</span>,<span class="dv">4</span>],<span class="dv">2</span>)))</span>
-<span id="cb95-4"><a href="#cb95-4" aria-hidden="true" tabindex="-1"></a>FigS3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb108"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb108-1"><a href="#cb108-1" aria-hidden="true" tabindex="-1"></a>FigS3 <span class="ot">=</span> df.novel <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">NDD.fuTADA =</span> NDD.fuTADA <span class="sc">%&gt;%</span> <span class="fu">as.logical</span>() <span class="sc">%&gt;%</span> <span class="fu">replace_na</span>(F)) <span class="sc">%&gt;%</span></span>
+<span id="cb108-2"><a href="#cb108-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> gene_rank, <span class="at">y =</span> n_transcripts, <span class="at">color=</span>NDD.fuTADA)) <span class="sc">+</span></span>
+<span id="cb108-3"><a href="#cb108-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">geom_line</span>(<span class="at">color=</span><span class="st">'blue'</span>) <span class="sc">+</span> </span>
+<span id="cb108-4"><a href="#cb108-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_label_repel</span>(<span class="at">data =</span> . <span class="sc">%&gt;%</span> <span class="fu">filter</span>(n_transcripts <span class="sc">&gt;</span> <span class="dv">150</span> <span class="sc">|</span> (n_transcripts <span class="sc">&gt;</span> <span class="dv">75</span> <span class="sc">&amp;</span> NDD.fuTADA<span class="sc">==</span><span class="cn">TRUE</span>)),<span class="fu">aes</span>(<span class="at">label =</span> gene_name),<span class="at">force =</span> <span class="dv">30</span>, <span class="at">direction=</span><span class="st">'both'</span>,<span class="at">nudge_y=</span><span class="sc">-</span>.<span class="dv">1</span>,<span class="at">nudge_x =</span> .<span class="dv">3</span>, <span class="at">max.iter =</span> <span class="dv">10000</span>,<span class="at">max.overlaps =</span> <span class="dv">50</span>, <span class="at">size=</span><span class="fl">2.5</span>) <span class="sc">+</span> <span class="fu">scale_color_manual</span>(<span class="at">values=</span><span class="fu">c</span>(<span class="st">"TRUE"</span> <span class="ot">=</span> <span class="st">"red"</span>, <span class="st">"FALSE"</span> <span class="ot">=</span> <span class="st">"black"</span>)) <span class="sc">+</span> <span class="fu">scale_y_log10</span>() <span class="sc">+</span> <span class="fu">scale_x_log10</span>() <span class="sc">+</span> <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="fu">annotation_logticks</span>() <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">'none'</span>) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Gene rank"</span>, <span class="at">y=</span><span class="st">"# Transcripts"</span>) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">"NDD risk genes ~ unique novel transcripts per gene"</span>,<span class="at">subtitle=</span><span class="fu">paste0</span>(<span class="st">"OR "</span>,<span class="fu">signif</span>(<span class="fu">exp</span>(s<span class="sc">$</span>coefficients[<span class="dv">2</span>,<span class="dv">1</span>]),<span class="dv">3</span>),<span class="st">", P="</span>, <span class="fu">signif</span>(s<span class="sc">$</span>coefficients[<span class="dv">2</span>,<span class="dv">4</span>],<span class="dv">2</span>)))</span>
+<span id="cb108-5"><a href="#cb108-5" aria-hidden="true" tabindex="-1"></a>FigS3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="Figure1_BulkTxomeAnalysis_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
+<p><img src="Figure1_BulkTxomeAnalysis_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
 </div>
-<div class="sourceCode cell-code" id="cb96"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb96-1"><a href="#cb96-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="at">file=</span><span class="st">"output/figures/supplement/FigS3G.pdf"</span>,FigS3, <span class="at">width =</span> <span class="dv">8</span>, <span class="at">height=</span><span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-hash="Figure1_BulkTxomeAnalysis_cache/html/unnamed-chunk-12_f0729caccc929b3e95b9820a293a70d7">
+<div class="sourceCode cell-code" id="cb109"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb109-1"><a href="#cb109-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="at">file=</span><span class="st">"output/figures/revision1/FigS3G_codingLen_NDD.fuTADA_6in.pdf"</span>,FigS3, <span class="at">width =</span> <span class="dv">6</span>, <span class="at">height=</span><span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
 <section id="pathway-analysis" class="level2">
 <h2 class="anchored" data-anchor-id="pathway-analysis">Pathway Analysis</h2>
-<div class="cell" data-hash="Figure1_BulkTxomeAnalysis_cache/html/unnamed-chunk-10_7ddbcbcc650775fc8a674ee0b48e831d">
-<div class="sourceCode cell-code" id="cb97"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a>sumstats <span class="ot">&lt;-</span> tx.isoseq <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(gene_name, gene_type) <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">total =</span> <span class="fu">n_distinct</span>(transcript_id), <span class="at">known =</span> <span class="fu">sum</span>(transcript_status<span class="sc">==</span><span class="st">"KNOWN"</span>), <span class="at">ISM.pre =</span> <span class="fu">sum</span>(ISM.prefix_transcript<span class="sc">==</span><span class="st">"TRUE"</span>, <span class="at">na.rm=</span>T), <span class="at">ISM.suffix =</span> <span class="fu">sum</span>(ISM.suffix_transcript<span class="sc">==</span><span class="st">"TRUE"</span>, <span class="at">na.rm=</span>T), <span class="at">NIC =</span> <span class="fu">sum</span>(NIC_transcript<span class="sc">==</span><span class="cn">TRUE</span>, <span class="at">na.rm =</span> T), <span class="at">NNC =</span> <span class="fu">sum</span>(NNC_transcript<span class="sc">==</span><span class="cn">TRUE</span>, <span class="at">na.rm =</span> T))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="Figure1_BulkTxomeAnalysis_cache/html/unnamed-chunk-13_d2bb2d7ff1001cb39019e504b17c9647">
+<div class="sourceCode cell-code" id="cb110"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb110-1"><a href="#cb110-1" aria-hidden="true" tabindex="-1"></a>sumstats <span class="ot">&lt;-</span> tx.isoseq <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(gene_name, gene_type) <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">total =</span> <span class="fu">n_distinct</span>(transcript_id), <span class="at">known =</span> <span class="fu">sum</span>(transcript_status<span class="sc">==</span><span class="st">"KNOWN"</span>), <span class="at">ISM.pre =</span> <span class="fu">sum</span>(ISM.prefix_transcript<span class="sc">==</span><span class="st">"TRUE"</span>, <span class="at">na.rm=</span>T), <span class="at">ISM.suffix =</span> <span class="fu">sum</span>(ISM.suffix_transcript<span class="sc">==</span><span class="st">"TRUE"</span>, <span class="at">na.rm=</span>T), <span class="at">NIC =</span> <span class="fu">sum</span>(NIC_transcript<span class="sc">==</span><span class="cn">TRUE</span>, <span class="at">na.rm =</span> T), <span class="at">NNC =</span> <span class="fu">sum</span>(NNC_transcript<span class="sc">==</span><span class="cn">TRUE</span>, <span class="at">na.rm =</span> T))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>`summarise()` has grouped output by 'gene_name'. You can override using the
 `.groups` argument.</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb99"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(<span class="at">file=</span><span class="st">"output/isoformNovetyCounts_at_geneLevel.csv"</span>,sumstats)</span>
-<span id="cb99-2"><a href="#cb99-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb99-3"><a href="#cb99-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb99-4"><a href="#cb99-4" aria-hidden="true" tabindex="-1"></a>query <span class="ot">=</span> <span class="fu">sort</span>(<span class="fu">unique</span>(tx.isoseq<span class="sc">$</span>gene_name[tx.isoseq<span class="sc">$</span>transcript_status<span class="sc">==</span><span class="st">"NOVEL"</span> <span class="sc">&amp;</span> (tx.isoseq<span class="sc">$</span>NNC_transcript<span class="sc">==</span><span class="cn">TRUE</span> <span class="sc">|</span> tx.isoseq<span class="sc">$</span>NIC_transcript <span class="sc">==</span> <span class="cn">TRUE</span>)]))</span>
-<span id="cb99-5"><a href="#cb99-5" aria-hidden="true" tabindex="-1"></a>bg <span class="ot">=</span> <span class="fu">sort</span>(<span class="fu">unique</span>(tx.isoseq<span class="sc">$</span>gene_name[tx.isoseq<span class="sc">$</span>transcript_status<span class="sc">==</span><span class="st">"NOVEL"</span> <span class="sc">|</span> tx.isoseq<span class="sc">$</span>transcript_status<span class="sc">==</span><span class="st">"KNOWN"</span>]))</span>
-<span id="cb99-6"><a href="#cb99-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb99-7"><a href="#cb99-7" aria-hidden="true" tabindex="-1"></a>go <span class="ot">=</span> gprofiler2<span class="sc">::</span><span class="fu">gost</span>(<span class="at">query =</span> query,<span class="at">custom_bg =</span> bg,<span class="at">sources =</span> <span class="fu">c</span>(<span class="st">"GO"</span>, <span class="st">"KEGG"</span>, <span class="st">"REACTOME"</span>),<span class="at">as_short_link =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb112"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb112-1"><a href="#cb112-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(<span class="at">file=</span><span class="st">"output/isoformNovetyCounts_at_geneLevel.csv"</span>,sumstats)</span>
+<span id="cb112-2"><a href="#cb112-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb112-3"><a href="#cb112-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb112-4"><a href="#cb112-4" aria-hidden="true" tabindex="-1"></a>query <span class="ot">=</span> <span class="fu">sort</span>(<span class="fu">unique</span>(tx.isoseq<span class="sc">$</span>gene_name[tx.isoseq<span class="sc">$</span>transcript_status<span class="sc">==</span><span class="st">"NOVEL"</span> <span class="sc">&amp;</span> (tx.isoseq<span class="sc">$</span>NNC_transcript<span class="sc">==</span><span class="cn">TRUE</span> <span class="sc">|</span> tx.isoseq<span class="sc">$</span>NIC_transcript <span class="sc">==</span> <span class="cn">TRUE</span>)]))</span>
+<span id="cb112-5"><a href="#cb112-5" aria-hidden="true" tabindex="-1"></a>bg <span class="ot">=</span> <span class="fu">sort</span>(<span class="fu">unique</span>(tx.isoseq<span class="sc">$</span>gene_name[tx.isoseq<span class="sc">$</span>transcript_status<span class="sc">==</span><span class="st">"NOVEL"</span> <span class="sc">|</span> tx.isoseq<span class="sc">$</span>transcript_status<span class="sc">==</span><span class="st">"KNOWN"</span>]))</span>
+<span id="cb112-6"><a href="#cb112-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb112-7"><a href="#cb112-7" aria-hidden="true" tabindex="-1"></a>go <span class="ot">=</span> gprofiler2<span class="sc">::</span><span class="fu">gost</span>(<span class="at">query =</span> query,<span class="at">custom_bg =</span> bg,<span class="at">sources =</span> <span class="fu">c</span>(<span class="st">"GO"</span>, <span class="st">"KEGG"</span>, <span class="st">"REACTOME"</span>),<span class="at">as_short_link =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Detected custom background input, domain scope is set to 'custom'</code></pre>
 </div>
@@ -1066,35 +1151,40 @@ Number of Fisher Scoring iterations: 7</code></pre>
 </section>
 <section id="gene-body-coverage" class="level2">
 <h2 class="anchored" data-anchor-id="gene-body-coverage">Gene Body Coverage</h2>
-<div class="cell" data-hash="Figure1_BulkTxomeAnalysis_cache/html/unnamed-chunk-11_f7d203ca0296def73abdaf1a8ec13d7b">
-<div class="sourceCode cell-code" id="cb101"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb101-1"><a href="#cb101-1" aria-hidden="true" tabindex="-1"></a>files <span class="ot">=</span> <span class="fu">dir</span>(<span class="at">path =</span> <span class="st">"data/QC/RNA_Metrics/"</span>, <span class="at">pattern=</span><span class="st">"RNA_Metrics"</span>)</span>
-<span id="cb101-2"><a href="#cb101-2" aria-hidden="true" tabindex="-1"></a>df_coverage_isoseq <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">Position=</span><span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">100</span>))</span>
-<span id="cb101-3"><a href="#cb101-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb101-4"><a href="#cb101-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(files)) {</span>
-<span id="cb101-5"><a href="#cb101-5" aria-hidden="true" tabindex="-1"></a>  this_file <span class="ot">=</span> data.table<span class="sc">::</span><span class="fu">fread</span>(<span class="fu">paste0</span>(<span class="st">"data/QC/RNA_Metrics/"</span>, files[i]),<span class="at">skip=</span><span class="dv">10</span>)</span>
-<span id="cb101-6"><a href="#cb101-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">names</span>(this_file)[<span class="dv">2</span>] <span class="ot">=</span> <span class="fu">gsub</span>(<span class="st">".RNA_Metrics"</span>, <span class="st">""</span>, files[i])</span>
-<span id="cb101-7"><a href="#cb101-7" aria-hidden="true" tabindex="-1"></a>  df_coverage_isoseq <span class="ot">=</span> <span class="fu">cbind</span>(df_coverage_isoseq, this_file[,<span class="dv">2</span>])</span>
-<span id="cb101-8"><a href="#cb101-8" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb101-9"><a href="#cb101-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb101-10"><a href="#cb101-10" aria-hidden="true" tabindex="-1"></a>files <span class="ot">=</span> <span class="fu">dir</span>(<span class="at">path =</span> <span class="st">"data/QC/RNA_Metrics_short_read//"</span>, <span class="at">pattern=</span><span class="st">"RNA_Metrics"</span>)</span>
-<span id="cb101-11"><a href="#cb101-11" aria-hidden="true" tabindex="-1"></a>df_coverage_shortread <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">Position=</span><span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">100</span>))</span>
-<span id="cb101-12"><a href="#cb101-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb101-13"><a href="#cb101-13" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(files)) {</span>
-<span id="cb101-14"><a href="#cb101-14" aria-hidden="true" tabindex="-1"></a>  this_file <span class="ot">=</span> data.table<span class="sc">::</span><span class="fu">fread</span>(<span class="fu">paste0</span>(<span class="st">"data/QC/RNA_Metrics_short_read/"</span>, files[i]),<span class="at">skip=</span><span class="dv">10</span>)</span>
-<span id="cb101-15"><a href="#cb101-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">names</span>(this_file)[<span class="dv">2</span>] <span class="ot">=</span> <span class="fu">gsub</span>(<span class="st">".RNA_Metrics"</span>, <span class="st">""</span>, files[i])</span>
-<span id="cb101-16"><a href="#cb101-16" aria-hidden="true" tabindex="-1"></a>  df_coverage_shortread <span class="ot">=</span> <span class="fu">cbind</span>(df_coverage_shortread, this_file[,<span class="dv">2</span>])</span>
-<span id="cb101-17"><a href="#cb101-17" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb101-18"><a href="#cb101-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb101-19"><a href="#cb101-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb101-20"><a href="#cb101-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb101-21"><a href="#cb101-21" aria-hidden="true" tabindex="-1"></a>df_coverage_isoseq <span class="ot">&lt;-</span> df_coverage_isoseq <span class="sc">%&gt;%</span> <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span>Position, <span class="at">names_to =</span> <span class="st">"Sample"</span>, <span class="at">values_to =</span> <span class="st">"Normalized_coverage"</span>)</span>
-<span id="cb101-22"><a href="#cb101-22" aria-hidden="true" tabindex="-1"></a>df_coverage_isoseq<span class="sc">$</span>modality <span class="ot">=</span> <span class="st">"IsoSeq"</span></span>
-<span id="cb101-23"><a href="#cb101-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb101-24"><a href="#cb101-24" aria-hidden="true" tabindex="-1"></a>df_coverage_shortread <span class="ot">&lt;-</span> df_coverage_shortread <span class="sc">%&gt;%</span> <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span>Position, <span class="at">names_to =</span> <span class="st">"Sample"</span>, <span class="at">values_to =</span> <span class="st">"Normalized_coverage"</span>)</span>
-<span id="cb101-25"><a href="#cb101-25" aria-hidden="true" tabindex="-1"></a>df_coverage_shortread<span class="sc">$</span>modality <span class="ot">=</span> <span class="st">"short-read</span><span class="sc">\n</span><span class="st">RNAseq</span><span class="sc">\n</span><span class="st">(ribozero)"</span> </span>
-<span id="cb101-26"><a href="#cb101-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb101-27"><a href="#cb101-27" aria-hidden="true" tabindex="-1"></a>FigS2A<span class="ot">=</span> <span class="fu">ggplot</span>(<span class="fu">rbind</span>(df_coverage_isoseq, df_coverage_shortread), <span class="fu">aes</span>(<span class="at">x=</span>Position,<span class="at">y=</span>Normalized_coverage,<span class="at">group=</span>Sample, <span class="at">color=</span>modality)) <span class="sc">+</span> <span class="fu">geom_path</span>() <span class="sc">+</span> <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Gene body position (5' -&gt; 3')"</span>, <span class="at">y=</span><span class="st">"Normalized coverage"</span>)</span>
-<span id="cb101-28"><a href="#cb101-28" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(FigS2A,<span class="at">file=</span><span class="st">"output/figures/supplement/FigS2A_coverage.pdf"</span>,<span class="at">width=</span><span class="dv">5</span>,<span class="at">height=</span><span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="Figure1_BulkTxomeAnalysis_cache/html/unnamed-chunk-14_7d62eda946d71b65ba55bf07d1dcdd81">
+<div class="sourceCode cell-code" id="cb114"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb114-1"><a href="#cb114-1" aria-hidden="true" tabindex="-1"></a>files <span class="ot">=</span> <span class="fu">dir</span>(<span class="at">path =</span> <span class="st">"data/QC/RNA_Metrics/"</span>, <span class="at">pattern=</span><span class="st">"RNA_Metrics"</span>)</span>
+<span id="cb114-2"><a href="#cb114-2" aria-hidden="true" tabindex="-1"></a>df_coverage_isoseq <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">Position=</span><span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">100</span>))</span>
+<span id="cb114-3"><a href="#cb114-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb114-4"><a href="#cb114-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(files)) {</span>
+<span id="cb114-5"><a href="#cb114-5" aria-hidden="true" tabindex="-1"></a>  this_file <span class="ot">=</span> data.table<span class="sc">::</span><span class="fu">fread</span>(<span class="fu">paste0</span>(<span class="st">"data/QC/RNA_Metrics/"</span>, files[i]),<span class="at">skip=</span><span class="dv">10</span>)</span>
+<span id="cb114-6"><a href="#cb114-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">names</span>(this_file)[<span class="dv">2</span>] <span class="ot">=</span> <span class="fu">gsub</span>(<span class="st">".RNA_Metrics"</span>, <span class="st">""</span>, files[i])</span>
+<span id="cb114-7"><a href="#cb114-7" aria-hidden="true" tabindex="-1"></a>  df_coverage_isoseq <span class="ot">=</span> <span class="fu">cbind</span>(df_coverage_isoseq, this_file[,<span class="dv">2</span>])</span>
+<span id="cb114-8"><a href="#cb114-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb114-9"><a href="#cb114-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb114-10"><a href="#cb114-10" aria-hidden="true" tabindex="-1"></a>files <span class="ot">=</span> <span class="fu">dir</span>(<span class="at">path =</span> <span class="st">"data/QC/RNA_Metrics_short_read//"</span>, <span class="at">pattern=</span><span class="st">"RNA_Metrics"</span>)</span>
+<span id="cb114-11"><a href="#cb114-11" aria-hidden="true" tabindex="-1"></a>df_coverage_shortread <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">Position=</span><span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">100</span>))</span>
+<span id="cb114-12"><a href="#cb114-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb114-13"><a href="#cb114-13" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(files)) {</span>
+<span id="cb114-14"><a href="#cb114-14" aria-hidden="true" tabindex="-1"></a>  this_file <span class="ot">=</span> data.table<span class="sc">::</span><span class="fu">fread</span>(<span class="fu">paste0</span>(<span class="st">"data/QC/RNA_Metrics_short_read/"</span>, files[i]),<span class="at">skip=</span><span class="dv">10</span>)</span>
+<span id="cb114-15"><a href="#cb114-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">names</span>(this_file)[<span class="dv">2</span>] <span class="ot">=</span> <span class="fu">gsub</span>(<span class="st">".RNA_Metrics"</span>, <span class="st">""</span>, files[i])</span>
+<span id="cb114-16"><a href="#cb114-16" aria-hidden="true" tabindex="-1"></a>  df_coverage_shortread <span class="ot">=</span> <span class="fu">cbind</span>(df_coverage_shortread, this_file[,<span class="dv">2</span>])</span>
+<span id="cb114-17"><a href="#cb114-17" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb114-18"><a href="#cb114-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb114-19"><a href="#cb114-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb114-20"><a href="#cb114-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb114-21"><a href="#cb114-21" aria-hidden="true" tabindex="-1"></a>df_coverage_isoseq <span class="ot">&lt;-</span> df_coverage_isoseq <span class="sc">%&gt;%</span> <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span>Position, <span class="at">names_to =</span> <span class="st">"Sample"</span>, <span class="at">values_to =</span> <span class="st">"Normalized_coverage"</span>)</span>
+<span id="cb114-22"><a href="#cb114-22" aria-hidden="true" tabindex="-1"></a>df_coverage_isoseq<span class="sc">$</span>modality <span class="ot">=</span> <span class="st">"IsoSeq"</span></span>
+<span id="cb114-23"><a href="#cb114-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb114-24"><a href="#cb114-24" aria-hidden="true" tabindex="-1"></a>df_coverage_shortread <span class="ot">&lt;-</span> df_coverage_shortread <span class="sc">%&gt;%</span> <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span>Position, <span class="at">names_to =</span> <span class="st">"Sample"</span>, <span class="at">values_to =</span> <span class="st">"Normalized_coverage"</span>)</span>
+<span id="cb114-25"><a href="#cb114-25" aria-hidden="true" tabindex="-1"></a>df_coverage_shortread<span class="sc">$</span>modality <span class="ot">=</span> <span class="st">"short-read</span><span class="sc">\n</span><span class="st">RNAseq</span><span class="sc">\n</span><span class="st">(ribozero)"</span> </span>
+<span id="cb114-26"><a href="#cb114-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb114-27"><a href="#cb114-27" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">rbind</span>(df_coverage_isoseq, df_coverage_shortread), <span class="fu">aes</span>(<span class="at">x=</span>Position,<span class="at">y=</span>Normalized_coverage,<span class="at">group=</span>Sample, <span class="at">color=</span>modality)) <span class="sc">+</span> <span class="fu">geom_path</span>() <span class="sc">+</span> <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Gene body position (5' -&gt; 3')"</span>, <span class="at">y=</span><span class="st">"Normalized coverage"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Figure1_BulkTxomeAnalysis_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell" data-hash="Figure1_BulkTxomeAnalysis_cache/html/unnamed-chunk-15_51c77cdd4328a404ff2ab138c58a2b8c">
+<div class="sourceCode cell-code" id="cb115"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb115-1"><a href="#cb115-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="at">file=</span><span class="st">"output/figures/supplement/FigS2A_coverage.pdf"</span>,<span class="at">width=</span><span class="dv">5</span>,<span class="at">height=</span><span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 

@@ -163,11 +163,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../analysis/Figure1_BulkTxomeAnalysis_revision1.html" class="sidebar-item-text sidebar-link">Figure 1 - BulkTxomeAnalysis REVISION1</a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../analysis/Figure1_TableS1.html" class="sidebar-item-text sidebar-link">Figure 1 - Table S1</a>
   </div>
 </li>
@@ -205,6 +200,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../analysis/Figure2_PeptideSupport.html" class="sidebar-item-text sidebar-link">Figure 2 - Peptide Support</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../analysis/Figure2_externalSupport.html" class="sidebar-item-text sidebar-link">Figure 2 - External Support</a>
   </div>
 </li>
         <li class="px-0"><hr class="sidebar-divider hi "></li>
@@ -273,11 +273,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../analysis/Figure6_rareVariant_revision1.html" class="sidebar-item-text sidebar-link">Figure 6 - Rare Variant REVISION1</a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../analysis/Figure6_VEPConsequences.html" class="sidebar-item-text sidebar-link">Figure 6 - VEP Consequences</a>
   </div>
 </li>
@@ -294,7 +289,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../analysis/FigureS9H_revision1.html" class="sidebar-item-text sidebar-link">Fig S9H REVISION1</a>
+  <a href="../analysis/FigureS9_GH.html" class="sidebar-item-text sidebar-link">Figure S9 - G, H</a>
   </div>
 </li>
     </ul>
@@ -355,36 +350,40 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <section id="load-packages-and-data" class="level2">
 <h2 class="anchored" data-anchor-id="load-packages-and-data">Load Packages and Data</h2>
-<div class="cell" data-hash="Figure6_rareVariant_cache/html/unnamed-chunk-1_93ae7f8b2ad3bb59452e60fa44d51ef7">
+<div class="cell" data-hash="Figure6_rareVariant_cache/html/unnamed-chunk-1_e7930eee2a368afe61b6707d70e3a33a">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">'code/fisher_overlap.R'</span>)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressPackageStartupMessages</span>({</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(edgeR)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(WGCNA)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(biomaRt)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(parallel)</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>colorVector <span class="ot">=</span> <span class="fu">c</span>(</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Known"</span> <span class="ot">=</span> <span class="st">"#009E73"</span>,</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="st">"ISM"</span>   <span class="ot">=</span> <span class="st">"#0072B2"</span>,</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  <span class="st">"ISM_Prefix"</span> <span class="ot">=</span> <span class="st">"#005996"</span>,</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="st">"ISM_Suffix"</span> <span class="ot">=</span> <span class="st">"#378bcc"</span>,</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>  <span class="st">"NIC"</span>   <span class="ot">=</span> <span class="st">"#D55E00"</span>,</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>  <span class="st">"NNC"</span>   <span class="ot">=</span> <span class="st">"#E69F00"</span>,</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Other"</span> <span class="ot">=</span> <span class="st">"#000000"</span></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>colorVector_ismSplit <span class="ot">=</span> colorVector[<span class="sc">-</span><span class="dv">2</span>]</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Load bulk transcriptome data, see analysis/Figure1_BulkTxomeAnalysis.qmd</span></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"data/working/bulkTxome.Rdata"</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(rtracklayer)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(GenomicRanges)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(edgeR)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(WGCNA)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(biomaRt)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(parallel)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(tidytext)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(ggh4x)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>colorVector <span class="ot">=</span> <span class="fu">c</span>(</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Known"</span> <span class="ot">=</span> <span class="st">"#009E73"</span>,</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>  <span class="st">"ISM"</span>   <span class="ot">=</span> <span class="st">"#0072B2"</span>,</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>  <span class="st">"ISM_Prefix"</span> <span class="ot">=</span> <span class="st">"#005996"</span>,</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>  <span class="st">"ISM_Suffix"</span> <span class="ot">=</span> <span class="st">"#378bcc"</span>,</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>  <span class="st">"NIC"</span>   <span class="ot">=</span> <span class="st">"#D55E00"</span>,</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>  <span class="st">"NNC"</span>   <span class="ot">=</span> <span class="st">"#E69F00"</span>,</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Other"</span> <span class="ot">=</span> <span class="st">"#000000"</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>colorVector_ismSplit <span class="ot">=</span> colorVector[<span class="sc">-</span><span class="dv">2</span>]</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Load DGE/DTE/DTU sumstats</span></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>tableS3 <span class="ot">=</span> <span class="fu">read_tsv</span>(<span class="st">"output/tables/TableS3_v3.tsv.gz"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Load bulk transcriptome data, see analysis/Figure1_BulkTxomeAnalysis.qmd</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"data/working/bulkTxome.Rdata"</span>)</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="co"># Load DGE/DTE/DTU sumstats</span></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>tableS3 <span class="ot">=</span> <span class="fu">read_tsv</span>(<span class="st">"output/tables/TableS3_v3.tsv.gz"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Rows: 102319 Columns: 17
 ── Column specification ────────────────────────────────────────────────────────
@@ -533,7 +532,7 @@ lgl (1): pval_infrIndel
 </section>
 <section id="gene-feature-annotations" class="level2">
 <h2 class="anchored" data-anchor-id="gene-feature-annotations">Gene Feature Annotations</h2>
-<div class="cell" data-hash="Figure6_rareVariant_cache/html/unnamed-chunk-3_08794eac35324fc0bdc1d8f2fdcdcced">
+<div class="cell" data-hash="Figure6_rareVariant_cache/html/unnamed-chunk-3_32d73abed7b4123c0633316ebfd8edea">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute fetal brain gene expression</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>geneFeatures <span class="ot">=</span> cts <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(<span class="at">ensg=</span><span class="fu">substr</span>(annot_gene_id,<span class="dv">1</span>,<span class="dv">15</span>)) <span class="sc">%&gt;%</span> </span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">gene_counts =</span> <span class="fu">sum</span>(counts)) <span class="sc">%&gt;%</span> </span>
@@ -554,13 +553,33 @@ lgl (1): pval_infrIndel
 <div class="cell-output cell-output-stderr">
 <pre><code>Joining, by = "ensg"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Add novel exons</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>novelExons <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="st">"data/working/novel_exons/mike_novel.csv"</span>)</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>geneFeatures<span class="sc">$</span>novelExon<span class="ot">=</span><span class="dv">0</span></span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>geneFeatures<span class="sc">$</span>novelExon[geneFeatures<span class="sc">$</span>ensg <span class="sc">%in%</span> <span class="fu">substr</span>(novelExons<span class="sc">$</span>gene_id,<span class="dv">1</span>,<span class="dv">15</span>)]<span class="ot">=</span><span class="dv">1</span></span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Add DTU/DTE/DGE</span></span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>geneFeatures <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(tableS3) <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(ensg) <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">DGE =</span> <span class="fu">any</span>(DGE), <span class="at">DTU=</span><span class="fu">any</span>(DTU), <span class="at">DTE=</span><span class="fu">any</span>(DTE)) <span class="sc">%&gt;%</span> <span class="fu">right_join</span>(geneFeatures)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>gencode_exons <span class="ot">=</span> gencode_gtf[gencode_gtf<span class="sc">$</span>type <span class="sc">==</span> <span class="st">"exon"</span>]</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>gencode_exons_by_gene <span class="ot">=</span> <span class="fu">split</span>(gencode_exons, gencode_exons<span class="sc">$</span>gene_id)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>geneLengths <span class="ot">=</span> <span class="fu">enframe</span>(</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sum</span>(<span class="fu">width</span>(GenomicRanges<span class="sc">::</span><span class="fu">reduce</span>(<span class="fu">ranges</span>(gencode_exons_by_gene)))),</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">"gene_id"</span>,</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">value =</span> <span class="st">"coding_length"</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span> <span class="fu">left_join</span>(</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">enframe</span>(</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">max</span>(<span class="fu">end</span>(gencode_exons_by_gene)) <span class="sc">-</span> <span class="fu">min</span>(<span class="fu">start</span>(gencode_exons_by_gene)) <span class="sc">+</span> <span class="dv">1</span>,</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">"gene_id"</span>,</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">value =</span> <span class="st">"talon_gene_length"</span> <span class="co"># due to novel/unexpressed transcripts, talon gene length can differ from gencode gene length</span></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">ensg =</span> <span class="fu">substr</span>(gene_id, <span class="dv">1</span>, <span class="dv">15</span>), <span class="at">.keep =</span> <span class="st">"unused"</span>) <span class="sc">%&gt;%</span> <span class="fu">distinct</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Joining, by = "gene_id"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>geneFeatures <span class="ot">&lt;-</span> geneFeatures <span class="sc">%&gt;%</span> <span class="fu">left_join</span>(geneLengths)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Joining, by = "ensg"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Add novel exons</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>novelExons <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="st">"data/working/novel_exons/mike_novel.csv"</span>)</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>geneFeatures<span class="sc">$</span>novelExon<span class="ot">=</span><span class="dv">0</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>geneFeatures<span class="sc">$</span>novelExon[geneFeatures<span class="sc">$</span>ensg <span class="sc">%in%</span> <span class="fu">substr</span>(novelExons<span class="sc">$</span>gene_id,<span class="dv">1</span>,<span class="dv">15</span>)]<span class="ot">=</span><span class="dv">1</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Add DTU/DTE/DGE</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>geneFeatures <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(tableS3) <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(ensg) <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">DGE =</span> <span class="fu">any</span>(DGE), <span class="at">DTU=</span><span class="fu">any</span>(DTU), <span class="at">DTE=</span><span class="fu">any</span>(DTE)) <span class="sc">%&gt;%</span> <span class="fu">right_join</span>(geneFeatures)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Joining, by = "ensg"</code></pre>
 </div>
@@ -570,107 +589,130 @@ lgl (1): pval_infrIndel
 <h2 class="anchored" data-anchor-id="rare-variant-enrichment-analyses">Rare Variant Enrichment Analyses:</h2>
 <section id="transcript-exon-number-novel-exon" class="level3">
 <h3 class="anchored" data-anchor-id="transcript-exon-number-novel-exon">1) Transcript, exon number, novel exon</h3>
-<div class="cell" data-hash="Figure6_rareVariant_cache/html/unnamed-chunk-4_a76a9d154403c0350c4bf5e46f8e78ad">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>df_enrichments <span class="ot">=</span> <span class="fu">data.frame</span>()</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Interpretion of the odds ratio here:</span></span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="co"># For every doubling of number of transcripts per gene (log2), there is 64% increase</span></span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="co"># in odds that a gene is ASD risk gene (SFARI.1)</span></span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Dx          |   Feature           | Class   |   OR      | Z score   | P value |</span></span>
-<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a><span class="co"># ------------| ------------------  | ------- | --------- | --------- | ---------- |</span></span>
-<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a><span class="co">#   ASD.SFARI.1 |  n_transcripts_log2 | txAnno  | 1.6377222 | 9.9933917 | 1.629102e-23</span></span>
-<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">ncol</span>(rareVar.binary)) {</span>
-<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>  this_rareVar <span class="ot">=</span> rareVar.binary[geneFeatures<span class="sc">$</span>ensg,i]</span>
-<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Number of transcripts</span></span>
-<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>  s<span class="ot">=</span><span class="fu">summary</span>(<span class="fu">glm</span>(this_rareVar <span class="sc">~</span> <span class="fu">log2</span>(n_transcripts) <span class="sc">+</span> <span class="fu">log10</span>(gene_length),</span>
-<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a>                <span class="at">data=</span>geneFeatures, <span class="at">family=</span><span class="st">'binomial'</span>))</span>
-<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a>  coef <span class="ot">=</span> s<span class="sc">$</span>coefficients</span>
-<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a>  this_result <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">dx =</span> <span class="fu">names</span>(rareVar.binary)[i], <span class="at">feature=</span> <span class="st">"n_transcripts_log2"</span>,  <span class="at">class=</span><span class="st">'txAnno'</span>,</span>
-<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a>                           <span class="at">OR =</span> <span class="fu">exp</span>(coef[<span class="dv">2</span>,<span class="dv">1</span>]), <span class="at">Z=</span>coef[<span class="dv">2</span>,<span class="dv">3</span>], <span class="at">P=</span>coef[<span class="dv">2</span>,<span class="dv">4</span>])</span>
-<span id="cb22-21"><a href="#cb22-21" aria-hidden="true" tabindex="-1"></a>  df_enrichments <span class="ot">=</span> <span class="fu">rbind</span>(df_enrichments, this_result)</span>
-<span id="cb22-22"><a href="#cb22-22" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb22-23"><a href="#cb22-23" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Number of transcripts | expression</span></span>
-<span id="cb22-24"><a href="#cb22-24" aria-hidden="true" tabindex="-1"></a>  s<span class="ot">=</span><span class="fu">summary</span>(<span class="fu">glm</span>(this_rareVar <span class="sc">~</span> <span class="fu">log2</span>(n_transcripts) <span class="sc">+</span> <span class="fu">log10</span>(gene_length) <span class="sc">+</span> <span class="fu">log10</span>(tpm),</span>
-<span id="cb22-25"><a href="#cb22-25" aria-hidden="true" tabindex="-1"></a>                <span class="at">data=</span>geneFeatures, <span class="at">family=</span><span class="st">'binomial'</span>))</span>
-<span id="cb22-26"><a href="#cb22-26" aria-hidden="true" tabindex="-1"></a>  coef <span class="ot">=</span> s<span class="sc">$</span>coefficients</span>
-<span id="cb22-27"><a href="#cb22-27" aria-hidden="true" tabindex="-1"></a>  this_result <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">dx =</span> <span class="fu">names</span>(rareVar.binary)[i], <span class="at">feature=</span> <span class="st">"n_transcripts_log2|tpm"</span>,  <span class="at">class=</span><span class="st">'txAnno'</span>,</span>
-<span id="cb22-28"><a href="#cb22-28" aria-hidden="true" tabindex="-1"></a>                           <span class="at">OR =</span> <span class="fu">exp</span>(coef[<span class="dv">2</span>,<span class="dv">1</span>]), <span class="at">Z=</span>coef[<span class="dv">2</span>,<span class="dv">3</span>], <span class="at">P=</span>coef[<span class="dv">2</span>,<span class="dv">4</span>])</span>
-<span id="cb22-29"><a href="#cb22-29" aria-hidden="true" tabindex="-1"></a>  df_enrichments <span class="ot">=</span> <span class="fu">rbind</span>(df_enrichments, this_result)</span>
-<span id="cb22-30"><a href="#cb22-30" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb22-31"><a href="#cb22-31" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Number of exons</span></span>
-<span id="cb22-32"><a href="#cb22-32" aria-hidden="true" tabindex="-1"></a>  s<span class="ot">=</span><span class="fu">summary</span>(<span class="fu">glm</span>(this_rareVar <span class="sc">~</span> <span class="fu">log2</span>(n_exons) <span class="sc">+</span> <span class="fu">log10</span>(gene_length),</span>
-<span id="cb22-33"><a href="#cb22-33" aria-hidden="true" tabindex="-1"></a>                <span class="at">data=</span>geneFeatures, <span class="at">family=</span><span class="st">'binomial'</span>))</span>
-<span id="cb22-34"><a href="#cb22-34" aria-hidden="true" tabindex="-1"></a>  coef <span class="ot">=</span> s<span class="sc">$</span>coefficients</span>
-<span id="cb22-35"><a href="#cb22-35" aria-hidden="true" tabindex="-1"></a>  this_result <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">dx =</span> <span class="fu">names</span>(rareVar.binary)[i], <span class="at">feature=</span> <span class="st">"n_exons_log2"</span>,  <span class="at">class=</span><span class="st">'txAnno'</span>,</span>
-<span id="cb22-36"><a href="#cb22-36" aria-hidden="true" tabindex="-1"></a>                           <span class="at">OR =</span> <span class="fu">exp</span>(coef[<span class="dv">2</span>,<span class="dv">1</span>]), <span class="at">Z=</span>coef[<span class="dv">2</span>,<span class="dv">3</span>], <span class="at">P=</span>coef[<span class="dv">2</span>,<span class="dv">4</span>])</span>
-<span id="cb22-37"><a href="#cb22-37" aria-hidden="true" tabindex="-1"></a>  df_enrichments <span class="ot">=</span> <span class="fu">rbind</span>(df_enrichments, this_result)</span>
-<span id="cb22-38"><a href="#cb22-38" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb22-39"><a href="#cb22-39" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Gene has a novel exon</span></span>
-<span id="cb22-40"><a href="#cb22-40" aria-hidden="true" tabindex="-1"></a>  s<span class="ot">=</span><span class="fu">summary</span>(<span class="fu">glm</span>(this_rareVar <span class="sc">~</span> novelExon <span class="sc">+</span> <span class="fu">log10</span>(gene_length),</span>
-<span id="cb22-41"><a href="#cb22-41" aria-hidden="true" tabindex="-1"></a>                <span class="at">data=</span>geneFeatures, <span class="at">family=</span><span class="st">'binomial'</span>))</span>
-<span id="cb22-42"><a href="#cb22-42" aria-hidden="true" tabindex="-1"></a>  coef <span class="ot">=</span> s<span class="sc">$</span>coefficients</span>
-<span id="cb22-43"><a href="#cb22-43" aria-hidden="true" tabindex="-1"></a>  this_result <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">dx =</span> <span class="fu">names</span>(rareVar.binary)[i], <span class="at">feature=</span> <span class="st">"novel_exon"</span>,   <span class="at">class=</span><span class="st">'txAnno'</span>,</span>
-<span id="cb22-44"><a href="#cb22-44" aria-hidden="true" tabindex="-1"></a>                           <span class="at">OR =</span> <span class="fu">exp</span>(coef[<span class="dv">2</span>,<span class="dv">1</span>]), <span class="at">Z=</span>coef[<span class="dv">2</span>,<span class="dv">3</span>], <span class="at">P=</span>coef[<span class="dv">2</span>,<span class="dv">4</span>])</span>
-<span id="cb22-45"><a href="#cb22-45" aria-hidden="true" tabindex="-1"></a>  df_enrichments <span class="ot">=</span> <span class="fu">rbind</span>(df_enrichments, this_result)</span>
-<span id="cb22-46"><a href="#cb22-46" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb22-47"><a href="#cb22-47" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb22-48"><a href="#cb22-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-49"><a href="#cb22-49" aria-hidden="true" tabindex="-1"></a>df_enrichments <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">fdr =</span> <span class="fu">p.adjust</span>(P, <span class="st">'fdr'</span>)) <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(dx)   <span class="sc">%&gt;%</span> </span>
-<span id="cb22-50"><a href="#cb22-50" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span><span class="fu">reorder</span>(feature, <span class="sc">-</span><span class="fu">log10</span>(fdr)), <span class="at">y=</span><span class="sc">-</span><span class="fu">log10</span>(fdr)))<span class="sc">+</span> <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">'identity'</span>,<span class="at">fill=</span><span class="st">'royalblue'</span>) <span class="sc">+</span> </span>
-<span id="cb22-51"><a href="#cb22-51" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_wrap</span>(dx<span class="sc">~</span>.,<span class="at">scales =</span> <span class="st">'free_y'</span>,<span class="at">ncol=</span><span class="dv">2</span>) <span class="sc">+</span> <span class="fu">coord_flip</span>() <span class="sc">+</span> <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="sc">-</span><span class="fu">log10</span>(.<span class="dv">05</span>),<span class="at">lty=</span><span class="dv">2</span>, <span class="at">color=</span><span class="st">'red'</span>) <span class="sc">+</span></span>
-<span id="cb22-52"><a href="#cb22-52" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x=</span><span class="st">""</span>) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">"Rare Variant Gene Enrichments"</span>,<span class="at">subtitle =</span> <span class="st">'Gene features from IsoSeq'</span>) <span class="sc">+</span> <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="Figure6_rareVariant_cache/html/unnamed-chunk-4_1d9ae89d962de8310694f9a812340d36">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>df_enrichments2 <span class="ot">=</span> <span class="fu">data.frame</span>()</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Interpretion of the odds ratio here:</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="co"># For every doubling of number of transcripts per gene (log2), there is 64% increase</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="co"># in odds that a gene is ASD risk gene (SFARI.1)</span></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Dx          |   Feature           | Class   |   OR      | Z score   | P value |</span></span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a><span class="co"># ------------| ------------------  | ------- | --------- | --------- | ---------- |</span></span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a><span class="co">#   ASD.SFARI.1 |  n_transcripts_log2 | txAnno  | 1.6377222 | 9.9933917 | 1.629102e-23</span></span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">ncol</span>(rareVar.binary)) {</span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>  this_rareVar <span class="ot">=</span> rareVar.binary[geneFeatures<span class="sc">$</span>ensg,i]</span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Number of transcripts</span></span>
+<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a>  s<span class="ot">=</span><span class="fu">summary</span>(<span class="fu">glm</span>(this_rareVar <span class="sc">~</span> <span class="fu">log2</span>(n_transcripts) <span class="sc">+</span> <span class="fu">log10</span>(gene_length) <span class="sc">+</span> <span class="fu">log10</span>(coding_length),</span>
+<span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a>                <span class="at">data=</span>geneFeatures, <span class="at">family=</span><span class="st">'binomial'</span>))</span>
+<span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a>  coef <span class="ot">=</span> s<span class="sc">$</span>coefficients</span>
+<span id="cb26-19"><a href="#cb26-19" aria-hidden="true" tabindex="-1"></a>  this_result <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">dx =</span> <span class="fu">names</span>(rareVar.binary)[i], <span class="at">feature=</span> <span class="st">"n_transcripts_log2"</span>,  <span class="at">class=</span><span class="st">'txAnno'</span>,</span>
+<span id="cb26-20"><a href="#cb26-20" aria-hidden="true" tabindex="-1"></a>                           <span class="at">OR =</span> <span class="fu">exp</span>(coef[<span class="dv">2</span>,<span class="dv">1</span>]), <span class="at">Z=</span>coef[<span class="dv">2</span>,<span class="dv">3</span>], <span class="at">P=</span>coef[<span class="dv">2</span>,<span class="dv">4</span>])</span>
+<span id="cb26-21"><a href="#cb26-21" aria-hidden="true" tabindex="-1"></a>  df_enrichments2 <span class="ot">=</span> <span class="fu">rbind</span>(df_enrichments2, this_result)</span>
+<span id="cb26-22"><a href="#cb26-22" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb26-23"><a href="#cb26-23" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Number of transcripts | expression</span></span>
+<span id="cb26-24"><a href="#cb26-24" aria-hidden="true" tabindex="-1"></a>  s<span class="ot">=</span><span class="fu">summary</span>(<span class="fu">glm</span>(this_rareVar <span class="sc">~</span> <span class="fu">log2</span>(n_transcripts) <span class="sc">+</span> <span class="fu">log10</span>(tpm) <span class="sc">+</span> <span class="fu">log10</span>(gene_length) <span class="sc">+</span> <span class="fu">log10</span>(coding_length),</span>
+<span id="cb26-25"><a href="#cb26-25" aria-hidden="true" tabindex="-1"></a>                <span class="at">data=</span>geneFeatures, <span class="at">family=</span><span class="st">'binomial'</span>))</span>
+<span id="cb26-26"><a href="#cb26-26" aria-hidden="true" tabindex="-1"></a>  coef <span class="ot">=</span> s<span class="sc">$</span>coefficients</span>
+<span id="cb26-27"><a href="#cb26-27" aria-hidden="true" tabindex="-1"></a>  this_result <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">dx =</span> <span class="fu">names</span>(rareVar.binary)[i], <span class="at">feature=</span> <span class="st">"n_transcripts_log2|tpm"</span>,  <span class="at">class=</span><span class="st">'txAnno'</span>,</span>
+<span id="cb26-28"><a href="#cb26-28" aria-hidden="true" tabindex="-1"></a>                           <span class="at">OR =</span> <span class="fu">exp</span>(coef[<span class="dv">2</span>,<span class="dv">1</span>]), <span class="at">Z=</span>coef[<span class="dv">2</span>,<span class="dv">3</span>], <span class="at">P=</span>coef[<span class="dv">2</span>,<span class="dv">4</span>])</span>
+<span id="cb26-29"><a href="#cb26-29" aria-hidden="true" tabindex="-1"></a>  df_enrichments2 <span class="ot">=</span> <span class="fu">rbind</span>(df_enrichments2, this_result)</span>
+<span id="cb26-30"><a href="#cb26-30" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb26-31"><a href="#cb26-31" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Number of exons</span></span>
+<span id="cb26-32"><a href="#cb26-32" aria-hidden="true" tabindex="-1"></a>  s<span class="ot">=</span><span class="fu">summary</span>(<span class="fu">glm</span>(this_rareVar <span class="sc">~</span> <span class="fu">log2</span>(n_exons) <span class="sc">+</span> <span class="fu">log10</span>(gene_length) <span class="sc">+</span> <span class="fu">log10</span>(coding_length),</span>
+<span id="cb26-33"><a href="#cb26-33" aria-hidden="true" tabindex="-1"></a>                <span class="at">data=</span>geneFeatures, <span class="at">family=</span><span class="st">'binomial'</span>))</span>
+<span id="cb26-34"><a href="#cb26-34" aria-hidden="true" tabindex="-1"></a>  coef <span class="ot">=</span> s<span class="sc">$</span>coefficients</span>
+<span id="cb26-35"><a href="#cb26-35" aria-hidden="true" tabindex="-1"></a>  this_result <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">dx =</span> <span class="fu">names</span>(rareVar.binary)[i], <span class="at">feature=</span> <span class="st">"n_exons_log2"</span>,  <span class="at">class=</span><span class="st">'txAnno'</span>,</span>
+<span id="cb26-36"><a href="#cb26-36" aria-hidden="true" tabindex="-1"></a>                           <span class="at">OR =</span> <span class="fu">exp</span>(coef[<span class="dv">2</span>,<span class="dv">1</span>]), <span class="at">Z=</span>coef[<span class="dv">2</span>,<span class="dv">3</span>], <span class="at">P=</span>coef[<span class="dv">2</span>,<span class="dv">4</span>])</span>
+<span id="cb26-37"><a href="#cb26-37" aria-hidden="true" tabindex="-1"></a>  df_enrichments2 <span class="ot">=</span> <span class="fu">rbind</span>(df_enrichments2, this_result)</span>
+<span id="cb26-38"><a href="#cb26-38" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb26-39"><a href="#cb26-39" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Gene has a novel exon</span></span>
+<span id="cb26-40"><a href="#cb26-40" aria-hidden="true" tabindex="-1"></a>  s<span class="ot">=</span><span class="fu">summary</span>(<span class="fu">glm</span>(this_rareVar <span class="sc">~</span> novelExon <span class="sc">+</span> <span class="fu">log10</span>(gene_length) <span class="sc">+</span> <span class="fu">log10</span>(coding_length),</span>
+<span id="cb26-41"><a href="#cb26-41" aria-hidden="true" tabindex="-1"></a>                <span class="at">data=</span>geneFeatures, <span class="at">family=</span><span class="st">'binomial'</span>))</span>
+<span id="cb26-42"><a href="#cb26-42" aria-hidden="true" tabindex="-1"></a>  coef <span class="ot">=</span> s<span class="sc">$</span>coefficients</span>
+<span id="cb26-43"><a href="#cb26-43" aria-hidden="true" tabindex="-1"></a>  this_result <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">dx =</span> <span class="fu">names</span>(rareVar.binary)[i], <span class="at">feature=</span> <span class="st">"novel_exon"</span>,   <span class="at">class=</span><span class="st">'txAnno'</span>,</span>
+<span id="cb26-44"><a href="#cb26-44" aria-hidden="true" tabindex="-1"></a>                           <span class="at">OR =</span> <span class="fu">exp</span>(coef[<span class="dv">2</span>,<span class="dv">1</span>]), <span class="at">Z=</span>coef[<span class="dv">2</span>,<span class="dv">3</span>], <span class="at">P=</span>coef[<span class="dv">2</span>,<span class="dv">4</span>])</span>
+<span id="cb26-45"><a href="#cb26-45" aria-hidden="true" tabindex="-1"></a>  df_enrichments2 <span class="ot">=</span> <span class="fu">rbind</span>(df_enrichments2, this_result)</span>
+<span id="cb26-46"><a href="#cb26-46" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb26-47"><a href="#cb26-47" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb26-48"><a href="#cb26-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-49"><a href="#cb26-49" aria-hidden="true" tabindex="-1"></a>df_enrichments2 <span class="sc">%&gt;%</span></span>
+<span id="cb26-50"><a href="#cb26-50" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">fdr =</span> <span class="fu">p.adjust</span>(P, <span class="st">'fdr'</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb26-51"><a href="#cb26-51" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(</span>
+<span id="cb26-52"><a href="#cb26-52" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="sc">-</span><span class="fu">log10</span>(fdr),</span>
+<span id="cb26-53"><a href="#cb26-53" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="fu">reorder_within</span>(feature, <span class="sc">-</span><span class="fu">log10</span>(fdr), dx)</span>
+<span id="cb26-54"><a href="#cb26-54" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">+</span></span>
+<span id="cb26-55"><a href="#cb26-55" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">fill =</span> <span class="st">'royalblue'</span>) <span class="sc">+</span> </span>
+<span id="cb26-56"><a href="#cb26-56" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="sc">-</span><span class="fu">log10</span>(.<span class="dv">05</span>), <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">color =</span> <span class="st">'red'</span>) <span class="sc">+</span></span>
+<span id="cb26-57"><a href="#cb26-57" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_reordered</span>() <span class="sc">+</span></span>
+<span id="cb26-58"><a href="#cb26-58" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb26-59"><a href="#cb26-59" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="cn">NULL</span>,</span>
+<span id="cb26-60"><a href="#cb26-60" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Rare Variant Gene Enrichments"</span>,</span>
+<span id="cb26-61"><a href="#cb26-61" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"Gene features from Iso-Seq"</span></span>
+<span id="cb26-62"><a href="#cb26-62" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb26-63"><a href="#cb26-63" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb26-64"><a href="#cb26-64" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="fu">vars</span>(dx), <span class="at">scales =</span> <span class="st">'free_y'</span>, <span class="at">ncol=</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Figure6_rareVariant_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<div class="cell" data-hash="Figure6_rareVariant_cache/html/unnamed-chunk-5_8648c14edc3e71e66a4126b8f5fb5048">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">"output/figures/Fig6/Fig6_rareVar01.pdf"</span>, <span class="at">width =</span> <span class="dv">6</span>, <span class="at">height =</span> <span class="dv">6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="Figure6_rareVariant_cache/html/unnamed-chunk-5_1bea09dda05ace5c32204bb31cd05525">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">"output/figures/revision1/Fig6/revisedFinal/Fig6_rareVar01.pdf"</span>, <span class="at">width =</span> <span class="dv">6</span>, <span class="at">height =</span> <span class="dv">6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="dgedtedtu-genes" class="level3">
 <h3 class="anchored" data-anchor-id="dgedtedtu-genes">2) DGE/DTE/DTU genes</h3>
-<div class="cell" data-hash="Figure6_rareVariant_cache/html/unnamed-chunk-6_2ea9e1ab7e0a4c363dcdd48567f87979">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>diffExMat <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">DTU =</span> <span class="fu">as.numeric</span>(geneFeatures<span class="sc">$</span>DTU), </span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>                       <span class="at">DTE =</span> <span class="fu">as.numeric</span>(geneFeatures<span class="sc">$</span>DTE),</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>                       <span class="at">DGE=</span><span class="fu">as.numeric</span>(geneFeatures<span class="sc">$</span>DGE))</span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(diffExMat) <span class="ot">=</span> geneFeatures<span class="sc">$</span>ensg</span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>diffExMat<span class="sc">$</span>DTU.not.DGE <span class="ot">=</span> <span class="fu">as.numeric</span>(geneFeatures<span class="sc">$</span>DTU <span class="sc">&amp;</span> <span class="sc">!</span>geneFeatures<span class="sc">$</span>DGE)</span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>diffExMat<span class="sc">$</span>DTU.not.DTE <span class="ot">=</span> <span class="fu">as.numeric</span>(geneFeatures<span class="sc">$</span>DTU <span class="sc">&amp;</span> <span class="sc">!</span>geneFeatures<span class="sc">$</span>DTE)</span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>diffExMat<span class="sc">$</span>DTE.not.DGE <span class="ot">=</span> <span class="fu">as.numeric</span>(geneFeatures<span class="sc">$</span>DTE <span class="sc">&amp;</span> <span class="sc">!</span>geneFeatures<span class="sc">$</span>DGE)</span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>diffExMat<span class="sc">$</span>DTU.up <span class="ot">=</span> <span class="fu">as.numeric</span>(<span class="fu">rownames</span>(diffExMat) <span class="sc">%in%</span> (tableS3 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(DTU, DTU_dIF<span class="sc">&gt;</span><span class="dv">0</span>) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(ensg) <span class="sc">%&gt;%</span> <span class="fu">pull</span>()))</span>
-<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>diffExMat<span class="sc">$</span>DTU.down <span class="ot">=</span> <span class="fu">as.numeric</span>(<span class="fu">rownames</span>(diffExMat) <span class="sc">%in%</span> (tableS3 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(DTU, DTU_dIF<span class="sc">&lt;</span><span class="dv">0</span>) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(ensg) <span class="sc">%&gt;%</span> <span class="fu">pull</span>()))</span>
-<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>diffExMat<span class="sc">$</span>DTE.up <span class="ot">=</span> <span class="fu">as.numeric</span>(<span class="fu">rownames</span>(diffExMat) <span class="sc">%in%</span> (tableS3 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(DTE, DTE_log2FC<span class="sc">&gt;</span><span class="dv">0</span>) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(ensg) <span class="sc">%&gt;%</span> <span class="fu">pull</span>()))</span>
-<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>diffExMat<span class="sc">$</span>DTE.down <span class="ot">=</span> <span class="fu">as.numeric</span>(<span class="fu">rownames</span>(diffExMat) <span class="sc">%in%</span> (tableS3 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(DTE, DTE_log2FC<span class="sc">&lt;</span><span class="dv">0</span>) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(ensg) <span class="sc">%&gt;%</span> <span class="fu">pull</span>()))</span>
-<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>diffExMat<span class="sc">$</span>DGE.up <span class="ot">=</span> <span class="fu">as.numeric</span>(<span class="fu">rownames</span>(diffExMat) <span class="sc">%in%</span> (tableS3 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(DGE, DGE_log2FC<span class="sc">&gt;</span><span class="dv">0</span>) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(ensg) <span class="sc">%&gt;%</span> <span class="fu">pull</span>()))</span>
-<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>diffExMat<span class="sc">$</span>DGE.down <span class="ot">=</span> <span class="fu">as.numeric</span>(<span class="fu">rownames</span>(diffExMat) <span class="sc">%in%</span> (tableS3 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(DGE, DGE_log2FC<span class="sc">&lt;</span><span class="dv">0</span>) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(ensg) <span class="sc">%&gt;%</span> <span class="fu">pull</span>()))</span>
-<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>df_enrichments.de <span class="ot">=</span> <span class="fu">data.frame</span>()</span>
-<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">ncol</span>(rareVar.binary)) {</span>
-<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a>  this_rareVar <span class="ot">=</span> rareVar.binary[geneFeatures<span class="sc">$</span>ensg,i]</span>
-<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">ncol</span>(diffExMat)) {</span>
-<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a>    this_feature <span class="ot">=</span> diffExMat[geneFeatures<span class="sc">$</span>ensg,j]</span>
-<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a>      s<span class="ot">=</span><span class="fu">summary</span>(<span class="fu">glm</span>(this_rareVar <span class="sc">~</span> this_feature <span class="sc">+</span> <span class="fu">log10</span>(gene_length),</span>
-<span id="cb24-23"><a href="#cb24-23" aria-hidden="true" tabindex="-1"></a>                <span class="at">data=</span>geneFeatures, <span class="at">family=</span><span class="st">'binomial'</span>))</span>
-<span id="cb24-24"><a href="#cb24-24" aria-hidden="true" tabindex="-1"></a>       coef <span class="ot">=</span> s<span class="sc">$</span>coefficients</span>
-<span id="cb24-25"><a href="#cb24-25" aria-hidden="true" tabindex="-1"></a>  this_result <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">dx =</span> <span class="fu">names</span>(rareVar.binary)[i], <span class="at">class=</span><span class="st">'DGE/DTE/DTU'</span>,</span>
-<span id="cb24-26"><a href="#cb24-26" aria-hidden="true" tabindex="-1"></a>                           <span class="at">feature=</span> <span class="fu">colnames</span>(diffExMat)[j],</span>
-<span id="cb24-27"><a href="#cb24-27" aria-hidden="true" tabindex="-1"></a>                           <span class="at">OR =</span> <span class="fu">exp</span>(coef[<span class="dv">2</span>,<span class="dv">1</span>]), <span class="at">Z=</span>coef[<span class="dv">2</span>,<span class="dv">3</span>], <span class="at">P=</span>coef[<span class="dv">2</span>,<span class="dv">4</span>])</span>
-<span id="cb24-28"><a href="#cb24-28" aria-hidden="true" tabindex="-1"></a>  df_enrichments.de <span class="ot">=</span> <span class="fu">rbind</span>(df_enrichments.de, this_result)</span>
-<span id="cb24-29"><a href="#cb24-29" aria-hidden="true" tabindex="-1"></a>      </span>
-<span id="cb24-30"><a href="#cb24-30" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb24-31"><a href="#cb24-31" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="Figure6_rareVariant_cache/html/unnamed-chunk-6_f95cfdf3612c1b6d9e309c5afd25a478">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>diffExMat <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">DTU =</span> <span class="fu">as.numeric</span>(geneFeatures<span class="sc">$</span>DTU), </span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>                       <span class="at">DTE =</span> <span class="fu">as.numeric</span>(geneFeatures<span class="sc">$</span>DTE),</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>                       <span class="at">DGE=</span><span class="fu">as.numeric</span>(geneFeatures<span class="sc">$</span>DGE))</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(diffExMat) <span class="ot">=</span> geneFeatures<span class="sc">$</span>ensg</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>diffExMat<span class="sc">$</span>DTU.not.DGE <span class="ot">=</span> <span class="fu">as.numeric</span>(geneFeatures<span class="sc">$</span>DTU <span class="sc">&amp;</span> <span class="sc">!</span>geneFeatures<span class="sc">$</span>DGE)</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>diffExMat<span class="sc">$</span>DTU.not.DTE <span class="ot">=</span> <span class="fu">as.numeric</span>(geneFeatures<span class="sc">$</span>DTU <span class="sc">&amp;</span> <span class="sc">!</span>geneFeatures<span class="sc">$</span>DTE)</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>diffExMat<span class="sc">$</span>DTE.not.DGE <span class="ot">=</span> <span class="fu">as.numeric</span>(geneFeatures<span class="sc">$</span>DTE <span class="sc">&amp;</span> <span class="sc">!</span>geneFeatures<span class="sc">$</span>DGE)</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>diffExMat<span class="sc">$</span>DTU.up <span class="ot">=</span> <span class="fu">as.numeric</span>(<span class="fu">rownames</span>(diffExMat) <span class="sc">%in%</span> (tableS3 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(DTU, DTU_dIF<span class="sc">&gt;</span><span class="dv">0</span>) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(ensg) <span class="sc">%&gt;%</span> <span class="fu">pull</span>()))</span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>diffExMat<span class="sc">$</span>DTU.down <span class="ot">=</span> <span class="fu">as.numeric</span>(<span class="fu">rownames</span>(diffExMat) <span class="sc">%in%</span> (tableS3 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(DTU, DTU_dIF<span class="sc">&lt;</span><span class="dv">0</span>) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(ensg) <span class="sc">%&gt;%</span> <span class="fu">pull</span>()))</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>diffExMat<span class="sc">$</span>DTE.up <span class="ot">=</span> <span class="fu">as.numeric</span>(<span class="fu">rownames</span>(diffExMat) <span class="sc">%in%</span> (tableS3 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(DTE, DTE_log2FC<span class="sc">&gt;</span><span class="dv">0</span>) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(ensg) <span class="sc">%&gt;%</span> <span class="fu">pull</span>()))</span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>diffExMat<span class="sc">$</span>DTE.down <span class="ot">=</span> <span class="fu">as.numeric</span>(<span class="fu">rownames</span>(diffExMat) <span class="sc">%in%</span> (tableS3 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(DTE, DTE_log2FC<span class="sc">&lt;</span><span class="dv">0</span>) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(ensg) <span class="sc">%&gt;%</span> <span class="fu">pull</span>()))</span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>diffExMat<span class="sc">$</span>DGE.up <span class="ot">=</span> <span class="fu">as.numeric</span>(<span class="fu">rownames</span>(diffExMat) <span class="sc">%in%</span> (tableS3 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(DGE, DGE_log2FC<span class="sc">&gt;</span><span class="dv">0</span>) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(ensg) <span class="sc">%&gt;%</span> <span class="fu">pull</span>()))</span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>diffExMat<span class="sc">$</span>DGE.down <span class="ot">=</span> <span class="fu">as.numeric</span>(<span class="fu">rownames</span>(diffExMat) <span class="sc">%in%</span> (tableS3 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(DGE, DGE_log2FC<span class="sc">&lt;</span><span class="dv">0</span>) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(ensg) <span class="sc">%&gt;%</span> <span class="fu">pull</span>()))</span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>df_enrichments.de2 <span class="ot">=</span> <span class="fu">data.frame</span>()</span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">ncol</span>(rareVar.binary)) {</span>
+<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a>  this_rareVar <span class="ot">=</span> rareVar.binary[geneFeatures<span class="sc">$</span>ensg,i]</span>
+<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">ncol</span>(diffExMat)) {</span>
+<span id="cb28-20"><a href="#cb28-20" aria-hidden="true" tabindex="-1"></a>    this_feature <span class="ot">=</span> diffExMat[geneFeatures<span class="sc">$</span>ensg,j]</span>
+<span id="cb28-21"><a href="#cb28-21" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb28-22"><a href="#cb28-22" aria-hidden="true" tabindex="-1"></a>      s<span class="ot">=</span><span class="fu">summary</span>(<span class="fu">glm</span>(this_rareVar <span class="sc">~</span> this_feature <span class="sc">+</span> <span class="fu">log10</span>(gene_length) <span class="sc">+</span> <span class="fu">log10</span>(coding_length),</span>
+<span id="cb28-23"><a href="#cb28-23" aria-hidden="true" tabindex="-1"></a>                <span class="at">data=</span>geneFeatures, <span class="at">family=</span><span class="st">'binomial'</span>))</span>
+<span id="cb28-24"><a href="#cb28-24" aria-hidden="true" tabindex="-1"></a>       coef <span class="ot">=</span> s<span class="sc">$</span>coefficients</span>
+<span id="cb28-25"><a href="#cb28-25" aria-hidden="true" tabindex="-1"></a>  this_result <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">dx =</span> <span class="fu">names</span>(rareVar.binary)[i], <span class="at">class=</span><span class="st">'DGE/DTE/DTU'</span>,</span>
+<span id="cb28-26"><a href="#cb28-26" aria-hidden="true" tabindex="-1"></a>                           <span class="at">feature=</span> <span class="fu">colnames</span>(diffExMat)[j],</span>
+<span id="cb28-27"><a href="#cb28-27" aria-hidden="true" tabindex="-1"></a>                           <span class="at">OR =</span> <span class="fu">exp</span>(coef[<span class="dv">2</span>,<span class="dv">1</span>]), <span class="at">Z=</span>coef[<span class="dv">2</span>,<span class="dv">3</span>], <span class="at">P=</span>coef[<span class="dv">2</span>,<span class="dv">4</span>])</span>
+<span id="cb28-28"><a href="#cb28-28" aria-hidden="true" tabindex="-1"></a>  df_enrichments.de2 <span class="ot">=</span> <span class="fu">rbind</span>(df_enrichments.de2, this_result)</span>
+<span id="cb28-29"><a href="#cb28-29" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb28-30"><a href="#cb28-30" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb28-31"><a href="#cb28-31" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-hash="Figure6_rareVariant_cache/html/unnamed-chunk-7_814830a4d3b656501b9c1e11d062560f">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>df_enrichments.de <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">fdr =</span> <span class="fu">p.adjust</span>(P, <span class="st">'fdr'</span>)) <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(dx)   <span class="sc">%&gt;%</span> </span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span><span class="fu">reorder</span>(feature, <span class="sc">-</span><span class="fu">log10</span>(fdr)), <span class="at">y=</span><span class="sc">-</span><span class="fu">log10</span>(fdr), <span class="at">size=</span>OR, <span class="at">alpha=</span>(OR<span class="sc">&gt;</span><span class="dv">1</span>)))<span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">color=</span><span class="st">'royalblue'</span>) <span class="sc">+</span> </span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_wrap</span>(dx<span class="sc">~</span>.,<span class="at">scales =</span> <span class="st">'free_y'</span>,<span class="at">ncol=</span><span class="dv">2</span>) <span class="sc">+</span> <span class="fu">coord_flip</span>() <span class="sc">+</span> <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="sc">-</span><span class="fu">log10</span>(.<span class="dv">05</span>),<span class="at">lty=</span><span class="dv">2</span>, <span class="at">color=</span><span class="st">'red'</span>) <span class="sc">+</span></span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x=</span><span class="st">""</span>) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">"Rare Variant Gene Enrichments"</span>,<span class="at">subtitle =</span> <span class="st">'Gene features from IsoSeq'</span>) <span class="sc">+</span> <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="Figure6_rareVariant_cache/html/unnamed-chunk-7_0c26f2df7502abab0a404a654661c9c2">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>df_enrichments.de2 <span class="sc">%&gt;%</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">fdr =</span> <span class="fu">p.adjust</span>(P, <span class="st">'fdr'</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span><span class="fu">reorder_within</span>(feature, <span class="sc">-</span><span class="fu">log10</span>(fdr), dx), <span class="at">y=</span><span class="sc">-</span><span class="fu">log10</span>(fdr), <span class="at">size=</span>OR, <span class="at">alpha=</span>(OR<span class="sc">&gt;</span><span class="dv">1</span>))) <span class="sc">+</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color=</span><span class="st">'royalblue'</span>) <span class="sc">+</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_reordered</span>() <span class="sc">+</span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="co">#  ylim(0, 10) +</span></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(dx<span class="sc">~</span>.,<span class="at">scales =</span> <span class="st">'free_y'</span>,<span class="at">ncol=</span><span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="sc">-</span><span class="fu">log10</span>(.<span class="dv">05</span>),<span class="at">lty=</span><span class="dv">2</span>, <span class="at">color=</span><span class="st">'red'</span>) <span class="sc">+</span></span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="cn">NULL</span>,</span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Rare Variant Gene Enrichments"</span>,</span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"Gene features from Iso-Seq"</span></span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: Using alpha for a discrete variable is not advised.</code></pre>
 </div>
@@ -678,67 +720,91 @@ lgl (1): pval_infrIndel
 <p><img src="Figure6_rareVariant_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<div class="cell" data-hash="Figure6_rareVariant_cache/html/unnamed-chunk-8_b8bb2321d62397de4b3f0226117328e5">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">"output/figures/Fig6/Fig6_rareVar02.pdf"</span>, <span class="at">width =</span> <span class="dv">7</span>, <span class="at">height =</span> <span class="dv">11</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="Figure6_rareVariant_cache/html/unnamed-chunk-8_98a1b6944ad7d3cb5cf4c7205ff57384">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">"output/figures/revision1/Fig6/revisedFinal/Fig6_rareVar02.pdf"</span>, <span class="at">width =</span> <span class="dv">7</span>, <span class="at">height =</span> <span class="dv">11</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Using alpha for a discrete variable is not advised.</code></pre>
 </div>
-<div class="cell" data-hash="Figure6_rareVariant_cache/html/unnamed-chunk-9_a0a0533777e2ed2cedcb0e4f0bbcdb01">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>df_enrichments.de<span class="sc">$</span>feature <span class="ot">=</span> <span class="fu">factor</span>(df_enrichments.de<span class="sc">$</span>feature, <span class="at">levels=</span><span class="fu">c</span>(<span class="st">"DGE"</span>, <span class="st">"DGE.down"</span>, <span class="st">"DGE.up"</span>, <span class="st">"DTE"</span>, <span class="st">"DTE.down"</span>, <span class="st">"DTE.up"</span>, <span class="st">"DTU"</span>, <span class="st">"DTU.down"</span>, <span class="st">"DTU.up"</span>, <span class="st">"DTU.not.DGE"</span>, <span class="st">"DTU.not.DTE"</span>, <span class="st">"DTE.not.DGE"</span>))</span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>df_enrichments.de <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">set=</span> <span class="fu">str_split_i</span>(df_enrichments.de<span class="sc">$</span>feature, <span class="st">'[.]'</span>,<span class="dv">1</span>)) <span class="sc">%&gt;%</span>  <span class="fu">mutate</span>(<span class="at">fdr =</span> <span class="fu">p.adjust</span>(P, <span class="st">'fdr'</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span><span class="fu">reorder</span>(dx, <span class="sc">-</span><span class="fu">log10</span>(fdr)), <span class="at">y=</span><span class="sc">-</span><span class="fu">log10</span>(fdr), <span class="at">fill=</span>set))<span class="sc">+</span> <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">'identity'</span>) <span class="sc">+</span> </span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_wrap</span>(feature<span class="sc">~</span>.,<span class="at">scales =</span> <span class="st">'free_y'</span>,<span class="at">ncol=</span><span class="dv">3</span>) <span class="sc">+</span> <span class="fu">coord_flip</span>() <span class="sc">+</span> <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="sc">-</span><span class="fu">log10</span>(.<span class="dv">05</span>),<span class="at">lty=</span><span class="dv">2</span>, <span class="at">color=</span><span class="st">'red'</span>) <span class="sc">+</span></span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x=</span><span class="st">""</span>) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">"Rare Variant Gene Enrichments"</span>,<span class="at">subtitle =</span> <span class="st">'CP/GZ differential expression'</span>) <span class="sc">+</span> <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-hash="Figure6_rareVariant_cache/html/unnamed-chunk-9_f50aef2c9b0388619d551f7b7f500caf">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>df_enrichments.de2<span class="sc">$</span>feature <span class="ot">=</span> <span class="fu">factor</span>(df_enrichments.de2<span class="sc">$</span>feature, <span class="at">levels=</span><span class="fu">c</span>(<span class="st">"DGE"</span>, <span class="st">"DGE.down"</span>, <span class="st">"DGE.up"</span>, <span class="st">"DTE"</span>, <span class="st">"DTE.down"</span>, <span class="st">"DTE.up"</span>, <span class="st">"DTU"</span>, <span class="st">"DTU.down"</span>, <span class="st">"DTU.up"</span>, <span class="st">"DTU.not.DGE"</span>, <span class="st">"DTU.not.DTE"</span>, <span class="st">"DTE.not.DGE"</span>))</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>df_enrichments.de2 <span class="sc">%&gt;%</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">set=</span> <span class="fu">str_split_i</span>(df_enrichments.de2<span class="sc">$</span>feature, <span class="st">'[.]'</span>,<span class="dv">1</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">fdr =</span> <span class="fu">p.adjust</span>(P, <span class="st">'fdr'</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span><span class="fu">reorder_within</span>(dx, <span class="sc">-</span><span class="fu">log10</span>(fdr), feature), <span class="at">y=</span><span class="sc">-</span><span class="fu">log10</span>(fdr), <span class="at">fill=</span>set)) <span class="sc">+</span></span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">'identity'</span>) <span class="sc">+</span></span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_reordered</span>() <span class="sc">+</span></span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a><span class="co">#  ylim(0, 10) +</span></span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(feature<span class="sc">~</span>.,<span class="at">scales =</span> <span class="st">'free_y'</span>,<span class="at">ncol=</span><span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="sc">-</span><span class="fu">log10</span>(.<span class="dv">05</span>),<span class="at">lty=</span><span class="dv">2</span>, <span class="at">color=</span><span class="st">'red'</span>) <span class="sc">+</span></span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">""</span>) <span class="sc">+</span></span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Rare Variant Gene Enrichments"</span>,<span class="at">subtitle =</span> <span class="st">'CP/GZ differential expression'</span>) <span class="sc">+</span></span>
+<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Figure6_rareVariant_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<div class="cell" data-hash="Figure6_rareVariant_cache/html/unnamed-chunk-10_99a186d7940a7160c2145acd9c9e2d30">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">"output/figures/Fig6/Fig6_rareVar03.pdf"</span>, <span class="at">width =</span> <span class="dv">9</span>, <span class="at">height =</span> <span class="fl">8.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="Figure6_rareVariant_cache/html/unnamed-chunk-10_33e8b30e9674a76eb382a7123722dfe3">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">"output/figures/revision1/Fig6/revisedFinal/Fig6_rareVar03.pdf"</span>, <span class="at">width =</span> <span class="dv">9</span>, <span class="at">height =</span> <span class="fl">8.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-hash="Figure6_rareVariant_cache/html/unnamed-chunk-11_7f7e621ba9c7975f85d097c4fdaf121d">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(df_enrichments.de <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">fdr=</span><span class="fu">p.adjust</span>(P,<span class="st">'fdr'</span>)), <span class="fu">aes</span>(<span class="at">y=</span>dx, <span class="at">x=</span>feature,<span class="at">label=</span><span class="fu">ifelse</span>(fdr<span class="sc">&lt;</span>.<span class="dv">05</span>,<span class="fu">signif</span>(OR,<span class="dv">2</span>), <span class="st">""</span>), <span class="at">fill=</span><span class="sc">-</span><span class="fu">log10</span>(fdr))) <span class="sc">+</span> <span class="fu">geom_tile</span>() <span class="sc">+</span> <span class="fu">geom_text</span>() <span class="sc">+</span> <span class="fu">scale_fill_gradient</span>(<span class="at">low=</span><span class="st">'white'</span>,<span class="at">high=</span><span class="st">'red'</span>) <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle=</span><span class="sc">-</span><span class="dv">90</span>,<span class="at">hjust=</span><span class="dv">0</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="Figure6_rareVariant_cache/html/unnamed-chunk-11_34d86e717aed69b83de208773d2da83f">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>df_enrichments.de2 <span class="sc">%&gt;%</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">fdr=</span><span class="fu">p.adjust</span>(P,<span class="st">'fdr'</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y=</span>dx, <span class="at">x=</span>feature,<span class="at">label=</span><span class="fu">ifelse</span>(fdr<span class="sc">&lt;</span>.<span class="dv">05</span>,<span class="fu">signif</span>(OR,<span class="dv">2</span>), <span class="st">""</span>), <span class="at">fill=</span><span class="sc">-</span><span class="fu">log10</span>(fdr))) <span class="sc">+</span></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_tile</span>() <span class="sc">+</span></span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>() <span class="sc">+</span></span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradient</span>(</span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">low=</span><span class="st">'white'</span>,</span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">high=</span><span class="st">'red'</span>,</span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a><span class="co">#    limits=c(0,10)</span></span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>), <span class="at">guide =</span> <span class="fu">guide_axis</span>(<span class="at">angle =</span> <span class="sc">-</span><span class="dv">90</span>)) <span class="sc">+</span></span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_discrete</span>(<span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>)) <span class="sc">+</span></span>
+<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Figure6_rareVariant_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<div class="cell" data-hash="Figure6_rareVariant_cache/html/unnamed-chunk-12_55af8b5330ca119c62172646035beb6b">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">"output/figures/Fig6/Fig6_rareVar04.pdf"</span>, <span class="at">width =</span> <span class="dv">6</span>, <span class="at">height =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="Figure6_rareVariant_cache/html/unnamed-chunk-12_518406ed36fc137841f2471a8f2362f7">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">"output/figures/revision1/Fig6/revisedFinal/Fig6_rareVar04.pdf"</span>, <span class="at">width =</span> <span class="dv">6</span>, <span class="at">height =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="network-modules" class="level3">
 <h3 class="anchored" data-anchor-id="network-modules">3) Network Modules</h3>
-<div class="cell" data-hash="Figure6_rareVariant_cache/html/unnamed-chunk-13_2cec753e16dbd8098fa0827bee181cec">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>kMEmat <span class="ot">=</span> tidyMods <span class="sc">%&gt;%</span> <span class="fu">filter</span>(module.color <span class="sc">!=</span> <span class="st">'grey'</span>) <span class="sc">%&gt;%</span> <span class="fu">pivot_wider</span>(<span class="at">id_cols =</span> ensg, <span class="at">names_from =</span> module,<span class="at">values_from =</span> kME, <span class="at">values_fn =</span> <span class="st">'max'</span>, <span class="at">values_fill =</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span> <span class="fu">as_data_frame</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="Figure6_rareVariant_cache/html/unnamed-chunk-13_ebb907038113a10893dbaab24f3d9808">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>kMEmat <span class="ot">=</span> tidyMods <span class="sc">%&gt;%</span> <span class="fu">filter</span>(module.color <span class="sc">!=</span> <span class="st">'grey'</span>) <span class="sc">%&gt;%</span> <span class="fu">pivot_wider</span>(<span class="at">id_cols =</span> ensg, <span class="at">names_from =</span> module,<span class="at">values_from =</span> kME, <span class="at">values_fn =</span> <span class="st">'max'</span>, <span class="at">values_fill =</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span> <span class="fu">as_data_frame</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: `as_data_frame()` was deprecated in tibble 2.0.0.
 ℹ Please use `as_tibble()` instead.
 ℹ The signature and semantics have changed, see `?as_tibble`.</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>these_genes <span class="ot">=</span> kMEmat<span class="sc">$</span>ensg</span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>kMEmat <span class="ot">=</span> <span class="fu">as.data.frame</span>(kMEmat)[,<span class="sc">-</span><span class="dv">1</span>]</span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(kMEmat) <span class="ot">=</span> these_genes</span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>kMEmat[kMEmat<span class="sc">!=</span><span class="dv">0</span>] <span class="ot">=</span> <span class="dv">1</span></span>
-<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>this_net_enrichment <span class="ot">=</span> <span class="cf">function</span>(i, j) {</span>
-<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>  this_feature <span class="ot">=</span> <span class="fu">scale</span>(kMEmat[geneFeatures<span class="sc">$</span>ensg,j],<span class="at">center =</span> F)</span>
-<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>  this_rareVar <span class="ot">=</span> rareVar.binary[geneFeatures<span class="sc">$</span>ensg,i]</span>
-<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>  s<span class="ot">=</span><span class="fu">summary</span>(<span class="fu">glm</span>(this_rareVar <span class="sc">~</span> this_feature <span class="sc">+</span> <span class="fu">log10</span>(gene_length),</span>
-<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a>                <span class="at">data=</span>geneFeatures, <span class="at">family=</span><span class="st">'binomial'</span>))</span>
-<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a>  coef <span class="ot">=</span> s<span class="sc">$</span>coefficients</span>
-<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a>  this_result <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">dx =</span> <span class="fu">names</span>(rareVar.binary)[i], <span class="at">class=</span><span class="st">'Networks'</span>,</span>
-<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a>                           <span class="at">feature=</span> <span class="fu">colnames</span>(kMEmat)[j],</span>
-<span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a>                           <span class="at">OR =</span> <span class="fu">exp</span>(coef[<span class="dv">2</span>,<span class="dv">1</span>]), <span class="at">Z=</span>coef[<span class="dv">2</span>,<span class="dv">3</span>], <span class="at">P=</span>coef[<span class="dv">2</span>,<span class="dv">4</span>])</span>
-<span id="cb34-16"><a href="#cb34-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(this_result)</span>
-<span id="cb34-17"><a href="#cb34-17" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb34-18"><a href="#cb34-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-19"><a href="#cb34-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-20"><a href="#cb34-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-21"><a href="#cb34-21" aria-hidden="true" tabindex="-1"></a>df_enrichments.net <span class="ot">=</span> <span class="fu">data.frame</span>()</span>
-<span id="cb34-22"><a href="#cb34-22" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">ncol</span>(rareVar.binary)) {</span>
-<span id="cb34-23"><a href="#cb34-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(i)</span>
-<span id="cb34-24"><a href="#cb34-24" aria-hidden="true" tabindex="-1"></a>  this_df_enrichment <span class="ot">=</span> <span class="fu">do.call</span>(<span class="st">"rbind"</span>, <span class="fu">mclapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">105</span>,  this_net_enrichment, <span class="at">i=</span>i,<span class="at">mc.cores =</span> <span class="fu">detectCores</span>()))</span>
-<span id="cb34-25"><a href="#cb34-25" aria-hidden="true" tabindex="-1"></a>  df_enrichments.net <span class="ot">=</span> <span class="fu">rbind</span>(df_enrichments.net, this_df_enrichment)</span>
-<span id="cb34-26"><a href="#cb34-26" aria-hidden="true" tabindex="-1"></a>  }</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>these_genes <span class="ot">=</span> kMEmat<span class="sc">$</span>ensg</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>kMEmat <span class="ot">=</span> <span class="fu">as.data.frame</span>(kMEmat)[,<span class="sc">-</span><span class="dv">1</span>]</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(kMEmat) <span class="ot">=</span> these_genes</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>kMEmat[kMEmat<span class="sc">!=</span><span class="dv">0</span>] <span class="ot">=</span> <span class="dv">1</span></span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>this_net_enrichment <span class="ot">=</span> <span class="cf">function</span>(i, j) {</span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>  this_feature <span class="ot">=</span> <span class="fu">scale</span>(kMEmat[geneFeatures<span class="sc">$</span>ensg,j],<span class="at">center =</span> F)</span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a>  this_rareVar <span class="ot">=</span> rareVar.binary[geneFeatures<span class="sc">$</span>ensg,i]</span>
+<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a>  s<span class="ot">=</span><span class="fu">summary</span>(<span class="fu">glm</span>(this_rareVar <span class="sc">~</span> this_feature <span class="sc">+</span> <span class="fu">log10</span>(gene_length) <span class="sc">+</span> <span class="fu">log10</span>(coding_length),</span>
+<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a>                <span class="at">data=</span>geneFeatures, <span class="at">family=</span><span class="st">'binomial'</span>))</span>
+<span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a>  coef <span class="ot">=</span> s<span class="sc">$</span>coefficients</span>
+<span id="cb39-13"><a href="#cb39-13" aria-hidden="true" tabindex="-1"></a>  this_result <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">dx =</span> <span class="fu">names</span>(rareVar.binary)[i], <span class="at">class=</span><span class="st">'Networks'</span>,</span>
+<span id="cb39-14"><a href="#cb39-14" aria-hidden="true" tabindex="-1"></a>                           <span class="at">feature=</span> <span class="fu">colnames</span>(kMEmat)[j],</span>
+<span id="cb39-15"><a href="#cb39-15" aria-hidden="true" tabindex="-1"></a>                           <span class="at">OR =</span> <span class="fu">exp</span>(coef[<span class="dv">2</span>,<span class="dv">1</span>]), <span class="at">Z=</span>coef[<span class="dv">2</span>,<span class="dv">3</span>], <span class="at">P=</span>coef[<span class="dv">2</span>,<span class="dv">4</span>])</span>
+<span id="cb39-16"><a href="#cb39-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(this_result)</span>
+<span id="cb39-17"><a href="#cb39-17" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb39-18"><a href="#cb39-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-19"><a href="#cb39-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-20"><a href="#cb39-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-21"><a href="#cb39-21" aria-hidden="true" tabindex="-1"></a>df_enrichments.net2 <span class="ot">=</span> <span class="fu">data.frame</span>()</span>
+<span id="cb39-22"><a href="#cb39-22" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">ncol</span>(rareVar.binary)) {</span>
+<span id="cb39-23"><a href="#cb39-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(i)</span>
+<span id="cb39-24"><a href="#cb39-24" aria-hidden="true" tabindex="-1"></a>  this_df_enrichment <span class="ot">=</span> <span class="fu">do.call</span>(<span class="st">"rbind"</span>, <span class="fu">mclapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">105</span>,  this_net_enrichment, <span class="at">i=</span>i,<span class="at">mc.cores =</span> <span class="fu">detectCores</span>()))</span>
+<span id="cb39-25"><a href="#cb39-25" aria-hidden="true" tabindex="-1"></a>  df_enrichments.net2 <span class="ot">=</span> <span class="fu">rbind</span>(df_enrichments.net2, this_df_enrichment)</span>
+<span id="cb39-26"><a href="#cb39-26" aria-hidden="true" tabindex="-1"></a>  }</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1
 [1] 2
@@ -754,39 +820,42 @@ lgl (1): pval_infrIndel
 </div>
 <section id="dendrogram-plot" class="level4">
 <h4 class="anchored" data-anchor-id="dendrogram-plot">–&gt; Dendrogram Plot</h4>
-<div class="cell" data-hash="Figure6_rareVariant_cache/html/unnamed-chunk-14_e8645ed0208b8843163f8f0baf5e6ff6">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pheatmap)</span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>net <span class="ot">=</span> df_enrichments.net <span class="sc">%&gt;%</span> <span class="fu">pivot_wider</span>(<span class="at">id_cols =</span> feature, <span class="at">names_from =</span> dx, <span class="at">values_from =</span> P) <span class="sc">%&gt;%</span> <span class="fu">as.data.frame</span>()</span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(net) <span class="ot">=</span> net<span class="sc">$</span>feature</span>
-<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>net <span class="ot">=</span> <span class="sc">-</span><span class="fu">log10</span>(net[,<span class="sc">-</span><span class="dv">1</span>])</span>
-<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>anno <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">network =</span> <span class="fu">strsplit2</span>(<span class="fu">rownames</span>(net),<span class="st">"[.]"</span>)[,<span class="dv">1</span>])</span>
-<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(anno) <span class="ot">=</span> <span class="fu">rownames</span>(net)</span>
-<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a><span class="fu">pheatmap</span>(<span class="fu">t</span>(net),<span class="at">clustering_method =</span> <span class="st">'average'</span>, <span class="at">border_color =</span> <span class="st">'grey60'</span>, <span class="at">annotation_col =</span> anno,<span class="at">color =</span> <span class="fu">blueWhiteRed</span>(<span class="dv">100</span>)[<span class="dv">50</span><span class="sc">:</span><span class="dv">100</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="Figure6_rareVariant_cache/html/unnamed-chunk-14_bec21bc967b80f95697d56000c553b53">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pheatmap)</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>net <span class="ot">=</span> df_enrichments.net2 <span class="sc">%&gt;%</span> <span class="fu">pivot_wider</span>(<span class="at">id_cols =</span> feature, <span class="at">names_from =</span> dx, <span class="at">values_from =</span> P) <span class="sc">%&gt;%</span> <span class="fu">as.data.frame</span>()</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(net) <span class="ot">=</span> net<span class="sc">$</span>feature</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>net <span class="ot">=</span> <span class="sc">-</span><span class="fu">log10</span>(net[,<span class="sc">-</span><span class="dv">1</span>])</span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>anno <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">network =</span> <span class="fu">strsplit2</span>(<span class="fu">rownames</span>(net),<span class="st">"[.]"</span>)[,<span class="dv">1</span>])</span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(anno) <span class="ot">=</span> <span class="fu">rownames</span>(net)</span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a><span class="fu">pheatmap</span>(<span class="fu">t</span>(net),<span class="at">clustering_method =</span> <span class="st">'average'</span>, <span class="at">border_color =</span> <span class="st">'grey60'</span>, <span class="at">annotation_col =</span> anno,<span class="at">color =</span> <span class="fu">blueWhiteRed</span>(<span class="dv">100</span>)[<span class="dv">50</span><span class="sc">:</span><span class="dv">100</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Figure6_rareVariant_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<div class="cell" data-hash="Figure6_rareVariant_cache/html/unnamed-chunk-15_63214f70489a449005451c7989f83875">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pheatmap</span>(<span class="fu">t</span>(net), <span class="at">clustering_method =</span> <span class="st">'average'</span>, <span class="at">border_color =</span> <span class="st">'grey60'</span>,</span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>         <span class="at">annotation_col =</span> anno,<span class="at">color =</span> <span class="fu">blueWhiteRed</span>(<span class="dv">100</span>)[<span class="dv">50</span><span class="sc">:</span><span class="dv">100</span>],</span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">file =</span> <span class="st">"output/figures/Fig6/Fig6_rareVar05.pdf"</span>, <span class="at">width =</span> <span class="dv">14</span>, <span class="at">height =</span> <span class="dv">7</span>,</span>
-<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">fontsize =</span> <span class="dv">10</span>, <span class="at">fontsize_col =</span> <span class="dv">8</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="Figure6_rareVariant_cache/html/unnamed-chunk-15_f393b4c1d0aa010578386c0c7b1bebc4">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pheatmap</span>(<span class="fu">t</span>(net), <span class="at">clustering_method =</span> <span class="st">'average'</span>, <span class="at">border_color =</span> <span class="st">'grey60'</span>,</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>         <span class="at">annotation_col =</span> anno,<span class="at">color =</span> <span class="fu">blueWhiteRed</span>(<span class="dv">100</span>)[<span class="dv">51</span><span class="sc">:</span><span class="dv">100</span>],</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">file =</span> <span class="st">"output/figures/revision1/Fig6/revisedFinal/Fig6_rareVar05.pdf"</span>, <span class="at">width =</span> <span class="dv">14</span>, <span class="at">height =</span> <span class="dv">7</span>,</span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">fontsize =</span> <span class="dv">10</span>, <span class="at">fontsize_col =</span> <span class="dv">8</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
 <section id="single-cell-markers" class="level3">
 <h3 class="anchored" data-anchor-id="single-cell-markers">4) Single cell markers</h3>
-<div class="cell" data-hash="Figure6_rareVariant_cache/html/unnamed-chunk-16_c3653892cffdf8fa9cf1576abc9f21c3">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>tableS5C <span class="ot">=</span> openxlsx<span class="sc">::</span><span class="fu">read.xlsx</span>(<span class="st">'data/single_cell/Table_S5_v2.xlsx'</span>,<span class="at">sheet =</span> <span class="st">'C'</span>)</span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="cn">FALSE</span>) {</span>
-<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>  seurat <span class="ot">=</span> <span class="fu">read_rds</span>(<span class="st">'data/single_cell/seurat/scIsoseq_4kcells_final.rds'</span>)</span>
-<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>  seurat_background <span class="ot">=</span> <span class="fu">str_split_fixed</span>(seurat<span class="sc">@</span>assays<span class="sc">$</span>RNA<span class="sc">@</span>data<span class="sc">@</span>Dimnames[[<span class="dv">1</span>]],<span class="st">'-'</span>,<span class="at">n =</span> <span class="dv">2</span>)[,<span class="dv">1</span>]</span>
-<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">write_csv</span>(<span class="fu">data.frame</span>(<span class="at">gene=</span>seurat_background), <span class="at">file=</span><span class="st">'output/tables/tableS5/seurat_background.csv'</span>)</span>
-<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>seurat_background <span class="ot">=</span> <span class="fu">read_csv</span>(<span class="st">'data/single_cell/seurat_background.csv'</span>)<span class="sc">$</span>gene</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="Figure6_rareVariant_cache/html/unnamed-chunk-16_def3b9c2df0e83ea0536d55ce94cba56">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>cell_type_order <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"vRG"</span>, <span class="st">"oRG"</span>, <span class="st">"PgS"</span>, <span class="st">"PgG2M"</span>, <span class="st">"IP"</span>, <span class="st">"vRG-ExN"</span>, <span class="st">"ExN-1"</span>, <span class="st">"ExN-2"</span>, <span class="st">"ExN-3"</span>, <span class="st">"ExN-ExM"</span>, <span class="st">"ExM"</span>, <span class="st">"ExM-U"</span>, <span class="st">"ExDp"</span>, <span class="st">"In"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-hash="Figure6_rareVariant_cache/html/unnamed-chunk-17_59f7132574d909717eb50889e7ecb299">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>tableS5C <span class="ot">=</span> openxlsx<span class="sc">::</span><span class="fu">read.xlsx</span>(<span class="st">'data/single_cell/Table_S5_v2.xlsx'</span>,<span class="at">sheet =</span> <span class="st">'C'</span>)</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="cn">FALSE</span>) {</span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>  seurat <span class="ot">=</span> <span class="fu">read_rds</span>(<span class="st">'data/single_cell/seurat/scIsoseq_4kcells_final.rds'</span>)</span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>  seurat_background <span class="ot">=</span> <span class="fu">str_split_fixed</span>(seurat<span class="sc">@</span>assays<span class="sc">$</span>RNA<span class="sc">@</span>data<span class="sc">@</span>Dimnames[[<span class="dv">1</span>]],<span class="st">'-'</span>,<span class="at">n =</span> <span class="dv">2</span>)[,<span class="dv">1</span>]</span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">write_csv</span>(<span class="fu">data.frame</span>(<span class="at">gene=</span>seurat_background), <span class="at">file=</span><span class="st">'output/tables/tableS5/seurat_background.csv'</span>)</span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a>seurat_background <span class="ot">=</span> <span class="fu">read_csv</span>(<span class="st">'data/single_cell/seurat_background.csv'</span>)<span class="sc">$</span>gene</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Rows: 87162 Columns: 1
 ── Column specification ────────────────────────────────────────────────────────
@@ -796,90 +865,34 @@ chr (1): gene
 ℹ Use `spec()` to retrieve the full column specification for this data.
 ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>tableS5C <span class="ot">=</span> <span class="fu">rbind</span>(tableS5C, <span class="fu">data.frame</span>(<span class="at">Gene.Name=</span><span class="fu">unique</span>(seurat_background[<span class="sc">!</span>seurat_background <span class="sc">%in%</span> tableS5C<span class="sc">$</span>Gene.Name]), <span class="at">Isoform.Id=</span><span class="cn">NA</span>, <span class="at">cluster=</span><span class="cn">NA</span>, <span class="at">avg_log2FC=</span><span class="cn">NA</span>, <span class="at">p_val=</span><span class="cn">NA</span>, <span class="at">p_val_adj=</span><span class="cn">NA</span>))</span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>tableS5C <span class="ot">&lt;-</span> tableS5C <span class="sc">%&gt;%</span> <span class="fu">left_join</span>(geneAnno <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(ensg, gene_name), <span class="at">by=</span><span class="fu">c</span>(<span class="st">"Gene.Name"</span> <span class="ot">=</span> <span class="st">"gene_name"</span>))</span>
-<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>df.cell_makers <span class="ot">&lt;-</span> tableS5C <span class="sc">%&gt;%</span> <span class="fu">pivot_wider</span>(<span class="at">id_cols =</span> ensg, <span class="at">names_from =</span> cluster, <span class="at">values_from =</span> avg_log2FC,<span class="at">values_fill =</span> <span class="dv">0</span>,<span class="at">values_fn =</span> <span class="cf">function</span>(x) {<span class="fu">max</span>(x)}) <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(ensg)) <span class="sc">%&gt;%</span> <span class="fu">as.data.frame</span>()</span>
-<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(df.cell_makers) <span class="ot">=</span> df.cell_makers<span class="sc">$</span>ensg</span>
-<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>df.cell_makers <span class="ot">=</span> df.cell_makers[,<span class="sc">!</span><span class="fu">colnames</span>(df.cell_makers) <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"ensg"</span>, <span class="st">"NA"</span>)]</span>
-<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>df.cell_makers[df.cell_makers<span class="sc">!=</span><span class="dv">0</span>]<span class="ot">=</span><span class="dv">1</span></span>
-<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a>df_enrichments.singlecell <span class="ot">=</span> <span class="fu">data.frame</span>()</span>
-<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">ncol</span>(rareVar.binary)) {</span>
-<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(i)</span>
-<span id="cb40-13"><a href="#cb40-13" aria-hidden="true" tabindex="-1"></a>  this_rareVar <span class="ot">=</span> rareVar.binary[geneFeatures<span class="sc">$</span>ensg,i]</span>
-<span id="cb40-14"><a href="#cb40-14" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb40-15"><a href="#cb40-15" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">ncol</span>(df.cell_makers)) {</span>
-<span id="cb40-16"><a href="#cb40-16" aria-hidden="true" tabindex="-1"></a>    this_feature <span class="ot">=</span> df.cell_makers[geneFeatures<span class="sc">$</span>ensg,j]</span>
-<span id="cb40-17"><a href="#cb40-17" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb40-18"><a href="#cb40-18" aria-hidden="true" tabindex="-1"></a>      s<span class="ot">=</span><span class="fu">summary</span>(<span class="fu">glm</span>(this_rareVar <span class="sc">~</span> this_feature <span class="sc">+</span> <span class="fu">log10</span>(gene_length),</span>
-<span id="cb40-19"><a href="#cb40-19" aria-hidden="true" tabindex="-1"></a>                <span class="at">data=</span>geneFeatures, <span class="at">family=</span><span class="st">'binomial'</span>))</span>
-<span id="cb40-20"><a href="#cb40-20" aria-hidden="true" tabindex="-1"></a>       coef <span class="ot">=</span> s<span class="sc">$</span>coefficients</span>
-<span id="cb40-21"><a href="#cb40-21" aria-hidden="true" tabindex="-1"></a>  this_result <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">dx =</span> <span class="fu">names</span>(rareVar.binary)[i], <span class="at">class=</span><span class="st">'SingleCellMarkers'</span>,</span>
-<span id="cb40-22"><a href="#cb40-22" aria-hidden="true" tabindex="-1"></a>                           <span class="at">feature=</span> <span class="fu">colnames</span>(df.cell_makers)[j],</span>
-<span id="cb40-23"><a href="#cb40-23" aria-hidden="true" tabindex="-1"></a>                           <span class="at">OR =</span> <span class="fu">exp</span>(coef[<span class="dv">2</span>,<span class="dv">1</span>]), <span class="at">Z=</span>coef[<span class="dv">2</span>,<span class="dv">3</span>], <span class="at">P=</span>coef[<span class="dv">2</span>,<span class="dv">4</span>])</span>
-<span id="cb40-24"><a href="#cb40-24" aria-hidden="true" tabindex="-1"></a>  df_enrichments.singlecell <span class="ot">=</span> <span class="fu">rbind</span>(df_enrichments.singlecell, this_result)</span>
-<span id="cb40-25"><a href="#cb40-25" aria-hidden="true" tabindex="-1"></a>      </span>
-<span id="cb40-26"><a href="#cb40-26" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb40-27"><a href="#cb40-27" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 1
-[1] 2
-[1] 3
-[1] 4
-[1] 5
-[1] 6
-[1] 7
-[1] 8
-[1] 9
-[1] 10</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>df_enrichments.singlecell <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">fdr =</span> <span class="fu">p.adjust</span>(P, <span class="st">'fdr'</span>)) <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(dx)   <span class="sc">%&gt;%</span> </span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span><span class="fu">reorder</span>(feature, <span class="sc">-</span><span class="fu">log10</span>(fdr)), <span class="at">y=</span><span class="sc">-</span><span class="fu">log10</span>(fdr)))<span class="sc">+</span> <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">'identity'</span>,<span class="at">fill=</span><span class="st">'royalblue'</span>) <span class="sc">+</span> </span>
-<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_wrap</span>(dx<span class="sc">~</span>.,<span class="at">scales =</span> <span class="st">'free_y'</span>,<span class="at">ncol=</span><span class="dv">3</span>) <span class="sc">+</span> <span class="fu">coord_flip</span>() <span class="sc">+</span> <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="sc">-</span><span class="fu">log10</span>(.<span class="dv">05</span>),<span class="at">lty=</span><span class="dv">2</span>, <span class="at">color=</span><span class="st">'red'</span>) <span class="sc">+</span></span>
-<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x=</span><span class="st">""</span>) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">"Rare Variant Gene Enrichments"</span>,<span class="at">subtitle =</span> <span class="st">'Single cell markers (logit)'</span>) <span class="sc">+</span> <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="Figure6_rareVariant_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-<div class="cell" data-hash="Figure6_rareVariant_cache/html/unnamed-chunk-17_90fd5eb0251859f10536d579f4eb1d43">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">"output/figures/Fig6/Fig6_rareVar06.pdf"</span>, <span class="at">width =</span> <span class="dv">7</span>, <span class="at">height =</span> <span class="dv">9</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="single-cell-dtu-genes" class="level3">
-<h3 class="anchored" data-anchor-id="single-cell-dtu-genes">5) Single Cell DTU genes</h3>
-<div class="cell" data-hash="Figure6_rareVariant_cache/html/unnamed-chunk-18_7e9c1c8f57b318e3ba47bfc9af3dc515">
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>tableS5E <span class="ot">=</span> openxlsx<span class="sc">::</span><span class="fu">read.xlsx</span>(<span class="st">'data/single_cell/Table_S5_v2.xlsx'</span>,<span class="at">sheet =</span> <span class="st">'E'</span>)</span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>tableS5E <span class="ot">&lt;-</span> tableS5E <span class="sc">%&gt;%</span> <span class="fu">filter</span>(over.all <span class="sc">&lt;</span> .<span class="dv">05</span>) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="at">gene_name=</span>Gene)</span>
-<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>tableS5E<span class="sc">$</span>marker <span class="ot">=</span> <span class="dv">1</span></span>
-<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>tableS5E <span class="ot">=</span> <span class="fu">rbind</span>(tableS5E, <span class="fu">data.frame</span>(<span class="at">gene_name=</span><span class="fu">unique</span>(seurat_background[<span class="sc">!</span>seurat_background <span class="sc">%in%</span> tableS5E<span class="sc">$</span>gene_name]), <span class="at">marker =</span> <span class="dv">0</span>))</span>
-<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>tableS5E <span class="ot">&lt;-</span> tableS5E <span class="sc">%&gt;%</span> <span class="fu">left_join</span>(geneAnno <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(ensg, gene_name))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Joining, by = "gene_name"</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>tableS5E <span class="ot">=</span> <span class="fu">as.data.frame</span>(tableS5E[<span class="fu">match</span>(<span class="fu">na.omit</span>(<span class="fu">unique</span>(tableS5E<span class="sc">$</span>ensg)), tableS5E<span class="sc">$</span>ensg),<span class="sc">-</span><span class="dv">1</span>])</span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(tableS5E) <span class="ot">=</span> tableS5E<span class="sc">$</span>ensg</span>
-<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>this_feature <span class="ot">=</span> tableS5E[geneFeatures<span class="sc">$</span>ensg,<span class="st">"marker"</span>]</span>
-<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a></span>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>tableS5C <span class="ot">=</span> <span class="fu">rbind</span>(tableS5C, <span class="fu">data.frame</span>(<span class="at">Gene.Name=</span><span class="fu">unique</span>(seurat_background[<span class="sc">!</span>seurat_background <span class="sc">%in%</span> tableS5C<span class="sc">$</span>Gene.Name]), <span class="at">Isoform.Id=</span><span class="cn">NA</span>, <span class="at">cluster=</span><span class="cn">NA</span>, <span class="at">avg_log2FC=</span><span class="cn">NA</span>, <span class="at">p_val=</span><span class="cn">NA</span>, <span class="at">p_val_adj=</span><span class="cn">NA</span>))</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>tableS5C <span class="ot">&lt;-</span> tableS5C <span class="sc">%&gt;%</span> <span class="fu">left_join</span>(geneAnno <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(ensg, gene_name), <span class="at">by=</span><span class="fu">c</span>(<span class="st">"Gene.Name"</span> <span class="ot">=</span> <span class="st">"gene_name"</span>))</span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>df.cell_makers <span class="ot">&lt;-</span> tableS5C <span class="sc">%&gt;%</span> <span class="fu">pivot_wider</span>(<span class="at">id_cols =</span> ensg, <span class="at">names_from =</span> cluster, <span class="at">values_from =</span> avg_log2FC,<span class="at">values_fill =</span> <span class="dv">0</span>,<span class="at">values_fn =</span> <span class="cf">function</span>(x) {<span class="fu">max</span>(x)}) <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(ensg)) <span class="sc">%&gt;%</span> <span class="fu">as.data.frame</span>()</span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(df.cell_makers) <span class="ot">=</span> df.cell_makers<span class="sc">$</span>ensg</span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>df.cell_makers <span class="ot">=</span> df.cell_makers[,<span class="sc">!</span><span class="fu">colnames</span>(df.cell_makers) <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"ensg"</span>, <span class="st">"NA"</span>)]</span>
 <span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">ncol</span>(rareVar.binary)) {</span>
-<span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(i)</span>
-<span id="cb46-10"><a href="#cb46-10" aria-hidden="true" tabindex="-1"></a>  this_rareVar <span class="ot">=</span> rareVar.binary[geneFeatures<span class="sc">$</span>ensg,i]</span>
-<span id="cb46-11"><a href="#cb46-11" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb46-12"><a href="#cb46-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb46-13"><a href="#cb46-13" aria-hidden="true" tabindex="-1"></a>      s<span class="ot">=</span><span class="fu">summary</span>(<span class="fu">glm</span>(this_rareVar <span class="sc">~</span> this_feature <span class="sc">+</span> <span class="fu">log10</span>(gene_length),</span>
-<span id="cb46-14"><a href="#cb46-14" aria-hidden="true" tabindex="-1"></a>                <span class="at">data=</span>geneFeatures, <span class="at">family=</span><span class="st">'binomial'</span>))</span>
-<span id="cb46-15"><a href="#cb46-15" aria-hidden="true" tabindex="-1"></a>       coef <span class="ot">=</span> s<span class="sc">$</span>coefficients</span>
-<span id="cb46-16"><a href="#cb46-16" aria-hidden="true" tabindex="-1"></a>  this_result <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">dx =</span> <span class="fu">names</span>(rareVar.binary)[i], <span class="at">class=</span><span class="st">'SingleCellMarkers'</span>,</span>
-<span id="cb46-17"><a href="#cb46-17" aria-hidden="true" tabindex="-1"></a>                           <span class="at">feature=</span> <span class="st">"SingleCellDTU"</span>,</span>
-<span id="cb46-18"><a href="#cb46-18" aria-hidden="true" tabindex="-1"></a>                           <span class="at">OR =</span> <span class="fu">exp</span>(coef[<span class="dv">2</span>,<span class="dv">1</span>]), <span class="at">Z=</span>coef[<span class="dv">2</span>,<span class="dv">3</span>], <span class="at">P=</span>coef[<span class="dv">2</span>,<span class="dv">4</span>])</span>
-<span id="cb46-19"><a href="#cb46-19" aria-hidden="true" tabindex="-1"></a>  df_enrichments.singlecell <span class="ot">=</span> <span class="fu">rbind</span>(df_enrichments.singlecell, this_result)</span>
-<span id="cb46-20"><a href="#cb46-20" aria-hidden="true" tabindex="-1"></a>      </span>
-<span id="cb46-21"><a href="#cb46-21" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a>df.cell_makers[df.cell_makers<span class="sc">!=</span><span class="dv">0</span>]<span class="ot">=</span><span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-hash="Figure6_rareVariant_cache/html/unnamed-chunk-18_dc1897f566745e3c3eb7af84f9c776ec">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>df_enrichments.singlecell2 <span class="ot">=</span> <span class="fu">data.frame</span>()</span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">ncol</span>(rareVar.binary)) {</span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(i)</span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>  this_rareVar <span class="ot">=</span> rareVar.binary[geneFeatures<span class="sc">$</span>ensg,i]</span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">ncol</span>(df.cell_makers)) {</span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>    this_feature <span class="ot">=</span> df.cell_makers[geneFeatures<span class="sc">$</span>ensg,j]</span>
+<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb47-9"><a href="#cb47-9" aria-hidden="true" tabindex="-1"></a>      s<span class="ot">=</span><span class="fu">summary</span>(<span class="fu">glm</span>(this_rareVar <span class="sc">~</span> this_feature <span class="sc">+</span> <span class="fu">log10</span>(gene_length) <span class="sc">+</span> <span class="fu">log10</span>(coding_length),</span>
+<span id="cb47-10"><a href="#cb47-10" aria-hidden="true" tabindex="-1"></a>                <span class="at">data=</span>geneFeatures, <span class="at">family=</span><span class="st">'binomial'</span>))</span>
+<span id="cb47-11"><a href="#cb47-11" aria-hidden="true" tabindex="-1"></a>       coef <span class="ot">=</span> s<span class="sc">$</span>coefficients</span>
+<span id="cb47-12"><a href="#cb47-12" aria-hidden="true" tabindex="-1"></a>  this_result <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">dx =</span> <span class="fu">names</span>(rareVar.binary)[i], <span class="at">class=</span><span class="st">'SingleCellMarkers'</span>,</span>
+<span id="cb47-13"><a href="#cb47-13" aria-hidden="true" tabindex="-1"></a>                           <span class="at">feature=</span> <span class="fu">colnames</span>(df.cell_makers)[j],</span>
+<span id="cb47-14"><a href="#cb47-14" aria-hidden="true" tabindex="-1"></a>                           <span class="at">OR =</span> <span class="fu">exp</span>(coef[<span class="dv">2</span>,<span class="dv">1</span>]), <span class="at">Z=</span>coef[<span class="dv">2</span>,<span class="dv">3</span>], <span class="at">P=</span>coef[<span class="dv">2</span>,<span class="dv">4</span>])</span>
+<span id="cb47-15"><a href="#cb47-15" aria-hidden="true" tabindex="-1"></a>  df_enrichments.singlecell2 <span class="ot">=</span> <span class="fu">rbind</span>(df_enrichments.singlecell2, this_result)</span>
+<span id="cb47-16"><a href="#cb47-16" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb47-17"><a href="#cb47-17" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb47-18"><a href="#cb47-18" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1
 [1] 2
@@ -892,86 +905,216 @@ chr (1): gene
 [1] 9
 [1] 10</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>df_enrichments.singlecell <span class="sc">%&gt;%</span> <span class="fu">filter</span>(feature<span class="sc">==</span><span class="st">"SingleCellDTU"</span>) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">fdr =</span> <span class="fu">p.adjust</span>(P, <span class="st">'fdr'</span>)) <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(dx)   <span class="sc">%&gt;%</span> </span>
-<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span><span class="fu">reorder</span>(dx, <span class="sc">-</span><span class="fu">log10</span>(fdr)), <span class="at">y=</span><span class="sc">-</span><span class="fu">log10</span>(fdr)))<span class="sc">+</span> <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">'identity'</span>,<span class="at">fill=</span><span class="st">'royalblue'</span>) <span class="sc">+</span> </span>
-<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>     <span class="fu">coord_flip</span>() <span class="sc">+</span> <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="sc">-</span><span class="fu">log10</span>(.<span class="dv">05</span>),<span class="at">lty=</span><span class="dv">2</span>, <span class="at">color=</span><span class="st">'red'</span>) <span class="sc">+</span></span>
-<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x=</span><span class="st">""</span>) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">"Rare Variant Gene Enrichments"</span>,<span class="at">subtitle =</span> <span class="st">'Single cell DTU genes (logit)'</span>) <span class="sc">+</span> <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>df_enrichments.singlecell2 <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">fdr =</span> <span class="fu">p.adjust</span>(P, <span class="st">'fdr'</span>), <span class="at">feature =</span> feature <span class="sc">%&gt;%</span> <span class="fu">as_factor</span>() <span class="sc">%&gt;%</span> <span class="fu">fct_relevel</span>(cell_type_order) <span class="sc">%&gt;%</span> <span class="fu">fct_rev</span>()) <span class="sc">%&gt;%</span> </span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>feature, <span class="at">y=</span><span class="sc">-</span><span class="fu">log10</span>(fdr)))<span class="sc">+</span> <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">'identity'</span>,<span class="at">fill=</span><span class="st">'royalblue'</span>) <span class="sc">+</span> </span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ylim</span>(<span class="dv">0</span>, <span class="dv">6</span>) <span class="sc">+</span></span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_wrap</span>(dx<span class="sc">~</span>.,<span class="at">scales =</span> <span class="st">'free_y'</span>,<span class="at">ncol=</span><span class="dv">3</span>) <span class="sc">+</span> <span class="fu">coord_flip</span>() <span class="sc">+</span> <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="sc">-</span><span class="fu">log10</span>(.<span class="dv">05</span>),<span class="at">lty=</span><span class="dv">2</span>, <span class="at">color=</span><span class="st">'red'</span>) <span class="sc">+</span></span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x=</span><span class="st">""</span>) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">"Rare Variant Gene Enrichments"</span>,<span class="at">subtitle =</span> <span class="st">'Single cell markers (logit)'</span>) <span class="sc">+</span></span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Figure6_rareVariant_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<div class="cell" data-hash="Figure6_rareVariant_cache/html/unnamed-chunk-19_16874e96bf3c5e1531f4f922af9c87ad">
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">"output/figures/Fig6/Fig6_rareVar07.pdf"</span>, <span class="at">width =</span> <span class="dv">4</span>, <span class="at">height =</span> <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="Figure6_rareVariant_cache/html/unnamed-chunk-19_387ae39dcac3bd4fff74dd630a53cddb">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co">#ggsave("output/figures/revision1/Fig6/Fig6_rareVar06_for_revision.pdf", width = 7, height = 9)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-hash="Figure6_rareVariant_cache/html/unnamed-chunk-20_97ec3a393519409d3656e4f6769d34d6">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co"># run subsequent cells to get SingleCellDTU bar</span></span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="cn">FALSE</span>) {</span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggsave</span>(<span class="st">"output/figures/revision1/Fig6/revisedFinal/Fig6_rareVar06.pdf"</span>, <span class="at">width =</span> <span class="dv">7</span>, <span class="at">height =</span> <span class="dv">9</span>)</span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="single-cell-dtu-genes" class="level3">
+<h3 class="anchored" data-anchor-id="single-cell-dtu-genes">5) Single Cell DTU genes</h3>
+<div class="cell" data-hash="Figure6_rareVariant_cache/html/unnamed-chunk-21_9a19546d3b9b7c8a35a147b1a8ea997d">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>tableS5E <span class="ot">=</span> openxlsx<span class="sc">::</span><span class="fu">read.xlsx</span>(<span class="st">'data/single_cell/Table_S5_v2.xlsx'</span>,<span class="at">sheet =</span> <span class="st">'E'</span>)</span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>tableS5E <span class="ot">&lt;-</span> tableS5E <span class="sc">%&gt;%</span> <span class="fu">filter</span>(over.all <span class="sc">&lt;</span> .<span class="dv">05</span>) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="at">gene_name=</span>Gene)</span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>tableS5E<span class="sc">$</span>marker <span class="ot">=</span> <span class="dv">1</span></span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a>tableS5E <span class="ot">=</span> <span class="fu">rbind</span>(tableS5E, <span class="fu">data.frame</span>(<span class="at">gene_name=</span><span class="fu">unique</span>(seurat_background[<span class="sc">!</span>seurat_background <span class="sc">%in%</span> tableS5E<span class="sc">$</span>gene_name]), <span class="at">marker =</span> <span class="dv">0</span>))</span>
+<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a>tableS5E <span class="ot">&lt;-</span> tableS5E <span class="sc">%&gt;%</span> <span class="fu">left_join</span>(geneAnno <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(ensg, gene_name))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Joining, by = "gene_name"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>tableS5E <span class="ot">=</span> <span class="fu">as.data.frame</span>(tableS5E[<span class="fu">match</span>(<span class="fu">na.omit</span>(<span class="fu">unique</span>(tableS5E<span class="sc">$</span>ensg)), tableS5E<span class="sc">$</span>ensg),<span class="sc">-</span><span class="dv">1</span>])</span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(tableS5E) <span class="ot">=</span> tableS5E<span class="sc">$</span>ensg</span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a>this_feature <span class="ot">=</span> tableS5E[geneFeatures<span class="sc">$</span>ensg,<span class="st">"marker"</span>]</span>
+<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-7"><a href="#cb54-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-8"><a href="#cb54-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">ncol</span>(rareVar.binary)) {</span>
+<span id="cb54-9"><a href="#cb54-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(i)</span>
+<span id="cb54-10"><a href="#cb54-10" aria-hidden="true" tabindex="-1"></a>  this_rareVar <span class="ot">=</span> rareVar.binary[geneFeatures<span class="sc">$</span>ensg,i]</span>
+<span id="cb54-11"><a href="#cb54-11" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb54-12"><a href="#cb54-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-13"><a href="#cb54-13" aria-hidden="true" tabindex="-1"></a>      s<span class="ot">=</span><span class="fu">summary</span>(<span class="fu">glm</span>(this_rareVar <span class="sc">~</span> this_feature <span class="sc">+</span> <span class="fu">log10</span>(gene_length) <span class="sc">+</span> <span class="fu">log10</span>(coding_length),</span>
+<span id="cb54-14"><a href="#cb54-14" aria-hidden="true" tabindex="-1"></a>                <span class="at">data=</span>geneFeatures, <span class="at">family=</span><span class="st">'binomial'</span>))</span>
+<span id="cb54-15"><a href="#cb54-15" aria-hidden="true" tabindex="-1"></a>       coef <span class="ot">=</span> s<span class="sc">$</span>coefficients</span>
+<span id="cb54-16"><a href="#cb54-16" aria-hidden="true" tabindex="-1"></a>  this_result <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">dx =</span> <span class="fu">names</span>(rareVar.binary)[i], <span class="at">class=</span><span class="st">'SingleCellMarkers'</span>,</span>
+<span id="cb54-17"><a href="#cb54-17" aria-hidden="true" tabindex="-1"></a>                           <span class="at">feature=</span> <span class="st">"SingleCellDTU"</span>,</span>
+<span id="cb54-18"><a href="#cb54-18" aria-hidden="true" tabindex="-1"></a>                           <span class="at">OR =</span> <span class="fu">exp</span>(coef[<span class="dv">2</span>,<span class="dv">1</span>]), <span class="at">Z=</span>coef[<span class="dv">2</span>,<span class="dv">3</span>], <span class="at">P=</span>coef[<span class="dv">2</span>,<span class="dv">4</span>])</span>
+<span id="cb54-19"><a href="#cb54-19" aria-hidden="true" tabindex="-1"></a>  df_enrichments.singlecell2 <span class="ot">=</span> <span class="fu">rbind</span>(df_enrichments.singlecell2, this_result)</span>
+<span id="cb54-20"><a href="#cb54-20" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb54-21"><a href="#cb54-21" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1
+[1] 2
+[1] 3
+[1] 4
+[1] 5
+[1] 6
+[1] 7
+[1] 8
+[1] 9
+[1] 10</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>df_enrichments.singlecell2 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(feature<span class="sc">==</span><span class="st">"SingleCellDTU"</span>) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">fdr =</span> <span class="fu">p.adjust</span>(P, <span class="st">'fdr'</span>)) <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(dx)   <span class="sc">%&gt;%</span> </span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span><span class="fu">reorder</span>(dx, <span class="sc">-</span><span class="fu">log10</span>(fdr)), <span class="at">y=</span><span class="sc">-</span><span class="fu">log10</span>(fdr)))<span class="sc">+</span> <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">'identity'</span>,<span class="at">fill=</span><span class="st">'royalblue'</span>) <span class="sc">+</span> </span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a><span class="co">#    ylim(0, 3) +</span></span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">coord_flip</span>() <span class="sc">+</span> <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="sc">-</span><span class="fu">log10</span>(.<span class="dv">05</span>),<span class="at">lty=</span><span class="dv">2</span>, <span class="at">color=</span><span class="st">'red'</span>) <span class="sc">+</span></span>
+<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x=</span><span class="st">""</span>) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">"Rare Variant Gene Enrichments"</span>,<span class="at">subtitle =</span> <span class="st">'Single cell DTU genes (logit)'</span>) <span class="sc">+</span> <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Figure6_rareVariant_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell" data-hash="Figure6_rareVariant_cache/html/unnamed-chunk-22_7f72803b18b3ccab4df32455ad0a4dc3">
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">"output/figures/revision1/Fig6/revisedFinal/Fig6_rareVar07.pdf"</span>, <span class="at">width =</span> <span class="dv">4</span>, <span class="at">height =</span> <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
 <section id="combine-all" class="level2">
 <h2 class="anchored" data-anchor-id="combine-all">Combine All</h2>
-<div class="cell" data-hash="Figure6_rareVariant_cache/html/unnamed-chunk-20_989a84a7a68d02f67847d0bb611726b6">
-<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>tableS6 <span class="ot">=</span> <span class="fu">rbind</span>(df_enrichments, df_enrichments.de, df_enrichments.net, df_enrichments.singlecell)</span>
-<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>tableS6<span class="sc">$</span>fdr <span class="ot">=</span> <span class="fu">p.adjust</span>(tableS6<span class="sc">$</span>P, <span class="st">'fdr'</span>)</span>
-<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>tableS6 <span class="ot">&lt;-</span> tableS6 <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(fdr)</span>
-<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>idx <span class="ot">=</span> <span class="fu">which</span>(tableS6<span class="sc">$</span>class<span class="sc">==</span><span class="st">"Networks"</span>)</span>
-<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>tableS6<span class="sc">$</span>class[idx] <span class="ot">=</span> <span class="fu">paste0</span>(<span class="st">"Networks."</span>, <span class="fu">str_split_fixed</span>(tableS6<span class="sc">$</span>feature[idx], <span class="st">'[.]'</span>,<span class="at">n =</span> <span class="dv">2</span>)[,<span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="Figure6_rareVariant_cache/html/unnamed-chunk-23_558a2f303864e7a5b9c9815467bed406">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>tableS6v2 <span class="ot">=</span> <span class="fu">rbind</span>(df_enrichments2, df_enrichments.de2, df_enrichments.net2, df_enrichments.singlecell2)</span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>tableS6v2<span class="sc">$</span>fdr <span class="ot">=</span> <span class="fu">p.adjust</span>(tableS6v2<span class="sc">$</span>P, <span class="st">'fdr'</span>)</span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>tableS6v2 <span class="ot">&lt;-</span> tableS6v2 <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(fdr)</span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a>idx <span class="ot">=</span> <span class="fu">which</span>(tableS6v2<span class="sc">$</span>class<span class="sc">==</span><span class="st">"Networks"</span>)</span>
+<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a>tableS6v2<span class="sc">$</span>class[idx] <span class="ot">=</span> <span class="fu">paste0</span>(<span class="st">"Networks."</span>, <span class="fu">str_split_fixed</span>(tableS6v2<span class="sc">$</span>feature[idx], <span class="st">'[.]'</span>,<span class="at">n =</span> <span class="dv">2</span>)[,<span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-hash="Figure6_rareVariant_cache/html/unnamed-chunk-21_147f2b5b04c26d5971eaea4797dca449">
-<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>tableS6 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(OR <span class="sc">&gt;</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(dx) <span class="sc">%&gt;%</span> <span class="fu">slice_min</span>(<span class="at">order_by =</span> fdr,<span class="at">n =</span> <span class="dv">10</span>)  <span class="sc">%&gt;%</span> </span>
-<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span><span class="fu">reorder</span>(feature, <span class="sc">-</span><span class="fu">log10</span>(fdr)), <span class="at">y=</span><span class="sc">-</span><span class="fu">log10</span>(fdr),<span class="at">fill=</span>class))<span class="sc">+</span> <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">'identity'</span>) <span class="sc">+</span> </span>
-<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(dx<span class="sc">~</span>.,<span class="at">scales =</span> <span class="st">'free_y'</span>,<span class="at">ncol=</span><span class="dv">2</span>) <span class="sc">+</span> <span class="fu">coord_flip</span>() <span class="sc">+</span> <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="sc">-</span><span class="fu">log10</span>(.<span class="dv">05</span>),<span class="at">lty=</span><span class="dv">2</span>, <span class="at">color=</span><span class="st">'red'</span>) <span class="sc">+</span></span>
-<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">""</span>) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">"Rare Variant Enrichments"</span>,<span class="at">subtitle=</span><span class="st">"Top 10 categories per rare variant dx"</span>) <span class="sc">+</span> <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="Figure6_rareVariant_cache/html/unnamed-chunk-24_14b9b8fe1e5733fb0d9eab1cbf67d088">
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>tableS6v2 <span class="sc">%&gt;%</span></span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(OR <span class="sc">&gt;</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(dx, fdr, <span class="fu">desc</span>(OR)) <span class="sc">%&gt;%</span></span>
+<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(dx) <span class="sc">%&gt;%</span></span>
+<span id="cb59-5"><a href="#cb59-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">10</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb59-6"><a href="#cb59-6" aria-hidden="true" tabindex="-1"></a><span class="co">#  filter(row_number() &lt;= 10 | fdr &lt; .05) %&gt;% # ASD.fuTADA, DDD.kaplanis, NDD.fuTADA have more than 10 hits</span></span>
+<span id="cb59-7"><a href="#cb59-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(</span>
+<span id="cb59-8"><a href="#cb59-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="sc">-</span><span class="fu">log10</span>(fdr),</span>
+<span id="cb59-9"><a href="#cb59-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="fu">reorder_within</span>(feature, <span class="sc">-</span><span class="fu">log10</span>(fdr), dx),</span>
+<span id="cb59-10"><a href="#cb59-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> class</span>
+<span id="cb59-11"><a href="#cb59-11" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">+</span></span>
+<span id="cb59-12"><a href="#cb59-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb59-13"><a href="#cb59-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="sc">-</span><span class="fu">log10</span>(.<span class="dv">05</span>), <span class="at">lty=</span><span class="dv">2</span>, <span class="at">color=</span><span class="st">'red'</span>) <span class="sc">+</span></span>
+<span id="cb59-14"><a href="#cb59-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_reordered</span>() <span class="sc">+</span></span>
+<span id="cb59-15"><a href="#cb59-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb59-16"><a href="#cb59-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="cn">NULL</span>,</span>
+<span id="cb59-17"><a href="#cb59-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Rare Variant Enrichments"</span>,</span>
+<span id="cb59-18"><a href="#cb59-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"Top 10 categories per rare variant dx"</span></span>
+<span id="cb59-19"><a href="#cb59-19" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb59-20"><a href="#cb59-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb59-21"><a href="#cb59-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="fu">vars</span>(dx), <span class="at">scales =</span> <span class="st">'free_y'</span>, <span class="at">ncol =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="Figure6_rareVariant_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid" width="672"></p>
+<p><img src="Figure6_rareVariant_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<div class="cell" data-hash="Figure6_rareVariant_cache/html/unnamed-chunk-22_a16ee57118f09dc2a31522e52116d536">
-<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">"output/figures/Fig6/Fig6_rareVar08.pdf"</span>, <span class="at">width =</span> <span class="fl">8.5</span>, <span class="at">height =</span> <span class="dv">11</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="Figure6_rareVariant_cache/html/unnamed-chunk-25_3b219c0100e4f766bfb17fcd85f621ed">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">"output/figures/revision1/Fig6/revisedFinal/Fig6_rareVar08.pdf"</span>, <span class="at">width =</span> <span class="fl">8.5</span>, <span class="at">height =</span> <span class="dv">11</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-hash="Figure6_rareVariant_cache/html/unnamed-chunk-23_c4b6cba8add821004413d2dc7c95cd06">
-<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>tableS6 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(OR <span class="sc">&gt;</span> <span class="dv">1</span>,fdr<span class="sc">&lt;</span>.<span class="dv">4</span>) <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(dx) <span class="sc">%&gt;%</span> <span class="fu">slice_min</span>(<span class="at">order_by =</span> fdr,<span class="at">n =</span> <span class="dv">10</span>)  <span class="sc">%&gt;%</span> </span>
-<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span><span class="fu">reorder</span>(feature, <span class="sc">-</span><span class="fu">log10</span>(fdr)), <span class="at">y=</span><span class="sc">-</span><span class="fu">log10</span>(fdr),<span class="at">fill=</span>dx))<span class="sc">+</span> <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">'identity'</span>,<span class="at">position=</span><span class="fu">position_dodge</span>()) <span class="sc">+</span> </span>
-<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(class<span class="sc">~</span>.,<span class="at">scales =</span> <span class="st">'free'</span>,<span class="at">ncol=</span><span class="dv">2</span>) <span class="sc">+</span> <span class="fu">coord_flip</span>() <span class="sc">+</span> <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="sc">-</span><span class="fu">log10</span>(.<span class="dv">05</span>),<span class="at">lty=</span><span class="dv">2</span>, <span class="at">color=</span><span class="st">'red'</span>) <span class="sc">+</span></span>
-<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">""</span>) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">"Rare Variant Enrichments"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="Figure6_rareVariant_cache/html/unnamed-chunk-26_d50e68fd3b72fe1dbdf655bf8e5a7c74">
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>tableS6v2 <span class="sc">%&gt;%</span></span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(OR <span class="sc">&gt;</span> <span class="dv">1</span>, fdr <span class="sc">&lt;</span> .<span class="dv">4</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(dx) <span class="sc">%&gt;%</span></span>
+<span id="cb61-4"><a href="#cb61-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_min</span>(<span class="at">order_by =</span> fdr, <span class="at">n =</span> <span class="dv">10</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb61-5"><a href="#cb61-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span><span class="fu">reorder_within</span>(feature, <span class="sc">-</span><span class="fu">log10</span>(fdr), class), <span class="at">y=</span><span class="sc">-</span><span class="fu">log10</span>(fdr),<span class="at">fill=</span>dx)) <span class="sc">+</span></span>
+<span id="cb61-6"><a href="#cb61-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">position =</span> <span class="fu">position_dodge</span>()) <span class="sc">+</span></span>
+<span id="cb61-7"><a href="#cb61-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_reordered</span>() <span class="sc">+</span></span>
+<span id="cb61-8"><a href="#cb61-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(class<span class="sc">~</span>.,<span class="at">scales =</span> <span class="st">'free'</span>,<span class="at">ncol=</span><span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb61-9"><a href="#cb61-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb61-10"><a href="#cb61-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="sc">-</span><span class="fu">log10</span>(.<span class="dv">05</span>),<span class="at">lty=</span><span class="dv">2</span>, <span class="at">color=</span><span class="st">'red'</span>) <span class="sc">+</span></span>
+<span id="cb61-11"><a href="#cb61-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">""</span>) <span class="sc">+</span></span>
+<span id="cb61-12"><a href="#cb61-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Rare Variant Enrichments"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="Figure6_rareVariant_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid" width="672"></p>
+<p><img src="Figure6_rareVariant_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<div class="cell" data-hash="Figure6_rareVariant_cache/html/unnamed-chunk-24_1dda83ad340f404f5c6a61587c3947b4">
-<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">"output/figures/Fig6/Fig6_rareVar09.pdf"</span>, <span class="at">width =</span> <span class="dv">9</span>, <span class="at">height =</span> <span class="fl">8.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="Figure6_rareVariant_cache/html/unnamed-chunk-27_94ef1114ed2250a488025c6ac06e415e">
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">"output/figures/revision1/Fig6/revisedFinal/Fig6_rareVar09.pdf"</span>, <span class="at">width =</span> <span class="dv">9</span>, <span class="at">height =</span> <span class="fl">8.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-hash="Figure6_rareVariant_cache/html/unnamed-chunk-25_3f05f4e0e6711eb451b2ab9641b87cba">
-<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>tableS6 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(OR <span class="sc">&gt;</span> <span class="dv">1</span>, fdr<span class="sc">&lt;</span> .<span class="dv">1</span>, dx<span class="sc">==</span><span class="st">"NDD.fuTADA"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span><span class="fu">reorder</span>(feature, <span class="sc">-</span><span class="fu">log10</span>(fdr)), <span class="at">y=</span><span class="sc">-</span><span class="fu">log10</span>(fdr),<span class="at">fill=</span>class))<span class="sc">+</span> <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">'identity'</span>,)<span class="sc">+</span>  <span class="fu">coord_flip</span>() <span class="sc">+</span> <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="sc">-</span><span class="fu">log10</span>(.<span class="dv">05</span>),<span class="at">lty=</span><span class="dv">2</span>, <span class="at">color=</span><span class="st">'red'</span>) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">"NDD_fuTADA"</span>) <span class="sc">+</span> <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x=</span><span class="st">""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="Figure6_rareVariant_cache/html/unnamed-chunk-28_8f04afdcb9703191107eb30f8fa6b269">
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>tableS6v2 <span class="sc">%&gt;%</span></span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(OR <span class="sc">&gt;</span> <span class="dv">1</span>, fdr <span class="sc">&lt;</span> .<span class="dv">1</span>, dx<span class="sc">==</span><span class="st">"NDD.fuTADA"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span><span class="fu">reorder</span>(feature, <span class="sc">-</span><span class="fu">log10</span>(fdr)), <span class="at">y=</span><span class="sc">-</span><span class="fu">log10</span>(fdr),<span class="at">fill=</span>class)) <span class="sc">+</span></span>
+<span id="cb63-4"><a href="#cb63-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">'identity'</span>,) <span class="sc">+</span></span>
+<span id="cb63-5"><a href="#cb63-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb63-6"><a href="#cb63-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="sc">-</span><span class="fu">log10</span>(.<span class="dv">05</span>),<span class="at">lty=</span><span class="dv">2</span>, <span class="at">color=</span><span class="st">'red'</span>) <span class="sc">+</span></span>
+<span id="cb63-7"><a href="#cb63-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"NDD_fuTADA"</span>) <span class="sc">+</span></span>
+<span id="cb63-8"><a href="#cb63-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb63-9"><a href="#cb63-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="Figure6_rareVariant_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid" width="672"></p>
+<p><img src="Figure6_rareVariant_files/figure-html/unnamed-chunk-28-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<div class="cell" data-hash="Figure6_rareVariant_cache/html/unnamed-chunk-26_c5fd59def6413dbda901f023b7fb797f">
-<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">"output/figures/Fig6/Fig6_rareVar10.pdf"</span>, <span class="at">width =</span> <span class="fl">8.5</span>, <span class="at">height =</span> <span class="dv">11</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="Figure6_rareVariant_cache/html/unnamed-chunk-29_4345c7722f94ca40048d51e69af4542c">
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">"output/figures/revision1/Fig6/revisedFinal/Fig6_rareVar10.pdf"</span>, <span class="at">width =</span> <span class="fl">8.5</span>, <span class="at">height =</span> <span class="dv">11</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-hash="Figure6_rareVariant_cache/html/unnamed-chunk-27_9e72c58041cf57c788d49af13bfc3651">
-<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>tableS6 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(OR <span class="sc">&gt;</span> <span class="dv">1</span>, fdr<span class="sc">&lt;</span> .<span class="dv">1</span>, dx<span class="sc">==</span><span class="st">"ASD.fuTADA"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span><span class="fu">reorder</span>(feature, <span class="sc">-</span><span class="fu">log10</span>(fdr)), <span class="at">y=</span><span class="sc">-</span><span class="fu">log10</span>(fdr),<span class="at">fill=</span>class))<span class="sc">+</span> <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">'identity'</span>)<span class="sc">+</span>  <span class="fu">coord_flip</span>() <span class="sc">+</span> <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="sc">-</span><span class="fu">log10</span>(.<span class="dv">05</span>),<span class="at">lty=</span><span class="dv">2</span>, <span class="at">color=</span><span class="st">'red'</span>) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">"ASD_fuTADA"</span>) <span class="sc">+</span> <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x=</span><span class="st">""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="Figure6_rareVariant_files/figure-html/unnamed-chunk-27-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-<div class="cell" data-hash="Figure6_rareVariant_cache/html/unnamed-chunk-28_e46aa622e50d0d913040830bc1325ce4">
-<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">"output/figures/Fig6/Fig6_rareVar11.pdf"</span>, <span class="at">width =</span> <span class="dv">7</span>, <span class="at">height =</span> <span class="dv">6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell" data-hash="Figure6_rareVariant_cache/html/unnamed-chunk-29_b43d82b1d35cbcd797816b26c494b46c">
-<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_tsv</span>(tableS6,<span class="at">file=</span><span class="st">"output/tables/TableS6_rareVariants.tsv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell" data-hash="Figure6_rareVariant_cache/html/unnamed-chunk-30_c4a91a278da32e2e677f81d460ad1405">
-<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>tableS6 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(OR <span class="sc">&gt;</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(class) <span class="sc">%&gt;%</span> <span class="fu">slice_min</span>(<span class="at">order_by =</span> fdr,<span class="at">n =</span> <span class="dv">10</span>)  <span class="sc">%&gt;%</span> </span>
-<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span><span class="fu">reorder</span>(feature, <span class="sc">-</span><span class="fu">log10</span>(fdr)), <span class="at">y=</span><span class="sc">-</span><span class="fu">log10</span>(fdr),<span class="at">fill=</span>dx))<span class="sc">+</span> <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">'identity'</span>,<span class="at">position=</span><span class="fu">position_dodge</span>()) <span class="sc">+</span> </span>
-<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_wrap</span>(class<span class="sc">~</span>.,<span class="at">scales =</span> <span class="st">'free_y'</span>,<span class="at">ncol=</span><span class="dv">2</span>) <span class="sc">+</span> <span class="fu">coord_flip</span>() <span class="sc">+</span> <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="sc">-</span><span class="fu">log10</span>(.<span class="dv">05</span>),<span class="at">lty=</span><span class="dv">2</span>, <span class="at">color=</span><span class="st">'red'</span>) <span class="sc">+</span></span>
-<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x=</span><span class="st">""</span>) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">"Rare Variant Enrichments"</span>, <span class="at">subtitle =</span> <span class="st">"Net"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="Figure6_rareVariant_cache/html/unnamed-chunk-30_a28ffa47b68116270a22ec3bb822b8e1">
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>tableS6v2 <span class="sc">%&gt;%</span></span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(OR <span class="sc">&gt;</span> <span class="dv">1</span>, fdr <span class="sc">&lt;</span> .<span class="dv">1</span>, dx<span class="sc">==</span><span class="st">"ASD.fuTADA"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span><span class="fu">reorder</span>(feature, <span class="sc">-</span><span class="fu">log10</span>(fdr)), <span class="at">y=</span><span class="sc">-</span><span class="fu">log10</span>(fdr),<span class="at">fill=</span>class)) <span class="sc">+</span></span>
+<span id="cb65-4"><a href="#cb65-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">'identity'</span>,) <span class="sc">+</span></span>
+<span id="cb65-5"><a href="#cb65-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb65-6"><a href="#cb65-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="sc">-</span><span class="fu">log10</span>(.<span class="dv">05</span>),<span class="at">lty=</span><span class="dv">2</span>, <span class="at">color=</span><span class="st">'red'</span>) <span class="sc">+</span></span>
+<span id="cb65-7"><a href="#cb65-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"ASD_fuTADA"</span>) <span class="sc">+</span></span>
+<span id="cb65-8"><a href="#cb65-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb65-9"><a href="#cb65-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Figure6_rareVariant_files/figure-html/unnamed-chunk-30-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<div class="cell" data-hash="Figure6_rareVariant_cache/html/unnamed-chunk-31_be0b72c5e48a67aaa1060e428966cfc4">
-<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">"output/figures/Fig6/Fig6_rareVar12.pdf"</span>, <span class="at">width =</span> <span class="dv">9</span>, <span class="at">height =</span> <span class="fl">8.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="Figure6_rareVariant_cache/html/unnamed-chunk-31_1a367304ae73c8fe5e137bee84b11984">
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">"output/figures/revision1/Fig6/revisedFinal/Fig6_rareVar11.pdf"</span>, <span class="at">width =</span> <span class="dv">7</span>, <span class="at">height =</span> <span class="dv">6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-hash="Figure6_rareVariant_cache/html/unnamed-chunk-32_849fa9966466233d135105461f5eb39a">
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>tableS6v2 <span class="sc">%&gt;%</span></span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(OR <span class="sc">&gt;</span> <span class="dv">1</span>, fdr <span class="sc">&lt;</span> .<span class="dv">1</span>, dx<span class="sc">==</span><span class="st">"DDD.kaplanis"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span><span class="fu">reorder</span>(feature, <span class="sc">-</span><span class="fu">log10</span>(fdr)), <span class="at">y=</span><span class="sc">-</span><span class="fu">log10</span>(fdr),<span class="at">fill=</span>class)) <span class="sc">+</span></span>
+<span id="cb67-4"><a href="#cb67-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">'identity'</span>,) <span class="sc">+</span></span>
+<span id="cb67-5"><a href="#cb67-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb67-6"><a href="#cb67-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="sc">-</span><span class="fu">log10</span>(.<span class="dv">05</span>),<span class="at">lty=</span><span class="dv">2</span>, <span class="at">color=</span><span class="st">'red'</span>) <span class="sc">+</span></span>
+<span id="cb67-7"><a href="#cb67-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"DDD_kaplanis"</span>) <span class="sc">+</span></span>
+<span id="cb67-8"><a href="#cb67-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb67-9"><a href="#cb67-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Figure6_rareVariant_files/figure-html/unnamed-chunk-32-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell" data-hash="Figure6_rareVariant_cache/html/unnamed-chunk-33_562ccc6e145a5495f0dae0aebd502504">
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">"output/figures/revision1/Fig6/revisedFinal/Fig6_rareVar12.pdf"</span>, <span class="at">width =</span> <span class="dv">7</span>, <span class="at">height =</span> <span class="dv">6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-hash="Figure6_rareVariant_cache/html/unnamed-chunk-34_0ef5d45b35a4b36c8f04659087a4080f">
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_tsv</span>(tableS6v2,<span class="at">file=</span><span class="st">"output/figures/revision1/Fig6/revisedFinal/tableS6v2_rareVariants.tsv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-hash="Figure6_rareVariant_cache/html/unnamed-chunk-35_71ab4f40118ede09326e30fc61cd1d93">
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>tableS6v2 <span class="sc">%&gt;%</span></span>
+<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(OR <span class="sc">&gt;</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(class) <span class="sc">%&gt;%</span></span>
+<span id="cb70-4"><a href="#cb70-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_min</span>(<span class="at">order_by =</span> fdr,<span class="at">n =</span> <span class="dv">10</span>)  <span class="sc">%&gt;%</span> </span>
+<span id="cb70-5"><a href="#cb70-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span><span class="fu">reorder_within</span>(feature, <span class="sc">-</span><span class="fu">log10</span>(fdr), class), <span class="at">y=</span><span class="sc">-</span><span class="fu">log10</span>(fdr),<span class="at">fill=</span>dx)) <span class="sc">+</span></span>
+<span id="cb70-6"><a href="#cb70-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">'identity'</span>,<span class="at">position=</span><span class="fu">position_dodge</span>()) <span class="sc">+</span></span>
+<span id="cb70-7"><a href="#cb70-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(class<span class="sc">~</span>.,<span class="at">scales =</span> <span class="st">'free_y'</span>,<span class="at">ncol=</span><span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb70-8"><a href="#cb70-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_reordered</span>() <span class="sc">+</span></span>
+<span id="cb70-9"><a href="#cb70-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb70-10"><a href="#cb70-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="sc">-</span><span class="fu">log10</span>(.<span class="dv">05</span>),<span class="at">lty=</span><span class="dv">2</span>, <span class="at">color=</span><span class="st">'red'</span>) <span class="sc">+</span></span>
+<span id="cb70-11"><a href="#cb70-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">""</span>) <span class="sc">+</span></span>
+<span id="cb70-12"><a href="#cb70-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Rare Variant Enrichments"</span>, <span class="at">subtitle =</span> <span class="st">"Net"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Figure6_rareVariant_files/figure-html/unnamed-chunk-35-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell" data-hash="Figure6_rareVariant_cache/html/unnamed-chunk-36_ca290d1908f21e29424a4e2b3031063e">
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">"output/figures/revision1/Fig6/revisedFinal/Fig6_rareVar13.pdf"</span>, <span class="at">width =</span> <span class="dv">9</span>, <span class="at">height =</span> <span class="fl">8.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 
