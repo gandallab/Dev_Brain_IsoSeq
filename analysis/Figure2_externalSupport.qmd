@@ -1,0 +1,249 @@
+---
+title: "Figure 2 - External Support"
+author: "Connor Jops"
+execute:
+  cache: true
+editor: source
+editor_options:
+  chunk_output_type: console
+  markdown: 
+    wrap: 72
+---
+
+```{r}
+suppressPackageStartupMessages({
+  library(tidyverse)
+})
+```
+
+```{r}
+source("code/talon_novelty_to_factor.R")
+```
+
+## CP/GZ with split ISMs
+
+```{r}
+cts = read_table("data/cp_vz_0.75_min_7_recovery_talon_abundance_filtered.tsv.gz")
+sqanti = read_tsv("data/sqanti/cp_vz_0.75_min_7_recovery_talon_classification.txt.gz")
+```
+
+```{r}
+theme_set(theme_bw())
+theme_update(
+  plot.title = element_text(size = rel(1.4), hjust = 0.5),
+  axis.title = element_text(size = rel(1.2)),
+  axis.text = element_text(color="black", size = rel(1)),
+  legend.title = element_text(size = rel(1.2)),
+  legend.text = element_text(color="black", size = rel(1)),
+  strip.text = element_text(color="black", size = rel(1))
+)
+```
+
+```{r}
+support_for_plot = cts %>% select(transcript_id = annot_transcript_id, transcript_novelty, ISM_subtype) %>%
+  left_join(
+    read_csv("data/within_CAGE/cpvz_refTSS_200_CAGE_results.csv") %>%
+      mutate(CAGE_support = CAGE_support == "yes") %>%
+      dplyr::rename(within_CAGE_refTSS = "CAGE_support"),
+    by = c("transcript_id" = "transcript_ID")
+  ) %>%
+  left_join(
+    read_csv("data/within_CAGE/cpvz_fetal_200_CAGE_results.csv") %>%
+      mutate(CAGE_support = CAGE_support == "yes") %>%
+      dplyr::rename(within_CAGE_fetal = "CAGE_support"),
+    by = c("transcript_id" = "transcript_ID")
+  ) %>%
+  left_join(
+    read_csv("data/within_ATAC/cpvz_Greenleaf_500_ATAC_results.csv") %>%
+      mutate(CAGE_support = CAGE_support == "yes") %>%
+      dplyr::rename(within_ATAC_Greenleaf = "CAGE_support"),
+    by = c("transcript_id" = "transcript_ID")
+  ) %>%
+  left_join(
+    read_csv("data/within_ATAC/cpvz_Nowakowski_500_ATAC_results.csv") %>%
+      mutate(CAGE_support = CAGE_support == "yes") %>%
+      dplyr::rename(within_ATAC_Nowakowski = "CAGE_support"),
+    by = c("transcript_id" = "transcript_ID")
+  ) %>%
+  left_join(
+    read_csv("data/within_ATAC/cpvz_LuisCP_500_ATAC_results.csv") %>%
+      mutate(CAGE_support = CAGE_support == "yes") %>%
+      dplyr::rename(within_ATAC_LuisCP = "CAGE_support"),
+    by = c("transcript_id" = "transcript_ID")
+  ) %>%
+  left_join(
+    read_csv("data/within_ATAC/cpvz_LuisVZ_500_ATAC_results.csv") %>%
+      mutate(CAGE_support = CAGE_support == "yes") %>%
+      dplyr::rename(within_ATAC_LuisGZ = "CAGE_support"),
+    by = c("transcript_id" = "transcript_ID")
+  ) %>%
+  left_join(
+    sqanti %>% select(isoform, within_polyA_site, polyA_motif_found),
+    by = c("transcript_id" = "isoform")
+  ) %>%
+  mutate(across(!c("transcript_id", "transcript_novelty", "ISM_subtype"), replace_na, FALSE))
+support_for_plot
+```
+
+```{r}
+support_for_plot2 = support_for_plot %>%
+  talon_novelty_to_factor(split_ISMs = T) %>%
+  group_by(transcript_novelty) %>%
+  summarize(
+#    any_5p = sum(within_CAGE_refTSS | within_CAGE_fetal | within_ATAC_Greenleaf | within_ATAC_Nowakowski, na.rm = T),
+    within_CAGE_peak = sum(within_CAGE_refTSS | within_CAGE_fetal, na.rm = T),
+    within_ATAC_peak = sum(within_ATAC_Greenleaf | within_ATAC_Nowakowski | within_ATAC_LuisCP | within_ATAC_LuisGZ, na.rm = T),
+#    any_3p = sum(within_polyA_site | polyA_motif_found, na.rm = T),
+    within_polyA_site = sum(within_polyA_site, na.rm = T),
+    polyA_motif_found = sum(polyA_motif_found, na.rm = T),
+    n = n()
+  ) %>%
+  pivot_longer(!c("transcript_novelty", "n")) %>%
+  mutate(prop = value / n) %>%
+  mutate(end = if_else(name %in% c("within_polyA_site", "polyA_motif_found", "any_3p"), "3' support", "5' support")) %>%
+  mutate(end = end %>% factor(levels = c("5' support", "3' support"))) %>%
+  mutate(name = name %>% as_factor())
+support_for_plot2
+```
+
+```{r}
+ggplot(support_for_plot2, aes(x = prop, y = transcript_novelty, fill = fct_rev(name))) +
+  geom_col(position = "dodge") +
+  scale_y_discrete(
+    limits = rev,
+    labels = c("ISM_Prefix" = "ISM Prefix", "ISM_Suffix" = "ISM Suffix")
+  ) +
+  scale_fill_manual(
+    limits = c("within_CAGE_peak", "within_ATAC_peak", "within_polyA_site", "polyA_motif_found"),
+    labels = c("CAGE", "ATAC-seq", "polyA site", "polyA motif"),
+    values = c("#00bfc4", "#00a9ff", "#c77cff", "#ff61cc")
+  ) +
+  labs(
+    x = "Proportion of transcripts",
+    y = NULL,
+    fill = NULL
+  ) +
+  guides(
+    fill = guide_legend(ncol = 2)
+  ) +
+  theme(
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    legend.position = "bottom",
+    panel.spacing = unit(2, "lines"),
+    plot.margin = margin(11, 11, 11, 11, "points")
+  ) +
+  facet_wrap(vars(end))
+```
+
+```{r}
+ggsave("output/figures/revision1/Fig2B_split.pdf", width = 4.5, height = 3.25)
+```
+
+## single cell version
+
+```{r}
+cts = read_table("data/Fig_S9H/scIsoseq_4kcells_final_talon_abundance_filtered.tsv.gz")
+sqanti = read_tsv("data/Fig_S9H/scIsoseq_4kcells_final.talon.SQANTI3/scIsoseq_4kcells_final.talon_classification.txt.gz")
+```
+
+```{r}
+support_for_plot = cts %>% select(transcript_id = annot_transcript_id, transcript_novelty, ISM_subtype) %>%
+  left_join(
+    read_csv("data/Fig_S9H/sc_refTSS_200_CAGE_results.csv") %>%
+      mutate(CAGE_support = CAGE_support == "yes") %>%
+      dplyr::rename(within_CAGE_refTSS = "CAGE_support"),
+    by = c("transcript_id" = "transcript_ID")
+  ) %>%
+  left_join(
+    read_csv("data/Fig_S9H/sc_fetal_200_CAGE_results.csv") %>%
+      mutate(CAGE_support = CAGE_support == "yes") %>%
+      dplyr::rename(within_CAGE_fetal = "CAGE_support"),
+    by = c("transcript_id" = "transcript_ID")
+  ) %>%
+  left_join(
+    read_csv("data/Fig_S9H/sc_Greenleaf_500_ATAC_results.csv") %>%
+      mutate(CAGE_support = CAGE_support == "yes") %>%
+      dplyr::rename(within_ATAC_Greenleaf = "CAGE_support"),
+    by = c("transcript_id" = "transcript_ID")
+  ) %>%
+  left_join(
+    read_csv("data/Fig_S9H/sc_Nowakowski_500_ATAC_results.csv") %>%
+      mutate(CAGE_support = CAGE_support == "yes") %>%
+      dplyr::rename(within_ATAC_Nowakowski = "CAGE_support"),
+    by = c("transcript_id" = "transcript_ID")
+  ) %>%
+  left_join(
+    read_csv("data/Fig_S9H/sc_LuisCP_500_ATAC_results.csv") %>%
+      mutate(CAGE_support = CAGE_support == "yes") %>%
+      dplyr::rename(within_ATAC_LuisCP = "CAGE_support"),
+    by = c("transcript_id" = "transcript_ID")
+  ) %>%
+  left_join(
+    read_csv("data/Fig_S9H/sc_LuisVZ_500_ATAC_results.csv") %>%
+      mutate(CAGE_support = CAGE_support == "yes") %>%
+      dplyr::rename(within_ATAC_LuisGZ = "CAGE_support"),
+    by = c("transcript_id" = "transcript_ID")
+  ) %>%
+  left_join(
+    sqanti %>% select(isoform, within_polyA_site, polyA_motif_found),
+    by = c("transcript_id" = "isoform")
+  ) %>%
+  mutate(across(!c("transcript_id", "transcript_novelty", "ISM_subtype"), replace_na, FALSE))
+support_for_plot
+```
+
+```{r}
+support_for_plot2 = support_for_plot %>%
+  talon_novelty_to_factor(split_ISMs = T) %>%
+  group_by(transcript_novelty) %>%
+  summarize(
+#    any_5p = sum(within_CAGE_refTSS | within_CAGE_fetal | within_ATAC_Greenleaf | within_ATAC_Nowakowski, na.rm = T),
+    within_CAGE_peak = sum(within_CAGE_refTSS | within_CAGE_fetal, na.rm = T),
+    within_ATAC_peak = sum(within_ATAC_Greenleaf | within_ATAC_Nowakowski | within_ATAC_LuisCP | within_ATAC_LuisGZ, na.rm = T),
+#    any_3p = sum(within_polyA_site | polyA_motif_found, na.rm = T),
+    within_polyA_site = sum(within_polyA_site, na.rm = T),
+    polyA_motif_found = sum(polyA_motif_found, na.rm = T),
+    n = n()
+  ) %>%
+  pivot_longer(!c("transcript_novelty", "n")) %>%
+  mutate(prop = value / n) %>%
+  mutate(end = if_else(name %in% c("within_polyA_site", "polyA_motif_found", "any_3p"), "3' support", "5' support")) %>%
+  mutate(end = end %>% factor(levels = c("5' support", "3' support"))) %>%
+  mutate(name = name %>% as_factor())
+support_for_plot2
+```
+
+```{r}
+ggplot(support_for_plot2, aes(x = prop, y = transcript_novelty, fill = fct_rev(name))) +
+  geom_col(position = "dodge") +
+  scale_y_discrete(
+    limits = rev,
+    labels = c("ISM_Prefix" = "ISM Prefix", "ISM_Suffix" = "ISM Suffix")
+  ) +
+  scale_fill_manual(
+    limits = c("within_CAGE_peak", "within_ATAC_peak", "within_polyA_site", "polyA_motif_found"),
+    labels = c("CAGE", "ATAC-seq", "polyA site", "polyA motif"),
+    values = c("#00bfc4", "#00a9ff", "#c77cff", "#ff61cc")
+  ) +
+  labs(
+    x = "Proportion of transcripts",
+    y = NULL,
+    fill = NULL
+  ) +
+  guides(
+    fill = guide_legend(ncol = 2)
+  ) +
+  theme(
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    legend.position = "bottom",
+    panel.spacing = unit(2, "lines"),
+    plot.margin = margin(11, 11, 11, 11, "points")
+  ) +
+  facet_wrap(vars(end))
+```
+
+```{r}
+ggsave("output/figures/revision1/Fig2B_single_cell_ver_split.pdf", width = 8, height = 6)
+```

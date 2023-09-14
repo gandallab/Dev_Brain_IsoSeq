@@ -278,13 +278,43 @@ DescTools::DunnTest(log2(df$nexon) ~ as.factor(df$novelty2),method='bonferroni')
 ### NDD risk genes \~ unique transcipts per gene
 
 ```{r}
-risk_genes =read.csv("ref/ASD+SCZ+DDD_2022.csv")
+source("code/risk_genes.R")
+```
+
+```{r}
+risk_genes = read.csv("ref/ASD+SCZ+DDD_2022.csv")
 pLI_scores = read.table('ref/pLI_scores.ensid.txt',header = T)
 asd_genes = risk_genes$Gene[risk_genes$Set=="ASD (SFARI score 1)"]
 ddd_genes = risk_genes$Gene[risk_genes$Set=="DDD (Kaplanis et al. 2019)"]
 
-geneCounts = cts %>% group_by(gene_id=substr(annot_gene_id,1,15)) %>% summarise(gene_counts = sum(counts))
-geneCounts$gene_counts = geneCounts$gene_counts / (sum(geneCounts$gene_counts) / 1000000)
+geneCounts = cts %>% group_by(gene_id=substr(annot_gene_id,1,15)) %>% summarise(gene_count = sum(counts))
+geneCounts$gene_count = geneCounts$gene_count / (sum(geneCounts$gene_count) / 1000000)
+
+talon_exons = talon_gtf[talon_gtf$type == "exon"]
+#talon_exons_novel = talon_gtf[talon_gtf$type == "exon" & talon_gtf$transcript_status == "NOVEL"]
+talon_exons_by_gene = split(talon_exons, talon_exons$gene_id)
+#talon_exons_by_gene_novel = split(talon_exons_novel, talon_exons_novel$gene_id)
+geneLengths = enframe(
+  sum(width(GenomicRanges::reduce(ranges(talon_exons_by_gene)))),
+  name = "gene_id",
+  value = "coding_length"
+) %>%
+  left_join(
+    enframe(
+      max(end(talon_exons_by_gene)) - min(start(talon_exons_by_gene)) + 1,
+      name = "gene_id",
+      value = "talon_width" # due to novel/unexpressed transcripts, talon gene width can differ from gencode gene width
+    )
+  ) %>%
+#  left_join(
+#    enframe(
+#      sum(width(GenomicRanges::reduce(ranges(talon_exons_by_gene_novel)))),
+#      name = "gene_id",
+#      value = "coding_length_novel"
+#    )
+#  ) %>%
+  mutate(gene_id = substr(gene_id, 1, 15))
+
 
 df <- talon_gtf %>% as_tibble()  %>% 
   mutate(gene_id = str_sub(gene_id, 1, 15)) %>%
@@ -292,22 +322,31 @@ df <- talon_gtf %>% as_tibble()  %>%
   summarize(n_transcripts = n_distinct(na.omit(transcript_id)), n_exons = n_distinct(na.omit(exon_id))) %>%
   ungroup() 
 
-df <-as_tibble(gencode_gtf) %>% dplyr::filter(type=="gene") %>% mutate(gene_id=substr(gene_id,0,15)) %>% right_join(df, by="gene_id")
+df <- as_tibble(gencode_gtf) %>% dplyr::filter(type=="gene") %>% mutate(gene_id=substr(gene_id,0,15)) %>% right_join(df, by="gene_id")
 df <- df %>% left_join(geneCounts) 
+df <- df %>% left_join(geneLengths)
 df <- pLI_scores %>% as_tibble() %>% dplyr::select(gene_id=gene, pLI) %>% right_join(df)
 
 df$gene_rank = rank(-df$n_transcripts, ties.method = 'first')
+
 df$DDD = FALSE
 df$DDD[df$gene_name %in% c(asd_genes, ddd_genes)] = TRUE
-s=summary(glm(DDD ~ log10(n_transcripts)  + log10(width)  + log10(gene_counts), data=df %>% filter(gene_type == "protein_coding"), family='binomial'))
+
+df = rareVar.binary %>% as_tibble(rownames = "gene_id") %>% right_join(df)
+
+s=summary(glm(NDD.fuTADA ~ log10(n_transcripts)  + log10(width)  + log10(gene_count) + log10(coding_length), data=df %>% filter(gene_type == "protein_coding"), family='binomial'))
 print(s)
 exp(s$coefficients[,1])
 
-Fig1H=ggplot(df, aes(x = gene_rank, y = n_transcripts,color=DDD)) +
+Fig1H = df %>% mutate(NDD.fuTADA = NDD.fuTADA %>% as.logical() %>% replace_na(F)) %>%
+  ggplot(aes(x = gene_rank, y = n_transcripts, color=NDD.fuTADA)) +
   geom_point() + geom_line(color='blue') + 
-  geom_label_repel(data = df %>% filter(n_transcripts > 150 | (n_transcripts > 75 & DDD==TRUE)),aes(label = gene_name),force = 30, direction='both',nudge_y=-.1,nudge_x = .3, max.iter = 10000,max.overlaps = 50, size=2.5) + scale_color_manual(values=c("TRUE" = "red", "FALSE" = "black")) + scale_y_log10() + scale_x_log10() + theme_bw() + annotation_logticks() + theme(legend.position = 'none') + labs(x="Gene rank", y="# Transcripts") + ggtitle("NDD risk genes ~ unique  transcipts per gene",subtitle=paste0("OR ",signif(exp(s$coefficients[2,1]),3),", P=", signif(s$coefficients[2,4],2)))
+  geom_label_repel(data = . %>% filter(n_transcripts > 150 | (n_transcripts > 80 & NDD.fuTADA==TRUE)),aes(label = gene_name),force = 30, direction='both',nudge_y=-.1,nudge_x = .3, max.iter = 10000,max.overlaps = 50, size=2.5) + scale_color_manual(values=c("TRUE" = "red", "FALSE" = "black")) + scale_y_log10() + scale_x_log10() + theme_bw() + annotation_logticks() + theme(legend.position = 'none') + labs(x="Gene rank", y="# Transcripts") + ggtitle("NDD risk genes ~ unique transcripts per gene",subtitle=paste0("OR ",signif(exp(s$coefficients[2,1]),3),", P=", signif(s$coefficients[2,4],2)))
 Fig1H
-ggsave(file="output/figures/Fig1/Fig1H.pdf",Fig1H, width = 8, height=3)
+```
+
+```{r}
+ggsave(file="output/figures/revision1/Fig1K_codingLen_NDD.fuTADA.pdf",Fig1H, width = 8, height=3)
   
 ```
 
@@ -322,20 +361,27 @@ df.novel <- talon_gtf %>% as_tibble()  %>% filter(type=="transcript", transcript
 
 df.novel <- as_tibble(gencode_gtf) %>% dplyr::filter(type=="gene") %>% mutate(gene_id=substr(gene_id,0,15)) %>% right_join(df.novel, by="gene_id")
 df.novel <- df.novel %>% left_join(geneCounts) 
+df.novel <- df.novel %>% left_join(geneLengths)
 df.novel$gene_rank = rank(-df.novel$n_transcripts, ties.method = 'first')
 df.novel$DDD = FALSE
 df.novel$DDD[df.novel$gene_name %in% c(asd_genes, ddd_genes)] = TRUE
 
-s=summary(glm(DDD ~ log10(n_transcripts)  + log10(width)  + log10(gene_counts), data=df.novel %>% filter(gene_type == "protein_coding"), family='binomial'))
+df.novel = rareVar.binary %>% as_tibble(rownames = "gene_id") %>% right_join(df.novel)
+
+s=summary(glm(NDD.fuTADA ~ log10(n_transcripts)  + log10(width)  + log10(gene_count) + log10(coding_length), data=df.novel %>% filter(gene_type == "protein_coding"), family='binomial'))
 print(s)
 sort(exp(s$coefficients[,1]))
 
-FigS3=ggplot(df.novel, aes(x = gene_rank, y = n_transcripts,color=DDD)) +
+FigS3 = df.novel %>% mutate(NDD.fuTADA = NDD.fuTADA %>% as.logical() %>% replace_na(F)) %>%
+  ggplot(aes(x = gene_rank, y = n_transcripts, color=NDD.fuTADA)) +
   geom_point() + geom_line(color='blue') + 
-  geom_label_repel(data = df.novel %>% filter(n_transcripts > 150 | (n_transcripts > 75 & DDD==TRUE)),aes(label = gene_name),force = 30, direction='both',nudge_y=-.1,nudge_x = .3, max.iter = 10000,max.overlaps = 50, size=2.5) + scale_color_manual(values=c("TRUE" = "red", "FALSE" = "black")) + scale_y_log10() + scale_x_log10() + theme_bw() + annotation_logticks() + theme(legend.position = 'none') + labs(x="Gene rank", y="# Transcripts") + ggtitle("NDD risk genes ~ unique novel transcipts per gene",subtitle=paste0("OR ",signif(exp(s$coefficients[2,1]),2),", P=", signif(s$coefficients[2,4],2)))
+  geom_label_repel(data = . %>% filter(n_transcripts > 150 | (n_transcripts > 75 & NDD.fuTADA==TRUE)),aes(label = gene_name),force = 30, direction='both',nudge_y=-.1,nudge_x = .3, max.iter = 10000,max.overlaps = 50, size=2.5) + scale_color_manual(values=c("TRUE" = "red", "FALSE" = "black")) + scale_y_log10() + scale_x_log10() + theme_bw() + annotation_logticks() + theme(legend.position = 'none') + labs(x="Gene rank", y="# Transcripts") + ggtitle("NDD risk genes ~ unique novel transcripts per gene",subtitle=paste0("OR ",signif(exp(s$coefficients[2,1]),3),", P=", signif(s$coefficients[2,4],2)))
 FigS3
-ggsave(file="output/figures/supplement/FigS3G.pdf",FigS3, width = 8, height=3)
 
+```
+
+```{r}
+ggsave(file="output/figures/revision1/FigS3G_codingLen_NDD.fuTADA_6in.pdf",FigS3, width = 6, height=3)
 ```
 
 ## Pathway Analysis
@@ -384,6 +430,9 @@ df_coverage_isoseq$modality = "IsoSeq"
 df_coverage_shortread <- df_coverage_shortread %>% pivot_longer(cols = -Position, names_to = "Sample", values_to = "Normalized_coverage")
 df_coverage_shortread$modality = "short-read\nRNAseq\n(ribozero)" 
 
-FigS2A= ggplot(rbind(df_coverage_isoseq, df_coverage_shortread), aes(x=Position,y=Normalized_coverage,group=Sample, color=modality)) + geom_path() + theme_bw() + labs(x="Gene body position (5' -> 3')", y="Normalized coverage")
-ggsave(FigS2A,file="output/figures/supplement/FigS2A_coverage.pdf",width=5,height=3)
+ggplot(rbind(df_coverage_isoseq, df_coverage_shortread), aes(x=Position,y=Normalized_coverage,group=Sample, color=modality)) + geom_path() + theme_bw() + labs(x="Gene body position (5' -> 3')", y="Normalized coverage")
+```
+
+```{r}
+ggsave(file="output/figures/supplement/FigS2A_coverage.pdf",width=5,height=3)
 ```

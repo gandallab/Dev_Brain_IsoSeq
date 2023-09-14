@@ -16,11 +16,15 @@ editor_options:
 source('code/fisher_overlap.R')
 
 suppressPackageStartupMessages({
+  library(rtracklayer)
+  library(GenomicRanges)
   library(edgeR)
   library(WGCNA)
   library(biomaRt)
   library(parallel)
   library(tidyverse)
+  library(tidytext)
+  library(ggh4x)
 })
 
 colorVector = c(
@@ -128,7 +132,21 @@ geneFeatures <- as_tibble(gencode_gtf) %>% dplyr::filter(type=="gene") %>%
   mutate(ensg=substr(gene_id,0,15)) %>% dplyr::select(ensg, gene_length=width,gene_name) %>% distinct() %>%
   right_join(geneFeatures)
 
-  
+gencode_exons = gencode_gtf[gencode_gtf$type == "exon"]
+gencode_exons_by_gene = split(gencode_exons, gencode_exons$gene_id)
+geneLengths = enframe(
+    sum(width(GenomicRanges::reduce(ranges(gencode_exons_by_gene)))),
+    name = "gene_id",
+    value = "coding_length"
+) %>% left_join(
+  enframe(
+    max(end(gencode_exons_by_gene)) - min(start(gencode_exons_by_gene)) + 1,
+    name = "gene_id",
+    value = "talon_gene_length" # due to novel/unexpressed transcripts, talon gene length can differ from gencode gene length
+  )
+) %>% mutate(ensg = substr(gene_id, 1, 15), .keep = "unused") %>% distinct()
+
+geneFeatures <- geneFeatures %>% left_join(geneLengths)
   
 # Add novel exons
 novelExons = read.csv("data/working/novel_exons/mike_novel.csv")
@@ -144,7 +162,7 @@ geneFeatures <- as_tibble(tableS3) %>% group_by(ensg) %>% summarise(DGE = any(DG
 ### 1) Transcript, exon number, novel exon
 
 ```{r}
-df_enrichments = data.frame()
+df_enrichments2 = data.frame()
 
 
 # Interpretion of the odds ratio here:
@@ -159,47 +177,59 @@ for(i in 1:ncol(rareVar.binary)) {
   this_rareVar = rareVar.binary[geneFeatures$ensg,i]
   
   # Number of transcripts
-  s=summary(glm(this_rareVar ~ log2(n_transcripts) + log10(gene_length),
+  s=summary(glm(this_rareVar ~ log2(n_transcripts) + log10(gene_length) + log10(coding_length),
                 data=geneFeatures, family='binomial'))
   coef = s$coefficients
   this_result = data.frame(dx = names(rareVar.binary)[i], feature= "n_transcripts_log2",  class='txAnno',
                            OR = exp(coef[2,1]), Z=coef[2,3], P=coef[2,4])
-  df_enrichments = rbind(df_enrichments, this_result)
+  df_enrichments2 = rbind(df_enrichments2, this_result)
   
     # Number of transcripts | expression
-  s=summary(glm(this_rareVar ~ log2(n_transcripts) + log10(gene_length) + log10(tpm),
+  s=summary(glm(this_rareVar ~ log2(n_transcripts) + log10(tpm) + log10(gene_length) + log10(coding_length),
                 data=geneFeatures, family='binomial'))
   coef = s$coefficients
   this_result = data.frame(dx = names(rareVar.binary)[i], feature= "n_transcripts_log2|tpm",  class='txAnno',
                            OR = exp(coef[2,1]), Z=coef[2,3], P=coef[2,4])
-  df_enrichments = rbind(df_enrichments, this_result)
+  df_enrichments2 = rbind(df_enrichments2, this_result)
   
   # Number of exons
-  s=summary(glm(this_rareVar ~ log2(n_exons) + log10(gene_length),
+  s=summary(glm(this_rareVar ~ log2(n_exons) + log10(gene_length) + log10(coding_length),
                 data=geneFeatures, family='binomial'))
   coef = s$coefficients
   this_result = data.frame(dx = names(rareVar.binary)[i], feature= "n_exons_log2",  class='txAnno',
                            OR = exp(coef[2,1]), Z=coef[2,3], P=coef[2,4])
-  df_enrichments = rbind(df_enrichments, this_result)
+  df_enrichments2 = rbind(df_enrichments2, this_result)
   
   # Gene has a novel exon
-  s=summary(glm(this_rareVar ~ novelExon + log10(gene_length),
+  s=summary(glm(this_rareVar ~ novelExon + log10(gene_length) + log10(coding_length),
                 data=geneFeatures, family='binomial'))
   coef = s$coefficients
   this_result = data.frame(dx = names(rareVar.binary)[i], feature= "novel_exon",   class='txAnno',
                            OR = exp(coef[2,1]), Z=coef[2,3], P=coef[2,4])
-  df_enrichments = rbind(df_enrichments, this_result)
+  df_enrichments2 = rbind(df_enrichments2, this_result)
   
 }
 
-df_enrichments %>% mutate(fdr = p.adjust(P, 'fdr')) %>% group_by(dx)   %>% 
-    ggplot(aes(x=reorder(feature, -log10(fdr)), y=-log10(fdr)))+ geom_bar(stat='identity',fill='royalblue') + 
-    facet_wrap(dx~.,scales = 'free_y',ncol=2) + coord_flip() + geom_hline(yintercept = -log10(.05),lty=2, color='red') +
-    labs(x="") + ggtitle("Rare Variant Gene Enrichments",subtitle = 'Gene features from IsoSeq') + theme_bw()
+df_enrichments2 %>%
+  mutate(fdr = p.adjust(P, 'fdr')) %>%
+  ggplot(aes(
+    x = -log10(fdr),
+    y = reorder_within(feature, -log10(fdr), dx)
+  )) +
+  geom_col(fill = 'royalblue') + 
+  geom_vline(xintercept = -log10(.05), lty = 2, color = 'red') +
+  scale_y_reordered() +
+  labs(
+    y = NULL,
+    title = "Rare Variant Gene Enrichments",
+    subtitle = "Gene features from Iso-Seq"
+  ) +
+  theme_bw() +
+  facet_wrap(vars(dx), scales = 'free_y', ncol=2)
 ```
 
 ```{r}
-ggsave("output/figures/Fig6/Fig6_rareVar01.pdf", width = 6, height = 6)
+ggsave("output/figures/revision1/Fig6/revisedFinal/Fig6_rareVar01.pdf", width = 6, height = 6)
 ```
 
 ### 2) DGE/DTE/DTU genes
@@ -220,54 +250,86 @@ diffExMat$DTE.down = as.numeric(rownames(diffExMat) %in% (tableS3 %>% filter(DTE
 diffExMat$DGE.up = as.numeric(rownames(diffExMat) %in% (tableS3 %>% filter(DGE, DGE_log2FC>0) %>% dplyr::select(ensg) %>% pull()))
 diffExMat$DGE.down = as.numeric(rownames(diffExMat) %in% (tableS3 %>% filter(DGE, DGE_log2FC<0) %>% dplyr::select(ensg) %>% pull()))
 
-df_enrichments.de = data.frame()
+df_enrichments.de2 = data.frame()
 for(i in 1:ncol(rareVar.binary)) {
   this_rareVar = rareVar.binary[geneFeatures$ensg,i]
   
   for(j in 1:ncol(diffExMat)) {
     this_feature = diffExMat[geneFeatures$ensg,j]
     
-      s=summary(glm(this_rareVar ~ this_feature + log10(gene_length),
+      s=summary(glm(this_rareVar ~ this_feature + log10(gene_length) + log10(coding_length),
                 data=geneFeatures, family='binomial'))
        coef = s$coefficients
   this_result = data.frame(dx = names(rareVar.binary)[i], class='DGE/DTE/DTU',
                            feature= colnames(diffExMat)[j],
                            OR = exp(coef[2,1]), Z=coef[2,3], P=coef[2,4])
-  df_enrichments.de = rbind(df_enrichments.de, this_result)
+  df_enrichments.de2 = rbind(df_enrichments.de2, this_result)
       
   }
 }
 ```
 
 ```{r}
-df_enrichments.de %>% mutate(fdr = p.adjust(P, 'fdr')) %>% group_by(dx)   %>% 
-    ggplot(aes(x=reorder(feature, -log10(fdr)), y=-log10(fdr), size=OR, alpha=(OR>1)))+ geom_point(color='royalblue') + 
-    facet_wrap(dx~.,scales = 'free_y',ncol=2) + coord_flip() + geom_hline(yintercept = -log10(.05),lty=2, color='red') +
-    labs(x="") + ggtitle("Rare Variant Gene Enrichments",subtitle = 'Gene features from IsoSeq') + theme_bw()
+df_enrichments.de2 %>%
+  mutate(fdr = p.adjust(P, 'fdr')) %>% 
+  ggplot(aes(x=reorder_within(feature, -log10(fdr), dx), y=-log10(fdr), size=OR, alpha=(OR>1))) +
+  geom_point(color='royalblue') +
+  scale_x_reordered() +
+#  ylim(0, 10) +
+  facet_wrap(dx~.,scales = 'free_y',ncol=2) +
+  coord_flip() +
+  geom_hline(yintercept = -log10(.05),lty=2, color='red') +
+  labs(
+    x = NULL,
+    title = "Rare Variant Gene Enrichments",
+    subtitle = "Gene features from Iso-Seq"
+  ) +
+  theme_bw()
 ```
 
 ```{r}
-ggsave("output/figures/Fig6/Fig6_rareVar02.pdf", width = 7, height = 11)
+ggsave("output/figures/revision1/Fig6/revisedFinal/Fig6_rareVar02.pdf", width = 7, height = 11)
 ```
 
 ```{r}
-df_enrichments.de$feature = factor(df_enrichments.de$feature, levels=c("DGE", "DGE.down", "DGE.up", "DTE", "DTE.down", "DTE.up", "DTU", "DTU.down", "DTU.up", "DTU.not.DGE", "DTU.not.DTE", "DTE.not.DGE"))
-df_enrichments.de %>% mutate(set= str_split_i(df_enrichments.de$feature, '[.]',1)) %>%  mutate(fdr = p.adjust(P, 'fdr')) %>%
-  ggplot(aes(x=reorder(dx, -log10(fdr)), y=-log10(fdr), fill=set))+ geom_bar(stat='identity') + 
-    facet_wrap(feature~.,scales = 'free_y',ncol=3) + coord_flip() + geom_hline(yintercept = -log10(.05),lty=2, color='red') +
-    labs(x="") + ggtitle("Rare Variant Gene Enrichments",subtitle = 'CP/GZ differential expression') + theme_bw()
+df_enrichments.de2$feature = factor(df_enrichments.de2$feature, levels=c("DGE", "DGE.down", "DGE.up", "DTE", "DTE.down", "DTE.up", "DTU", "DTU.down", "DTU.up", "DTU.not.DGE", "DTU.not.DTE", "DTE.not.DGE"))
+df_enrichments.de2 %>%
+  mutate(set= str_split_i(df_enrichments.de2$feature, '[.]',1)) %>%
+  mutate(fdr = p.adjust(P, 'fdr')) %>%
+  ggplot(aes(x=reorder_within(dx, -log10(fdr), feature), y=-log10(fdr), fill=set)) +
+  geom_bar(stat='identity') +
+  scale_x_reordered() +
+#  ylim(0, 10) +
+  facet_wrap(feature~.,scales = 'free_y',ncol=3) +
+  coord_flip() +
+  geom_hline(yintercept = -log10(.05),lty=2, color='red') +
+  labs(x="") +
+  ggtitle("Rare Variant Gene Enrichments",subtitle = 'CP/GZ differential expression') +
+  theme_bw()
 ```
 
 ```{r}
-ggsave("output/figures/Fig6/Fig6_rareVar03.pdf", width = 9, height = 8.5)
+ggsave("output/figures/revision1/Fig6/revisedFinal/Fig6_rareVar03.pdf", width = 9, height = 8.5)
 ```
 
 ```{r}
-  ggplot(df_enrichments.de %>% mutate(fdr=p.adjust(P,'fdr')), aes(y=dx, x=feature,label=ifelse(fdr<.05,signif(OR,2), ""), fill=-log10(fdr))) + geom_tile() + geom_text() + scale_fill_gradient(low='white',high='red') + theme(axis.text.x = element_text(angle=-90,hjust=0))
+df_enrichments.de2 %>%
+  mutate(fdr=p.adjust(P,'fdr')) %>%
+  ggplot(aes(y=dx, x=feature,label=ifelse(fdr<.05,signif(OR,2), ""), fill=-log10(fdr))) +
+  geom_tile() +
+  geom_text() +
+  scale_fill_gradient(
+    low='white',
+    high='red',
+#    limits=c(0,10)
+  ) +
+  scale_x_discrete(expand = c(0, 0), guide = guide_axis(angle = -90)) +
+  scale_y_discrete(expand = c(0, 0)) +
+  theme_bw()
 ```
 
 ```{r}
-ggsave("output/figures/Fig6/Fig6_rareVar04.pdf", width = 6, height = 5)
+ggsave("output/figures/revision1/Fig6/revisedFinal/Fig6_rareVar04.pdf", width = 6, height = 5)
 ```
 
 ### 3) Network Modules
@@ -283,7 +345,7 @@ kMEmat[kMEmat!=0] = 1
 this_net_enrichment = function(i, j) {
   this_feature = scale(kMEmat[geneFeatures$ensg,j],center = F)
   this_rareVar = rareVar.binary[geneFeatures$ensg,i]
-  s=summary(glm(this_rareVar ~ this_feature + log10(gene_length),
+  s=summary(glm(this_rareVar ~ this_feature + log10(gene_length) + log10(coding_length),
                 data=geneFeatures, family='binomial'))
   coef = s$coefficients
   this_result = data.frame(dx = names(rareVar.binary)[i], class='Networks',
@@ -294,11 +356,11 @@ this_net_enrichment = function(i, j) {
 
 
 
-df_enrichments.net = data.frame()
+df_enrichments.net2 = data.frame()
 for(i in 1:ncol(rareVar.binary)) {
   print(i)
   this_df_enrichment = do.call("rbind", mclapply(1:105,  this_net_enrichment, i=i,mc.cores = detectCores()))
-  df_enrichments.net = rbind(df_enrichments.net, this_df_enrichment)
+  df_enrichments.net2 = rbind(df_enrichments.net2, this_df_enrichment)
   }
 
 ```
@@ -306,7 +368,7 @@ for(i in 1:ncol(rareVar.binary)) {
 #### --> Dendrogram Plot
 ```{r}
 library(pheatmap)
-net = df_enrichments.net %>% pivot_wider(id_cols = feature, names_from = dx, values_from = P) %>% as.data.frame()
+net = df_enrichments.net2 %>% pivot_wider(id_cols = feature, names_from = dx, values_from = P) %>% as.data.frame()
 rownames(net) = net$feature
 net = -log10(net[,-1])
 
@@ -318,12 +380,16 @@ pheatmap(t(net),clustering_method = 'average', border_color = 'grey60', annotati
 
 ```{r}
 pheatmap(t(net), clustering_method = 'average', border_color = 'grey60',
-         annotation_col = anno,color = blueWhiteRed(100)[50:100],
-         file = "output/figures/Fig6/Fig6_rareVar05.pdf", width = 14, height = 7,
+         annotation_col = anno,color = blueWhiteRed(100)[51:100],
+         file = "output/figures/revision1/Fig6/revisedFinal/Fig6_rareVar05.pdf", width = 14, height = 7,
          fontsize = 10, fontsize_col = 8)
 ```
 
 ### 4) Single cell markers
+```{r}
+cell_type_order = c("vRG", "oRG", "PgS", "PgG2M", "IP", "vRG-ExN", "ExN-1", "ExN-2", "ExN-3", "ExN-ExM", "ExM", "ExM-U", "ExDp", "In")
+```
+
 ```{r}
 tableS5C = openxlsx::read.xlsx('data/single_cell/Table_S5_v2.xlsx',sheet = 'C')
 
@@ -343,7 +409,8 @@ df.cell_makers = df.cell_makers[,!colnames(df.cell_makers) %in% c("ensg", "NA")]
 
 df.cell_makers[df.cell_makers!=0]=1
 
-df_enrichments.singlecell = data.frame()
+```{r}
+df_enrichments.singlecell2 = data.frame()
 for (i in 1:ncol(rareVar.binary)) {
   print(i)
   this_rareVar = rareVar.binary[geneFeatures$ensg,i]
@@ -351,26 +418,35 @@ for (i in 1:ncol(rareVar.binary)) {
   for(j in 1:ncol(df.cell_makers)) {
     this_feature = df.cell_makers[geneFeatures$ensg,j]
     
-      s=summary(glm(this_rareVar ~ this_feature + log10(gene_length),
+      s=summary(glm(this_rareVar ~ this_feature + log10(gene_length) + log10(coding_length),
                 data=geneFeatures, family='binomial'))
        coef = s$coefficients
   this_result = data.frame(dx = names(rareVar.binary)[i], class='SingleCellMarkers',
                            feature= colnames(df.cell_makers)[j],
                            OR = exp(coef[2,1]), Z=coef[2,3], P=coef[2,4])
-  df_enrichments.singlecell = rbind(df_enrichments.singlecell, this_result)
+  df_enrichments.singlecell2 = rbind(df_enrichments.singlecell2, this_result)
       
   }
 }
 
 
-df_enrichments.singlecell %>% mutate(fdr = p.adjust(P, 'fdr')) %>% group_by(dx)   %>% 
-    ggplot(aes(x=reorder(feature, -log10(fdr)), y=-log10(fdr)))+ geom_bar(stat='identity',fill='royalblue') + 
+df_enrichments.singlecell2 %>% mutate(fdr = p.adjust(P, 'fdr'), feature = feature %>% as_factor() %>% fct_relevel(cell_type_order) %>% fct_rev()) %>% 
+    ggplot(aes(x=feature, y=-log10(fdr)))+ geom_bar(stat='identity',fill='royalblue') + 
+    ylim(0, 6) +
     facet_wrap(dx~.,scales = 'free_y',ncol=3) + coord_flip() + geom_hline(yintercept = -log10(.05),lty=2, color='red') +
-    labs(x="") + ggtitle("Rare Variant Gene Enrichments",subtitle = 'Single cell markers (logit)') + theme_bw()
+    labs(x="") + ggtitle("Rare Variant Gene Enrichments",subtitle = 'Single cell markers (logit)') +
+    theme_bw()
 ```
 
 ```{r}
-ggsave("output/figures/Fig6/Fig6_rareVar06.pdf", width = 7, height = 9)
+#ggsave("output/figures/revision1/Fig6/Fig6_rareVar06_for_revision.pdf", width = 7, height = 9)
+```
+
+```{r}
+# run subsequent cells to get SingleCellDTU bar
+if (FALSE) {
+  ggsave("output/figures/revision1/Fig6/revisedFinal/Fig6_rareVar06.pdf", width = 7, height = 9)
+}
 ```
 
 ### 5) Single Cell DTU genes
@@ -395,87 +471,151 @@ for (i in 1:ncol(rareVar.binary)) {
   this_rareVar = rareVar.binary[geneFeatures$ensg,i]
   
 
-      s=summary(glm(this_rareVar ~ this_feature + log10(gene_length),
+      s=summary(glm(this_rareVar ~ this_feature + log10(gene_length) + log10(coding_length),
                 data=geneFeatures, family='binomial'))
        coef = s$coefficients
   this_result = data.frame(dx = names(rareVar.binary)[i], class='SingleCellMarkers',
                            feature= "SingleCellDTU",
                            OR = exp(coef[2,1]), Z=coef[2,3], P=coef[2,4])
-  df_enrichments.singlecell = rbind(df_enrichments.singlecell, this_result)
+  df_enrichments.singlecell2 = rbind(df_enrichments.singlecell2, this_result)
       
 }
 
-df_enrichments.singlecell %>% filter(feature=="SingleCellDTU") %>% mutate(fdr = p.adjust(P, 'fdr')) %>% group_by(dx)   %>% 
+df_enrichments.singlecell2 %>% filter(feature=="SingleCellDTU") %>% mutate(fdr = p.adjust(P, 'fdr')) %>% group_by(dx)   %>% 
     ggplot(aes(x=reorder(dx, -log10(fdr)), y=-log10(fdr)))+ geom_bar(stat='identity',fill='royalblue') + 
-     coord_flip() + geom_hline(yintercept = -log10(.05),lty=2, color='red') +
+#    ylim(0, 3) +
+    coord_flip() + geom_hline(yintercept = -log10(.05),lty=2, color='red') +
     labs(x="") + ggtitle("Rare Variant Gene Enrichments",subtitle = 'Single cell DTU genes (logit)') + theme_bw()
 ```
 
 ```{r}
-ggsave("output/figures/Fig6/Fig6_rareVar07.pdf", width = 4, height = 4)
+ggsave("output/figures/revision1/Fig6/revisedFinal/Fig6_rareVar07.pdf", width = 4, height = 4)
 ```
 
 ## Combine All
 
 ```{r}
-tableS6 = rbind(df_enrichments, df_enrichments.de, df_enrichments.net, df_enrichments.singlecell)
-tableS6$fdr = p.adjust(tableS6$P, 'fdr')
-tableS6 <- tableS6 %>% arrange(fdr)
-idx = which(tableS6$class=="Networks")
-tableS6$class[idx] = paste0("Networks.", str_split_fixed(tableS6$feature[idx], '[.]',n = 2)[,1])
+tableS6v2 = rbind(df_enrichments2, df_enrichments.de2, df_enrichments.net2, df_enrichments.singlecell2)
+tableS6v2$fdr = p.adjust(tableS6v2$P, 'fdr')
+tableS6v2 <- tableS6v2 %>% arrange(fdr)
+idx = which(tableS6v2$class=="Networks")
+tableS6v2$class[idx] = paste0("Networks.", str_split_fixed(tableS6v2$feature[idx], '[.]',n = 2)[,1])
 ```
 
 ```{r}
-tableS6 %>% filter(OR > 1) %>% group_by(dx) %>% slice_min(order_by = fdr,n = 10)  %>% 
-  ggplot(aes(x=reorder(feature, -log10(fdr)), y=-log10(fdr),fill=class))+ geom_bar(stat='identity') + 
-  facet_wrap(dx~.,scales = 'free_y',ncol=2) + coord_flip() + geom_hline(yintercept = -log10(.05),lty=2, color='red') +
-  labs(x="") + ggtitle("Rare Variant Enrichments",subtitle="Top 10 categories per rare variant dx") + theme_bw()
+tableS6v2 %>%
+  filter(OR > 1) %>%
+  arrange(dx, fdr, desc(OR)) %>%
+  group_by(dx) %>%
+  slice_head(n = 10) %>%
+#  filter(row_number() <= 10 | fdr < .05) %>% # ASD.fuTADA, DDD.kaplanis, NDD.fuTADA have more than 10 hits
+  ggplot(aes(
+    x = -log10(fdr),
+    y = reorder_within(feature, -log10(fdr), dx),
+    fill = class
+  )) +
+  geom_col() +
+  geom_vline(xintercept = -log10(.05), lty=2, color='red') +
+  scale_y_reordered() +
+  labs(
+    y = NULL,
+    title = "Rare Variant Enrichments",
+    subtitle = "Top 10 categories per rare variant dx"
+  ) +
+  theme_bw() +
+  facet_wrap(vars(dx), scales = 'free_y', ncol = 2)
 ```
 
 ```{r}
-ggsave("output/figures/Fig6/Fig6_rareVar08.pdf", width = 8.5, height = 11)
+ggsave("output/figures/revision1/Fig6/revisedFinal/Fig6_rareVar08.pdf", width = 8.5, height = 11)
 ```
 
 ```{r}
-tableS6 %>% filter(OR > 1,fdr<.4) %>% group_by(dx) %>% slice_min(order_by = fdr,n = 10)  %>% 
-  ggplot(aes(x=reorder(feature, -log10(fdr)), y=-log10(fdr),fill=dx))+ geom_bar(stat='identity',position=position_dodge()) + 
-  facet_wrap(class~.,scales = 'free',ncol=2) + coord_flip() + geom_hline(yintercept = -log10(.05),lty=2, color='red') +
-  labs(x="") + ggtitle("Rare Variant Enrichments")
+tableS6v2 %>%
+  filter(OR > 1, fdr < .4) %>%
+  group_by(dx) %>%
+  slice_min(order_by = fdr, n = 10) %>%
+  ggplot(aes(x=reorder_within(feature, -log10(fdr), class), y=-log10(fdr),fill=dx)) +
+  geom_col(position = position_dodge()) +
+  scale_x_reordered() +
+  facet_wrap(class~.,scales = 'free',ncol=2) +
+  coord_flip() +
+  geom_hline(yintercept = -log10(.05),lty=2, color='red') +
+  labs(x="") +
+  ggtitle("Rare Variant Enrichments")
 ```
 
 ```{r}
-ggsave("output/figures/Fig6/Fig6_rareVar09.pdf", width = 9, height = 8.5)
+ggsave("output/figures/revision1/Fig6/revisedFinal/Fig6_rareVar09.pdf", width = 9, height = 8.5)
 ```
 
 ```{r}
-tableS6 %>% filter(OR > 1, fdr< .1, dx=="NDD.fuTADA") %>% 
-  ggplot(aes(x=reorder(feature, -log10(fdr)), y=-log10(fdr),fill=class))+ geom_bar(stat='identity',)+  coord_flip() + geom_hline(yintercept = -log10(.05),lty=2, color='red') + ggtitle("NDD_fuTADA") + theme_bw() + labs(x="")
+tableS6v2 %>%
+  filter(OR > 1, fdr < .1, dx=="NDD.fuTADA") %>% 
+  ggplot(aes(x=reorder(feature, -log10(fdr)), y=-log10(fdr),fill=class)) +
+  geom_bar(stat='identity',) +
+  coord_flip() +
+  geom_hline(yintercept = -log10(.05),lty=2, color='red') +
+  ggtitle("NDD_fuTADA") +
+  theme_bw() +
+  labs(x="")
 ```
 
 ```{r}
-ggsave("output/figures/Fig6/Fig6_rareVar10.pdf", width = 8.5, height = 11)
+ggsave("output/figures/revision1/Fig6/revisedFinal/Fig6_rareVar10.pdf", width = 8.5, height = 11)
 ```
 
 ```{r}
-tableS6 %>% filter(OR > 1, fdr< .1, dx=="ASD.fuTADA") %>% 
- ggplot(aes(x=reorder(feature, -log10(fdr)), y=-log10(fdr),fill=class))+ geom_bar(stat='identity')+  coord_flip() + geom_hline(yintercept = -log10(.05),lty=2, color='red') + ggtitle("ASD_fuTADA") + theme_bw() + labs(x="")
+tableS6v2 %>%
+  filter(OR > 1, fdr < .1, dx=="ASD.fuTADA") %>% 
+  ggplot(aes(x=reorder(feature, -log10(fdr)), y=-log10(fdr),fill=class)) +
+  geom_bar(stat='identity',) +
+  coord_flip() +
+  geom_hline(yintercept = -log10(.05),lty=2, color='red') +
+  ggtitle("ASD_fuTADA") +
+  theme_bw() +
+  labs(x="")
 ```
 
 ```{r}
-ggsave("output/figures/Fig6/Fig6_rareVar11.pdf", width = 7, height = 6)
+ggsave("output/figures/revision1/Fig6/revisedFinal/Fig6_rareVar11.pdf", width = 7, height = 6)
 ```
 
 ```{r}
-write_tsv(tableS6,file="output/tables/TableS6_rareVariants.tsv")
+tableS6v2 %>%
+  filter(OR > 1, fdr < .1, dx=="DDD.kaplanis") %>% 
+  ggplot(aes(x=reorder(feature, -log10(fdr)), y=-log10(fdr),fill=class)) +
+  geom_bar(stat='identity',) +
+  coord_flip() +
+  geom_hline(yintercept = -log10(.05),lty=2, color='red') +
+  ggtitle("DDD_kaplanis") +
+  theme_bw() +
+  labs(x="")
 ```
 
 ```{r}
-tableS6 %>% filter(OR > 1) %>% group_by(class) %>% slice_min(order_by = fdr,n = 10)  %>% 
-    ggplot(aes(x=reorder(feature, -log10(fdr)), y=-log10(fdr),fill=dx))+ geom_bar(stat='identity',position=position_dodge()) + 
-    facet_wrap(class~.,scales = 'free_y',ncol=2) + coord_flip() + geom_hline(yintercept = -log10(.05),lty=2, color='red') +
-    labs(x="") + ggtitle("Rare Variant Enrichments", subtitle = "Net")
+ggsave("output/figures/revision1/Fig6/revisedFinal/Fig6_rareVar12.pdf", width = 7, height = 6)
 ```
 
 ```{r}
-ggsave("output/figures/Fig6/Fig6_rareVar12.pdf", width = 9, height = 8.5)
+write_tsv(tableS6v2,file="output/figures/revision1/Fig6/revisedFinal/tableS6v2_rareVariants.tsv")
+```
+
+```{r}
+tableS6v2 %>%
+  filter(OR > 1) %>%
+  group_by(class) %>%
+  slice_min(order_by = fdr,n = 10)  %>% 
+  ggplot(aes(x=reorder_within(feature, -log10(fdr), class), y=-log10(fdr),fill=dx)) +
+  geom_bar(stat='identity',position=position_dodge()) +
+  facet_wrap(class~.,scales = 'free_y',ncol=2) +
+  scale_x_reordered() +
+  coord_flip() +
+  geom_hline(yintercept = -log10(.05),lty=2, color='red') +
+  labs(x="") +
+  ggtitle("Rare Variant Enrichments", subtitle = "Net")
+```
+
+```{r}
+ggsave("output/figures/revision1/Fig6/revisedFinal/Fig6_rareVar13.pdf", width = 9, height = 8.5)
 ```

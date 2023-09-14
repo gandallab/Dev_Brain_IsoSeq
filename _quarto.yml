@@ -4,7 +4,6 @@ project:
   render:
     - analysis/index.qmd
     - analysis/Figure1_BulkTxomeAnalysis.qmd
-    - analysis/Figure1_BulkTxomeAnalysis_revision1.qmd
     - analysis/Figure1_TableS1.qmd
     - code/Fig1_MetaCoverage.ipynb
     - analysis/Figure2_isoFraction.qmd
@@ -13,6 +12,7 @@ project:
     - analysis/Figure2_plotNovelGenes.qmd
     - analysis/Figure2_NF1Locus.qmd
     - analysis/Figure2_PeptideSupport.qmd
+    - analysis/Figure2_externalSupport.qmd
     - analysis/Figure3_IsoformSwitchAnalyzeR.qmd
     - analysis/Figure3_DTU_enrichments.qmd
     - analysis/Figure3_RBPEnrichments.qmd
@@ -25,11 +25,10 @@ project:
     - analysis/Figure5_PseudotimeAnalysis.qmd
     - analysis/Figure5_Sankey.qmd
     - analysis/Figure6_rareVariant.qmd
-    - analysis/Figure6_rareVariant_revision1.qmd
     - analysis/Figure6_VEPConsequences.qmd
     - analysis/Figure6_TrackPlots.qmd
     - analysis/FigureS9_cor_plots.qmd
-    - analysis/FigureS9H_revision1.qmd
+    - analysis/FigureS9_GH.qmd
 
 website:
   title: "Dev Brain Iso-Seq"
@@ -41,7 +40,6 @@ website:
     search: false
     contents:
       - analysis/Figure1_BulkTxomeAnalysis.qmd
-      - analysis/Figure1_BulkTxomeAnalysis_revision1.qmd
       - analysis/Figure1_TableS1.qmd
       - code/Fig1_MetaCoverage.ipynb
       - text: "---"
@@ -51,6 +49,7 @@ website:
       - analysis/Figure2_novel_exons.qmd
       - analysis/Figure2_NF1Locus.qmd
       - analysis/Figure2_PeptideSupport.qmd
+      - analysis/Figure2_externalSupport.qmd
       - text: "---"
       - analysis/Figure3_IsoformSwitchAnalyzeR.qmd
       - analysis/Figure3_DTU_enrichments.qmd
@@ -67,12 +66,11 @@ website:
       - analysis/Figure5_Sankey.qmd
       - text: "---"
       - analysis/Figure6_rareVariant.qmd
-      - analysis/Figure6_rareVariant_revision1.qmd
       - analysis/Figure6_VEPConsequences.qmd
       - analysis/Figure6_TrackPlots.qmd
       - text: "---"
       - analysis/FigureS9_cor_plots.qmd
-      - analysis/FigureS9H_revision1.qmd
+      - analysis/FigureS9_GH.qmd
 
 format:
   html:
